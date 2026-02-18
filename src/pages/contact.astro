@@ -1,0 +1,26 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+<Layout title="Contact" description="Get in touch with Virge.io — let's discuss your next project.">
+  <div class="page-header">
+    <h1>Get in <span>Touch</span></h1>
+    <p>Have a project in mind? We'd love to hear about it.</p>
+  </div>
+
+  <section>
+    <div class="container">
+      <div class="form-wrap">
+        <form name="contact" method="POST" data-netlify="true" action="/contact/?success=true">
+          <input type="hidden" name="form-name" value="contact" />
+          <label for="name">Name</label>
+          <input type="text" id="name" name="name" required placeholder="Your name" />
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" required placeholder="you@example.com" />
+          <label for="message">Message</label>
+          <textarea id="message" name="message" required placeholder="Tell us about your project..."></textarea>
+          <button type="submit" class="btn" style="width:100%">Send Message</button>
+        </form>
+      </div>
+    </div>
+  </section>
+</Layout>

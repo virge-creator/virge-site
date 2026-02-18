@@ -1,0 +1,18 @@
+---
+const links = [
+  { href: '/', label: 'Home' },
+  { href: '/ai', label: 'AI Consulting' },
+  { href: '/sdn', label: 'SDN' },
+  { href: '/ecommerce', label: 'eCommerce' },
+  { href: '/contact', label: 'Contact' },
+];
+---
+<nav>
+  <div class="container">
+    <a href="/" class="logo">Virge.io</a>
+    <button class="menu-toggle" aria-label="Menu" onclick="document.querySelector('.links').classList.toggle('open')">☰</button>
+    <ul class="links">
+      {links.map(l => <li><a href={l.href}>{l.label}</a></li>)}
+    </ul>
+  </div>
+</nav>
