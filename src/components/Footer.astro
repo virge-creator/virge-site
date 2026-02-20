@@ -1,5 +1,16 @@
+---
+import type { Lang } from '../i18n';
+import { t } from '../i18n';
+
+interface Props {
+  lang?: Lang;
+}
+
+const { lang = 'en' } = Astro.props;
+const i = t(lang);
+---
 <footer>
   <div class="container">
-    <p>&copy; {new Date().getFullYear()} Virge.io — Software Solutions That Scale</p>
+    <p>&copy; {new Date().getFullYear()} {i.footer.text}</p>
   </div>
 </footer>

@@ -2,16 +2,22 @@
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
 import '../styles/global.css';
+import type { Lang } from '../i18n';
+import { getOtherLang } from '../i18n';
 
 interface Props {
   title: string;
   description?: string;
+  lang?: Lang;
 }
 
-const { title, description = 'Virge.io — Software solutions in AI, SDN, and eCommerce that scale with your business.' } = Astro.props;
+const { title, description = 'Virge.io — Software solutions in AI, SDN, and eCommerce that scale with your business.', lang = 'en' } = Astro.props;
+const otherLang = getOtherLang(lang);
+const currentPath = Astro.url.pathname;
+const alternatePath = currentPath.replace(`/${lang}/`, `/${otherLang}/`);
 ---
 <!DOCTYPE html>
-<html lang="en">
+<html lang={lang}>
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -19,12 +25,15 @@ const { title, description = 'Virge.io — Software solutions in AI, SDN, and eC
   <meta property="og:title" content={`${title} | Virge.io`} />
   <meta property="og:description" content={description} />
   <meta property="og:type" content="website" />
+  <meta property="og:locale" content={lang === 'nl' ? 'nl_NL' : 'en_US'} />
+  <link rel="alternate" hreflang={lang} href={`https://virge.io${currentPath}`} />
+  <link rel="alternate" hreflang={otherLang} href={`https://virge.io${alternatePath}`} />
   <title>{title} | Virge.io</title>
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 </head>
 <body>
-  <Nav />
+  <Nav lang={lang} />
   <main><slot /></main>
-  <Footer />
+  <Footer lang={lang} />
 </body>
 </html>

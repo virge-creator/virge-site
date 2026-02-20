@@ -1,0 +1,38 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import { t } from '../../../i18n';
+
+const lang = 'nl';
+const i = t(lang);
+const posts = await Astro.glob('./*.md');
+const sorted = posts.sort((a, b) => new Date(b.frontmatter.date).getTime() - new Date(a.frontmatter.date).getTime());
+---
+<Layout title="Blog" description={i.blog.metaDesc} lang={lang}>
+  <div class="page-header">
+    <h1><Fragment set:html={i.blog.title} /></h1>
+    <p>{i.blog.description}</p>
+  </div>
+
+  <section>
+    <div class="container">
+      <div class="blog-grid">
+        {sorted.map(post => {
+          const slug = post.file.split('/').pop()?.replace('.md', '');
+          const readingTime = post.rawContent ? Math.ceil(post.rawContent().split(/\s+/).length / 200) : 5;
+          return (
+            <a href={`/${lang}/blog/${slug}/`} class="blog-card">
+              <div class="blog-meta">
+                <time>{new Date(post.frontmatter.date).toLocaleDateString('nl-NL', { year: 'numeric', month: 'long', day: 'numeric' })}</time>
+                <span>·</span>
+                <span>{readingTime} {i.blog.minRead}</span>
+              </div>
+              <h3>{post.frontmatter.title}</h3>
+              <p>{post.frontmatter.description}</p>
+              <span class="read-more">{i.blog.readMore}</span>
+            </a>
+          );
+        })}
+      </div>
+    </div>
+  </section>
+</Layout>

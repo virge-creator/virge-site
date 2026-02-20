@@ -1,5 +1,16 @@
+---
+import type { Lang } from '../i18n';
+import { t } from '../i18n';
+
+interface Props {
+  lang?: Lang;
+}
+
+const { lang = 'en' } = Astro.props;
+const i = t(lang);
+---
 <div class="cta">
-  <h2>Ready to Build Something Great?</h2>
-  <p>Let's discuss how Virge.io can help you scale your software solutions.</p>
-  <a href="/contact/" class="btn">Get in Touch</a>
+  <h2>{i.cta.title}</h2>
+  <p>{i.cta.description}</p>
+  <a href={`/${lang}/contact/`} class="btn">{i.cta.button}</a>
 </div>

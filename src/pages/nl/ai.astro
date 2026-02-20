@@ -1,0 +1,39 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import CTA from '../../components/CTA.astro';
+import { t } from '../../i18n';
+
+const lang = 'nl';
+const i = t(lang);
+---
+<Layout title="AI Consulting" description={i.ai.metaDesc} lang={lang}>
+  <div class="page-header">
+    <h1><Fragment set:html={i.ai.title} /></h1>
+    <p>{i.ai.description}</p>
+  </div>
+
+  <section>
+    <div class="container">
+      <div class="features">
+        <div class="feature">
+          <h3>{i.ai.searchTitle}</h3>
+          <p>{i.ai.searchDesc}</p>
+        </div>
+        <div class="feature">
+          <h3>{i.ai.ragTitle}</h3>
+          <p>{i.ai.ragDesc}</p>
+        </div>
+        <div class="feature">
+          <h3>{i.ai.integrationTitle}</h3>
+          <p>{i.ai.integrationDesc}</p>
+        </div>
+        <div class="feature">
+          <h3>{i.ai.productionTitle}</h3>
+          <p>{i.ai.productionDesc}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="container"><CTA lang={lang} /></div>
+</Layout>

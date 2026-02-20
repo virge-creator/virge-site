@@ -1,13 +1,26 @@
 ---
-const base = import.meta.env.BASE_URL;
+import type { Lang } from '../i18n';
+import { t, getOtherLang } from '../i18n';
+
+interface Props {
+  lang?: Lang;
+}
+
+const { lang = 'en' } = Astro.props;
+const i = t(lang);
+const otherLang = getOtherLang(lang);
+const base = `/${lang}/`;
+const currentPath = Astro.url.pathname;
+const switchPath = currentPath.replace(`/${lang}/`, `/${otherLang}/`);
+
 const links = [
-  { href: `${base}`, label: 'Home' },
-  { href: `${base}ai/`, label: 'AI Consulting' },
-  { href: `${base}sdn/`, label: 'SDN' },
-  { href: `${base}ecommerce/`, label: 'eCommerce' },
-  { href: `${base}blog/`, label: 'Blog' },
-  { href: `${base}openclaw/`, label: 'OpenClaw' },
-  { href: `${base}contact/`, label: 'Contact' },
+  { href: base, label: i.nav.home },
+  { href: `${base}ai/`, label: i.nav.ai },
+  { href: `${base}sdn/`, label: i.nav.sdn },
+  { href: `${base}ecommerce/`, label: i.nav.ecommerce },
+  { href: `${base}blog/`, label: i.nav.blog },
+  { href: `${base}openclaw/`, label: i.nav.openclaw },
+  { href: `${base}contact/`, label: i.nav.contact },
 ];
 ---
 <nav>
@@ -16,6 +29,30 @@ const links = [
     <button class="menu-toggle" aria-label="Menu" onclick="document.querySelector('.links').classList.toggle('open')">☰</button>
     <ul class="links">
       {links.map(l => <li><a href={l.href}>{l.label}</a></li>)}
+      <li class="lang-switch">
+        <a href={switchPath} class="lang-btn">{otherLang.toUpperCase()}</a>
+      </li>
     </ul>
   </div>
 </nav>
+
+<style>
+  .lang-switch {
+    margin-left: 0.5rem;
+  }
+  .lang-btn {
+    display: inline-block;
+    padding: 0.25rem 0.6rem;
+    border: 1px solid rgba(139,92,246,0.5);
+    border-radius: 6px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #a78bfa;
+    text-decoration: none;
+    transition: background 0.2s, color 0.2s;
+  }
+  .lang-btn:hover {
+    background: rgba(139,92,246,0.2);
+    color: #c4b5fd;
+  }
+</style>

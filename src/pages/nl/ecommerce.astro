@@ -1,0 +1,39 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import CTA from '../../components/CTA.astro';
+import { t } from '../../i18n';
+
+const lang = 'nl';
+const i = t(lang);
+---
+<Layout title="eCommerce" description={i.ecommerce.metaDesc} lang={lang}>
+  <div class="page-header">
+    <h1><Fragment set:html={i.ecommerce.title} /></h1>
+    <p>{i.ecommerce.description}</p>
+  </div>
+
+  <section>
+    <div class="container">
+      <div class="features">
+        <div class="feature">
+          <h3>{i.ecommerce.contentTitle}</h3>
+          <p>{i.ecommerce.contentDesc}</p>
+        </div>
+        <div class="feature">
+          <h3>{i.ecommerce.shopTitle}</h3>
+          <p>{i.ecommerce.shopDesc}</p>
+        </div>
+        <div class="feature">
+          <h3>{i.ecommerce.consultancyTitle}</h3>
+          <p>{i.ecommerce.consultancyDesc}</p>
+        </div>
+        <div class="feature">
+          <h3>{i.ecommerce.integrationsTitle}</h3>
+          <p>{i.ecommerce.integrationsDesc}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="container"><CTA lang={lang} /></div>
+</Layout>

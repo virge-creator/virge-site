@@ -1,0 +1,113 @@
+{
+  "nav": {
+    "home": "Home",
+    "ai": "AI Consulting",
+    "sdn": "SDN",
+    "ecommerce": "eCommerce",
+    "blog": "Blog",
+    "openclaw": "OpenClaw",
+    "contact": "Contact"
+  },
+  "hero": {
+    "title": "Software Oplossingen <span>Die Schalen</span>",
+    "description": "Virge.io levert deskundige consultancy en producten op het gebied van AI, Software Defined Networking en eCommerce — waarmee bedrijven veerkrachtige, toekomstbestendige technologie bouwen.",
+    "cta": "Neem Contact Op"
+  },
+  "home": {
+    "whatWeDo": "Wat We Doen",
+    "aiTitle": "AI Consulting",
+    "aiDesc": "Vector databases, RAG-pipelines en productie-klare AI-integraties die echte bedrijfswaarde opleveren.",
+    "sdnTitle": "Software Defined Networking",
+    "sdnDesc": "Netwerkautomatisering met onze Workflow Orchestrator (WFO) — infrastructure as code, goed gedaan.",
+    "ecomTitle": "eCommerce",
+    "ecomDesc": "Headless contentlevering en ShopVirge — zet in no-time volledig functionele webshops op.",
+    "openclawTitle": "OpenClaw Consultancy",
+    "openclawDesc": "Je eigen AI-assistent — gedeployd, gehost, beveiligd en geautomatiseerd voor jouw bedrijf."
+  },
+  "cta": {
+    "title": "Klaar om Iets Geweldigs te Bouwen?",
+    "description": "Laten we bespreken hoe Virge.io je kan helpen je software-oplossingen te schalen.",
+    "button": "Neem Contact Op"
+  },
+  "footer": {
+    "text": "Virge.io — Software Oplossingen Die Schalen"
+  },
+  "ai": {
+    "title": "AI <span>Consulting</span>",
+    "description": "Wij helpen je verder te gaan dan prototypes naar productie-klare AI-systemen die meetbare resultaten opleveren.",
+    "metaDesc": "Praktische, productie-klare AI-oplossingen — vector databases, RAG-pipelines en naadloze integraties.",
+    "searchTitle": "🔍 Zoeken met Vector Databases",
+    "searchDesc": "Implementeer semantisch zoeken met state-of-the-art vector databases. Vind betekenis, niet alleen trefwoorden — voor slimmere retrieval in documenten, producten en kennisbanken.",
+    "ragTitle": "🔗 RAG Pipeline Ontwerp & Implementatie",
+    "ragDesc": "Ontwerp en bouw Retrieval-Augmented Generation pipelines die LLM-antwoorden baseren op jouw data. Verminder hallucinaties en lever nauwkeurige, contextbewuste antwoorden.",
+    "integrationTitle": "⚙️ AI-integratie in Bestaande Applicaties",
+    "integrationDesc": "Integreer AI-mogelijkheden naadloos in je huidige stack — van intelligente API's tot slimme automatisering — zonder alles opnieuw te bouwen.",
+    "productionTitle": "🚀 Productie-klare Oplossingen",
+    "productionDesc": "Wij richten ons op praktische, schaalbare AI die werkt in de echte wereld. Goede evaluatie, monitoring en iteratie — niet alleen demo's."
+  },
+  "sdn": {
+    "title": "Software Defined <span>Networking</span>",
+    "description": "Automatiseer en orkestreer je netwerkinfrastructuur met beproefde open-source tooling.",
+    "metaDesc": "Netwerkautomatisering en orkestratie met de Workflow Orchestrator (WFO) — bewezen in enterprise-omgevingen.",
+    "wfoTitle": "🔧 Workflow Orchestrator (WFO)",
+    "wfoDesc": "De <a href=\"https://workfloworchestrator.org\" target=\"_blank\" rel=\"noopener\">Workflow Orchestrator</a> is een open-source platform voor het automatiseren en orkestreren van netwerken. Het biedt workflow- en productmodellering, gestandaardiseerde formulieren en integraties met tools als Netbox en Ansible — waarmee je volledige controle hebt over de levenscyclus van je netwerk.",
+    "enterpriseTitle": "🏢 Enterprise Integratie-ervaring",
+    "enterpriseDesc": "We hebben meerdere WFO-integratieprojecten opgeleverd voor grote bedrijven en serviceproviders. Van initiële architectuur tot productie-uitrol — we weten hoe je de Workflow Orchestrator inbedt in complexe, bestaande omgevingen.",
+    "modelingTitle": "📐 Product- & Workflowmodellering",
+    "modelingDesc": "Definieer je netwerkproducten en -diensten als code. Wij helpen je abonnementen, producttypen en geautomatiseerde workflows te modelleren die direct aansluiten op je bedrijfsprocessen — minder handmatig werk en geen fouten meer.",
+    "integrationsTitle": "🔌 Integraties & Tooling",
+    "integrationsDesc": "Verbind de Workflow Orchestrator met je bestaande stack — Netbox voor IPAM/DCIM, Ansible voor apparaatconfiguratie via LSO, en custom API's voor je interne systemen. Wij bouwen de lijm die alles laat samenwerken.",
+    "iacTitle": "📦 Infrastructure as Code",
+    "iacDesc": "Behandel je netwerk als software. Versiebeheerde configuraties, herhaalbare deployments en geautomatiseerde provisioning — DevOps-praktijken voor netwerk-engineering.",
+    "trainingTitle": "🎓 Training & Workshops",
+    "trainingDesc": "Breng je team op snelheid. We bieden hands-on workshops over WFO-architectuur, workflowontwikkeling en best practices voor netwerkautomatisering op schaal."
+  },
+  "ecommerce": {
+    "title": "e<span>Commerce</span>",
+    "description": "Moderne, flexibele eCommerce-oplossingen — van headless content tot kant-en-klare webshops.",
+    "metaDesc": "Headless contentlevering, ShopVirge webshops en eCommerce-consultancy.",
+    "contentTitle": "📡 Content as a Service",
+    "contentDesc": "Headless contentlevering die je content loskoppelt van presentatie. Publiceer één keer, lever overal — websites, apps, kiosks en meer.",
+    "shopTitle": "🛍️ ShopVirge",
+    "shopDesc": "Ons ad-hoc webshopsysteem laat je snel volledig functionele online winkels opzetten. Perfect voor nieuwe merken, pop-up shops of snelle marktverkenning — zonder maanden ontwikkeling.",
+    "consultancyTitle": "💡 eCommerce Consultancy",
+    "consultancyDesc": "Strategisch advies over platformkeuze, architectuur, betaalintegratie en opschaling — zodat je de juiste technologiekeuzes maakt voor je bedrijf.",
+    "integrationsTitle": "🔌 Integraties & API's",
+    "integrationsDesc": "Verbind je eCommerce-stack met ERP, CRM, fulfilment en marketingtools via robuuste API-integraties."
+  },
+  "openclaw": {
+    "title": "OpenClaw <span>Consultancy</span>",
+    "description": "Je eigen AI-assistent die jouw bedrijf écht kent. Wij helpen je met opzetten, draaiend houden en laten werken voor jou.",
+    "metaDesc": "Draai je eigen AI-assistent — wij helpen je met deployen, hosten, beveiligen en automatiseren met OpenClaw.",
+    "deployTitle": "🖥️ Deploy op Jouw Hardware",
+    "deployDesc": "Draai OpenClaw op een VPS of Mac Mini — jouw data blijft van jou. Wij regelen de volledige setup: installatie, configuratie, netwerk en zorgen dat alles met elkaar praat.",
+    "hostingTitle": "☁️ Managed Hosting",
+    "hostingDesc": "Geen zin om infrastructuur te beheren? Wij hosten je OpenClaw-instantie voor je. Altijd online, altijd bijgewerkt, geen gedoe voor jou.",
+    "securityTitle": "🔒 Beveiliging & Hardening",
+    "securityDesc": "AI-assistenten verwerken gevoelige data — wij zorgen dat die van jou goed beveiligd is. Van firewallconfiguratie tot toegangscontrole en versleutelde communicatie, we dekken de volledige beveiligingsstack.",
+    "automationTitle": "⚡ Bedrijfsautomatisering",
+    "automationDesc": "De echte kracht van OpenClaw is automatisering. Wij helpen je het te verbinden met je tools — e-mail, agenda, CRM, messaging, databases — en bouwen workflows die elke week uren besparen.",
+    "whatIsTitle": "Wat is OpenClaw?",
+    "whatIsDesc": "OpenClaw is een open-source AI-assistent framework dat draait op je eigen infrastructuur. Het verbindt met je berichtenplatformen, tools en data — waardoor je een persoonlijke AI hebt die jouw bedrijfscontext begrijpt. Zie het als een altijd beschikbaar teamlid dat nooit vergeet, nooit slaapt en steeds slimmer wordt."
+  },
+  "contact": {
+    "title": "Neem <span>Contact Op</span>",
+    "description": "Heb je een project in gedachten? We horen er graag over.",
+    "metaDesc": "Neem contact op met Virge.io — laten we je volgende project bespreken.",
+    "nameLabel": "Naam",
+    "namePlaceholder": "Je naam",
+    "emailLabel": "E-mail",
+    "emailPlaceholder": "jij@voorbeeld.nl",
+    "messageLabel": "Bericht",
+    "messagePlaceholder": "Vertel ons over je project...",
+    "submit": "Verstuur Bericht"
+  },
+  "blog": {
+    "title": "Virge.io <span>Blog</span>",
+    "description": "Inzichten over AI, automatisering en het opschalen van technologie voor bedrijven.",
+    "metaDesc": "Inzichten over AI-automatisering, RAG-pipelines en het internationaal opschalen van Nederlandse techbedrijven — van het Virge.io team.",
+    "readMore": "Lees meer →",
+    "backToBlog": "← Terug naar Blog",
+    "minRead": "min leestijd"
+  }
+}

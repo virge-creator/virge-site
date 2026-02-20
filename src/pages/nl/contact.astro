@@ -1,0 +1,29 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { t } from '../../i18n';
+
+const lang = 'nl';
+const i = t(lang);
+---
+<Layout title="Contact" description={i.contact.metaDesc} lang={lang}>
+  <div class="page-header">
+    <h1><Fragment set:html={i.contact.title} /></h1>
+    <p>{i.contact.description}</p>
+  </div>
+
+  <section>
+    <div class="container">
+      <div class="form-wrap">
+        <form method="POST" action="https://formspree.io/f/mpqjjpnb">
+          <label for="name">{i.contact.nameLabel}</label>
+          <input type="text" id="name" name="name" required placeholder={i.contact.namePlaceholder} />
+          <label for="email">{i.contact.emailLabel}</label>
+          <input type="email" id="email" name="email" required placeholder={i.contact.emailPlaceholder} />
+          <label for="message">{i.contact.messageLabel}</label>
+          <textarea id="message" name="message" required placeholder={i.contact.messagePlaceholder}></textarea>
+          <button type="submit" class="btn" style="width:100%">{i.contact.submit}</button>
+        </form>
+      </div>
+    </div>
+  </section>
+</Layout>
