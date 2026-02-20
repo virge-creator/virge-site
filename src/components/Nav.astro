@@ -25,7 +25,7 @@ const links = [
 ---
 <nav>
   <div class="container">
-    <a href={base} class="logo">Virge.io</a>
+    <a href={base} class="logo"><img src="/logo.png" alt="Virge.io" class="logo-img" /></a>
     <button class="menu-toggle" aria-label="Menu" onclick="document.querySelector('.links').classList.toggle('open')">☰</button>
     <ul class="links">
       {links.map(l => <li><a href={l.href}>{l.label}</a></li>)}
@@ -37,6 +37,10 @@ const links = [
 </nav>
 
 <style>
+  .logo-img {
+    height: 40px;
+    width: auto;
+  }
   .lang-switch {
     margin-left: 0.5rem;
   }
