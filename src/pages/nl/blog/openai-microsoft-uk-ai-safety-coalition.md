@@ -3,7 +3,7 @@ layout: ../../../layouts/BlogPost.astro
 lang: nl
 title: "OpenAI & Microsoft Sluiten Zich Aan bij UK AI Safety Coalitie — Waarom Dit Belangrijk Is voor Elk Bedrijf dat AI Gebruikt"
 description: "OpenAI en Microsoft investeren €32M+ in het UK AI Alignment Project. Hier lees je waarom veilige AI-ontwikkeling ertoe doet — en wat bedrijven ervan kunnen leren."
-date: 2026-02-21
+date: 2026-02-18
 author: "Virge.io"
 ---
 

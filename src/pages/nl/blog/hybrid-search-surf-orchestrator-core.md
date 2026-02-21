@@ -3,7 +3,7 @@ layout: ../../../layouts/BlogPost.astro
 lang: nl
 title: "Hoe We Hybrid Search Bouwden voor SURF's Orchestrator-Core — Komt in v5.0"
 description: "Een samenwerking tussen Virge.io en SURF met een klein team resulteerde in een schema-agnostisch hybrid search systeem, volledig gebouwd op PostgreSQL. Zo hebben we het gedaan — en waarom het ertoe doet."
-date: 2026-02-21
+date: 2026-02-19
 author: "Virge.io"
 ---
 

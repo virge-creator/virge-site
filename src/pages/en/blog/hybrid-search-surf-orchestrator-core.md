@@ -3,7 +3,7 @@ layout: ../../../layouts/BlogPost.astro
 lang: en
 title: "How We Built Hybrid Search for SURF's Orchestrator-Core — Coming in v5.0"
 description: "A small team collaboration between Virge.io and SURF resulted in a schema-agnostic hybrid search system built entirely on PostgreSQL. Here's how we did it — and why it matters for network orchestration."
-date: 2026-02-21
+date: 2026-02-19
 author: "Virge.io"
 ---
 
