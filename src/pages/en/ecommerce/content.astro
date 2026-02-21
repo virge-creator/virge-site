@@ -1,0 +1,132 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import CTA from '../../../components/CTA.astro';
+
+const lang = 'en';
+---
+<Layout title="Content as a Service" description="AI-powered product content generation for eCommerce. From product name to rich content — fully automated." lang={lang}>
+  <div class="page-header">
+    <h1>Content as a <span>Service</span></h1>
+    <p>From a product name to rich, high-quality content — fully automated with AI.</p>
+  </div>
+
+  <section>
+    <div class="container">
+      <div class="intro">
+        <h2>How It Works</h2>
+        <p>Our AI-powered content enrichment pipeline turns minimal product input into comprehensive, publish-ready content. No copywriters needed. No hours of research. Just results.</p>
+      </div>
+
+      <div class="steps">
+        <div class="step">
+          <div class="step-number">1</div>
+          <h3>You provide a product name</h3>
+          <p>That's it. Give us a name like <strong>"Selmer Mark VI"</strong> and optionally a category (e.g. "Saxophones"). We take it from there.</p>
+        </div>
+        <div class="step">
+          <div class="step-number">2</div>
+          <h3>AI researches &amp; enriches</h3>
+          <p>Our enrichment pipeline uses multiple AI models and data sources to gather product details, specifications, history, use cases, and more.</p>
+        </div>
+        <div class="step">
+          <div class="step-number">3</div>
+          <h3>Content is generated</h3>
+          <p>You receive rich product descriptions, SEO-optimized copy, technical specs, and curated images — all formatted and ready to publish.</p>
+        </div>
+        <div class="step">
+          <div class="step-number">4</div>
+          <h3>Delivered via API or export</h3>
+          <p>Content is delivered through our API, as a data export, or directly into your eCommerce platform. Integrate it however you want.</p>
+        </div>
+      </div>
+
+      <div class="what-you-get">
+        <h2>What You Get</h2>
+        <div class="features">
+          <div class="feature">
+            <h3>📝 Product Descriptions</h3>
+            <p>Engaging, SEO-friendly copy that tells the story of your product. Multiple lengths available — from short snippets to full-page descriptions.</p>
+          </div>
+          <div class="feature">
+            <h3>📊 Technical Specifications</h3>
+            <p>Structured spec sheets extracted and formatted from multiple sources. Consistent format across your entire catalog.</p>
+          </div>
+          <div class="feature">
+            <h3>🖼️ Product Images</h3>
+            <p>AI-curated and generated product imagery. From clean product shots to lifestyle context images.</p>
+          </div>
+          <div class="feature">
+            <h3>🏷️ Metadata &amp; Tags</h3>
+            <p>Auto-generated categories, tags, attributes, and SEO metadata. Makes your products discoverable.</p>
+          </div>
+          <div class="feature">
+            <h3>🌍 Multilingual</h3>
+            <p>Content generated in multiple languages out of the box. Reach international markets without translation costs.</p>
+          </div>
+          <div class="feature">
+            <h3>⚡ Bulk Processing</h3>
+            <p>Upload a CSV with thousands of product names — we'll enrich them all. Scale your catalog without scaling your team.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="example">
+        <h2>Example: Selmer Mark VI</h2>
+        <div class="example-box">
+          <div class="example-input">
+            <h4>Input</h4>
+            <code>Product: Selmer Mark VI<br/>Category: Saxophones</code>
+          </div>
+          <div class="example-arrow">→</div>
+          <div class="example-output">
+            <h4>Output</h4>
+            <p><strong>Title:</strong> Selmer Mark VI — The Most Iconic Saxophone Ever Made</p>
+            <p><strong>Description:</strong> The Selmer Mark VI is widely regarded as the gold standard of saxophones. Produced from 1954 to 1981, this French-made instrument defined the sound of jazz, from John Coltrane to Sonny Rollins. Known for its warm, rich tone and exceptional response across all registers...</p>
+            <p><strong>Specs:</strong> Material: Brass · Key: Various (Alto, Tenor, Soprano, Baritone) · Origin: Paris, France · Production: 1954–1981 · Finish: Lacquer/Silver</p>
+            <p><strong>Tags:</strong> saxophone, vintage, jazz, professional, selmer, woodwind</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="pricing-note">
+        <h2>Pricing</h2>
+        <p>We offer flexible pricing based on volume. Whether you need 10 products enriched or 10,000 — we've got a plan for you. <a href="/en/contact/">Get in touch</a> for a custom quote.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="container"><CTA lang={lang} /></div>
+</Layout>
+
+<style>
+  .intro { text-align: center; max-width: 700px; margin: 0 auto 3rem; }
+  .intro h2 { color: #a78bfa; }
+  .intro p { color: #94a3b8; font-size: 1.1rem; }
+
+  .steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 2rem; margin-bottom: 4rem; }
+  .step { background: rgba(139,92,246,0.06); border: 1px solid rgba(139,92,246,0.15); border-radius: 12px; padding: 2rem; position: relative; }
+  .step-number { position: absolute; top: -12px; left: 20px; background: #8b5cf6; color: #fff; width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.9rem; }
+  .step h3 { color: #e2e8f0; margin-top: 0.5rem; }
+  .step p { color: #94a3b8; }
+
+  .what-you-get { margin-bottom: 4rem; }
+  .what-you-get h2 { color: #a78bfa; text-align: center; margin-bottom: 2rem; }
+
+  .example { margin-bottom: 4rem; }
+  .example h2 { color: #a78bfa; text-align: center; margin-bottom: 2rem; }
+  .example-box { display: flex; align-items: center; gap: 2rem; background: rgba(139,92,246,0.06); border: 1px solid rgba(139,92,246,0.15); border-radius: 12px; padding: 2rem; flex-wrap: wrap; }
+  .example-input, .example-output { flex: 1; min-width: 250px; }
+  .example-input h4, .example-output h4 { color: #a78bfa; margin-bottom: 0.5rem; }
+  .example-input code { display: block; background: rgba(0,0,0,0.3); padding: 1rem; border-radius: 8px; color: #e2e8f0; font-size: 0.95rem; }
+  .example-output p { color: #94a3b8; margin-bottom: 0.5rem; font-size: 0.95rem; }
+  .example-arrow { font-size: 2rem; color: #8b5cf6; font-weight: 700; }
+
+  .pricing-note { text-align: center; max-width: 600px; margin: 0 auto 3rem; }
+  .pricing-note h2 { color: #a78bfa; }
+  .pricing-note p { color: #94a3b8; }
+  .pricing-note a { color: #a78bfa; }
+
+  @media (max-width: 600px) {
+    .example-arrow { display: none; }
+  }
+</style>

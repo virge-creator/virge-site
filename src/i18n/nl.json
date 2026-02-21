@@ -66,14 +66,15 @@
     "title": "e<span>Commerce</span>",
     "description": "Moderne, flexibele eCommerce-oplossingen — van headless content tot kant-en-klare webshops.",
     "metaDesc": "Headless contentlevering, ShopVirge webshops en eCommerce-consultancy.",
-    "contentTitle": "📡 Content as a Service",
-    "contentDesc": "Headless contentlevering die je content loskoppelt van presentatie. Publiceer één keer, lever overal — websites, apps, kiosks en meer.",
+    "contentTitle": "🤖 Content as a Service",
+    "contentDesc": "AI-gestuurde productcontent voor eCommerce. Geef ons een productnaam — zoals \"Selmer Mark VI\" — en wij leveren rijke, kwalitatieve beschrijvingen, afbeeldingen en metadata. Volledig geautomatiseerde contentverrijking die uren handmatig werk bespaart.",
     "shopTitle": "🛍️ ShopVirge",
     "shopDesc": "Ons ad-hoc webshopsysteem laat je snel volledig functionele online winkels opzetten. Perfect voor nieuwe merken, pop-up shops of snelle marktverkenning — zonder maanden ontwikkeling.",
     "consultancyTitle": "💡 eCommerce Consultancy",
     "consultancyDesc": "Strategisch advies over platformkeuze, architectuur, betaalintegratie en opschaling — zodat je de juiste technologiekeuzes maakt voor je bedrijf.",
     "integrationsTitle": "🔌 Integraties & API's",
-    "integrationsDesc": "Verbind je eCommerce-stack met ERP, CRM, fulfilment en marketingtools via robuuste API-integraties."
+    "integrationsDesc": "Verbind je eCommerce-stack met ERP, CRM, fulfilment en marketingtools via robuuste API-integraties.",
+    "contentLink": "Meer over Content as a Service →"
   },
   "openclaw": {
     "title": "OpenClaw <span>Consultancy</span>",

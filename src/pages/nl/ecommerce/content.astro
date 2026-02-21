@@ -1,0 +1,132 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import CTA from '../../../components/CTA.astro';
+
+const lang = 'nl';
+---
+<Layout title="Content as a Service" description="AI-gestuurde productcontent voor eCommerce. Van productnaam naar rijke content — volledig geautomatiseerd." lang={lang}>
+  <div class="page-header">
+    <h1>Content as a <span>Service</span></h1>
+    <p>Van een productnaam naar rijke, kwalitatieve content — volledig geautomatiseerd met AI.</p>
+  </div>
+
+  <section>
+    <div class="container">
+      <div class="intro">
+        <h2>Hoe Het Werkt</h2>
+        <p>Onze AI-gestuurde contentverrijking transformeert minimale productinput naar uitgebreide, publicatieklare content. Geen copywriters nodig. Geen uren onderzoek. Alleen resultaat.</p>
+      </div>
+
+      <div class="steps">
+        <div class="step">
+          <div class="step-number">1</div>
+          <h3>Geef ons een productnaam</h3>
+          <p>Dat is alles. Geef ons een naam zoals <strong>"Selmer Mark VI"</strong> en optioneel een categorie (bijv. "Saxofoons"). Wij doen de rest.</p>
+        </div>
+        <div class="step">
+          <div class="step-number">2</div>
+          <h3>AI onderzoekt &amp; verrijkt</h3>
+          <p>Onze verrijkingspipeline gebruikt meerdere AI-modellen en databronnen om productdetails, specificaties, geschiedenis, toepassingen en meer te verzamelen.</p>
+        </div>
+        <div class="step">
+          <div class="step-number">3</div>
+          <h3>Content wordt gegenereerd</h3>
+          <p>Je ontvangt rijke productbeschrijvingen, SEO-geoptimaliseerde teksten, technische specificaties en gecureerde afbeeldingen — allemaal opgemaakt en klaar om te publiceren.</p>
+        </div>
+        <div class="step">
+          <div class="step-number">4</div>
+          <h3>Geleverd via API of export</h3>
+          <p>Content wordt geleverd via onze API, als data-export, of direct in je eCommerce-platform. Integreer het zoals jij wilt.</p>
+        </div>
+      </div>
+
+      <div class="what-you-get">
+        <h2>Wat Je Krijgt</h2>
+        <div class="features">
+          <div class="feature">
+            <h3>📝 Productbeschrijvingen</h3>
+            <p>Aansprekende, SEO-vriendelijke teksten die het verhaal van je product vertellen. Meerdere lengtes beschikbaar — van korte snippets tot volledige paginabeschrijvingen.</p>
+          </div>
+          <div class="feature">
+            <h3>📊 Technische Specificaties</h3>
+            <p>Gestructureerde spec sheets uit meerdere bronnen. Consistent format over je hele catalogus.</p>
+          </div>
+          <div class="feature">
+            <h3>🖼️ Productafbeeldingen</h3>
+            <p>AI-gecureerde en gegenereerde productafbeeldingen. Van clean producfoto's tot lifestyle contextbeelden.</p>
+          </div>
+          <div class="feature">
+            <h3>🏷️ Metadata &amp; Tags</h3>
+            <p>Automatisch gegenereerde categorieën, tags, attributen en SEO-metadata. Maakt je producten vindbaar.</p>
+          </div>
+          <div class="feature">
+            <h3>🌍 Meertalig</h3>
+            <p>Content direct in meerdere talen gegenereerd. Bereik internationale markten zonder vertaalkosten.</p>
+          </div>
+          <div class="feature">
+            <h3>⚡ Bulk Verwerking</h3>
+            <p>Upload een CSV met duizenden productnamen — wij verrijken ze allemaal. Schaal je catalogus zonder je team uit te breiden.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="example">
+        <h2>Voorbeeld: Selmer Mark VI</h2>
+        <div class="example-box">
+          <div class="example-input">
+            <h4>Input</h4>
+            <code>Product: Selmer Mark VI<br/>Categorie: Saxofoons</code>
+          </div>
+          <div class="example-arrow">→</div>
+          <div class="example-output">
+            <h4>Output</h4>
+            <p><strong>Titel:</strong> Selmer Mark VI — De Meest Iconische Saxofoon Ooit Gemaakt</p>
+            <p><strong>Beschrijving:</strong> De Selmer Mark VI wordt algemeen beschouwd als dé gouden standaard onder saxofoons. Geproduceerd van 1954 tot 1981, definieerde dit Frans instrument het geluid van jazz — van John Coltrane tot Sonny Rollins. Bekend om zijn warme, rijke toon en uitzonderlijke response over alle registers...</p>
+            <p><strong>Specs:</strong> Materiaal: Messing · Stemming: Divers (Alt, Tenor, Sopraan, Bariton) · Herkomst: Parijs, Frankrijk · Productie: 1954–1981 · Afwerking: Lak/Zilver</p>
+            <p><strong>Tags:</strong> saxofoon, vintage, jazz, professioneel, selmer, houtblazers</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="pricing-note">
+        <h2>Prijzen</h2>
+        <p>We bieden flexibele prijzen op basis van volume. Of je nu 10 producten wilt verrijken of 10.000 — we hebben een plan voor je. <a href="/nl/contact/">Neem contact op</a> voor een offerte op maat.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="container"><CTA lang={lang} /></div>
+</Layout>
+
+<style>
+  .intro { text-align: center; max-width: 700px; margin: 0 auto 3rem; }
+  .intro h2 { color: #a78bfa; }
+  .intro p { color: #94a3b8; font-size: 1.1rem; }
+
+  .steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 2rem; margin-bottom: 4rem; }
+  .step { background: rgba(139,92,246,0.06); border: 1px solid rgba(139,92,246,0.15); border-radius: 12px; padding: 2rem; position: relative; }
+  .step-number { position: absolute; top: -12px; left: 20px; background: #8b5cf6; color: #fff; width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.9rem; }
+  .step h3 { color: #e2e8f0; margin-top: 0.5rem; }
+  .step p { color: #94a3b8; }
+
+  .what-you-get { margin-bottom: 4rem; }
+  .what-you-get h2 { color: #a78bfa; text-align: center; margin-bottom: 2rem; }
+
+  .example { margin-bottom: 4rem; }
+  .example h2 { color: #a78bfa; text-align: center; margin-bottom: 2rem; }
+  .example-box { display: flex; align-items: center; gap: 2rem; background: rgba(139,92,246,0.06); border: 1px solid rgba(139,92,246,0.15); border-radius: 12px; padding: 2rem; flex-wrap: wrap; }
+  .example-input, .example-output { flex: 1; min-width: 250px; }
+  .example-input h4, .example-output h4 { color: #a78bfa; margin-bottom: 0.5rem; }
+  .example-input code { display: block; background: rgba(0,0,0,0.3); padding: 1rem; border-radius: 8px; color: #e2e8f0; font-size: 0.95rem; }
+  .example-output p { color: #94a3b8; margin-bottom: 0.5rem; font-size: 0.95rem; }
+  .example-arrow { font-size: 2rem; color: #8b5cf6; font-weight: 700; }
+
+  .pricing-note { text-align: center; max-width: 600px; margin: 0 auto 3rem; }
+  .pricing-note h2 { color: #a78bfa; }
+  .pricing-note p { color: #94a3b8; }
+  .pricing-note a { color: #a78bfa; }
+
+  @media (max-width: 600px) {
+    .example-arrow { display: none; }
+  }
+</style>

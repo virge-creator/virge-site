@@ -66,14 +66,15 @@
     "title": "e<span>Commerce</span>",
     "description": "Modern, flexible eCommerce solutions — from headless content to turnkey webshops.",
     "metaDesc": "Headless content delivery, ShopVirge webshops, and eCommerce consultancy.",
-    "contentTitle": "📡 Content as a Service",
-    "contentDesc": "Headless content delivery that decouples your content from presentation. Publish once, deliver everywhere — websites, apps, kiosks, and beyond.",
+    "contentTitle": "🤖 Content as a Service",
+    "contentDesc": "AI-powered product content generation for eCommerce. Just give us a product name — like \"Selmer Mark VI\" — and we deliver rich, high-quality descriptions, images, and metadata. Fully automated content enrichment that saves hours of manual work.",
     "shopTitle": "🛍️ ShopVirge",
     "shopDesc": "Our ad hoc webshop system lets you spin up fully functional online stores fast. Perfect for new brands, pop-up shops, or rapid market testing — without months of development.",
     "consultancyTitle": "💡 eCommerce Consultancy",
     "consultancyDesc": "Strategic advice on platform selection, architecture, payment integration, and scaling — helping you make the right technology choices for your business.",
     "integrationsTitle": "🔌 Integrations & APIs",
-    "integrationsDesc": "Connect your eCommerce stack with ERP, CRM, fulfillment, and marketing tools through robust API integrations."
+    "integrationsDesc": "Connect your eCommerce stack with ERP, CRM, fulfillment, and marketing tools through robust API integrations.",
+    "contentLink": "Learn more about Content as a Service →"
   },
   "openclaw": {
     "title": "OpenClaw <span>Consultancy</span>",
