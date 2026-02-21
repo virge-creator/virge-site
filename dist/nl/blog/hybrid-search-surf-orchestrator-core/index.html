@@ -1,0 +1,73 @@
+<!DOCTYPE html><html lang="nl"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="description" content="Een samenwerking tussen Virge.io en SURF met een klein team resulteerde in een schema-agnostisch hybrid search systeem, volledig gebouwd op PostgreSQL. Zo hebben we het gedaan — en waarom het ertoe doet."><meta property="og:title" content="Hoe We Hybrid Search Bouwden voor SURF's Orchestrator-Core — Komt in v5.0 | Virge.io"><meta property="og:description" content="Een samenwerking tussen Virge.io en SURF met een klein team resulteerde in een schema-agnostisch hybrid search systeem, volledig gebouwd op PostgreSQL. Zo hebben we het gedaan — en waarom het ertoe doet."><meta property="og:type" content="website"><meta property="og:locale" content="nl_NL"><link rel="alternate" hreflang="nl" href="https://virge.io/nl/blog/hybrid-search-surf-orchestrator-core/"><link rel="alternate" hreflang="en" href="https://virge.io/en/blog/hybrid-search-surf-orchestrator-core/"><title>Hoe We Hybrid Search Bouwden voor SURF&#39;s Orchestrator-Core — Komt in v5.0 | Virge.io</title><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="stylesheet" href="/_astro/ai-content-enrichment-ecommerce.B_HP1XI6.css"></head> <body> <nav data-astro-cid-dmqpwcec> <div class="container" data-astro-cid-dmqpwcec> <a href="/nl/" class="logo" data-astro-cid-dmqpwcec><img src="/logo.png" alt="Virge.io" class="logo-img" data-astro-cid-dmqpwcec></a> <button class="menu-toggle" aria-label="Menu" onclick="document.querySelector('.links').classList.toggle('open')" data-astro-cid-dmqpwcec>☰</button> <ul class="links" data-astro-cid-dmqpwcec> <li data-astro-cid-dmqpwcec><a href="/nl/" data-astro-cid-dmqpwcec>Home</a></li><li data-astro-cid-dmqpwcec><a href="/nl/ai/" data-astro-cid-dmqpwcec>AI Consulting</a></li><li data-astro-cid-dmqpwcec><a href="/nl/sdn/" data-astro-cid-dmqpwcec>SDN</a></li><li data-astro-cid-dmqpwcec><a href="/nl/ecommerce/" data-astro-cid-dmqpwcec>eCommerce</a></li><li data-astro-cid-dmqpwcec><a href="/nl/blog/" data-astro-cid-dmqpwcec>Blog</a></li><li data-astro-cid-dmqpwcec><a href="/nl/openclaw/" data-astro-cid-dmqpwcec>OpenClaw</a></li><li data-astro-cid-dmqpwcec><a href="/nl/contact/" data-astro-cid-dmqpwcec>Contact</a></li> <li class="lang-switch" data-astro-cid-dmqpwcec> <a href="/en/blog/hybrid-search-surf-orchestrator-core/" class="lang-btn" data-astro-cid-dmqpwcec>EN</a> </li> </ul> </div> </nav>  <main> <article class="blog-post"> <div class="container"> <a href="/nl/blog/" class="back-link">← Terug naar Blog</a> <header class="post-header"> <h1>Hoe We Hybrid Search Bouwden voor SURF&#39;s Orchestrator-Core — Komt in v5.0</h1> <div class="post-meta"> <span>Virge.io</span> <span>·</span> <time>21 februari 2026</time> <span>·</span> <span>5 min leestijd</span> </div> </header> <div class="post-content"> <p>We zijn trots om een project te delen waar we aan hebben gewerkt met <a href="https://www.surf.nl">SURF</a>, de coöperatieve ICT-organisatie voor Nederlands onderwijs en onderzoek. Samen, met een klein maar gefocust team, hebben we een <strong>hybrid search systeem</strong> gebouwd voor <a href="https://github.com/workfloworchestrator/orchestrator-core">orchestrator-core</a> — en het wordt meegeleverd in de aankomende <strong>5.0 release</strong>.</p>
+<h2 id="de-uitdaging">De Uitdaging</h2>
+<p>Orchestrator-core is een open-source framework voor het beheren van productlevenscycli en workflows. Het draait op kritieke netwerkinfrastructuur bij organisaties zoals SURF, waar duizenden subscriptions, producten en workflows betrouwbaar beheerd moeten worden.</p>
+<p>Het probleem? Deze domeinmodellen zijn <strong>dynamisch en door gebruikers gedefinieerd</strong>. Een enkele subscription kan honderden attributen bevatten, verdeeld over diep geneste structuren. Het doorzoekbare schema staat niet vast — het evolueert naarmate gebruikers nieuwe producten en product blocks definiëren.</p>
+<p>Traditionele zoekoplossingen — Elasticsearch, statische kolom-indexen of simpele <code>LIKE</code>-queries — volstaan hier niet. We hadden iets nodig dat:</p>
+<ul>
+<li>Kan zoeken over <strong>geneste, dynamische schema’s</strong> zonder de structuur vooraf te kennen</li>
+<li><strong>Full-text search</strong> combineert met <strong>semantische (vector) search</strong></li>
+<li><strong>Gestructureerd filteren</strong> ondersteunt op getypeerde velden (datums, enums, booleans)</li>
+<li><strong>Binnen PostgreSQL</strong> blijft — geen apart zoekinfrastructuur om te onderhouden</li>
+<li><strong>Veilig is voor AI-agents</strong> om te bevragen zonder rauwe SQL te genereren</li>
+</ul>
+<h2 id="de-oplossing-postgresql-native-hybrid-search">De Oplossing: PostgreSQL-Native Hybrid Search</h2>
+<p>In plaats van externe zoekinfrastructuur eraan te plakken, bouwden we alles bovenop PostgreSQL met drie krachtige extensies:</p>
+<h3 id="pgvector--semantische-search">pgvector — Semantische Search</h3>
+<p><a href="https://github.com/pgvector/pgvector">pgvector</a> maakt vectorgebaseerde similarity search mogelijk, direct in PostgreSQL. We genereren embeddings voor tekstattributen en slaan ze op naast de data. Wanneer een gebruiker zoekt naar “netwerkverbinding in Amsterdam,” begrijpt het systeem de <em>betekenis</em>, niet alleen de sleutelwoorden.</p>
+<h3 id="pg_trgm--fuzzy-text-search">pg_trgm — Fuzzy Text Search</h3>
+<p>PostgreSQL’s <a href="https://www.postgresql.org/docs/current/pgtrgm.html">trigram-extensie</a> verzorgt fuzzy matching en typfouttolerantie. Gecombineerd met full-text search vangt het queries op die semantische search alleen zou missen — zoals zoeken op een specifiek subscription-ID of een productcode met een typfout.</p>
+<h3 id="ltree--hiërarchische-paden">ltree — Hiërarchische Paden</h3>
+<p>De <a href="https://www.postgresql.org/docs/current/ltree.html">ltree-extensie</a> stelt ons in staat om de geneste structuur van domeinmodellen weer te geven als hiërarchische paden. Een veld als <code>subscription.product_block.interface.speed</code> wordt een doorzoekbaar boompad, waarmee queries op elk nestniveau mogelijk zijn.</p>
+<h3 id="reciprocal-rank-fusion">Reciprocal Rank Fusion</h3>
+<p>De magie zit in hoe deze retrievers samenwerken. We gebruiken <strong>Reciprocal Rank Fusion (RRF)</strong> om resultaten van semantische search, trigram matching en gestructureerde filters samen te voegen tot één uniforme ranking. Elke retriever levert zijn eigen ranking, en RRF combineert ze zonder scorenormalisatie.</p>
+<h2 id="schema-agnostische-indexering-met-eav">Schema-Agnostische Indexering met EAV</h2>
+<p>De kerninnovatie is onze <strong>Entity-Attribute-Value (EAV) indexering</strong>. In plaats van dynamische schema’s te mappen naar vaste kolommen, ontleden we elke entiteit in individuele attribuutrijen:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>entity_type: SUBSCRIPTION</span></span>
+<span class="line"><span>entity_id: 550e8400-e29b-41d4-a716-446655440000</span></span>
+<span class="line"><span>path: product.interface.speed</span></span>
+<span class="line"><span>value: "10Gbps"</span></span>
+<span class="line"><span>value_type: STRING</span></span>
+<span class="line"><span>embedding: [0.023, -0.041, ...]</span></span></code></pre>
+<p>Elk attribuut krijgt zijn eigen rij met hiërarchisch pad (via ltree), getypeerde waarde en optionele embedding vector. Dit betekent:</p>
+<ul>
+<li><strong>Nieuwe producttypen</strong> zijn direct doorzoekbaar — geen herindexering, geen migraties</li>
+<li><strong>Geneste attributen</strong> op elke diepte zijn volledig bevraagbaar</li>
+<li><strong>Type safety</strong> blijft behouden — datums zijn datums, booleans zijn booleans</li>
+<li><strong>Incrementele indexering</strong> houdt de index gesynchroniseerd zonder volledige rebuilds</li>
+</ul>
+<h2 id="type-safe-query-dsl">Type-Safe Query DSL</h2>
+<p>Rauwe SQL-generatie door AI-agents is gevaarlijk. Eén gehallucineerde <code>DROP TABLE</code> en je dag is verpest. In plaats daarvan bouwden we een <strong>Pydantic-gebaseerde Query DSL</strong> die compileert naar gevalideerde SQL:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="python"><code><span class="line"><span style="color:#E1E4E8">query </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> SearchQuery(</span></span>
+<span class="line"><span style="color:#FFAB70">    search</span><span style="color:#F97583">=</span><span style="color:#9ECBFF">"amsterdam network"</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#FFAB70">    filters</span><span style="color:#F97583">=</span><span style="color:#E1E4E8">[</span></span>
+<span class="line"><span style="color:#E1E4E8">        FilterPredicate(</span></span>
+<span class="line"><span style="color:#FFAB70">            path</span><span style="color:#F97583">=</span><span style="color:#9ECBFF">"product.status"</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#FFAB70">            operator</span><span style="color:#F97583">=</span><span style="color:#9ECBFF">"eq"</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#FFAB70">            value</span><span style="color:#F97583">=</span><span style="color:#9ECBFF">"active"</span></span>
+<span class="line"><span style="color:#E1E4E8">        )</span></span>
+<span class="line"><span style="color:#E1E4E8">    ],</span></span>
+<span class="line"><span style="color:#FFAB70">    sort_by</span><span style="color:#F97583">=</span><span style="color:#9ECBFF">"created_at"</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#FFAB70">    limit</span><span style="color:#F97583">=</span><span style="color:#79B8FF">25</span></span>
+<span class="line"><span style="color:#E1E4E8">)</span></span></code></pre>
+<p>Dezelfde Pydantic-modellen dienen als <strong>gestructureerde tool-argumenten voor PydanticAI</strong>, waardoor AI-agents queries kunnen construeren via gevalideerde, beperkte interfaces. De agent raakt nooit SQL aan — hij vult een gestructureerd formulier in, en het systeem compileert het veilig.</p>
+<h2 id="waarom-dit-ertoe-doet">Waarom Dit Ertoe Doet</h2>
+<h3 id="voor-netwerkbeheerders">Voor Netwerkbeheerders</h3>
+<p>SURF beheert netwerkinfrastructuur voor 100+ Nederlandse onderwijs- en onderzoeksinstellingen. Snelle, intelligente search over alle subscriptions, producten en workflows betekent dat operators in seconden vinden wat ze nodig hebben, in plaats van door geneste pagina’s te klikken.</p>
+<h3 id="voor-de-open-source-community">Voor de Open-Source Community</h3>
+<p>Dit is geen propriëtaire oplossing — het gaat in <strong>orchestrator-core 5.0</strong> als open-source feature. Elke organisatie die orchestrator-core draait, krijgt hybrid search out of the box.</p>
+<h3 id="voor-ai-gedreven-operations">Voor AI-Gedreven Operations</h3>
+<p>De Query DSL + AI agent-integratie betekent dat operators uiteindelijk in natuurlijke taal vragen kunnen stellen: <em>“Toon me alle 10Gbps interfaces in de regio Amsterdam die vorige maand zijn ingericht”</em> — en accurate, gevalideerde resultaten krijgen.</p>
+<h2 id="klein-team-grote-impact">Klein Team, Grote Impact</h2>
+<p>Een van de dingen waar we het meest trots op zijn, is hoe dit is bereikt. Dit was geen massaal project met tientallen engineers. Het was een <strong>klein, gefocust team</strong> dat nauw samenwerkte — de diepe domeinexpertise van SURF in netwerkorchestratie combinerend met onze ervaring in AI, search en Python backend-ontwikkeling.</p>
+<p>Het resultaat? Een productierijpe feature die echte waarde toevoegt, efficiënt gebouwd en meegeleverd in een grote release.</p>
+<h2 id="technische-deep-dive">Technische Deep Dive</h2>
+<p>Voor de volledige technische details — inclusief de EAV-indexeringsimplementatie, retriever routing-strategie, keyset pagination en AI agent-architectuur — lees de uitstekende write-up van Tim Fröhlich: <a href="https://timfrohlich.com/blog/postgresql-hybrid-search">Building a Schema-Agnostic Hybrid Search System in PostgreSQL</a>.</p>
+<h2 id="wat-komt-er-nog">Wat Komt Er Nog</h2>
+<p>Met hybrid search in orchestrator-core 5.0 kijken we naar:</p>
+<ul>
+<li><strong>Uitgebreide AI agent-mogelijkheden</strong> — natuurlijke taalqueries voor netwerkoperations</li>
+<li><strong>Aggregatie-ondersteuning</strong> — analytics en rapportage op dynamische schema’s</li>
+<li><strong>Cross-entity search</strong> — uniforme search over subscriptions, workflows en processen</li>
+<li><strong>Performance-optimalisatie</strong> — schalen naar miljoenen geïndexeerde attributen</li>
+</ul>
+<p>Wil je meer weten over hoe wij search- en AI-oplossingen bouwen voor complexe systemen? <a href="/nl/contact/">Neem contact op</a> — we horen graag over je uitdagingen.</p> </div> <div class="cta"> <h2>Klaar om Iets Geweldigs te Bouwen?</h2> <p>Laten we bespreken hoe Virge.io je kan helpen je software-oplossingen te schalen.</p> <a href="/nl/contact/" class="btn">Neem Contact Op</a> </div> </div> </article> </main> <footer> <div class="container"> <p>&copy; 2026 Virge.io — Software Oplossingen Die Schalen</p> </div> </footer> </body></html>

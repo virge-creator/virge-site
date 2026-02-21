@@ -1,0 +1,73 @@
+<!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="description" content="A small team collaboration between Virge.io and SURF resulted in a schema-agnostic hybrid search system built entirely on PostgreSQL. Here's how we did it — and why it matters for network orchestration."><meta property="og:title" content="How We Built Hybrid Search for SURF's Orchestrator-Core — Coming in v5.0 | Virge.io"><meta property="og:description" content="A small team collaboration between Virge.io and SURF resulted in a schema-agnostic hybrid search system built entirely on PostgreSQL. Here's how we did it — and why it matters for network orchestration."><meta property="og:type" content="website"><meta property="og:locale" content="en_US"><link rel="alternate" hreflang="en" href="https://virge.io/en/blog/hybrid-search-surf-orchestrator-core/"><link rel="alternate" hreflang="nl" href="https://virge.io/nl/blog/hybrid-search-surf-orchestrator-core/"><title>How We Built Hybrid Search for SURF&#39;s Orchestrator-Core — Coming in v5.0 | Virge.io</title><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="stylesheet" href="/_astro/ai-content-enrichment-ecommerce.B_HP1XI6.css"></head> <body> <nav data-astro-cid-dmqpwcec> <div class="container" data-astro-cid-dmqpwcec> <a href="/en/" class="logo" data-astro-cid-dmqpwcec><img src="/logo.png" alt="Virge.io" class="logo-img" data-astro-cid-dmqpwcec></a> <button class="menu-toggle" aria-label="Menu" onclick="document.querySelector('.links').classList.toggle('open')" data-astro-cid-dmqpwcec>☰</button> <ul class="links" data-astro-cid-dmqpwcec> <li data-astro-cid-dmqpwcec><a href="/en/" data-astro-cid-dmqpwcec>Home</a></li><li data-astro-cid-dmqpwcec><a href="/en/ai/" data-astro-cid-dmqpwcec>AI Consulting</a></li><li data-astro-cid-dmqpwcec><a href="/en/sdn/" data-astro-cid-dmqpwcec>SDN</a></li><li data-astro-cid-dmqpwcec><a href="/en/ecommerce/" data-astro-cid-dmqpwcec>eCommerce</a></li><li data-astro-cid-dmqpwcec><a href="/en/blog/" data-astro-cid-dmqpwcec>Blog</a></li><li data-astro-cid-dmqpwcec><a href="/en/openclaw/" data-astro-cid-dmqpwcec>OpenClaw</a></li><li data-astro-cid-dmqpwcec><a href="/en/contact/" data-astro-cid-dmqpwcec>Contact</a></li> <li class="lang-switch" data-astro-cid-dmqpwcec> <a href="/nl/blog/hybrid-search-surf-orchestrator-core/" class="lang-btn" data-astro-cid-dmqpwcec>NL</a> </li> </ul> </div> </nav>  <main> <article class="blog-post"> <div class="container"> <a href="/en/blog/" class="back-link">← Back to Blog</a> <header class="post-header"> <h1>How We Built Hybrid Search for SURF&#39;s Orchestrator-Core — Coming in v5.0</h1> <div class="post-meta"> <span>Virge.io</span> <span>·</span> <time>February 21, 2026</time> <span>·</span> <span>5 min read</span> </div> </header> <div class="post-content"> <p>We’re excited to share a project we’ve been working on with <a href="https://www.surf.nl">SURF</a>, the collaborative ICT organization for Dutch education and research. Together, with a small but focused team, we built a <strong>hybrid search system</strong> for <a href="https://github.com/workfloworchestrator/orchestrator-core">orchestrator-core</a> — and it’s shipping in the upcoming <strong>5.0 release</strong>.</p>
+<h2 id="the-challenge">The Challenge</h2>
+<p>Orchestrator-core is an open-source framework for managing product lifecycles and workflows. It powers critical network infrastructure at organizations like SURF, where thousands of subscriptions, products, and workflows need to be managed reliably.</p>
+<p>The problem? These domain models are <strong>dynamic and user-defined</strong>. A single subscription can contain hundreds of attributes distributed across deeply nested structures. The searchable schema isn’t fixed — it evolves as users define new products and product blocks.</p>
+<p>Traditional search approaches — Elasticsearch, static column indexes, or simple <code>LIKE</code> queries — don’t cut it here. We needed something that could:</p>
+<ul>
+<li>Search across <strong>nested, dynamic schemas</strong> without knowing the structure at design time</li>
+<li>Combine <strong>full-text search</strong> with <strong>semantic (vector) search</strong></li>
+<li>Support <strong>structured filtering</strong> on typed fields (dates, enums, booleans)</li>
+<li>Stay <strong>inside PostgreSQL</strong> — no separate search infrastructure to maintain</li>
+<li>Be <strong>safe for AI agents</strong> to query without generating raw SQL</li>
+</ul>
+<h2 id="the-solution-postgresql-native-hybrid-search">The Solution: PostgreSQL-Native Hybrid Search</h2>
+<p>Instead of bolting on external search infrastructure, we built everything on top of PostgreSQL using three powerful extensions:</p>
+<h3 id="pgvector--semantic-search">pgvector — Semantic Search</h3>
+<p><a href="https://github.com/pgvector/pgvector">pgvector</a> enables vector similarity search directly in PostgreSQL. We generate embeddings for text attributes and store them alongside the data. When a user searches for “network connection in Amsterdam,” the system understands the <em>meaning</em>, not just the keywords.</p>
+<h3 id="pg_trgm--fuzzy-text-search">pg_trgm — Fuzzy Text Search</h3>
+<p>PostgreSQL’s <a href="https://www.postgresql.org/docs/current/pgtrgm.html">trigram extension</a> handles fuzzy matching and typo tolerance. Combined with full-text search, it catches queries that semantic search alone might miss — like searching for a specific subscription ID or a product code with a typo.</p>
+<h3 id="ltree--hierarchical-paths">ltree — Hierarchical Paths</h3>
+<p>The <a href="https://www.postgresql.org/docs/current/ltree.html">ltree extension</a> lets us represent the nested structure of domain models as hierarchical paths. A field like <code>subscription.product_block.interface.speed</code> becomes a traversable tree path, enabling queries across any level of nesting.</p>
+<h3 id="reciprocal-rank-fusion">Reciprocal Rank Fusion</h3>
+<p>The magic is in how these retrievers work together. We use <strong>Reciprocal Rank Fusion (RRF)</strong> to merge results from semantic search, trigram matching, and structured filters into a single, unified ranking. Each retriever contributes its own ranking, and RRF combines them without requiring score normalization.</p>
+<h2 id="schema-agnostic-indexing-with-eav">Schema-Agnostic Indexing with EAV</h2>
+<p>The core innovation is our <strong>Entity-Attribute-Value (EAV) indexing</strong> approach. Instead of mapping dynamic schemas to fixed columns, we decompose each entity into individual attribute rows:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>entity_type: SUBSCRIPTION</span></span>
+<span class="line"><span>entity_id: 550e8400-e29b-41d4-a716-446655440000</span></span>
+<span class="line"><span>path: product.interface.speed</span></span>
+<span class="line"><span>value: "10Gbps"</span></span>
+<span class="line"><span>value_type: STRING</span></span>
+<span class="line"><span>embedding: [0.023, -0.041, ...]</span></span></code></pre>
+<p>Each attribute gets its own row with its hierarchical path (via ltree), typed value, and optional embedding vector. This means:</p>
+<ul>
+<li><strong>New product types</strong> are searchable immediately — no reindexing, no migrations</li>
+<li><strong>Nested attributes</strong> at any depth are fully queryable</li>
+<li><strong>Type safety</strong> is preserved — dates are dates, booleans are booleans</li>
+<li><strong>Incremental indexing</strong> keeps the index in sync without full rebuilds</li>
+</ul>
+<h2 id="type-safe-query-dsl">Type-Safe Query DSL</h2>
+<p>Raw SQL generation by AI agents is dangerous. One hallucinated <code>DROP TABLE</code> and your day is ruined. Instead, we built a <strong>Pydantic-based Query DSL</strong> that compiles into validated SQL:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="python"><code><span class="line"><span style="color:#E1E4E8">query </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> SearchQuery(</span></span>
+<span class="line"><span style="color:#FFAB70">    search</span><span style="color:#F97583">=</span><span style="color:#9ECBFF">"amsterdam network"</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#FFAB70">    filters</span><span style="color:#F97583">=</span><span style="color:#E1E4E8">[</span></span>
+<span class="line"><span style="color:#E1E4E8">        FilterPredicate(</span></span>
+<span class="line"><span style="color:#FFAB70">            path</span><span style="color:#F97583">=</span><span style="color:#9ECBFF">"product.status"</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#FFAB70">            operator</span><span style="color:#F97583">=</span><span style="color:#9ECBFF">"eq"</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#FFAB70">            value</span><span style="color:#F97583">=</span><span style="color:#9ECBFF">"active"</span></span>
+<span class="line"><span style="color:#E1E4E8">        )</span></span>
+<span class="line"><span style="color:#E1E4E8">    ],</span></span>
+<span class="line"><span style="color:#FFAB70">    sort_by</span><span style="color:#F97583">=</span><span style="color:#9ECBFF">"created_at"</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#FFAB70">    limit</span><span style="color:#F97583">=</span><span style="color:#79B8FF">25</span></span>
+<span class="line"><span style="color:#E1E4E8">)</span></span></code></pre>
+<p>The same Pydantic models serve as <strong>structured tool arguments for PydanticAI</strong>, allowing AI agents to construct queries through validated, constrained interfaces. The agent never touches SQL — it fills in a structured form, and the system compiles it safely.</p>
+<h2 id="why-this-matters">Why This Matters</h2>
+<h3 id="for-network-operators">For Network Operators</h3>
+<p>SURF manages network infrastructure for 100+ Dutch educational and research institutions. Having fast, intelligent search across all subscriptions, products, and workflows means operators can find what they need in seconds instead of clicking through nested pages.</p>
+<h3 id="for-the-open-source-community">For the Open-Source Community</h3>
+<p>This isn’t a proprietary solution — it’s going into <strong>orchestrator-core 5.0</strong> as an open-source feature. Any organization running orchestrator-core gets hybrid search out of the box.</p>
+<h3 id="for-ai-driven-operations">For AI-Driven Operations</h3>
+<p>The query DSL + AI agent integration means that operators can eventually ask questions in natural language: <em>“Show me all 10Gbps interfaces in the Amsterdam region that were provisioned last month”</em> — and get accurate, validated results.</p>
+<h2 id="small-team-big-impact">Small Team, Big Impact</h2>
+<p>One of the things we’re most proud of is how this was achieved. This wasn’t a massive project with dozens of engineers. It was a <strong>small, focused team</strong> working closely together — combining SURF’s deep domain expertise in network orchestration with our experience in AI, search, and Python backend development.</p>
+<p>The result? A production-ready feature that adds genuine value, built efficiently and shipping in a major release.</p>
+<h2 id="technical-deep-dive">Technical Deep Dive</h2>
+<p>For the full technical details — including the EAV indexing implementation, retriever routing strategy, keyset pagination, and AI agent architecture — check out the excellent write-up by Tim Fröhlich: <a href="https://timfrohlich.com/blog/postgresql-hybrid-search">Building a Schema-Agnostic Hybrid Search System in PostgreSQL</a>.</p>
+<h2 id="whats-next">What’s Next</h2>
+<p>With hybrid search landing in orchestrator-core 5.0, we’re looking at:</p>
+<ul>
+<li><strong>Enhanced AI agent capabilities</strong> — natural language queries for network operations</li>
+<li><strong>Aggregation support</strong> — analytics and reporting on dynamic schemas</li>
+<li><strong>Cross-entity search</strong> — unified search across subscriptions, workflows, and processes</li>
+<li><strong>Performance optimization</strong> — scaling to millions of indexed attributes</li>
+</ul>
+<p>Want to learn more about how we build search and AI solutions for complex systems? <a href="/en/contact/">Get in touch</a> — we’d love to hear about your challenges.</p> </div> <div class="cta"> <h2>Ready to Build Something Great?</h2> <p>Let&#39;s discuss how Virge.io can help you scale your software solutions.</p> <a href="/en/contact/" class="btn">Get in Touch</a> </div> </div> </article> </main> <footer> <div class="container"> <p>&copy; 2026 Virge.io — Software Solutions That Scale</p> </div> </footer> </body></html>
