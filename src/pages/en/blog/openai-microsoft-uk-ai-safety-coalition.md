@@ -2,12 +2,12 @@
 layout: ../../../layouts/BlogPost.astro
 lang: en
 title: "OpenAI & Microsoft Join UK AI Safety Coalition — Why This Matters for Every Business Using AI"
-description: "OpenAI and Microsoft have pledged £27M+ to the UK's AI Alignment Project. Here's why safe AI development matters — and what businesses should learn from it."
+description: "OpenAI and Microsoft have pledged €32M+ to the UK's AI Alignment Project. Here's why safe AI development matters — and what businesses should learn from it."
 date: 2026-02-21
 author: "Virge.io"
 ---
 
-This week, OpenAI and Microsoft officially joined the UK's AI Security Institute (AISI) Alignment Project — pledging over £27 million to ensure advanced AI systems behave safely, predictably, and under human control.
+This week, OpenAI and Microsoft officially joined the UK's AI Security Institute (AISI) Alignment Project — pledging over €32 million to ensure advanced AI systems behave safely, predictably, and under human control.
 
 This isn't just government policy. It's a signal that the biggest players in AI recognize a fundamental truth: **if people don't trust AI, they won't use it.**
 
@@ -19,9 +19,9 @@ Think about it: when you ask an AI to "optimize sales," you don't want it to sta
 
 Alignment is about closing the gap between **what we intend** and **what the AI actually does**.
 
-## Why £27 Million Matters
+## Why €32 Million Matters
 
-The UK's Alignment Project has now funded 60 research projects across 8 countries. OpenAI contributed £5.6 million, with Microsoft and others adding to the pot. UK Deputy PM David Lammy put it simply:
+The UK's Alignment Project has now funded 60 research projects across 8 countries. OpenAI contributed €6.7 million, with Microsoft and others adding to the pot. UK Deputy PM David Lammy put it simply:
 
 > "AI offers us huge opportunities, but we will always be clear-eyed on the need to ensure safety is baked into it from the outset."
 
@@ -61,7 +61,7 @@ At Virge.io, we build AI integrations for businesses every day. Here's what we c
 
 The fact that OpenAI and Microsoft are voluntarily funding safety research is encouraging. It suggests the industry is maturing beyond the "move fast and break things" era.
 
-But let's be real: £27 million is a fraction of what these companies spend on building new AI capabilities. True alignment will require sustained investment — not just from big tech, but from every organization deploying AI.
+But let's be real: €32 million is a fraction of what these companies spend on building new AI capabilities. True alignment will require sustained investment — not just from big tech, but from every organization deploying AI.
 
 The question isn't whether AI will transform your business. It's whether you'll do it responsibly.
 

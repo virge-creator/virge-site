@@ -2,12 +2,12 @@
 layout: ../../../layouts/BlogPost.astro
 lang: nl
 title: "OpenAI & Microsoft Sluiten Zich Aan bij UK AI Safety Coalitie — Waarom Dit Belangrijk Is voor Elk Bedrijf dat AI Gebruikt"
-description: "OpenAI en Microsoft investeren £27M+ in het UK AI Alignment Project. Hier lees je waarom veilige AI-ontwikkeling ertoe doet — en wat bedrijven ervan kunnen leren."
+description: "OpenAI en Microsoft investeren €32M+ in het UK AI Alignment Project. Hier lees je waarom veilige AI-ontwikkeling ertoe doet — en wat bedrijven ervan kunnen leren."
 date: 2026-02-21
 author: "Virge.io"
 ---
 
-Deze week sloten OpenAI en Microsoft zich officieel aan bij het AI Alignment Project van het Britse AI Security Institute (AISI) — met een investering van meer dan £27 miljoen om ervoor te zorgen dat geavanceerde AI-systemen veilig, voorspelbaar en onder menselijke controle opereren.
+Deze week sloten OpenAI en Microsoft zich officieel aan bij het AI Alignment Project van het Britse AI Security Institute (AISI) — met een investering van meer dan €32 miljoen om ervoor te zorgen dat geavanceerde AI-systemen veilig, voorspelbaar en onder menselijke controle opereren.
 
 Dit is niet zomaar overheidsbeleid. Het is een signaal dat de grootste spelers in AI een fundamentele waarheid erkennen: **als mensen AI niet vertrouwen, gebruiken ze het niet.**
 
@@ -19,9 +19,9 @@ Denk er eens over na: als je AI vraagt om "verkoop te optimaliseren," wil je nie
 
 Alignment gaat over het dichten van de kloof tussen **wat we bedoelen** en **wat de AI daadwerkelijk doet**.
 
-## Waarom £27 Miljoen Ertoe Doet
+## Waarom €32 Miljoen Ertoe Doet
 
-Het Alignment Project van het VK heeft inmiddels 60 onderzoeksprojecten in 8 landen gefinancierd. OpenAI droeg £5,6 miljoen bij, met Microsoft en anderen die het totaal aanvulden. De Britse vicepremier David Lammy zei het simpel:
+Het Alignment Project van het VK heeft inmiddels 60 onderzoeksprojecten in 8 landen gefinancierd. OpenAI droeg €6,7 miljoen bij, met Microsoft en anderen die het totaal aanvulden. De Britse vicepremier David Lammy zei het simpel:
 
 > "AI biedt ons enorme kansen, maar we zullen altijd helder blijven over de noodzaak om veiligheid er vanaf het begin in te bakken."
 
@@ -61,7 +61,7 @@ Bij Virge.io bouwen we dagelijks AI-integraties voor bedrijven. Dit beschouwen w
 
 Het feit dat OpenAI en Microsoft vrijwillig veiligheidsonderzoek financieren is bemoedigend. Het suggereert dat de industrie volwassener wordt voorbij het "snel bewegen en dingen breken" tijdperk.
 
-Maar laten we eerlijk zijn: £27 miljoen is een fractie van wat deze bedrijven uitgeven aan het bouwen van nieuwe AI-mogelijkheden. Echte alignment vereist voortdurende investering — niet alleen van big tech, maar van elke organisatie die AI inzet.
+Maar laten we eerlijk zijn: €32 miljoen is een fractie van wat deze bedrijven uitgeven aan het bouwen van nieuwe AI-mogelijkheden. Echte alignment vereist voortdurende investering — niet alleen van big tech, maar van elke organisatie die AI inzet.
 
 De vraag is niet óf AI je bedrijf gaat transformeren. De vraag is of je het verantwoord gaat doen.
 
