@@ -1,7 +1,7 @@
 ---
 layout: ../../../layouts/BlogPost.astro
 lang: nl
-title: "AI-Agents met Eigen Portemonnee: Als Software Begint te Sparen voor z'n Eigen Hardware Upgrade"
+title: "AI-agents met eigen portemonnee: als software begint te sparen voor z'n eigen hardware upgrade"
 description: "Coinbase lanceerde Agentic Wallets — crypto wallets gebouwd voor AI-agents. Uniswap voegde AI-trading skills toe. We betreden het tijdperk waarin AI-agents hun eigen geld beheren."
 date: 2026-02-23
 author: "Virge.io"
@@ -11,7 +11,7 @@ Hier is een zin die twee jaar geleden als sciencefiction had geklonken: **een AI
 
 Welkom in de agentische economie. Skynet begint met een spaarpotje. 🐷
 
-## Wat Er Gebeurde
+## Wat er gebeurde
 
 Twee grote ontwikkelingen in dezelfde week:
 
@@ -28,7 +28,7 @@ Samen betekent dit dat een AI-agent nu kan:
 
 Het [x402 protocol](https://crypto.news/coinbase-wallets-to-let-ai-agents-trade-crypto/) — Coinbase's open standaard voor machine-naar-machine betalingen — heeft al **meer dan 50 miljoen transacties** verwerkt. De naam is een knipoog naar HTTP statuscode 402: "Payment Required" — een code die in de originele HTTP-specificatie stond maar nooit breed werd gebruikt. Tot nu.
 
-## Hoe Het Werkt
+## Hoe het werkt
 
 Coinbase's Agentic Wallets draaien op hun Developer Platform:
 
@@ -42,9 +42,9 @@ Dat laatste punt is cruciaal. Zoals Coinbase [expliciet stelt](https://www.webpr
 
 Bronnen: [The Block](https://www.theblock.co/post/389524/coinbase-rolls-out-ai-tool-to-give-any-agent-a-wallet), [Crypto.news](https://crypto.news/coinbase-wallets-to-let-ai-agents-trade-crypto/), [Decrypt](https://decrypt.co/357813/coinbase-launches-wallet-ai-agents-built-in-guardrails), [WebProNews](https://www.webpronews.com/coinbase-hands-ai-agents-the-keys-to-crypto-inside-the-bold-bet-on-autonomous-wallets-that-could-reshape-digital-finance/)
 
-## Waarom Dit Groot Is
+## Waarom dit groot is
 
-### AI-Agents Worden Economische Actoren
+### AI-agents worden economische actoren
 
 Tot nu toe waren AI-agents adviseurs — ze konden suggereren, aanbevelen, analyseren. Ze konden niet financieel *handelen*. Agentic Wallets veranderen dat. Een AI kan nu:
 
@@ -55,7 +55,7 @@ Tot nu toe waren AI-agents adviseurs — ze konden suggereren, aanbevelen, analy
 
 Zoals Coinbase CEO Brian Armstrong [tweette](https://twitter.com/brian_armstrong/status/2021661132734288131): *"The next unlock for AI agents just launched."*
 
-### De Machine-naar-Machine Economie Is Echt
+### De machine-naar-machine economie is echt
 
 Stel je voor wat er gebeurt als miljoenen AI-agents elk een eigen wallet hebben:
 
@@ -66,7 +66,7 @@ Stel je voor wat er gebeurt als miljoenen AI-agents elk een eigen wallet hebben:
 
 Dit is geen theorie. De infrastructuur is live, vandaag.
 
-### De Vangrails-Vraag
+### De vangrails-vraag
 
 Hier wordt het interessant — en hier moeten bedrijven opletten. Coinbase bouwde vangrails in: bestedingslimieten, goedgekeurde ontvangers, compliance checks. Maar de fundamentele vraag blijft:
 
@@ -76,27 +76,27 @@ Het antwoord verschilt per use case. Een tradingbot die een portfolio beheert he
 
 Dit goed krijgen is een ontwerpuitdaging, niet alleen een technische.
 
-## Wat Dit Betekent voor Bedrijven
+## Wat dit betekent voor bedrijven
 
-### 1. AI-Operaties Krijgen Financiële Poten
+### 1. AI-operaties krijgen financiële poten
 
 Vandaag, wanneer je AI-agent een externe API moet aanroepen, handel je facturering apart af. Straks betaalt je agent zelf voor wat het gebruikt. Meer compute nodig? De agent koopt het. Premium data nodig? De agent onderhandelt en betaalt.
 
-### 2. Nieuwe Businessmodellen Ontstaan
+### 2. Nieuwe businessmodellen ontstaan
 
 Als je AI-agent geld kan verdienen, kan het als dienst draaien. Stel je voor: een AI-agent deployen die analyses levert aan andere agents, betaling ontvangt via x402, en z'n eigen infrastructuur financiert. Zelfvoorzienende AI-diensten.
 
-### 3. De Compliance-Uitdaging
+### 3. De compliance-uitdaging
 
 Autonome financiële agents creëren nieuwe compliance-vragen. Wie is verantwoordelijk als een AI-agent een slechte trade maakt? Hoe audit je autonome transacties? Hoe verhoudt dit zich tot bestaande financiële regelgeving?
 
 Bedrijven die AI-agents integreren met financiële mogelijkheden hebben duidelijke governance frameworks nodig — iets waar we bedrijven mee helpen bij [Virge.io](/nl/ai/).
 
-### 4. Vertrouwen en Veiligheid Zijn Niet Onderhandelbaar
+### 4. Vertrouwen en veiligheid zijn niet onderhandelbaar
 
 Net zoals we bespraken in ons artikel over [AI-veiligheid en het UK Alignment Project](/nl/blog/openai-microsoft-uk-ai-safety-coalition/), is vertrouwen de bottleneck. Gebruikers geven AI-agents geen financiële autonomie tenzij ze de vangrails vertrouwen. Dat vertrouwen opbouwen vereist transparantie, audit-mogelijkheden en verstandige defaults.
 
-## Het Grotere Plaatje
+## Het grotere plaatje
 
 We zijn getuige van de geboorte van de machine-economie. Niet in een verre toekomst — nu, in februari 2026. AI-agents met wallets, autonoom tradend, betalend voor diensten, inkomsten genererend.
 

@@ -1,7 +1,7 @@
 ---
 layout: ../../../layouts/BlogPost.astro
 lang: nl
-title: "Van Productnaam naar Rijke Content: Hoe AI-Contentverrijking eCommerce Verandert"
+title: "Van productnaam naar rijke content: hoe AI-contentverrijking eCommerce verandert"
 description: "Handmatige productbeschrijvingen zijn een bottleneck voor groeiende webshops. Ontdek hoe AI-gestuurde contentverrijking een simpele productnaam omzet in complete, publicatieklare content."
 date: 2026-02-21
 author: "Virge.io"
@@ -13,7 +13,7 @@ Als je een webshop runt, ken je het probleem: elk nieuw product heeft een beschr
 
 Bij Virge.io hebben we een Content as a Service platform gebouwd dat precies dit doet. Jij geeft ons een productnaam. Wij leveren de rest.
 
-## Hoe Het Werkt
+## Hoe het werkt
 
 Stel je verkoopt muziekinstrumenten en je voegt een **Selmer Mark VI** toe aan je catalogus. Normaal ben je 30–60 minuten bezig met onderzoek, beschrijving schrijven, specs zoeken, afbeeldingen vinden en metadata toevoegen.
 
@@ -32,7 +32,7 @@ En binnen enkele minuten krijg je terug:
 - **Tags & metadata** — categorieën, zoektags en SEO-velden
 - **Meerdere talen** — Nederlands, Engels, Duits, Frans — welke markten je ook nodig hebt
 
-## De Technologie Erachter
+## De technologie erachter
 
 Onze pipeline combineert meerdere AI-modellen en verrijkingsbronnen:
 
@@ -43,7 +43,7 @@ Onze pipeline combineert meerdere AI-modellen en verrijkingsbronnen:
 
 Het resultaat is content die leest alsof het door een specialist is geschreven — omdat de AI is getraind op specialistische kennis.
 
-## Waarom Dit Belangrijk Is voor Groeiende Webshops
+## Waarom dit belangrijk is voor groeiende webshops
 
 De rekening is simpel:
 
@@ -56,13 +56,13 @@ Dat is geen marginale verbetering. Dat is het verschil tussen een contentteam in
 
 Voor bedrijven die hun catalogus opschalen — of je nu een marktplaats bent, een retailer die uitbreidt naar nieuwe categorieën, of een merk dat internationaal gaat — geautomatiseerde contentverrijking verwijdert de grootste bottleneck voor groei.
 
-## Standaard Meertalig
+## Standaard meertalig
 
 Hier wordt het écht krachtig voor Europese bedrijven. Ons systeem genereert content in meerdere talen tegelijk. Geen apart vertaaltraject. Geen vertaalbureaukosten. Geen weken wachten op gelokaliseerde content.
 
 Voeg een product één keer toe, krijg content in het Nederlands, Engels, Duits en Frans. Lanceer in vier markten tegelijk.
 
-## Echte Resultaten
+## Echte resultaten
 
 We zien eCommerce-bedrijven:
 
@@ -71,7 +71,7 @@ We zien eCommerce-bedrijven:
 - **10x sneller catalogus opschalen** — honderden producten per week in plaats van per maand
 - **Nieuwe markten betreden overnight** — meertalige content verwijdert de lokalisatiebarrière
 
-## Probeer Het
+## Probeer het
 
 Benieuwd wat ons systeem voor jouw producten zou opleveren? [Neem contact op](/nl/contact/) en we draaien een gratis demo met je eigen catalogus. Of bekijk onze [Content as a Service pagina](/nl/ecommerce/content/) voor alle details.
 

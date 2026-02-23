@@ -1,7 +1,7 @@
 ---
 layout: ../../../layouts/BlogPost.astro
 lang: nl
-title: "OpenAI & Microsoft Sluiten Zich Aan bij UK AI Safety Coalitie — Waarom Dit Belangrijk Is voor Elk Bedrijf dat AI Gebruikt"
+title: "OpenAI & Microsoft sluiten zich aan bij UK AI safety coalitie — waarom dit belangrijk is voor elk bedrijf dat AI gebruikt"
 description: "OpenAI en Microsoft investeren €32M+ in het UK AI Alignment Project. Hier lees je waarom veilige AI-ontwikkeling ertoe doet — en wat bedrijven ervan kunnen leren."
 date: 2026-02-21
 author: "Virge.io"
@@ -11,7 +11,7 @@ Deze week sloten OpenAI en Microsoft zich officieel aan bij het AI Alignment Pro
 
 Dit is niet zomaar overheidsbeleid. Het is een signaal dat de grootste spelers in AI een fundamentele waarheid erkennen: **als mensen AI niet vertrouwen, gebruiken ze het niet.**
 
-## Wat Is AI Alignment?
+## Wat is AI alignment?
 
 AI alignment is het onderzoeksveld dat zich richt op het ervoor zorgen dat AI-systemen doen wat we daadwerkelijk willen — zonder onbedoelde of schadelijke bijeffecten.
 
@@ -19,7 +19,7 @@ Denk er eens over na: als je AI vraagt om "verkoop te optimaliseren," wil je nie
 
 Alignment gaat over het dichten van de kloof tussen **wat we bedoelen** en **wat de AI daadwerkelijk doet**.
 
-## Waarom €32 Miljoen Ertoe Doet
+## Waarom €32 miljoen ertoe doet
 
 Het Alignment Project van het VK heeft inmiddels 60 onderzoeksprojecten in 8 landen gefinancierd. OpenAI droeg €6,7 miljoen bij, met Microsoft en anderen die het totaal aanvulden. De Britse vicepremier David Lammy zei het simpel:
 
@@ -27,27 +27,27 @@ Het Alignment Project van het VK heeft inmiddels 60 onderzoeksprojecten in 8 lan
 
 Deze investering is belangrijk omdat het *preventief* is in plaats van reactief. In plaats van te wachten tot AI schade veroorzaakt en dan te reguleren, gaan deze fondsen naar het oplossen van veiligheidsproblemen vóórdat ze ontstaan.
 
-## Waarom Bedrijven Dit Zouden Moeten Interesseren
+## Waarom bedrijven dit zouden moeten interesseren
 
 Als je AI integreert in je bedrijf — en in 2026 zou je dat waarschijnlijk moeten doen — dan is AI-veiligheid geen abstract onderzoeksonderwerp. Het raakt je direct:
 
-### 1. Vertrouwen Is Je Bottleneck
+### 1. Vertrouwen is je bottleneck
 
 UK AI-minister Kanishka Narayan zei het perfect: *"Vertrouwen is een van de grootste barrières voor AI-adoptie."* Je klanten moeten erop vertrouwen dat AI-gegenereerde content klopt. Je team moet erop vertrouwen dat AI-tools geen gevoelige data lekken. Je partners moeten erop vertrouwen dat je AI-integraties betrouwbaar zijn.
 
-### 2. Hallucinaties Zijn een Bedrijfsrisico
+### 2. Hallucinaties zijn een bedrijfsrisico
 
 AI-systemen kunnen zelfverzekerd onjuiste informatie genereren. In eCommerce kan een verzonnen productspecificatie leiden tot retouren, klachten of juridische problemen. In consultancy vernietigt een verkeerd advies je geloofwaardigheid. Alignment-onderzoek werkt aan AI-systemen die *weten wat ze niet weten*.
 
-### 3. Regelgeving Komt Eraan
+### 3. Regelgeving komt eraan
 
 De EU AI Act is al van kracht. Het VK investeert fors in veiligheidsnormen. Als je bedrijf AI gebruikt, moet je verantwoord gebruik kunnen aantonen. Nu beginnen met veilige, aligned AI-systemen geeft je een voorsprong op toekomstige compliance-eisen.
 
-### 4. Verantwoorde AI Is een Concurrentievoordeel
+### 4. Verantwoorde AI is een concurrentievoordeel
 
 Klanten zijn steeds bewuster van hoe bedrijven AI inzetten. Bedrijven die verantwoord, transparant AI-gebruik kunnen aantonen — met menselijk toezicht, accurate output en duidelijke grenzen — winnen vertrouwen en marktaandeel ten opzichte van bedrijven die AI roekeloos inzetten.
 
-## Hoe Veilige AI Eruitziet in de Praktijk
+## Hoe veilige AI eruitziet in de praktijk
 
 Bij Virge.io bouwen we dagelijks AI-integraties voor bedrijven. Dit beschouwen we als essentieel voor verantwoorde AI-inzet:
 
@@ -57,7 +57,7 @@ Bij Virge.io bouwen we dagelijks AI-integraties voor bedrijven. Dit beschouwen w
 - **Audit trails**: Elke AI-beslissing moet traceerbaar zijn. Als er iets misgaat — en dat zal gebeuren — moet je weten waarom.
 - **Continue monitoring**: AI-systemen driften. Modellen worden bijgewerkt. Data verandert. Continue monitoring vangt problemen op voordat klanten ze merken.
 
-## Het Grotere Plaatje
+## Het grotere plaatje
 
 Het feit dat OpenAI en Microsoft vrijwillig veiligheidsonderzoek financieren is bemoedigend. Het suggereert dat de industrie volwassener wordt voorbij het "snel bewegen en dingen breken" tijdperk.
 
@@ -65,7 +65,7 @@ Maar laten we eerlijk zijn: €32 miljoen is een fractie van wat deze bedrijven 
 
 De vraag is niet óf AI je bedrijf gaat transformeren. De vraag is of je het verantwoord gaat doen.
 
-## Wat Je Vandaag Kunt Doen
+## Wat je vandaag kunt doen
 
 1. **Audit je AI-gebruik**: Weet precies waar AI je bedrijfsprocessen raakt
 2. **Voeg menselijk toezicht toe**: Laat AI niet volledig autonoom werken bij kritieke taken
