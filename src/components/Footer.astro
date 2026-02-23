@@ -8,23 +8,9 @@ interface Props {
 
 const { lang = 'en' } = Astro.props;
 const i = t(lang);
-const base = `/${lang}/`;
 ---
 <footer>
   <div class="container">
-    <div class="footer-inner">
-      <div class="footer-info">
-        <div class="footer-brand">Virge.io</div>
-        <p>{i.footer.company}</p>
-      </div>
-      <div class="footer-links">
-        <a href={`${base}ai/`}>{i.footer.services}</a>
-        <a href={`${base}blog/`}>{i.footer.blog}</a>
-        <a href={`${base}contact/`}>{i.footer.contact}</a>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      &copy; {new Date().getFullYear()} {i.footer.text} · {i.footer.madeWith}
-    </div>
+    <p>&copy; {new Date().getFullYear()} {i.footer.text}</p>
   </div>
 </footer>
