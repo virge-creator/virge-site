@@ -7,6 +7,8 @@ date: 2026-02-25
 author: "Virge.io"
 ---
 
+![GitNexus — Code Knowledge Graph](/images/gitnexus-knowledge-graph.png)
+
 If you've ever joined a large project and spent days figuring out which file calls what, which module depends on which, and what breaks when you touch a single function — you already understand the problem [GitNexus](https://github.com/abhigyanpatwari/GitNexus) solves.
 
 ## What is GitNexus?
