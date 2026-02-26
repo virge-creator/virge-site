@@ -7,6 +7,9 @@ date: 2026-02-21
 author: "Virge.io"
 ---
 
+![](/images/openai-safety.png)
+
+
 Deze week sloten OpenAI en Microsoft zich officieel aan bij het AI Alignment Project van het Britse AI Security Institute (AISI) — met een investering van meer dan €32 miljoen om ervoor te zorgen dat geavanceerde AI-systemen veilig, voorspelbaar en onder menselijke controle opereren.
 
 Dit is niet zomaar overheidsbeleid. Het is een signaal dat de grootste spelers in AI een fundamentele waarheid erkennen: **als mensen AI niet vertrouwen, gebruiken ze het niet.**

@@ -7,6 +7,9 @@ date: 2026-02-25
 author: "Virge.io"
 ---
 
+![](/images/ai-agents-2026.png)
+
+
 De afgelopen twee jaar waren AI-agents de favoriete demo van de tech-industrie. Een AI die je vluchten boekt! Een agent die je marketingteksten schrijft! Een zwerm bots die je hele bedrijf runt!
 
 De meeste van die demo's overleefden het contact met de realiteit niet. Maar in 2026 is er iets verschoven. AI-agents duiken stilletjes op in echte productiesystemen — niet als flitsende demo's, maar als betrouwbare componenten die specifieke taken goed uitvoeren.

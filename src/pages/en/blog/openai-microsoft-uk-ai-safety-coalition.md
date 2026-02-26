@@ -7,6 +7,9 @@ date: 2026-02-21
 author: "Virge.io"
 ---
 
+![](/images/openai-safety.png)
+
+
 This week, OpenAI and Microsoft officially joined the UK's AI Security Institute (AISI) Alignment Project — pledging over €32 million to ensure advanced AI systems behave safely, predictably, and under human control.
 
 This isn't just government policy. It's a signal that the biggest players in AI recognize a fundamental truth: **if people don't trust AI, they won't use it.**

@@ -7,6 +7,9 @@ date: 2026-02-26
 author: "Virge.io"
 ---
 
+![](/images/enterprise-sso.png)
+
+
 Wanneer enterprise-klanten je platform evalueren, is een van de eerste vragen niet over features of prijzen — het gaat over authenticatie. *"Kunnen we onze eigen identity provider gebruiken? Ondersteunen jullie SSO? Is het OAuth 2.0 of SAML?"*
 
 Doe dit verkeerd en je verliest de deal. Doe het goed en je ontsluit een marktsegment dat de meeste SaaS-platforms nooit bereiken.

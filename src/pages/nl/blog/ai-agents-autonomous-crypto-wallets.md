@@ -7,6 +7,9 @@ date: 2026-02-23
 author: "Virge.io"
 ---
 
+![](/images/ai-agents-crypto.png)
+
+
 Hier is een zin die twee jaar geleden als sciencefiction had geklonken: **een AI-agent kan nu zelfstandig een crypto wallet aanmaken, geld verdienen, tokens traden en betalen voor diensten — zonder een mens om toestemming te vragen.**
 
 Welkom in de agentische economie. Skynet begint met een spaarpotje. 🐷

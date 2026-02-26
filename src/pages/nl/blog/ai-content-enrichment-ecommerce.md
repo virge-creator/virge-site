@@ -7,6 +7,9 @@ date: 2026-02-21
 author: "Virge.io"
 ---
 
+![](/images/ai-content-enrichment.png)
+
+
 Als je een webshop runt, ken je het probleem: elk nieuw product heeft een beschrijving nodig, specificaties, afbeeldingen, tags en SEO-metadata. Vermenigvuldig dat met honderden — of duizenden — SKU's en je hebt een volledig contentteam nodig om bij te blijven.
 
 **Wat als je dat allemaal kon overslaan?**

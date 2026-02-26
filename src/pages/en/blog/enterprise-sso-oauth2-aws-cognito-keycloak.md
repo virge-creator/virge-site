@@ -7,6 +7,9 @@ date: 2026-02-26
 author: "Virge.io"
 ---
 
+![](/images/enterprise-sso.png)
+
+
 When enterprise clients evaluate your platform, one of the first questions they ask isn't about features or pricing — it's about authentication. *"Can we use our own identity provider? Do you support SSO? Is it OAuth 2.0 or SAML?"*
 
 Get this wrong and you lose the deal. Get it right and you unlock a market segment that most SaaS platforms never reach.

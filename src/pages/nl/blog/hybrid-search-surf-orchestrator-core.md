@@ -7,6 +7,9 @@ date: 2026-02-19
 author: "Virge.io"
 ---
 
+![](/images/hybrid-search.png)
+
+
 We zijn trots om een project te delen waar we aan hebben gewerkt met [SURF](https://www.surf.nl), de coöperatieve ICT-organisatie voor Nederlands onderwijs en onderzoek. Samen, met een klein maar gefocust team, hebben we een **hybrid search systeem** gebouwd voor [orchestrator-core](https://github.com/workfloworchestrator/orchestrator-core) — en het wordt meegeleverd in de aankomende **5.0 release**.
 
 ## De uitdaging

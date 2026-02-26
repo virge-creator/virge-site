@@ -7,6 +7,9 @@ date: 2026-02-22
 author: "Virge.io"
 ---
 
+![](/images/reddit-shopping.png)
+
+
 Reddit just made a move that every eCommerce business should be paying attention to.
 
 The platform [announced](https://redditinc.com/news/in-case-you-saw-it-we-are-testing-a-new-shopping-product-experience-in-search) it's testing a new AI-powered search feature that extracts product recommendations from community discussions and presents them as shoppable carousels — complete with pricing, images, and direct buy links.

@@ -7,6 +7,9 @@ date: 2026-02-22
 author: "Virge.io"
 ---
 
+![](/images/reddit-shopping.png)
+
+
 Reddit heeft zojuist een stap gezet waar elk eCommerce bedrijf aandacht aan moet besteden.
 
 Het platform [kondigde aan](https://redditinc.com/news/in-case-you-saw-it-we-are-testing-a-new-shopping-product-experience-in-search) dat het een nieuwe AI-gestuurde zoekfunctie test die productaanbevelingen uit community-discussies haalt en presenteert als koopbare carrousels — compleet met prijzen, afbeeldingen en directe kooplinks.
