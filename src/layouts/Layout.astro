@@ -15,6 +15,7 @@ const { title, description = 'Virge.io — Software solutions in AI, SDN, and eC
 const otherLang = getOtherLang(lang);
 const currentPath = Astro.url.pathname;
 const alternatePath = currentPath.replace(`/${lang}/`, `/${otherLang}/`);
+const canonicalURL = new URL(currentPath, 'https://virge.io').href;
 ---
 <!DOCTYPE html>
 <html lang={lang}>
@@ -26,6 +27,7 @@ const alternatePath = currentPath.replace(`/${lang}/`, `/${otherLang}/`);
   <meta property="og:description" content={description} />
   <meta property="og:type" content="website" />
   <meta property="og:locale" content={lang === 'nl' ? 'nl_NL' : 'en_US'} />
+  <link rel="canonical" href={canonicalURL} />
   <link rel="alternate" hreflang={lang} href={`https://virge.io${currentPath}`} />
   <link rel="alternate" hreflang={otherLang} href={`https://virge.io${alternatePath}`} />
   <title>{title} | Virge.io</title>

@@ -1,0 +1,98 @@
+<!DOCTYPE html><html lang="nl"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="description" content="GitNexus indexeert je hele repository in een interactieve knowledge graph — met alle dependencies, call chains en execution flows in kaart gebracht. Dit is waarom dat belangrijk is voor iedereen die met grote codebases werkt."><meta property="og:title" content="GitNexus: Maak van elke codebase een doorzoekbare knowledge graph | Virge.io"><meta property="og:description" content="GitNexus indexeert je hele repository in een interactieve knowledge graph — met alle dependencies, call chains en execution flows in kaart gebracht. Dit is waarom dat belangrijk is voor iedereen die met grote codebases werkt."><meta property="og:type" content="website"><meta property="og:locale" content="nl_NL"><link rel="canonical" href="https://virge.io/nl/blog/gitnexus-code-knowledge-graph/"><link rel="alternate" hreflang="nl" href="https://virge.io/nl/blog/gitnexus-code-knowledge-graph/"><link rel="alternate" hreflang="en" href="https://virge.io/en/blog/gitnexus-code-knowledge-graph/"><title>GitNexus: Maak van elke codebase een doorzoekbare knowledge graph | Virge.io</title><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="stylesheet" href="/_astro/ai-agents-2026-from-demo-to-daily-work.4f0Nt5ts.css"></head> <body> <nav data-astro-cid-dmqpwcec> <div class="container" data-astro-cid-dmqpwcec> <a href="/nl/" class="logo" data-astro-cid-dmqpwcec><img src="/logo.png" alt="Virge.io" class="logo-img" data-astro-cid-dmqpwcec></a> <button class="menu-toggle" aria-label="Menu" onclick="document.querySelector('.links').classList.toggle('open')" data-astro-cid-dmqpwcec>☰</button> <ul class="links" data-astro-cid-dmqpwcec> <li data-astro-cid-dmqpwcec><a href="/nl/" data-astro-cid-dmqpwcec>Home</a></li><li data-astro-cid-dmqpwcec><a href="/nl/ai/" data-astro-cid-dmqpwcec>AI Consulting</a></li><li data-astro-cid-dmqpwcec><a href="/nl/sdn/" data-astro-cid-dmqpwcec>SDN</a></li><li data-astro-cid-dmqpwcec><a href="/nl/ecommerce/" data-astro-cid-dmqpwcec>eCommerce</a></li><li data-astro-cid-dmqpwcec><a href="/nl/blog/" data-astro-cid-dmqpwcec>Blog</a></li><li data-astro-cid-dmqpwcec><a href="/nl/openclaw/" data-astro-cid-dmqpwcec>OpenClaw</a></li><li data-astro-cid-dmqpwcec><a href="/nl/contact/" data-astro-cid-dmqpwcec>Contact</a></li> <li class="lang-switch" data-astro-cid-dmqpwcec> <a href="/en/blog/gitnexus-code-knowledge-graph/" class="lang-btn" data-astro-cid-dmqpwcec>EN</a> </li> </ul> </div> </nav>  <main> <article class="blog-post"> <div class="container"> <a href="/nl/blog/" class="back-link">← Terug naar Blog</a> <header class="post-header"> <h1>GitNexus: Maak van elke codebase een doorzoekbare knowledge graph</h1> <div class="post-meta"> <span>Virge.io</span> <span>·</span> <time>25 februari 2026</time> <span>·</span> <span>4 min leestijd</span> </div> </header> <div class="post-content"> <p><img src="/images/gitnexus-knowledge-graph.png" alt="GitNexus — Code Knowledge Graph"></p>
+<p>Als je ooit aan een groot project bent begonnen en dagen hebt besteed aan uitzoeken welk bestand wat aanroept, welke module waarvan afhangt, en wat er kapotgaat als je één functie aanpast — dan begrijp je precies het probleem dat <a href="https://github.com/abhigyanpatwari/GitNexus">GitNexus</a> oplost.</p>
+<h2 id="wat-is-gitnexus">Wat is GitNexus?</h2>
+<p>GitNexus is een open-source tool die elke codebase indexeert in een <strong>knowledge graph</strong>. Elke functie, elke dependency, elke call chain, elke execution flow — in kaart gebracht en doorzoekbaar. Het draait volledig lokaal (CLI) of in de browser (Web UI), zonder server-infrastructuur.</p>
+<p>Zie het als de stap van een platte lijst met bronbestanden naar een <strong>levende kaart</strong> van je software-architectuur.</p>
+<h2 id="waarom-een-knowledge-graph-beter-werkt-dan-gewoon-de-code-lezen">Waarom een knowledge graph beter werkt dan “gewoon de code lezen”</h2>
+<p>Grote codebases zijn misleidend complex. Een monorepo met 500+ bestanden kan duizenden impliciete relaties bevatten die geen enkele ontwikkelaar volledig overziet. Traditionele tools geven je:</p>
+<ul>
+<li><strong>grep/zoeken</strong> — vindt tekstmatches, geen relaties</li>
+<li><strong>IDE “go to definition”</strong> — toont één stap per keer</li>
+<li><strong>Documentatie</strong> — vaak verouderd zodra het is geschreven</li>
+</ul>
+<p>Een knowledge graph legt <strong>structurele relaties</strong> vast: welke functies welke aanroepen, hoe modules clusteren, en hoe de daadwerkelijke execution flows eruitzien. Dit is precies de informatie die je nodig hebt wanneer je:</p>
+<ul>
+<li><strong>Nieuwe teamleden inwerkt</strong> — “Hoe werkt dit systeem eigenlijk?” wordt een verkenbare graaf in plaats van een weekje speurtocht</li>
+<li><strong>Refactors plant</strong> — Voordat je een functie hernoemt of een module opsplitst, zie je de volledige impact door de hele codebase</li>
+<li><strong>Productie-issues debugt</strong> — Volg een bug door de daadwerkelijke call chains in plaats van te gokken</li>
+<li><strong>Pull requests reviewt</strong> — Begrijp de impact van een wijziging voorbij de bestanden die zijn aangepast</li>
+<li><strong>Dependencies auditet</strong> — Zie welke delen van je systeem afhankelijk zijn van een specifieke library of interne module</li>
+</ul>
+<p>Niets hiervan vereist AI. Het zijn fundamentele software-engineeringtaken die dramatisch eenvoudiger worden met een relatiekaart.</p>
+<h2 id="hoe-het-werkt">Hoe het werkt</h2>
+<h3 id="cli-aanbevolen-voor-dagelijks-gebruik">CLI (aanbevolen voor dagelijks gebruik)</h3>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#6A737D"># Installeer globaal</span></span>
+<span class="line"><span style="color:#B392F0">npm</span><span style="color:#9ECBFF"> install</span><span style="color:#79B8FF"> -g</span><span style="color:#9ECBFF"> gitnexus</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># Indexeer je repo (draai vanuit de project root)</span></span>
+<span class="line"><span style="color:#B392F0">gitnexus</span><span style="color:#9ECBFF"> analyze</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># Bekijk wat er geïndexeerd is</span></span>
+<span class="line"><span style="color:#B392F0">gitnexus</span><span style="color:#9ECBFF"> status</span></span></code></pre>
+<p>De CLI slaat de knowledge graph lokaal op met <a href="https://kuzudb.com/">KuzuDB</a>, een embedded graph-database. Na indexering kun je direct queries uitvoeren of het beschikbaar maken voor je editor via MCP (Model Context Protocol).</p>
+<h3 id="web-ui-ideaal-voor-verkenning">Web UI (ideaal voor verkenning)</h3>
+<p>Ga naar <a href="https://gitnexus.vercel.app">gitnexus.vercel.app</a>, voer een GitHub repo-URL of ZIP-bestand in, en krijg een interactieve grafvisualisatie. Alles draait in de browser — er verlaat geen data je machine.</p>
+<h3 id="belangrijkste-functionaliteiten">Belangrijkste functionaliteiten</h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Feature</th><th>Wat het doet</th></tr></thead><tbody><tr><td><strong>Hybride zoeken</strong></td><td>Combineert BM25-tekstzoeken met semantisch zoeken voor nauwkeurige resultaten</td></tr><tr><td><strong>Symbol context</strong></td><td>360°-weergave van elk symbool — alle referenties, alle aanroepers, alle dependencies</td></tr><tr><td><strong>Impact-analyse</strong></td><td>Toont de blast radius van een wijziging met betrouwbaarheidsscores</td></tr><tr><td><strong>Change detection</strong></td><td>Koppelt git-diffs aan getroffen processen en execution flows</td></tr><tr><td><strong>Clusterdetectie</strong></td><td>Identificeert functionele groeperingen in je codebase met cohesiescores</td></tr><tr><td><strong>Process tracing</strong></td><td>Visualiseert complete execution flows stap voor stap</td></tr><tr><td><strong>Multi-repo support</strong></td><td>Indexeer en doorzoek meerdere repositories vanuit één server</td></tr></tbody></table>
+<h2 id="voor-ai-ondersteunde-ontwikkeling-maar-niet-alleen">Voor AI-ondersteunde ontwikkeling (maar niet alleen)</h2>
+<p>Ja, GitNexus integreert naadloos met AI-codeertools. Het biedt een MCP-server die editors zoals Cursor, Claude Code en Windsurf diep architecturaal inzicht geeft in je codebase. Hierdoor kunnen AI-assistenten dependencies begrijpen vóórdat ze wijzigingen voorstellen, in plaats van blind op individuele bestanden te werken.</p>
+<p>Maar de kernwaarde is niet AI-specifiek. <strong>Elke ontwikkelaar profiteert van de mogelijkheid om een codebase als graaf te doorzoeken.</strong> De AI-integratie is een versterker bovenop een tool die op zichzelf al waardevol is.</p>
+<h2 id="privacy-first-architectuur">Privacy-first architectuur</h2>
+<p>Alles blijft lokaal:</p>
+<ul>
+<li><strong>CLI</strong>: Indexering en queries draaien op je eigen machine, geen netwerkverkeer</li>
+<li><strong>Web UI</strong>: Draait volledig in de browser via WebAssembly — geen server, geen data-upload</li>
+<li><strong>Bridge mode</strong>: Verbind de web UI met je lokale CLI-server voor het beste van beide werelden</li>
+</ul>
+<p>Dit maakt het geschikt voor propriëtaire codebases waar het versturen van code naar externe diensten geen optie is.</p>
+<h2 id="wanneer-gebruiken">Wanneer gebruiken</h2>
+<p>GitNexus is op z’n best wanneer je codebase het punt voorbij is waarop één persoon de volledige architectuur in het hoofd kan houden. Die drempel is lager dan de meeste teams denken — zelfs een goed gestructureerd project van 50 bestanden kan niet-voor-de-hand-liggende dependency chains hebben die onverwachte problemen veroorzaken.</p>
+<p>Als je team tijd besteedt aan een van deze taken, is het de moeite waard om te proberen:</p>
+<ul>
+<li>“Wie roept deze functie aan?”-onderzoeken</li>
+<li>Impact-analyse vóór refactors</li>
+<li>Ontwikkelaars inwerken op complexe projecten</li>
+<li>Architectuurdocumentatie die daadwerkelijk actueel blijft</li>
+<li>Cross-module dependency-audits</li>
+</ul>
+<h2 id="aan-de-slag">Aan de slag</h2>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">npx</span><span style="color:#9ECBFF"> gitnexus</span><span style="color:#9ECBFF"> analyze</span></span></code></pre>
+<p>Eén commando. Je codebase, in kaart gebracht.</p>
+<p>→ <a href="https://github.com/abhigyanpatwari/GitNexus">GitHub repository</a> | <a href="https://gitnexus.vercel.app">Web UI</a></p> </div> <div class="cta"> <div> <h2>Klaar om iets geweldigs te bouwen?</h2> <p>Laten we bespreken hoe Virge.io je kan helpen je software-oplossingen te schalen.</p> </div> <a href="/nl/contact/" class="btn">Neem contact op</a> </div> </div> </article> </main> <footer> <div class="container"> <p>&copy; 2026 Virge.io — Software oplossingen die schalen</p> </div> </footer> </body></html>
