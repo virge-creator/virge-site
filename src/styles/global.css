@@ -151,6 +151,8 @@ footer {
 .post-content { font-size: 1.05rem; line-height: 1.8; max-width: 760px; }
 .post-content h2 { font-size: 1.5rem; margin: 2.5rem 0 1rem; color: var(--text); }
 .post-content h3 { font-size: 1.2rem; margin: 2rem 0 0.75rem; color: var(--accent2); }
+.post-content > p:first-child img { width: 100%; max-width: 100%; height: auto; border-radius: 12px; margin-bottom: 1.5rem; }
+.post-content img { max-width: 100%; height: auto; border-radius: 8px; }
 .post-content p { color: var(--text-muted); margin-bottom: 1.25rem; }
 .post-content strong { color: var(--text); }
 .post-content ul, .post-content ol { color: var(--text-muted); margin-bottom: 1.25rem; padding-left: 1.5rem; }
