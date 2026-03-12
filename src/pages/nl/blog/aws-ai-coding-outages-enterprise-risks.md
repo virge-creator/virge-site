@@ -2,7 +2,7 @@
 layout: "../../../layouts/BlogPost.astro"
 title: "AWS AI Coding Outages: Waarom Enterprises AI-Assisted Development Heroverwegen"
 description: "Amazon's Kiro AI tool veroorzaakte een 13-uur durende AWS outage. Dit kunnen enterprises leren over AI coding risico's en guardrails."
-pubDate: 2026-03-12
+date: 2026-03-12
 heroImage: "/images/aws-ai-coding-outages.jpg"
 category: "AI Development"
 tags: ["AI", "AWS", "DevOps", "Enterprise", "Risk Management"]
