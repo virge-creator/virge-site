@@ -1,0 +1,126 @@
+<!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="description" content="The open-source exo framework turns multiple Mac Studios into a single AI supercomputer. Here's how to run DeepSeek V3 and other frontier models locally."><meta property="og:title" content="exo: run 671B parameter models on a cluster of Mac Studios | Virge.io"><meta property="og:description" content="The open-source exo framework turns multiple Mac Studios into a single AI supercomputer. Here's how to run DeepSeek V3 and other frontier models locally."><meta property="og:type" content="website"><meta property="og:locale" content="en_US"><link rel="canonical" href="https://virge.io/en/blog/exo-mac-studio-cluster-llm/"><link rel="alternate" hreflang="en" href="https://virge.io/en/blog/exo-mac-studio-cluster-llm/"><link rel="alternate" hreflang="nl" href="https://virge.io/nl/blog/exo-mac-studio-cluster-llm/"><title>exo: run 671B parameter models on a cluster of Mac Studios | Virge.io</title><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="stylesheet" href="/_astro/agentic-ai-enterprise-orchestration-security.B7CYdlqH.css"></head> <body> <nav data-astro-cid-dmqpwcec> <div class="container" data-astro-cid-dmqpwcec> <a href="/en/" class="logo" data-astro-cid-dmqpwcec><img src="/logo.png" alt="Virge.io" class="logo-img" data-astro-cid-dmqpwcec></a> <button class="menu-toggle" aria-label="Menu" onclick="document.querySelector('.links').classList.toggle('open')" data-astro-cid-dmqpwcec>☰</button> <ul class="links" data-astro-cid-dmqpwcec> <li data-astro-cid-dmqpwcec><a href="/en/" data-astro-cid-dmqpwcec>Home</a></li><li data-astro-cid-dmqpwcec><a href="/en/ai/" data-astro-cid-dmqpwcec>AI Consulting</a></li><li data-astro-cid-dmqpwcec><a href="/en/sdn/" data-astro-cid-dmqpwcec>SDN</a></li><li data-astro-cid-dmqpwcec><a href="/en/ecommerce/" data-astro-cid-dmqpwcec>eCommerce</a></li><li data-astro-cid-dmqpwcec><a href="/en/blog/" data-astro-cid-dmqpwcec>Blog</a></li><li data-astro-cid-dmqpwcec><a href="/en/openclaw/" data-astro-cid-dmqpwcec>OpenClaw</a></li><li data-astro-cid-dmqpwcec><a href="/en/contact/" data-astro-cid-dmqpwcec>Contact</a></li> <li class="lang-switch" data-astro-cid-dmqpwcec> <a href="/nl/blog/exo-mac-studio-cluster-llm/" class="lang-btn" data-astro-cid-dmqpwcec>NL</a> </li> </ul> </div> </nav>  <main> <article class="blog-post"> <div class="container"> <a href="/en/blog/" class="back-link">← Back to Blog</a> <header class="post-header"> <h1>exo: run 671B parameter models on a cluster of Mac Studios</h1> <div class="post-meta"> <span>Virge.io</span> <span>·</span> <time>March 9, 2026</time> <span>·</span> <span>6 min read</span> </div> </header> <div class="post-content"> <p><img src="/images/exo-mac-cluster.png" alt=""></p>
+<p>Running frontier AI models locally used to require enterprise-grade hardware. A 671 billion parameter model like DeepSeek V3 needs over 400GB of memory just to load — far beyond what any single consumer device can offer.</p>
+<p>Enter <strong>exo</strong>, an open-source framework that clusters multiple Apple Silicon devices into a single distributed inference system. Four Mac Studios with 512GB RAM each suddenly becomes a 2TB unified memory pool capable of running the largest open-source models available.</p>
+<p>The results are impressive: DeepSeek V3 (671B) runs at 5.37 tokens per second on a cluster of eight M4 Pro Mac Minis. That’s faster than Llama 70B on the same hardware — despite having nearly 10x more parameters.</p>
+<h2 id="how-it-works">How it works</h2>
+<p>exo pools computational resources from multiple machines — Mac Studios, Mac Minis, MacBooks — into a single distributed inference cluster. Devices running exo automatically discover each other on the network. No manual configuration required.</p>
+<p>The magic happens through several key technologies:</p>
+<p><strong>RDMA over Thunderbolt 5</strong> — exo ships with day-0 support for Remote Direct Memory Access over Thunderbolt, enabling 99% reduction in latency between devices. Connect your Mac Studios with Thunderbolt cables and they communicate almost as if they were a single machine.</p>
+<p><strong>Tensor Parallelism</strong> — The framework shards models across devices intelligently. On 2 devices you get up to 1.8x speedup; on 4 devices up to 3.2x. This isn’t just about fitting more parameters — it’s about making inference faster.</p>
+<p><strong>MLX distributed</strong> — Under the hood, exo uses Apple’s native <a href="https://github.com/ml-explore/mlx">MLX</a> framework and its distributed computing capabilities. This means optimal performance on Apple Silicon with unified memory access patterns.</p>
+<p><strong>Topology-aware auto-parallel</strong> — exo figures out the best way to split your model based on a realtime view of your device topology, taking into account each device’s resources and network latency between links.</p>
+<h2 id="why-apple-silicon-is-surprisingly-good-at-this">Why Apple Silicon is surprisingly good at this</h2>
+<p>Apple Silicon has a secret advantage for LLM inference that’s often overlooked.</p>
+<p>LLM inference at batch_size=1 (generating one token at a time for a single user) is typically <strong>memory-bandwidth-bound</strong>, not compute-bound. For each token, you need to load every parameter through the GPU, perform computations, and generate the next token.</p>
+<p>The key metric is the ratio of memory bandwidth to compute (FLOPS):</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Device</th><th>Memory Bandwidth</th><th>FLOPS (FP16)</th><th>Ratio</th></tr></thead><tbody><tr><td>M4 Max</td><td>546 GB/s</td><td>~34 TFLOPS</td><td><strong>8.02</strong></td></tr><tr><td>RTX 4090</td><td>1008 GB/s</td><td>~330 TFLOPS</td><td>1.52</td></tr></tbody></table>
+<p>The M4 Max has a ratio of 8.02 — over 5x better suited for memory-bound workloads than an RTX 4090. Apple Silicon’s unified memory architecture means the GPU can access all system memory at full bandwidth, without the bottleneck of copying data across a PCIe bus.</p>
+<p>This is why a cluster of Mac Studios can outperform what you’d expect on paper.</p>
+<h2 id="the-deepseek-advantage">The DeepSeek advantage</h2>
+<p>Here’s where it gets interesting. DeepSeek V3 uses a Mixture of Experts (MoE) architecture — it has 671B total parameters, but only activates a small subset for each token.</p>
+<p>Running on 8 × M4 Pro 64GB Mac Minis (512GB total):</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Model</th><th>Parameters</th><th>TTFT</th><th>Tokens/sec</th></tr></thead><tbody><tr><td>DeepSeek V3 (4-bit)</td><td>671B</td><td>2.91s</td><td><strong>5.37</strong></td></tr><tr><td>Llama 3.1 (4-bit)</td><td>405B</td><td>29.71s</td><td>0.88</td></tr><tr><td>Llama 3.3 (4-bit)</td><td>70B</td><td>3.14s</td><td>3.89</td></tr></tbody></table>
+<p>DeepSeek V3 runs <em>faster</em> than Llama 70B despite having nearly 10x more total parameters. The MoE architecture means only a fraction of parameters are computed on for each token, dramatically reducing the memory bandwidth requirements.</p>
+<p>This makes Chinese open-source models like DeepSeek and Qwen particularly attractive for local deployment — they deliver frontier-level capabilities while being more efficient to run.</p>
+<h2 id="what-you-can-build">What you can build</h2>
+<p>A 4 × Mac Studio M3 Ultra (512GB each) cluster running exo can handle:</p>
+<ul>
+<li><strong>DeepSeek V3.1</strong> (671B, 8-bit) — Full precision, no quantization compromise</li>
+<li><strong>Qwen3-235B</strong> (8-bit) — Chinese/English bilingual reasoning</li>
+<li><strong>Kimi-K2-Thinking</strong> (4-bit) — Extended reasoning capabilities</li>
+<li><strong>Llama 3.1 405B</strong> — Meta’s largest open model</li>
+</ul>
+<p>The API is compatible with OpenAI, Claude, and Ollama — meaning your existing tools and clients work out of the box. Point your application at <code>localhost:52415</code> and it sees a ChatGPT-compatible endpoint powered by your local cluster.</p>
+<h2 id="the-economics">The economics</h2>
+<p>Let’s compare running DeepSeek V3 locally versus cloud:</p>
+<p><strong>Cloud (API pricing):</strong></p>
+<ul>
+<li>~$0.14/million input tokens, ~$0.28/million output tokens</li>
+<li>Monthly cost for moderate usage: $500-2000+</li>
+<li>Data leaves your network</li>
+</ul>
+<p><strong>Local cluster (4 × Mac Studio M3 Ultra 512GB):</strong></p>
+<ul>
+<li>Hardware: ~$32,000 one-time</li>
+<li>Power: ~$50/month</li>
+<li>Break-even: 16-32 months</li>
+<li>Data stays local</li>
+</ul>
+<p>For enterprises with privacy requirements, compliance constraints, or predictable high-volume usage, the economics favor local deployment. And unlike cloud APIs, your cluster doesn’t have rate limits or go down during peak demand.</p>
+<h2 id="getting-started">Getting started</h2>
+<p>Installation is straightforward on macOS:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#6A737D"># Clone exo</span></span>
+<span class="line"><span style="color:#B392F0">git</span><span style="color:#9ECBFF"> clone</span><span style="color:#9ECBFF"> https://github.com/exo-explore/exo</span></span>
+<span class="line"><span style="color:#79B8FF">cd</span><span style="color:#9ECBFF"> exo</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># Build dashboard</span></span>
+<span class="line"><span style="color:#79B8FF">cd</span><span style="color:#9ECBFF"> dashboard</span><span style="color:#E1E4E8"> &#x26;&#x26; </span><span style="color:#B392F0">npm</span><span style="color:#9ECBFF"> install</span><span style="color:#E1E4E8"> &#x26;&#x26; </span><span style="color:#B392F0">npm</span><span style="color:#9ECBFF"> run</span><span style="color:#9ECBFF"> build</span><span style="color:#E1E4E8"> &#x26;&#x26; </span><span style="color:#79B8FF">cd</span><span style="color:#9ECBFF"> ..</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># Run exo</span></span>
+<span class="line"><span style="color:#B392F0">uv</span><span style="color:#9ECBFF"> run</span><span style="color:#9ECBFF"> exo</span></span></code></pre>
+<p>Each device running exo automatically discovers others on the network. The dashboard at <code>http://localhost:52415</code> shows your cluster status and lets you chat with models directly.</p>
+<p>For optimal performance, connect devices with Thunderbolt 5 cables and enable RDMA (requires macOS 26.2+). This drops inter-device latency from milliseconds to microseconds.</p>
+<h2 id="the-bigger-picture">The bigger picture</h2>
+<p>exo represents a shift in how we think about AI infrastructure. Instead of massive centralized data centers, distributed inference enables:</p>
+<ul>
+<li><strong>Privacy-first AI</strong> — Sensitive data never leaves your premises</li>
+<li><strong>Incremental scaling</strong> — Add devices as needed, not all at once</li>
+<li><strong>Hardware flexibility</strong> — Mix Mac Studios, Minis, and MacBooks</li>
+<li><strong>Cost predictability</strong> — No per-token pricing surprises</li>
+</ul>
+<p>The Chinese open-source AI ecosystem (DeepSeek, Qwen, Kimi) combined with Apple Silicon’s memory bandwidth advantage and frameworks like exo creates a compelling alternative to cloud-dependent AI infrastructure.</p>
+<p>For enterprises evaluating local LLM deployment, this stack deserves serious consideration.</p>
+<hr>
+<p><em>Building local AI infrastructure? We’ve been evaluating distributed inference setups and can help you architect the right solution. <a href="/en/contact">Let’s talk</a>.</em></p> </div> <div class="cta"> <div> <h2>Ready to build something great?</h2> <p>Let&#39;s discuss how Virge.io can help you scale your software solutions.</p> </div> <a href="/en/contact/" class="btn">Get in touch</a> </div> </div> </article> </main> <footer> <div class="container"> <p>&copy; 2026 Virge.io — Software solutions that scale</p> </div> </footer> </body></html>

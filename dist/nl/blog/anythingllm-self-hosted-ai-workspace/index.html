@@ -1,0 +1,189 @@
+<!DOCTYPE html><html lang="nl"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="description" content="Self-hosted, privacy-first, en belachelijk makkelijk op te zetten. AnythingLLM combineert Ollama, LangChain, vector databases en een chat UI in één applicatie."><meta property="og:title" content="AnythingLLM: de alles-in-één AI workspace die je hele stack vervangt | Virge.io"><meta property="og:description" content="Self-hosted, privacy-first, en belachelijk makkelijk op te zetten. AnythingLLM combineert Ollama, LangChain, vector databases en een chat UI in één applicatie."><meta property="og:type" content="website"><meta property="og:locale" content="nl_NL"><link rel="canonical" href="https://virge.io/nl/blog/anythingllm-self-hosted-ai-workspace/"><link rel="alternate" hreflang="nl" href="https://virge.io/nl/blog/anythingllm-self-hosted-ai-workspace/"><link rel="alternate" hreflang="en" href="https://virge.io/en/blog/anythingllm-self-hosted-ai-workspace/"><title>AnythingLLM: de alles-in-één AI workspace die je hele stack vervangt | Virge.io</title><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="stylesheet" href="/_astro/agentic-ai-enterprise-orchestration-security.B7CYdlqH.css"></head> <body> <nav data-astro-cid-dmqpwcec> <div class="container" data-astro-cid-dmqpwcec> <a href="/nl/" class="logo" data-astro-cid-dmqpwcec><img src="/logo.png" alt="Virge.io" class="logo-img" data-astro-cid-dmqpwcec></a> <button class="menu-toggle" aria-label="Menu" onclick="document.querySelector('.links').classList.toggle('open')" data-astro-cid-dmqpwcec>☰</button> <ul class="links" data-astro-cid-dmqpwcec> <li data-astro-cid-dmqpwcec><a href="/nl/" data-astro-cid-dmqpwcec>Home</a></li><li data-astro-cid-dmqpwcec><a href="/nl/ai/" data-astro-cid-dmqpwcec>AI Consulting</a></li><li data-astro-cid-dmqpwcec><a href="/nl/sdn/" data-astro-cid-dmqpwcec>SDN</a></li><li data-astro-cid-dmqpwcec><a href="/nl/ecommerce/" data-astro-cid-dmqpwcec>eCommerce</a></li><li data-astro-cid-dmqpwcec><a href="/nl/blog/" data-astro-cid-dmqpwcec>Blog</a></li><li data-astro-cid-dmqpwcec><a href="/nl/openclaw/" data-astro-cid-dmqpwcec>OpenClaw</a></li><li data-astro-cid-dmqpwcec><a href="/nl/contact/" data-astro-cid-dmqpwcec>Contact</a></li> <li class="lang-switch" data-astro-cid-dmqpwcec> <a href="/en/blog/anythingllm-self-hosted-ai-workspace/" class="lang-btn" data-astro-cid-dmqpwcec>EN</a> </li> </ul> </div> </nav>  <main> <article class="blog-post"> <div class="container"> <a href="/nl/blog/" class="back-link">← Terug naar Blog</a> <header class="post-header"> <h1>AnythingLLM: de alles-in-één AI workspace die je hele stack vervangt</h1> <div class="post-meta"> <span>Virge.io</span> <span>·</span> <time>11 maart 2026</time> <span>·</span> <span>6 min leestijd</span> </div> </header> <div class="post-content"> <p><img src="/images/anythingllm-workspace.png" alt=""></p>
+<p>Een lokale AI-applicatie bouwen die met je documenten kan chatten vereiste vroeger het assembleren van een Frankenstein’s monster aan tools: Ollama voor het draaien van modellen, LangChain voor orchestratie, Chroma of Pinecone voor vector storage, en een custom UI om alles aan elkaar te knopen. Elk onderdeel heeft z’n eigen configuratie, z’n eigen failure modes, en z’n eigen leercurve.</p>
+<p><strong>AnythingLLM</strong> comprimeert die hele stack in één applicatie. Download het, start het op, sleep je documenten erin, en begin met chatten. Geen Python scripts, geen Docker compose files, geen terminal windows om te babysittten.</p>
+<p>Met 54K+ GitHub stars en actieve ontwikkeling door Mintplex Labs is het de go-to oplossing geworden voor teams die private AI willen zonder de infrastructuur-hoofdpijn.</p>
+<h2 id="wat-het-daadwerkelijk-doet">Wat het daadwerkelijk doet</h2>
+<p>AnythingLLM is een full-stack AI workspace die het volgende afhandelt:</p>
+<ul>
+<li><strong>Document ingestie</strong> — Drag and drop PDFs, Word docs, code files, of hele repositories</li>
+<li><strong>Automatische RAG</strong> — Chunking, embedding en vector indexing gebeurt achter de schermen</li>
+<li><strong>Multi-model support</strong> — Wissel tussen 30+ LLM providers midden in een gesprek</li>
+<li><strong>AI agents</strong> — No-code builder voor agents die het web kunnen browsen, databases kunnen queryen, of code kunnen uitvoeren</li>
+<li><strong>Multi-user workspaces</strong> — Geïsoleerde contexten voor verschillende projecten of teams</li>
+<li><strong>REST API</strong> — Embed private RAG in je eigen applicaties</li>
+</ul>
+<p>Het sleutelinzicht: je hoeft niet te begrijpen hoe RAG werkt om het te gebruiken. AnythingLLM handelt de complexiteit af terwijl het simpele controls blootstelt.</p>
+<h2 id="het-fragmentatieprobleem-dat-het-oplost">Het fragmentatieprobleem dat het oplost</h2>
+<p>Een typische “chat met je documenten” setup ziet er zo uit:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>Terminal 1: ollama serve</span></span>
+<span class="line"><span>Terminal 2: python langchain_app.py</span></span>
+<span class="line"><span>Terminal 3: docker run chromadb</span></span>
+<span class="line"><span>Terminal 4: npm run dev  # je UI</span></span></code></pre>
+<p>Vier processen, vier potentiële failure points, vier dingen om te updaten. En wanneer iets breekt, debug je over meerdere codebases.</p>
+<p>AnythingLLM vervangt dit allemaal met:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>anythingllm</span></span></code></pre>
+<p>Eén applicatie. Eén proces. Eén ding om te beheren.</p>
+<h2 id="ondersteunde-providers">Ondersteunde providers</h2>
+<p>De model-flexibiliteit is indrukwekkend. AnythingLLM werkt met:</p>
+<p><strong>Commerciële LLMs:</strong></p>
+<ul>
+<li>OpenAI (GPT-4o, o1, o3)</li>
+<li>Anthropic (Claude)</li>
+<li>Google Gemini</li>
+<li>Azure OpenAI</li>
+<li>AWS Bedrock</li>
+<li>Groq, Together AI, Fireworks</li>
+</ul>
+<p><strong>Lokaal/Self-hosted:</strong></p>
+<ul>
+<li>Ollama (elk model)</li>
+<li>LM Studio</li>
+<li>LocalAI</li>
+<li>KoboldCPP</li>
+<li>Text Generation Web UI</li>
+</ul>
+<p><strong>Vector Databases:</strong></p>
+<ul>
+<li>LanceDB (default, embedded)</li>
+<li>PGVector</li>
+<li>Pinecone, Chroma, Weaviate</li>
+<li>Qdrant, Milvus, Zilliz</li>
+</ul>
+<p>Je kunt mixen en matchen — gebruik Claude voor complex redeneren, een lokale Llama voor simpele queries, en PGVector omdat je Postgres toch al draait.</p>
+<h2 id="het-workspace-model">Het workspace model</h2>
+<p>AnythingLLM organiseert alles in <strong>workspaces</strong> — geïsoleerde containers voor documenten en gesprekken. Zie ze als aparte breinen voor verschillende projecten.</p>
+<p>Een workspace voor je “Product Documentatie” zal niet per ongeluk context pullen uit je “Juridische Contracten” workspace. Deze isolatie is kritiek voor enterprises waar data-lekkage tussen afdelingen een compliance-risico is.</p>
+<p>Binnen elke workspace kun je:</p>
+<ul>
+<li>Documenten uploaden en beheren</li>
+<li>Configureren welke LLM en embedder te gebruiken</li>
+<li>Systeemprompts en agent-gedrag instellen</li>
+<li>Gebruikerstoegang beheren (in multi-user mode)</li>
+</ul>
+<h2 id="ai-agents-zonder-code">AI agents zonder code</h2>
+<p>De agent builder is waar AnythingLLM verder gaat dan basis RAG. Je kunt agents maken met “skills” zoals:</p>
+<ul>
+<li><strong>Web browsen</strong> — Zoeken en samenvatten van webcontent</li>
+<li><strong>SQL queries</strong> — Verbinden met databases en queries draaien</li>
+<li><strong>File operations</strong> — Bestanden lezen, schrijven en manipuleren</li>
+<li><strong>Code uitvoeren</strong> — Python of JavaScript runnen</li>
+<li><strong>Custom tools</strong> — Definieer je eigen via de API</li>
+</ul>
+<p>Deze agents kunnen aan elkaar geketend worden in workflows, getriggerd door user input of API calls. Het is alsof je een lichtgewicht n8n of Zapier in je AI workspace hebt ingebouwd.</p>
+<p><strong>Nieuw in 2026:</strong> Volledige MCP (Model Context Protocol) compatibiliteit betekent dat AnythingLLM agents hetzelfde tool-ecosysteem kunnen gebruiken als Claude en andere MCP-compatibele systemen.</p>
+<h2 id="deployment-opties">Deployment opties</h2>
+<p>Drie manieren om het te draaien:</p>
+<p><strong>Desktop app</strong> (Mac/Windows/Linux)</p>
+<ul>
+<li>Single-user, draait lokaal</li>
+<li>Zero configuratie</li>
+<li>Perfect voor individuele developers</li>
+</ul>
+<p><strong>Docker self-hosted</strong></p>
+<ul>
+<li>Multi-user met permissies</li>
+<li>Embeddable chat widget</li>
+<li>Volledige API toegang</li>
+<li>Productie-klaar</li>
+</ul>
+<p><strong>Managed cloud</strong></p>
+<ul>
+<li>Mintplex-gehoste private instances</li>
+<li>Voor teams die geen infrastructuur willen beheren</li>
+</ul>
+<p>Voor de meeste use cases raakt de Docker deployment de sweet spot: volledige features, jouw infrastructuur, jouw data.</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">docker</span><span style="color:#9ECBFF"> pull</span><span style="color:#9ECBFF"> mintplexlabs/anythingllm</span></span>
+<span class="line"><span style="color:#B392F0">docker</span><span style="color:#9ECBFF"> run</span><span style="color:#79B8FF"> -d</span><span style="color:#79B8FF"> -p</span><span style="color:#9ECBFF"> 3001:3001</span><span style="color:#9ECBFF"> mintplexlabs/anythingllm</span></span></code></pre>
+<p>Dat is het. Bezoek <code>localhost:3001</code> en je draait.</p>
+<h2 id="api-first-design">API-first design</h2>
+<p>Alles in AnythingLLM is toegankelijk via REST API. Dit betekent dat je kunt:</p>
+<ul>
+<li>Programmatisch workspaces aanmaken en beheren</li>
+<li>Documenten uploaden en embedding triggeren</li>
+<li>Chatberichten verzenden en streaming responses ontvangen</li>
+<li>Custom UIs bouwen bovenop de backend</li>
+<li>Private RAG integreren in bestaande applicaties</li>
+</ul>
+<p>De API-documentatie is uitgebreid, en er is een OpenAPI spec voor het genereren van client libraries.</p>
+<h2 id="vergelijking-anythingllm-vs-alternatieven">Vergelijking: AnythingLLM vs alternatieven</h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Feature</th><th>AnythingLLM</th><th>Open WebUI</th><th>LibreChat</th><th>LangChain</th></tr></thead><tbody><tr><td>Self-hosted</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td></tr><tr><td>Ingebouwde RAG</td><td>✅</td><td>⚠️ Plugin</td><td>❌</td><td>🔧 DIY</td></tr><tr><td>Agent builder</td><td>✅ No-code</td><td>❌</td><td>❌</td><td>🔧 Code</td></tr><tr><td>Multi-user</td><td>✅</td><td>✅</td><td>✅</td><td>❌</td></tr><tr><td>Desktop app</td><td>✅</td><td>❌</td><td>❌</td><td>❌</td></tr><tr><td>Vector DB inbegrepen</td><td>✅ LanceDB</td><td>❌</td><td>❌</td><td>❌</td></tr><tr><td>REST API</td><td>✅</td><td>⚠️ Beperkt</td><td>⚠️ Beperkt</td><td>✅</td></tr></tbody></table>
+<p><strong>Open WebUI</strong> is geweldig als je gewoon een ChatGPT-achtige interface wilt voor Ollama. <strong>LibreChat</strong> blinkt uit in multi-provider chat. Maar geen van beide handelt RAG out-of-the-box af zoals AnythingLLM doet.</p>
+<p><strong>LangChain</strong> geeft je meer controle maar vereist Python-expertise en significante setup. AnythingLLM is wat je zou bouwen als je LangChain wrapt in een productie-klare UI en alles toevoegt wat een team nodig heeft.</p>
+<h2 id="wanneer-het-te-gebruiken">Wanneer het te gebruiken</h2>
+<p>AnythingLLM past wanneer je nodig hebt:</p>
+<ul>
+<li><strong>Snelle document Q&#x26;A</strong> — Upload bestanden, begin met chatten, geen code nodig</li>
+<li><strong>Private knowledge base</strong> — Self-hosted, data blijft op je infrastructuur</li>
+<li><strong>Team AI workspace</strong> — Multi-user met geïsoleerde projecten</li>
+<li><strong>RAG applicaties prototypen</strong> — Test ideeën voordat je custom oplossingen bouwt</li>
+<li><strong>Niet-technische gebruikers</strong> — De UI is toegankelijk genoeg voor business users</li>
+</ul>
+<p>Het is waarschijnlijk overkill als je gewoon Ollama vanaf de command line wilt draaien, en underpowered als je fine-grained controle nodig hebt over elke stap van je RAG pipeline.</p>
+<h2 id="onze-kijk">Onze kijk</h2>
+<p>AnythingLLM heeft z’n 54K GitHub stars verdiend. Het lost een echt probleem op — de frictie van het assembleren van lokale AI stacks — zonder flexibiliteit op te offeren.</p>
+<p>Voor enterprises die self-hosted AI oplossingen evalueren, is het een serieuze blik waard. De combinatie van makkelijke setup, uitgebreide features en API-first design betekent dat je simpel kunt beginnen en kunt groeien naar complexere use cases zonder van platform te wisselen.</p>
+<p>Bij <a href="https://virge.io">Virge.io</a> bouwen we RAG systemen sinds voordat de tooling volwassen werd. AnythingLLM representeert waar het ecosysteem naartoe gaat: unified, self-hosted, en toegankelijk voor teams zonder dedicated ML engineers.</p>
+<p>Als je nog steeds Ollama + LangChain + custom UIs aan elkaar duct-tapet, probeer het eens. Je toekomstige zelf zal je bedanken.</p>
+<hr>
+<p><em>Private AI-infrastructuur bouwen? We hebben RAG systemen geïmplementeerd over meerdere industrieën en kunnen je helpen de juiste aanpak te kiezen. <a href="/nl/contact">Laten we praten</a>.</em></p> </div> <div class="cta"> <div> <h2>Klaar om iets geweldigs te bouwen?</h2> <p>Laten we bespreken hoe Virge.io je kan helpen je software-oplossingen te schalen.</p> </div> <a href="/nl/contact/" class="btn">Neem contact op</a> </div> </div> </article> </main> <footer> <div class="container"> <p>&copy; 2026 Virge.io — Software oplossingen die schalen</p> </div> </footer> </body></html>

@@ -1,0 +1,126 @@
+<!DOCTYPE html><html lang="nl"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="description" content="Het open-source exo framework maakt van meerdere Mac Studios één AI-supercomputer. Zo draai je DeepSeek V3 en andere frontier modellen lokaal."><meta property="og:title" content="exo: draai 671B parameter modellen op een cluster van Mac Studios | Virge.io"><meta property="og:description" content="Het open-source exo framework maakt van meerdere Mac Studios één AI-supercomputer. Zo draai je DeepSeek V3 en andere frontier modellen lokaal."><meta property="og:type" content="website"><meta property="og:locale" content="nl_NL"><link rel="canonical" href="https://virge.io/nl/blog/exo-mac-studio-cluster-llm/"><link rel="alternate" hreflang="nl" href="https://virge.io/nl/blog/exo-mac-studio-cluster-llm/"><link rel="alternate" hreflang="en" href="https://virge.io/en/blog/exo-mac-studio-cluster-llm/"><title>exo: draai 671B parameter modellen op een cluster van Mac Studios | Virge.io</title><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="stylesheet" href="/_astro/agentic-ai-enterprise-orchestration-security.B7CYdlqH.css"></head> <body> <nav data-astro-cid-dmqpwcec> <div class="container" data-astro-cid-dmqpwcec> <a href="/nl/" class="logo" data-astro-cid-dmqpwcec><img src="/logo.png" alt="Virge.io" class="logo-img" data-astro-cid-dmqpwcec></a> <button class="menu-toggle" aria-label="Menu" onclick="document.querySelector('.links').classList.toggle('open')" data-astro-cid-dmqpwcec>☰</button> <ul class="links" data-astro-cid-dmqpwcec> <li data-astro-cid-dmqpwcec><a href="/nl/" data-astro-cid-dmqpwcec>Home</a></li><li data-astro-cid-dmqpwcec><a href="/nl/ai/" data-astro-cid-dmqpwcec>AI Consulting</a></li><li data-astro-cid-dmqpwcec><a href="/nl/sdn/" data-astro-cid-dmqpwcec>SDN</a></li><li data-astro-cid-dmqpwcec><a href="/nl/ecommerce/" data-astro-cid-dmqpwcec>eCommerce</a></li><li data-astro-cid-dmqpwcec><a href="/nl/blog/" data-astro-cid-dmqpwcec>Blog</a></li><li data-astro-cid-dmqpwcec><a href="/nl/openclaw/" data-astro-cid-dmqpwcec>OpenClaw</a></li><li data-astro-cid-dmqpwcec><a href="/nl/contact/" data-astro-cid-dmqpwcec>Contact</a></li> <li class="lang-switch" data-astro-cid-dmqpwcec> <a href="/en/blog/exo-mac-studio-cluster-llm/" class="lang-btn" data-astro-cid-dmqpwcec>EN</a> </li> </ul> </div> </nav>  <main> <article class="blog-post"> <div class="container"> <a href="/nl/blog/" class="back-link">← Terug naar Blog</a> <header class="post-header"> <h1>exo: draai 671B parameter modellen op een cluster van Mac Studios</h1> <div class="post-meta"> <span>Virge.io</span> <span>·</span> <time>9 maart 2026</time> <span>·</span> <span>5 min leestijd</span> </div> </header> <div class="post-content"> <p><img src="/images/exo-mac-cluster.png" alt=""></p>
+<p>Frontier AI-modellen lokaal draaien vereiste vroeger enterprise-grade hardware. Een model van 671 miljard parameters zoals DeepSeek V3 heeft meer dan 400GB geheugen nodig alleen om te laden — ver voorbij wat een enkel consumenten-apparaat kan bieden.</p>
+<p>Enter <strong>exo</strong>, een open-source framework dat meerdere Apple Silicon apparaten clustert tot één gedistribueerd inference-systeem. Vier Mac Studios met elk 512GB RAM worden plotseling een 2TB unified memory pool die de grootste open-source modellen kan draaien.</p>
+<p>De resultaten zijn indrukwekkend: DeepSeek V3 (671B) draait op 5.37 tokens per seconde op een cluster van acht M4 Pro Mac Minis. Dat is sneller dan Llama 70B op dezelfde hardware — ondanks bijna 10x meer parameters.</p>
+<h2 id="hoe-het-werkt">Hoe het werkt</h2>
+<p>exo bundelt computationele resources van meerdere machines — Mac Studios, Mac Minis, MacBooks — in één gedistribueerd inference-cluster. Apparaten die exo draaien ontdekken elkaar automatisch op het netwerk. Geen handmatige configuratie nodig.</p>
+<p>De magie gebeurt door verschillende sleuteltechnologieën:</p>
+<p><strong>RDMA over Thunderbolt 5</strong> — exo heeft day-0 support voor Remote Direct Memory Access over Thunderbolt, wat 99% reductie in latency tussen apparaten mogelijk maakt. Verbind je Mac Studios met Thunderbolt-kabels en ze communiceren bijna alsof ze één machine zijn.</p>
+<p><strong>Tensor Parallelism</strong> — Het framework shard modellen intelligent over apparaten. Op 2 apparaten krijg je tot 1.8x speedup; op 4 apparaten tot 3.2x. Dit gaat niet alleen over meer parameters fitten — het maakt inference sneller.</p>
+<p><strong>MLX distributed</strong> — Onder de motorkap gebruikt exo Apple’s native <a href="https://github.com/ml-explore/mlx">MLX</a> framework en diens distributed computing capabilities. Dit betekent optimale performance op Apple Silicon met unified memory access patterns.</p>
+<p><strong>Topology-aware auto-parallel</strong> — exo bepaalt de beste manier om je model te splitsen gebaseerd op een realtime view van je device-topologie, rekening houdend met resources en netwerklatency tussen apparaten.</p>
+<h2 id="waarom-apple-silicon-verrassend-goed-is-hierin">Waarom Apple Silicon verrassend goed is hierin</h2>
+<p>Apple Silicon heeft een verborgen voordeel voor LLM-inference dat vaak over het hoofd wordt gezien.</p>
+<p>LLM-inference bij batch_size=1 (één token per keer genereren voor één gebruiker) is typisch <strong>memory-bandwidth-bound</strong>, niet compute-bound. Voor elke token moet je elke parameter door de GPU laden, berekeningen uitvoeren, en de volgende token genereren.</p>
+<p>De sleutelmetric is de ratio van memory bandwidth tot compute (FLOPS):</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Apparaat</th><th>Memory Bandwidth</th><th>FLOPS (FP16)</th><th>Ratio</th></tr></thead><tbody><tr><td>M4 Max</td><td>546 GB/s</td><td>~34 TFLOPS</td><td><strong>8.02</strong></td></tr><tr><td>RTX 4090</td><td>1008 GB/s</td><td>~330 TFLOPS</td><td>1.52</td></tr></tbody></table>
+<p>De M4 Max heeft een ratio van 8.02 — meer dan 5x beter geschikt voor memory-bound workloads dan een RTX 4090. Apple Silicon’s unified memory architectuur betekent dat de GPU al het systeemgeheugen kan benaderen op volledige bandbreedte, zonder de bottleneck van data kopiëren over een PCIe-bus.</p>
+<p>Dit is waarom een cluster van Mac Studios beter presteert dan je op papier zou verwachten.</p>
+<h2 id="het-deepseek-voordeel">Het DeepSeek-voordeel</h2>
+<p>Hier wordt het interessant. DeepSeek V3 gebruikt een Mixture of Experts (MoE) architectuur — het heeft 671B totale parameters, maar activeert slechts een kleine subset voor elke token.</p>
+<p>Draaiend op 8 × M4 Pro 64GB Mac Minis (512GB totaal):</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Model</th><th>Parameters</th><th>TTFT</th><th>Tokens/sec</th></tr></thead><tbody><tr><td>DeepSeek V3 (4-bit)</td><td>671B</td><td>2.91s</td><td><strong>5.37</strong></td></tr><tr><td>Llama 3.1 (4-bit)</td><td>405B</td><td>29.71s</td><td>0.88</td></tr><tr><td>Llama 3.3 (4-bit)</td><td>70B</td><td>3.14s</td><td>3.89</td></tr></tbody></table>
+<p>DeepSeek V3 draait <em>sneller</em> dan Llama 70B ondanks bijna 10x meer totale parameters. De MoE-architectuur betekent dat slechts een fractie van de parameters wordt berekend voor elke token, wat de memory bandwidth requirements drastisch verlaagt.</p>
+<p>Dit maakt Chinese open-source modellen zoals DeepSeek en Qwen bijzonder aantrekkelijk voor lokale deployment — ze leveren frontier-level capabilities terwijl ze efficiënter draaien.</p>
+<h2 id="wat-je-kunt-bouwen">Wat je kunt bouwen</h2>
+<p>Een 4 × Mac Studio M3 Ultra (512GB elk) cluster met exo kan draaien:</p>
+<ul>
+<li><strong>DeepSeek V3.1</strong> (671B, 8-bit) — Volledige precisie, geen quantisatie-compromis</li>
+<li><strong>Qwen3-235B</strong> (8-bit) — Chinees/Engels tweetalig reasoning</li>
+<li><strong>Kimi-K2-Thinking</strong> (4-bit) — Extended reasoning capabilities</li>
+<li><strong>Llama 3.1 405B</strong> — Meta’s grootste open model</li>
+</ul>
+<p>De API is compatibel met OpenAI, Claude en Ollama — wat betekent dat je bestaande tools en clients out-of-the-box werken. Wijs je applicatie naar <code>localhost:52415</code> en het ziet een ChatGPT-compatible endpoint aangedreven door je lokale cluster.</p>
+<h2 id="de-economie">De economie</h2>
+<p>Laten we DeepSeek V3 lokaal draaien vergelijken met cloud:</p>
+<p><strong>Cloud (API pricing):</strong></p>
+<ul>
+<li>~$0.14/miljoen input tokens, ~$0.28/miljoen output tokens</li>
+<li>Maandelijkse kosten bij matig gebruik: $500-2000+</li>
+<li>Data verlaat je netwerk</li>
+</ul>
+<p><strong>Lokaal cluster (4 × Mac Studio M3 Ultra 512GB):</strong></p>
+<ul>
+<li>Hardware: ~€30.000 eenmalig</li>
+<li>Stroom: ~€50/maand</li>
+<li>Break-even: 16-32 maanden</li>
+<li>Data blijft lokaal</li>
+</ul>
+<p>Voor enterprises met privacy-eisen, compliance-beperkingen, of voorspelbaar hoog-volume gebruik, zijn de economics gunstig voor lokale deployment. En in tegenstelling tot cloud APIs heeft je cluster geen rate limits en gaat niet down tijdens piekbelasting.</p>
+<h2 id="aan-de-slag">Aan de slag</h2>
+<p>Installatie is eenvoudig op macOS:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#6A737D"># Clone exo</span></span>
+<span class="line"><span style="color:#B392F0">git</span><span style="color:#9ECBFF"> clone</span><span style="color:#9ECBFF"> https://github.com/exo-explore/exo</span></span>
+<span class="line"><span style="color:#79B8FF">cd</span><span style="color:#9ECBFF"> exo</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># Build dashboard</span></span>
+<span class="line"><span style="color:#79B8FF">cd</span><span style="color:#9ECBFF"> dashboard</span><span style="color:#E1E4E8"> &#x26;&#x26; </span><span style="color:#B392F0">npm</span><span style="color:#9ECBFF"> install</span><span style="color:#E1E4E8"> &#x26;&#x26; </span><span style="color:#B392F0">npm</span><span style="color:#9ECBFF"> run</span><span style="color:#9ECBFF"> build</span><span style="color:#E1E4E8"> &#x26;&#x26; </span><span style="color:#79B8FF">cd</span><span style="color:#9ECBFF"> ..</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># Run exo</span></span>
+<span class="line"><span style="color:#B392F0">uv</span><span style="color:#9ECBFF"> run</span><span style="color:#9ECBFF"> exo</span></span></code></pre>
+<p>Elk apparaat dat exo draait ontdekt automatisch anderen op het netwerk. Het dashboard op <code>http://localhost:52415</code> toont je clusterstatus en laat je direct met modellen chatten.</p>
+<p>Voor optimale performance, verbind apparaten met Thunderbolt 5 kabels en schakel RDMA in (vereist macOS 26.2+). Dit verlaagt inter-device latency van milliseconden naar microseconden.</p>
+<h2 id="het-grotere-plaatje">Het grotere plaatje</h2>
+<p>exo representeert een verschuiving in hoe we denken over AI-infrastructuur. In plaats van massieve gecentraliseerde datacenters, maakt distributed inference mogelijk:</p>
+<ul>
+<li><strong>Privacy-first AI</strong> — Gevoelige data verlaat nooit je premises</li>
+<li><strong>Incrementeel schalen</strong> — Voeg apparaten toe als nodig, niet alles tegelijk</li>
+<li><strong>Hardware flexibiliteit</strong> — Mix Mac Studios, Minis en MacBooks</li>
+<li><strong>Kosten voorspelbaarheid</strong> — Geen per-token prijsverrassingen</li>
+</ul>
+<p>Het Chinese open-source AI ecosysteem (DeepSeek, Qwen, Kimi) gecombineerd met Apple Silicon’s memory bandwidth voordeel en frameworks zoals exo creëert een overtuigend alternatief voor cloud-afhankelijke AI-infrastructuur.</p>
+<p>Voor enterprises die lokale LLM-deployment evalueren, verdient deze stack serieuze overweging.</p>
+<hr>
+<p><em>Lokale AI-infrastructuur bouwen? We hebben distributed inference setups geëvalueerd en kunnen je helpen de juiste oplossing te architecten. <a href="/nl/contact">Laten we praten</a>.</em></p> </div> <div class="cta"> <div> <h2>Klaar om iets geweldigs te bouwen?</h2> <p>Laten we bespreken hoe Virge.io je kan helpen je software-oplossingen te schalen.</p> </div> <a href="/nl/contact/" class="btn">Neem contact op</a> </div> </div> </article> </main> <footer> <div class="container"> <p>&copy; 2026 Virge.io — Software oplossingen die schalen</p> </div> </footer> </body></html>
