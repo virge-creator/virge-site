@@ -1,0 +1,81 @@
+<!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="description" content="Turing Award-winnaar David Patterson onthult waarom GPU's het verkeerde gereedschap zijn voor AI inference. Geheugenbandbreedte, niet rekenkracht, is de echte bottleneck."><meta property="og:title" content="IEEE Bombshell: LLM Inference Is Fundamenteel Kapot op Hardware-Niveau | Virge.io"><meta property="og:description" content="Turing Award-winnaar David Patterson onthult waarom GPU's het verkeerde gereedschap zijn voor AI inference. Geheugenbandbreedte, niet rekenkracht, is de echte bottleneck."><meta property="og:type" content="website"><meta property="og:locale" content="en_US"><link rel="canonical" href="https://virge.io/nl/blog/llm-inference-hardware-broken-patterson-2026/"><link rel="alternate" hreflang="en" href="https://virge.io/nl/blog/llm-inference-hardware-broken-patterson-2026/"><link rel="alternate" hreflang="nl" href="https://virge.io/nl/blog/llm-inference-hardware-broken-patterson-2026/"><title>IEEE Bombshell: LLM Inference Is Fundamenteel Kapot op Hardware-Niveau | Virge.io</title><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="stylesheet" href="/_astro/a2a-commerce-agent-to-agent-shopping-2026.B7CYdlqH.css"></head> <body> <nav data-astro-cid-dmqpwcec> <div class="container" data-astro-cid-dmqpwcec> <a href="/en/" class="logo" data-astro-cid-dmqpwcec><img src="/logo.png" alt="Virge.io" class="logo-img" data-astro-cid-dmqpwcec></a> <button class="menu-toggle" aria-label="Menu" onclick="document.querySelector('.links').classList.toggle('open')" data-astro-cid-dmqpwcec>☰</button> <ul class="links" data-astro-cid-dmqpwcec> <li data-astro-cid-dmqpwcec><a href="/en/" data-astro-cid-dmqpwcec>Home</a></li><li data-astro-cid-dmqpwcec><a href="/en/ai/" data-astro-cid-dmqpwcec>AI Consulting</a></li><li data-astro-cid-dmqpwcec><a href="/en/sdn/" data-astro-cid-dmqpwcec>SDN</a></li><li data-astro-cid-dmqpwcec><a href="/en/ecommerce/" data-astro-cid-dmqpwcec>eCommerce</a></li><li data-astro-cid-dmqpwcec><a href="/en/blog/" data-astro-cid-dmqpwcec>Blog</a></li><li data-astro-cid-dmqpwcec><a href="/en/openclaw/" data-astro-cid-dmqpwcec>OpenClaw</a></li><li data-astro-cid-dmqpwcec><a href="/en/contact/" data-astro-cid-dmqpwcec>Contact</a></li> <li class="lang-switch" data-astro-cid-dmqpwcec> <a href="/nl/blog/llm-inference-hardware-broken-patterson-2026/" class="lang-btn" data-astro-cid-dmqpwcec>NL</a> </li> </ul> </div> </nav>  <main> <article class="blog-post"> <div class="container"> <a href="/en/blog/" class="back-link">← Back to Blog</a> <header class="post-header"> <h1>IEEE Bombshell: LLM Inference Is Fundamenteel Kapot op Hardware-Niveau</h1> <div class="post-meta"> <span>Virge.io Team</span> <span>·</span> <time>Invalid Date</time> <span>·</span> <span>6 min read</span> </div> </header> <div class="post-content"> <p>Een baanbrekend paper geaccepteerd door IEEE Computer magazine dwingt de AI-industrie om een ongemakkelijke waarheid onder ogen te zien: <strong>de hardware die we gebruiken voor LLM inference was er nooit voor ontworpen.</strong></p>
+<p>Het onderzoek, geschreven door Google’s Xiaoyu Ma en Turing Award-winnaar David Patterson, betoogt dat geheugen en interconnect—niet rekenkracht—de primaire bottlenecks zijn die large language model prestaties beperken. Na een decennium van jagen op steeds hogere GPU FLOPS, heeft de industrie mogelijk de verkeerde metric geoptimaliseerd.</p>
+<h2 id="het-kernprobleem-een-kloof-van-47x">Het Kernprobleem: Een Kloof van 4,7x</h2>
+<p>Hier is de ongemakkelijke wiskunde:</p>
+<ul>
+<li><strong>GPU rekenkracht</strong> is <strong>80x</strong> gegroeid in het afgelopen decennium</li>
+<li><strong>Geheugenbandbreedte</strong> is slechts <strong>17x</strong> gegroeid</li>
+</ul>
+<p>Dit verschil van 4,7x is geen kleine inefficiëntie—het is een fundamentele architecturale mismatch. Moderne GPU’s zijn ontworpen met enorme rekenunits gekoppeld aan dure High Bandwidth Memory (HBM), geoptimaliseerd voor trainingsworkloads waar parallelle berekeningen domineren.</p>
+<p>Maar inference is anders. De autoregressieve decode-fase van transformer-modellen genereert één token per keer, wat herhaalde geheugentoegang vereist in plaats van intensieve parallelle berekeningen. Je dure GPU-cores zitten werkeloos terwijl het systeem wacht op data uit het geheugen.</p>
+<blockquote>
+<p>“Large Language Model (LLM) inference is moeilijk. De autoregressieve Decode-fase van het onderliggende Transformer-model maakt LLM inference fundamenteel anders dan training. Verergerd door recente AI-trends zijn de primaire uitdagingen geheugen en interconnect in plaats van rekenkracht.”</p>
+<p>— Xiaoyu Ma en David Patterson</p>
+</blockquote>
+<h2 id="waarom-dit-ertoe-doet-de-200-miljard-vraag">Waarom Dit Ertoe Doet: De $200 Miljard Vraag</h2>
+<p>Cloudproviders hebben meer dan <strong>$200 miljard in GPU’s</strong> geïnvesteerd, maar hun omzet komt uit inference, niet training. En hier is het vuile geheim: veel organisaties kopen GPU’s voornamelijk voor hun VRAM, niet hun rekencapaciteiten.</p>
+<p>Dit creëert een bizarre economische situatie:</p>
+<ul>
+<li><strong>HBM wordt duurder</strong> per GB en per GB/s over tijd</li>
+<li><strong>Standaard DDR blijft goedkoper worden</strong> (langetermijntrend)</li>
+<li>Organisaties betalen voor rekenkracht die ze niet volledig kunnen benutten</li>
+<li>Geheugencapaciteit, niet FLOPS, bepaalt welke modellen je kunt serveren</li>
+</ul>
+<p>De prijsinversie werkt andersom voor inference-workloads. Je betaalt premiumprijzen voor rekencapaciteiten die werkeloos zitten terwijl je geheugensubsysteem worstelt om bij te blijven.</p>
+<h2 id="de-technische-realiteit-memory-bound-tot-aan-de-bodem">De Technische Realiteit: Memory-Bound Tot Aan de Bodem</h2>
+<p>Recent onderzoek van IBM en Barcelona Supercomputing Center bevestigt Patterson’s bevindingen met harde data. Hun GPU-niveau analyse onthult:</p>
+<ul>
+<li><strong>L1 cache hit rates</strong>: gemiddeld niet meer dan 12%</li>
+<li><strong>L2 cache hit rates</strong>: gemiddeld slechts 2%</li>
+<li><strong>Hit rates dalen</strong> naarmate batch size toeneemt</li>
+</ul>
+<p>Zelfs bij grote batch sizes—waarvan conventionele wijsheid aannam dat ze workloads naar compute-bound territorium zouden verschuiven—blijft inference <strong>hardnekkig memory-bound</strong>. Het attention-mechanisme, cruciaal voor transformer-prestaties, toont DRAM-bandbreedteverzadiging als de belangrijkste beperkende factor.</p>
+<p>Meer dan 50% van de attention kernel-cycli staan stil wachtend op data. Je GPU is niet traag—hij verhongert.</p>
+<h2 id="vier-paden-vooruit">Vier Paden Vooruit</h2>
+<p>Patterson’s paper identificeert vier architecturale mogelijkheden om de geheugenbottleneck aan te pakken:</p>
+<h3 id="1-high-bandwidth-flash-hbf">1. High Bandwidth Flash (HBF)</h3>
+<p>Sla bevroren modelgewichten op in flash-gebaseerd geheugen met HBM-achtige bandbreedte. SK Hynix, Samsung en SanDisk ontwikkelen HBF voor integratie in NVIDIA-, AMD- en Google-producten binnen 24 maanden.</p>
+<p>De logica: modelgewichten veranderen niet tijdens inference, wat ze ideale kandidaten maakt voor hoge-capaciteit, lagere-bandbreedte opslag. Maak dure HBM vrij voor dynamische data zoals KV-caches.</p>
+<h3 id="2-processing-near-memory-pnm">2. Processing-Near-Memory (PNM)</h3>
+<p>Houd compute en geheugen gescheiden maar verminder dataverplaatsing door verwerkingselementen dichter bij het geheugen te plaatsen. In plaats van data naar compute te verplaatsen, verplaats compute naar data.</p>
+<h3 id="3-3d-memory-logic-stacking">3. 3D Memory-Logic Stacking</h3>
+<p>Plaats geheugenlagen direct op compute-chips, wat de afstand die data moet afleggen dramatisch vermindert. Deze aanpak vereist fundamentele veranderingen in chipfabricage maar biedt de hoogste potentiële bandbreedtewinsten.</p>
+<h3 id="4-low-latency-interconnect">4. Low-Latency Interconnect</h3>
+<p>Versnel communicatie tussen chips in gedistribueerde inference-scenario’s. Naarmate modellen groter worden dan single-GPU-capaciteit, wordt inter-chip communicatie een andere bottleneck.</p>
+<h2 id="de-marktimplicaties">De Marktimplicaties</h2>
+<p>TrendForce voorspelt dat tegen 2029 <strong>AI inference training zal inhalen</strong> als primaire driver van vraag naar AI-servers. Deze verschuiving creëert strategische kansen:</p>
+<p><strong>Voor hardwareleveranciers:</strong></p>
+<ul>
+<li>Geheugen-geoptimaliseerde inference-chips kunnen marge winnen van compute-gefocuste GPU’s</li>
+<li>Custom silicon voor specifieke modelarchitecturen kan beter presteren dan general-purpose GPU’s</li>
+<li>Het HBM-tekort (70%+ groei verwacht in 2026) creëert prijsmacht voor geheugenproducenten</li>
+</ul>
+<p><strong>Voor AI-bedrijven:</strong></p>
+<ul>
+<li>Modelarchitectuurkeuzes die geheugenbandbreedtevereisten verminderen worden waardevoller</li>
+<li>Technieken zoals speculative decoding, die compute inruilen voor geheugenefficiëntie, winnen aan belang</li>
+<li>On-device inference met geoptimaliseerde geheugentoegangspatronen kan cloudinfernce overtreffen voor sommige workloads</li>
+</ul>
+<p><strong>Voor cloudproviders:</strong></p>
+<ul>
+<li>Huidige GPU-vloten kunnen over-provisioned zijn voor inference-workloads</li>
+<li>Purpose-built inference-hardware (zoals Google’s TPU inference-varianten) wordt aantrekkelijker</li>
+<li>Geheugencapaciteit, niet compute FLOPS, kan de primaire scaling-metric worden</li>
+</ul>
+<h2 id="wat-dit-betekent-voor-ai-deployment">Wat Dit Betekent voor AI-Deployment</h2>
+<p>Als je AI-systemen deployt, heeft Patterson’s onderzoek praktische implicaties:</p>
+<h3 id="1-heroverweeg-hardwareselectie">1. Heroverweeg Hardwareselectie</h3>
+<p>Stop met alleen optimaliseren voor FLOPS. Geheugenbandbreedte en -capaciteit kunnen belangrijker zijn voor inference-workloads dan piek-rekenprestaties.</p>
+<h3 id="2-monitor-geheugengebruik">2. Monitor Geheugengebruik</h3>
+<p>Je GPU-gebruiksmetrics kunnen misleidend zijn. Hoge compute-utilisatie betekent niet efficiënte inference als geheugen de bottleneck is.</p>
+<h3 id="3-overweeg-modelarchitectuur">3. Overweeg Modelarchitectuur</h3>
+<p>Modellen die geheugentoegangspatronen minimaliseren (minder attention heads, efficiënt KV-cache management) kunnen in de praktijk beter presteren dan architecturaal “superieure” alternatieven.</p>
+<h3 id="4-volg-de-hardware-roadmap">4. Volg de Hardware-Roadmap</h3>
+<p>De volgende generatie AI inference-hardware kan er heel anders uitzien dan huidige GPU-ontwerpen. Purpose-built inference-chips kunnen binnen 2-3 jaar betere economics bieden.</p>
+<h2 id="het-grotere-plaatje">Het Grotere Plaatje</h2>
+<p>Patterson’s geloofsbrieven geven dit onderzoek ongewoon gewicht. Als mede-schepper van RISC-processors en architect van Google’s TPU heeft hij meerdere generaties computerhardware gevormd. Wanneer hij zegt dat de industrie het verkeerde heeft geoptimaliseerd, is het de moeite waard om te luisteren.</p>
+<p>De AI-industrie heeft een decennium besteed aan de aanname dat meer GPU-rekenkracht inference-uitdagingen zou oplossen. Dit paper suggereert dat we fundamenteel moeten heroverwegen hoe we hardware ontwerpen voor AI-workloads—prioriteit geven aan geheugenbandbreedte en -capaciteit boven ruwe FLOPS.</p>
+<p>De bedrijven die deze verschuiving vroeg herkennen en hun infrastructuur dienovereenkomstig aanpassen, zullen een significant voordeel hebben naarmate AI-deployment schaalt. Degenen die vasthouden aan compute-centrisch denken kunnen merken dat ze dure hardware hebben die de modellen die hun klanten eisen niet efficiënt kan serveren.</p>
+<hr>
+<p><em>Bij Virge helpen we organisaties het evoluerende AI-infrastructuurlandschap te navigeren. Begrip van hardwarebeperkingen is essentieel voor geïnformeerde beslissingen over modeldeployment en schaling. <a href="/nl/contact">Neem contact op</a> om je AI-infrastructuurstrategie te bespreken.</em></p>
+<p><strong>Bron:</strong> Ma, X., &#x26; Patterson, D. (2026). <a href="https://arxiv.org/abs/2601.05047">Challenges and Opportunities for LLM Inference</a>. Geaccepteerd voor publicatie in IEEE Computer magazine.</p> </div> <div class="cta"> <div> <h2>Ready to build something great?</h2> <p>Let&#39;s discuss how Virge.io can help you scale your software solutions.</p> </div> <a href="/en/contact/" class="btn">Get in touch</a> </div> </div> </article> </main> <footer> <div class="container"> <p>&copy; 2026 Virge.io — Software solutions that scale</p> </div> </footer> </body></html>
