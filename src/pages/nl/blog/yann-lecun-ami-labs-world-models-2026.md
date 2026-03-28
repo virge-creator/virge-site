@@ -4,7 +4,7 @@ title: "Yann LeCun Verlaat Meta om 'World Models' te Bouwen: Wat de €920M Fund
 description: "De Turing Award-winnaar zet alles in op AI die de fysieke wereld begrijpt. Dit is wat de verschuiving van LLMs naar world models betekent voor enterprise toepassingen."
 pubDate: 2026-03-28
 author: "Virge.io Team"
-heroImage: "/images/blog/yann-lecun-ami-labs-2026/hero.png"
+heroImage: "/images/blog/yann-lecun-ami-labs-2026/hero.jpg"
 tags: ["AI", "World Models", "LLMs", "Enterprise AI", "AMI Labs", "Yann LeCun"]
 ---
 
