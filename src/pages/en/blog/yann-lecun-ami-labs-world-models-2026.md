@@ -2,7 +2,7 @@
 layout: ../../../layouts/BlogPost.astro
 title: "Yann LeCun Leaves Meta to Build 'World Models': What AMI Labs' $1B Raise Means for Enterprise AI"
 description: "The Turing Award winner bets big on AI that understands the physical world. Here's what the shift from LLMs to world models means for enterprise applications."
-pubDate: 2026-03-28
+date: 2026-03-28
 author: "Virge.io Team"
 heroImage: "/images/blog/yann-lecun-ami-labs-2026/hero.jpg"
 tags: ["AI", "World Models", "LLMs", "Enterprise AI", "AMI Labs", "Yann LeCun"]

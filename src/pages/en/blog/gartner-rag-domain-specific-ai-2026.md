@@ -2,7 +2,7 @@
 layout: ../../../layouts/BlogPost.astro
 title: "Gartner's RAG Revolution: Why Domain-Specific AI Beats Generic LLM Wrappers"
 description: "Gartner predicts 70% of enterprise AI will require RAG by 2026. Learn why domain-specific retrieval-augmented generation outperforms generic AI solutions."
-pubDate: 2026-03-19
+date: 2026-03-19
 author: "Virge.io Team"
 heroImage: "/images/blog/rag-gartner-2026/hero.png"
 tags: ["RAG", "AI", "Gartner", "Enterprise", "LLM"]

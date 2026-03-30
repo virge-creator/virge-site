@@ -2,7 +2,7 @@
 layout: ../../../layouts/BlogPost.astro
 title: "Samsung's $73 Billion AI Chip Gamble: The Biggest Bet in Semiconductor History"
 description: "Samsung announces record 110 trillion won investment to dominate AI chips. What this means for NVIDIA, TSMC, and the global AI infrastructure race."
-pubDate: 2026-03-20
+date: 2026-03-20
 author: "Virge.io Team"
 heroImage: "/images/blog/samsung-ai-chips-2026/hero.png"
 tags: ["Samsung", "AI", "Semiconductors", "HBM", "NVIDIA"]
