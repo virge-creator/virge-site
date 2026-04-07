@@ -1,0 +1,112 @@
+<!DOCTYPE html><html lang="nl"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="description" content="SAP's April 2026 Developer Challenge combineert CrewAI multi-agent orchestratie met Retrieval-Augmented Generation. Dit betekent het voor enterprise AI adoptie."><meta property="og:title" content="SAP Omarmt CrewAI: Enterprise AI Agents Bouwen met RAG | Virge.io"><meta property="og:description" content="SAP's April 2026 Developer Challenge combineert CrewAI multi-agent orchestratie met Retrieval-Augmented Generation. Dit betekent het voor enterprise AI adoptie."><meta property="og:type" content="website"><meta property="og:locale" content="nl_NL"><link rel="canonical" href="https://virge.io/nl/blog/sap-crewai-ai-agents-rag-developer-challenge-2026/"><link rel="alternate" hreflang="nl" href="https://virge.io/nl/blog/sap-crewai-ai-agents-rag-developer-challenge-2026/"><link rel="alternate" hreflang="en" href="https://virge.io/en/blog/sap-crewai-ai-agents-rag-developer-challenge-2026/"><title>SAP Omarmt CrewAI: Enterprise AI Agents Bouwen met RAG | Virge.io</title><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="stylesheet" href="/_astro/a2a-commerce-agent-to-agent-shopping-2026.B7CYdlqH.css"></head> <body> <nav data-astro-cid-dmqpwcec> <div class="container" data-astro-cid-dmqpwcec> <a href="/nl/" class="logo" data-astro-cid-dmqpwcec><img src="/logo.png" alt="Virge.io" class="logo-img" data-astro-cid-dmqpwcec></a> <button class="menu-toggle" aria-label="Menu" onclick="document.querySelector('.links').classList.toggle('open')" data-astro-cid-dmqpwcec>☰</button> <ul class="links" data-astro-cid-dmqpwcec> <li data-astro-cid-dmqpwcec><a href="/nl/" data-astro-cid-dmqpwcec>Home</a></li><li data-astro-cid-dmqpwcec><a href="/nl/ai/" data-astro-cid-dmqpwcec>AI Consulting</a></li><li data-astro-cid-dmqpwcec><a href="/nl/sdn/" data-astro-cid-dmqpwcec>SDN</a></li><li data-astro-cid-dmqpwcec><a href="/nl/ecommerce/" data-astro-cid-dmqpwcec>eCommerce</a></li><li data-astro-cid-dmqpwcec><a href="/nl/blog/" data-astro-cid-dmqpwcec>Blog</a></li><li data-astro-cid-dmqpwcec><a href="/nl/openclaw/" data-astro-cid-dmqpwcec>OpenClaw</a></li><li data-astro-cid-dmqpwcec><a href="/nl/contact/" data-astro-cid-dmqpwcec>Contact</a></li> <li class="lang-switch" data-astro-cid-dmqpwcec> <a href="/en/blog/sap-crewai-ai-agents-rag-developer-challenge-2026/" class="lang-btn" data-astro-cid-dmqpwcec>EN</a> </li> </ul> </div> </nav>  <main> <article class="blog-post"> <div class="container"> <a href="/nl/blog/" class="back-link">← Terug naar Blog</a> <header class="post-header"> <h1>SAP Omarmt CrewAI: Enterprise AI Agents Bouwen met RAG</h1> <div class="post-meta"> <span>Virge.io</span> <span>·</span> <time>7 april 2026</time> <span>·</span> <span>4 min leestijd</span> </div> </header> <div class="post-content"> <p><img src="/images/blog/sap-crewai-rag-agents.jpg" alt=""></p>
+<h1 id="sap-omarmt-crewai-enterprise-ai-agents-bouwen-met-rag">SAP Omarmt CrewAI: Enterprise AI Agents Bouwen met RAG</h1>
+<p>SAP heeft zojuist zijn <a href="https://community.sap.com/t5/artificial-intelligence-blogs-posts/ai-developer-challenge-april-2026-build-ai-agents-with-generative-ai-hub/ba-p/14327218">April 2026 AI Developer Challenge</a> gelanceerd, en de tech stack is veelzeggend: <strong>CrewAI voor multi-agent orchestratie, gecombineerd met SAP’s Generative AI Hub voor RAG-powered document grounding</strong>. Dit is geen speelgoed-demo—het is een signaal dat enterprise AI zich beslissend beweegt naar agentic architecturen.</p>
+<h2 id="de-challenge-real-world-ai-voor-sociale-diensten">De Challenge: Real-World AI voor Sociale Diensten</h2>
+<p>De vier weken durende challenge vraagt developers om een intelligente assistent te bouwen voor Duitse sociale diensten (“Grundsicherung”). Het systeem moet:</p>
+<ul>
+<li>Vragen beantwoorden over sociale uitkeringen met gegronde documenten</li>
+<li>Informatie vinden over voedselbanken (“Tafel Deutschland”)</li>
+<li>Beslissingen nemen over wanneer en hoe context op te halen</li>
+<li>Accurate, contextbewuste antwoorden geven</li>
+</ul>
+<p>Dit is klassiek enterprise AI-territorium: <strong>domeinspecifieke kennis + complexe queries + accountability-vereisten</strong>.</p>
+<h2 id="waarom-crewai--rag-ertoe-doet">Waarom CrewAI + RAG Ertoe Doet</h2>
+<p>De combinatie die SAP koos is significant:</p>
+<h3 id="crewai-role-based-multi-agent-teams">CrewAI: Role-Based Multi-Agent Teams</h3>
+<p><a href="https://www.crewai.com/">CrewAI</a> structureert AI als samenwerkende teams met gedefinieerde rollen, doelen en backstories. In plaats van één monolithische prompt krijg je:</p>
+<ul>
+<li><strong>Gespecialiseerde agents</strong> — elk gefocust op een specifieke taak</li>
+<li><strong>Taakdelegatie</strong> — agents dragen werk passend over</li>
+<li><strong>Gestructureerde outputs</strong> — voorspelbare, getypte responses</li>
+</ul>
+<p>Voor enterprises betekent dit <strong>auditeerbaarheid</strong>. Je kunt traceren welke agent welke beslissing nam en waarom.</p>
+<h3 id="rag-knowledge-grounded-responses">RAG: Knowledge-Grounded Responses</h3>
+<p>Retrieval-Augmented Generation lost het hallucinatieprobleem op door LLM-responses te gronden in daadwerkelijke documenten. SAP’s implementatie gebruikt:</p>
+<ul>
+<li><strong>SAP HANA Cloud Vector Engine</strong> — enterprise-grade vector storage</li>
+<li><strong>Document Grounding Service</strong> — handelt chunking en embedding af</li>
+<li><strong>Orchestration Workflow</strong> — coördineert retrieval + generatie</li>
+</ul>
+<p>Het resultaat: AI die antwoordt op basis van jouw documenten, niet zijn trainingsdata.</p>
+<h2 id="het-vierwekelijkse-curriculum">Het Vierwekelijkse Curriculum</h2>
+<p>SAP structureerde de challenge als progressieve skill-building:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Week</th><th>Focus</th><th>Kernvaardigheden</th></tr></thead><tbody><tr><td>1</td><td>Document Grounding</td><td>RAG-patterns, prompt templates, orchestratie service</td></tr><tr><td>2</td><td>CrewAI Agents</td><td>Rollen, doelen, taken, SAP AI Hub integratie</td></tr><tr><td>3</td><td>Agents + Tools</td><td>Custom tools, tool-based reasoning, RAG + agents</td></tr><tr><td>4</td><td>SAP-RPT-1</td><td>Foundation model voor regressie/classificatie</td></tr></tbody></table>
+<p><strong>Week 3 is de interessante</strong>: het combineren van agentic besluitvorming met gegronde retrieval. Dit is waar agents leren te <em>beslissen</em> wanneer context op te halen vs. wanneer ze al genoeg informatie hebben.</p>
+<h2 id="architectuur-deep-dive">Architectuur Deep Dive</h2>
+<p>SAP’s referentiearchitectuur onthult enterprise-grade denken:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>User Query</span></span>
+<span class="line"><span>    ↓</span></span>
+<span class="line"><span>Orchestration Workflow (SAP AI Core)</span></span>
+<span class="line"><span>    ↓</span></span>
+<span class="line"><span>┌─────────────────────────────────────┐</span></span>
+<span class="line"><span>│  1. Query Analysis (LLM)            │</span></span>
+<span class="line"><span>│  2. Similarity Search (HANA Vector) │</span></span>
+<span class="line"><span>│  3. Context Retrieval (S3/DocStore) │</span></span>
+<span class="line"><span>│  4. Response Generation (LLM)       │</span></span>
+<span class="line"><span>└─────────────────────────────────────┘</span></span>
+<span class="line"><span>    ↓</span></span>
+<span class="line"><span>Grounded Response</span></span></code></pre>
+<p>Kerncomponenten:</p>
+<ul>
+<li><strong>SAP AI Launchpad</strong> — UI voor deployment management</li>
+<li><strong>Generative AI Hub</strong> — unified access tot meerdere LLMs (Gemini, Azure OpenAI, Bedrock)</li>
+<li><strong>HANA Cloud Vector Engine</strong> — cosine similarity search op schaal</li>
+<li><strong>Document Store (S3)</strong> — source document management</li>
+</ul>
+<h2 id="wat-dit-betekent-voor-enterprise-ai">Wat Dit Betekent voor Enterprise AI</h2>
+<h3 id="1-agentic-wordt-mainstream">1. Agentic Wordt Mainstream</h3>
+<p>Wanneer SAP een developer challenge bouwt rond CrewAI, is het niet meer experimenteel. Verwacht dat enterprise tooling multi-agent architecturen als standaard aanneemt.</p>
+<h3 id="2-rag-is-table-stakes">2. RAG is Table Stakes</h3>
+<p>Document grounding is niet optioneel voor enterprise AI. Elke serieuze implementatie heeft retrieval nodig om accuratesse te garanderen en aansprakelijkheid te verminderen.</p>
+<h3 id="3-tool-use-is-de-differentiator">3. Tool Use is de Differentiator</h3>
+<p>De meest capabele enterprise agents zullen degenen zijn die kunnen beslissen <em>wanneer</em> tools te gebruiken (search, APIs, databases) vs. vertrouwen op context. Week 3’s focus op “tool-based reasoning” is waar productiewaarde zit.</p>
+<h3 id="4-hybrid-cloud-is-realiteit">4. Hybrid Cloud is Realiteit</h3>
+<p>SAP’s architectuur spant BTP, HANA Cloud, AWS S3, en externe LLM-providers. Enterprise AI betekent orchestreren over platforms heen.</p>
+<h2 id="aan-de-slag">Aan de Slag</h2>
+<p>SAP biedt gratis trial toegang tot hun volledige stack:</p>
+<ol>
+<li><a href="https://www.sap.com/registration/trial.html">Registreer voor trial access</a></li>
+<li><a href="https://github.com/noravth/developer-challenge-042026">GitHub repo met notebooks</a></li>
+<li>Werk door wekelijkse challenges in Business Application Studio</li>
+</ol>
+<p>Prerequisites zijn minimaal: basis Python, Jupyter bekendheid, REST API concepten.</p>
+<h2 id="key-takeaways">Key Takeaways</h2>
+<ul>
+<li><strong>CrewAI</strong> is SAP’s keuze voor multi-agent orchestratie — role-based teams met duidelijke accountability</li>
+<li><strong>RAG + Agents</strong> is het productiepatroon — gegronde kennis meets autonome besluitvorming</li>
+<li><strong>Enterprise architectuur</strong> vereist vector databases, document stores, en multi-cloud orchestratie</li>
+<li><strong>Tool-based reasoning</strong> scheidt demos van productiesystemen</li>
+</ul>
+<p>De combinatie van agentic AI en retrieval-augmented generation is niet alleen technisch elegant—het is de architectuur die enterprise AI betrouwbaar genoeg maakt om te deployen.</p>
+<hr>
+<p><em>Virge.io is gespecialiseerd in enterprise AI-architecturen die RAG, multi-agent systemen en veilige orchestratie combineren. <a href="/contact/">Neem contact op</a> om je implementatie te bespreken.</em></p> </div> <div class="cta"> <div> <h2>Klaar om iets geweldigs te bouwen?</h2> <p>Laten we bespreken hoe Virge.io je kan helpen je software-oplossingen te schalen.</p> </div> <a href="/nl/contact/" class="btn">Neem contact op</a> </div> </div> </article> </main> <footer> <div class="container"> <p>&copy; 2026 Virge.io — Software oplossingen die schalen</p> </div> </footer> </body></html>
