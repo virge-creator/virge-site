@@ -1,6 +1,7 @@
 ---
 import type { Lang } from '../i18n';
 import { t, getOtherLang } from '../i18n';
+import Icon from './Icon.astro';
 
 interface Props {
   lang?: Lang;
@@ -34,7 +35,9 @@ const links = [
 <nav>
   <div class="container">
     <a href={base} class="logo"><img src="/logo.png" alt="Virge.io" class="logo-img" /></a>
-    <button class="menu-toggle" aria-label="Menu" onclick="document.querySelector('.links').classList.toggle('open')">☰</button>
+    <button class="menu-toggle" aria-label="Menu" onclick="document.querySelector('.links').classList.toggle('open')">
+      <Icon name="menu" size={24} />
+    </button>
     <ul class="links">
       {links.map(l => <li><a href={l.href}>{l.label}</a></li>)}
       <li class="lang-switch">

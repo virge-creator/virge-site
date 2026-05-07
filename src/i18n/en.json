@@ -11,7 +11,7 @@
   },
   "hero": {
     "title": "Software solutions <span>that scale</span>",
-    "description": "Virge.io delivers expert consulting and products across AI, Software Defined Networking, and eCommerce — helping businesses build resilient, future-proof technology.",
+    "description": "Virge.io delivers expert consulting and products across AI, Software Defined Networking, and eCommerce. helping businesses build resilient, future-proof technology.",
     "cta": "Let's Talk"
   },
   "home": {
@@ -19,11 +19,11 @@
     "aiTitle": "AI Consulting",
     "aiDesc": "Vector databases, RAG pipelines, and production-ready AI integrations that deliver real business value.",
     "sdnTitle": "Software Defined Networking",
-    "sdnDesc": "Network automation with our Workflow Orchestrator (WFO) — infrastructure as code, done right.",
+    "sdnDesc": "Network automation with our Workflow Orchestrator (WFO). infrastructure as code, done right.",
     "ecomTitle": "eCommerce",
-    "ecomDesc": "Headless content delivery and ShopVirge — spin up fully functional webshops in no time.",
+    "ecomDesc": "Headless content delivery and ShopVirge. spin up fully functional webshops in no time.",
     "openclawTitle": "OpenClaw Consultancy",
-    "openclawDesc": "Your own AI assistant — deployed, hosted, secured, and automated for your business."
+    "openclawDesc": "Your own AI assistant. deployed, hosted, secured, and automated for your business."
   },
   "cta": {
     "title": "Ready to build something great?",
@@ -31,53 +31,53 @@
     "button": "Get in touch"
   },
   "footer": {
-    "text": "Virge.io — Software solutions that scale",
+    "text": "Virge.io. Software solutions that scale",
     "company": "Formatics · Groningen, Netherlands",
     "services": "Services",
     "blog": "Blog",
     "contact": "Contact",
-    "madeWith": "Built with ☕ and AI"
+    "madeWith": "Built with coffee and AI"
   },
   "ai": {
     "title": "AI <span>Consulting</span>",
     "description": "We help you move beyond prototypes to production-ready AI systems that deliver measurable results.",
-    "metaDesc": "Practical, production-ready AI solutions — vector databases, RAG pipelines, and seamless integrations.",
+    "metaDesc": "Practical, production-ready AI solutions. vector databases, RAG pipelines, and seamless integrations.",
     "searchTitle": "Search with vector databases",
-    "searchDesc": "Implement semantic search using state-of-the-art vector databases. Find meaning, not just keywords — enabling smarter retrieval across documents, products, and knowledge bases.",
+    "searchDesc": "Implement semantic search using state-of-the-art vector databases. Find meaning, not just keywords. enabling smarter retrieval across documents, products, and knowledge bases.",
     "ragTitle": "RAG pipeline design & implementation",
     "ragDesc": "Design and build Retrieval-Augmented Generation pipelines that ground LLM responses in your data. Reduce hallucinations and deliver accurate, context-aware answers.",
     "integrationTitle": "AI integration into existing applications",
-    "integrationDesc": "Seamlessly embed AI capabilities into your current stack — from intelligent APIs to smart automation — without rebuilding from scratch.",
+    "integrationDesc": "Seamlessly embed AI capabilities into your current stack. from intelligent APIs to smart automation. without rebuilding from scratch.",
     "productionTitle": "Production-ready solutions",
-    "productionDesc": "We focus on practical, scalable AI that works in the real world. Proper evaluation, monitoring, and iteration — not just demos."
+    "productionDesc": "We focus on practical, scalable AI that works in the real world. Proper evaluation, monitoring, and iteration. not just demos."
   },
   "sdn": {
     "title": "Software Defined <span>Networking</span>",
     "description": "Automate and orchestrate your network infrastructure with battle-tested open-source tooling.",
-    "metaDesc": "Network automation and orchestration with the Workflow Orchestrator (WFO) — proven in enterprise environments.",
+    "metaDesc": "Network automation and orchestration with the Workflow Orchestrator (WFO). proven in enterprise environments.",
     "wfoTitle": "Workflow Orchestrator (WFO)",
-    "wfoDesc": "The <a href=\"https://workfloworchestrator.org\" target=\"_blank\" rel=\"noopener\">Workflow Orchestrator</a> is an open-source platform for automating and orchestrating networks. It provides workflow and product modeling, standardised forms, and integrations with tools like Netbox and Ansible — giving you full control over your network lifecycle.",
+    "wfoDesc": "The <a href=\"https://workfloworchestrator.org\" target=\"_blank\" rel=\"noopener\">Workflow Orchestrator</a> is an open-source platform for automating and orchestrating networks. It provides workflow and product modeling, standardised forms, and integrations with tools like Netbox and Ansible. giving you full control over your network lifecycle.",
     "enterpriseTitle": "Enterprise integration experience",
-    "enterpriseDesc": "We've delivered multiple WFO integration projects for large corporates and service providers. From initial architecture to production rollout — we know how to embed the Workflow Orchestrator into complex, existing environments.",
+    "enterpriseDesc": "We've delivered multiple WFO integration projects for large corporates and service providers. From initial architecture to production rollout. we know how to embed the Workflow Orchestrator into complex, existing environments.",
     "modelingTitle": "Product & workflow modeling",
-    "modelingDesc": "Define your network products and services as code. We help you model subscriptions, product types, and automated workflows that map directly to your business processes — reducing manual work and eliminating errors.",
+    "modelingDesc": "Define your network products and services as code. We help you model subscriptions, product types, and automated workflows that map directly to your business processes. reducing manual work and eliminating errors.",
     "integrationsTitle": "Integrations & tooling",
-    "integrationsDesc": "Connect the Workflow Orchestrator to your existing stack — Netbox for IPAM/DCIM, Ansible for device configuration via LSO, and custom APIs for your internal systems. We build the glue that makes it all work together.",
+    "integrationsDesc": "Connect the Workflow Orchestrator to your existing stack. Netbox for IPAM/DCIM, Ansible for device configuration via LSO, and custom APIs for your internal systems. We build the glue that makes it all work together.",
     "iacTitle": "Infrastructure as Code",
-    "iacDesc": "Treat your network like software. Version-controlled configurations, repeatable deployments, and automated provisioning — bringing DevOps practices to network engineering.",
+    "iacDesc": "Treat your network like software. Version-controlled configurations, repeatable deployments, and automated provisioning. bringing DevOps practices to network engineering.",
     "trainingTitle": "Training & workshops",
     "trainingDesc": "Get your team up to speed. We offer hands-on workshops covering WFO architecture, workflow development, and best practices for network automation at scale."
   },
   "ecommerce": {
     "title": "e<span>Commerce</span>",
-    "description": "Modern, flexible eCommerce solutions — from headless content to turnkey webshops.",
+    "description": "Modern, flexible eCommerce solutions. from headless content to turnkey webshops.",
     "metaDesc": "Headless content delivery, ShopVirge webshops, and eCommerce consultancy.",
     "contentTitle": "Content as a Service",
-    "contentDesc": "AI-powered product content generation for eCommerce. Just give us a product name — like \"Selmer Mark VI\" — and we deliver rich, high-quality descriptions, images, and metadata. Fully automated content enrichment that saves hours of manual work.",
+    "contentDesc": "AI-powered product content generation for eCommerce. Just give us a product name. like \"Selmer Mark VI\". and we deliver rich, high-quality descriptions, images, and metadata. Fully automated content enrichment that saves hours of manual work.",
     "shopTitle": "ShopVirge",
-    "shopDesc": "Our ad hoc webshop system lets you spin up fully functional online stores fast. Perfect for new brands, pop-up shops, or rapid market testing — without months of development.",
+    "shopDesc": "Our ad hoc webshop system lets you spin up fully functional online stores fast. Perfect for new brands, pop-up shops, or rapid market testing. without months of development.",
     "consultancyTitle": "eCommerce consultancy",
-    "consultancyDesc": "Strategic advice on platform selection, architecture, payment integration, and scaling — helping you make the right technology choices for your business.",
+    "consultancyDesc": "Strategic advice on platform selection, architecture, payment integration, and scaling. helping you make the right technology choices for your business.",
     "integrationsTitle": "Integrations & APIs",
     "integrationsDesc": "Connect your eCommerce stack with ERP, CRM, fulfillment, and marketing tools through robust API integrations.",
     "contentLink": "Learn more about Content as a Service →"
@@ -85,22 +85,22 @@
   "openclaw": {
     "title": "OpenClaw <span>Consultancy</span>",
     "description": "Your own AI assistant that actually knows your business. We help you set it up, keep it running, and make it work for you.",
-    "metaDesc": "Run your own AI assistant — we help you deploy, host, secure, and automate with OpenClaw.",
+    "metaDesc": "Run your own AI assistant. we help you deploy, host, secure, and automate with OpenClaw.",
     "deployTitle": "Deploy on your hardware",
-    "deployDesc": "Run OpenClaw on a VPS or Mac Mini — your data stays yours. We handle the full setup: installation, configuration, networking, and making sure everything talks to each other.",
+    "deployDesc": "Run OpenClaw on a VPS or Mac Mini. your data stays yours. We handle the full setup: installation, configuration, networking, and making sure everything talks to each other.",
     "hostingTitle": "Managed hosting",
     "hostingDesc": "Don't want to manage infrastructure? We'll host your OpenClaw instance for you. Always up, always updated, zero hassle on your end.",
     "securityTitle": "Security & hardening",
-    "securityDesc": "AI assistants handle sensitive data — we make sure yours is locked down. From firewall configuration to access controls and encrypted communications, we cover the full security stack.",
+    "securityDesc": "AI assistants handle sensitive data. we make sure yours is locked down. From firewall configuration to access controls and encrypted communications, we cover the full security stack.",
     "automationTitle": "Business automation",
-    "automationDesc": "The real power of OpenClaw is automation. We help you connect it to your tools — email, calendar, CRM, messaging, databases — and build workflows that save hours every week.",
+    "automationDesc": "The real power of OpenClaw is automation. We help you connect it to your tools. email, calendar, CRM, messaging, databases. and build workflows that save hours every week.",
     "whatIsTitle": "What is OpenClaw?",
-    "whatIsDesc": "OpenClaw is an open-source AI assistant framework that runs on your own infrastructure. It connects to your messaging platforms, tools, and data — giving you a personal AI that understands your business context. Think of it as your always-on team member that never forgets, never sleeps, and gets smarter over time."
+    "whatIsDesc": "OpenClaw is an open-source AI assistant framework that runs on your own infrastructure. It connects to your messaging platforms, tools, and data. giving you a personal AI that understands your business context. Think of it as your always-on team member that never forgets, never sleeps, and gets smarter over time."
   },
   "contact": {
     "title": "Get in <span>touch</span>",
     "description": "Have a project in mind? We'd love to hear about it.",
-    "metaDesc": "Get in touch with Virge.io — let's discuss your next project.",
+    "metaDesc": "Get in touch with Virge.io. let's discuss your next project.",
     "nameLabel": "Name",
     "namePlaceholder": "Your name",
     "emailLabel": "Email",
@@ -112,7 +112,7 @@
   "blog": {
     "title": "Virge.io <span>Blog</span>",
     "description": "Insights on AI, automation, and scaling technology for business.",
-    "metaDesc": "Insights on AI automation, RAG pipelines, and scaling Dutch tech companies internationally — from the Virge.io team.",
+    "metaDesc": "Insights on AI automation, RAG pipelines, and scaling Dutch tech companies internationally. from the Virge.io team.",
     "readMore": "Read more →",
     "backToBlog": "← Back to Blog",
     "minRead": "min read"
@@ -120,7 +120,7 @@
   "jobs": {
     "title": "Join our <span>Team</span>",
     "description": "We are looking for talented people who want to build the future of AI and software.",
-    "metaDesc": "Career opportunities at Virge.io — AI consulting, full-stack development, and more.",
+    "metaDesc": "Career opportunities at Virge.io. AI consulting, full-stack development, and more.",
     "openPositions": "Open Positions",
     "noJobs": "No open positions at the moment. Check back later!",
     "location": "Location",

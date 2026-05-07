@@ -1,6 +1,7 @@
 ---
 import Layout from '../../../layouts/Layout.astro';
 import CTA from '../../../components/CTA.astro';
+import Icon from '../../../components/Icon.astro';
 import { t } from '../../../i18n';
 import { getActiveJobs } from '../../../data/jobs';
 
@@ -27,8 +28,8 @@ const jobs = getActiveJobs();
                 <h3>{job.title[lang]}</h3>
                 <p class="job-summary">{job.summary[lang]}</p>
                 <div class="job-meta">
-                  <span class="job-meta-item">📍 {job.location}</span>
-                  <span class="job-meta-item">💼 {job.type[lang]}</span>
+                  <span class="job-meta-item"><Icon name="map-pin" size={14} class="meta-icon" /> {job.location}</span>
+                  <span class="job-meta-item"><Icon name="briefcase" size={14} class="meta-icon" /> {job.type[lang]}</span>
                 </div>
                 <div class="job-tags">
                   {job.tags.map(tag => (
@@ -36,7 +37,7 @@ const jobs = getActiveJobs();
                   ))}
                 </div>
               </div>
-              <span class="job-arrow">→</span>
+              <span class="job-arrow"><Icon name="arrow-right" size={20} /></span>
             </a>
           ))}
         </div>
@@ -100,6 +101,9 @@ const jobs = getActiveJobs();
     margin-bottom: 0.75rem;
   }
   .job-meta-item {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
     color: var(--text-muted);
     font-size: 0.85rem;
   }
@@ -118,7 +122,6 @@ const jobs = getActiveJobs();
     border-radius: 6px;
   }
   .job-arrow {
-    font-size: 1.5rem;
     color: var(--accent);
     flex-shrink: 0;
     margin-left: 1.5rem;

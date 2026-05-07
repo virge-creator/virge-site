@@ -46,12 +46,12 @@ export const jobs: Job[] = [
       nl: 'Fulltime / Freelance',
     },
     summary: {
-      en: 'Help our clients design and build production-ready AI systems — from multi-agent architectures to RAG pipelines.',
-      nl: 'Help onze klanten bij het ontwerpen en bouwen van productie-ready AI-systemen — van multi-agent architecturen tot RAG-pipelines.',
+      en: 'Help our clients design and build production-ready AI systems: multi-agent architectures to RAG pipelines.',
+      nl: 'Help onze klanten bij het ontwerpen en bouwen van productie-ready AI-systemen: multi-agent architecturen tot RAG-pipelines.',
     },
     about: {
-      en: 'As a Senior AI Consultant at Virge.io, you will work directly with clients to design, build, and deploy AI solutions that deliver real business value. You will be at the forefront of agentic AI — building multi-agent systems, structured output pipelines, and intelligent automation using the latest frameworks and models.',
-      nl: 'Als Senior AI Consultant bij Virge.io werk je direct met klanten aan het ontwerpen, bouwen en deployen van AI-oplossingen die echte bedrijfswaarde leveren. Je staat aan de frontlinie van agentic AI — je bouwt multi-agent systemen, gestructureerde output pipelines en intelligente automatisering met de nieuwste frameworks en modellen.',
+      en: 'As a Senior AI Consultant at Virge.io, you will work directly with clients to design, build, and deploy AI solutions that deliver real business value. You will be at the forefront of agentic AI. You will build multi-agent systems, structured output pipelines, and intelligent automation using the latest frameworks and models.',
+      nl: 'Als Senior AI Consultant bij Virge.io werk je direct met klanten aan het ontwerpen, bouwen en deployen van AI-oplossingen die echte bedrijfswaarde leveren. Je staat aan de frontlinie van agentic AI. Je bouwt multi-agent systemen, gestructureerde output pipelines en intelligente automatisering met de nieuwste frameworks en modellen.',
     },
     requirements: {
       en: [
@@ -92,18 +92,18 @@ export const jobs: Job[] = [
     offer: {
       en: [
         'Work on cutting-edge AI projects for enterprise clients',
-        'Flexible work arrangements — remote-first, async-friendly',
+        'Flexible work arrangements. Remote-first, async-friendly',
         'Direct impact on product and architecture decisions',
         'Competitive compensation (freelance or employment)',
-        'Small, senior team — no bureaucracy',
+        'Small, senior team. No bureaucracy',
         'Access to the latest AI tools and models',
       ],
       nl: [
         'Werk aan cutting-edge AI-projecten voor enterprise klanten',
-        'Flexibele werkafspraken — remote-first, async-friendly',
+        'Flexibele werkafspraken. Remote-first, async-friendly',
         'Directe impact op product- en architectuurbeslissingen',
         'Competitieve vergoeding (freelance of dienstverband)',
-        'Klein, senior team — geen bureaucratie',
+        'Klein, senior team. Geen bureaucratie',
         'Toegang tot de nieuwste AI-tools en modellen',
       ],
     },
@@ -122,18 +122,18 @@ export const jobs: Job[] = [
       nl: 'Fulltime / Freelance',
     },
     summary: {
-      en: 'Build modern web applications with FastAPI backends and React/Next.js frontends — powering our AI and eCommerce products.',
-      nl: 'Bouw moderne webapplicaties met FastAPI backends en React/Next.js frontends — voor onze AI- en eCommerce-producten.',
+      en: 'Build modern web applications with FastAPI backends and React/Next.js frontends. Powering our AI and eCommerce products.',
+      nl: 'Bouw moderne webapplicaties met FastAPI backends en React/Next.js frontends. Voor onze AI- en eCommerce-producten.',
     },
     about: {
-      en: 'As a Fullstack Python Engineer, you will design and build the platforms that power our AI consulting tools, eCommerce solutions, and client projects. You will own features end-to-end — from database schema to API design to polished frontend. We work with modern tooling, ship fast, and care about code quality.',
-      nl: 'Als Fullstack Python Engineer ontwerp en bouw je de platformen die onze AI-consultingtools, eCommerce-oplossingen en klantprojecten aandrijven. Je bent verantwoordelijk voor features end-to-end — van database-schema tot API-design tot gepolijste frontend. We werken met modern tooling, shippen snel en geven om codekwaliteit.',
+      en: 'As a Fullstack Python Engineer, you will design and build the platforms that power our AI consulting tools, eCommerce solutions, and client projects. You will own features end-to-end: from database schema to API design to polished frontend. We work with modern tooling, ship fast, and care about code quality.',
+      nl: 'Als Fullstack Python Engineer ontwerp en bouw je de platformen die onze AI-consultingtools, eCommerce-oplossingen en klantprojecten aandrijven. Je bent verantwoordelijk voor features end-to-end: van database-schema tot API-design tot gepolijste frontend. We werken met modern tooling, shippen snel en geven om codekwaliteit.',
     },
     requirements: {
       en: [
         '3+ years experience in full-stack web development',
-        'Strong Python skills — FastAPI, SQLAlchemy/SQLModel, Pydantic',
-        'Solid frontend skills — React with TypeScript',
+        'Strong Python skills: FastAPI, SQLAlchemy/SQLModel, Pydantic',
+        'Solid frontend skills: React with TypeScript',
         'Experience with Next.js or similar React meta-frameworks',
         'PostgreSQL (queries, migrations, performance)',
         'REST API design and implementation',
@@ -142,8 +142,8 @@ export const jobs: Job[] = [
       ],
       nl: [
         '3+ jaar ervaring in full-stack webontwikkeling',
-        'Sterke Python-vaardigheden — FastAPI, SQLAlchemy/SQLModel, Pydantic',
-        'Solide frontend-vaardigheden — React met TypeScript',
+        'Sterke Python-vaardigheden: FastAPI, SQLAlchemy/SQLModel, Pydantic',
+        'Solide frontend-vaardigheden: React met TypeScript',
         'Ervaring met Next.js of vergelijkbare React meta-frameworks',
         'PostgreSQL (queries, migraties, performance)',
         'REST API-design en -implementatie',
@@ -172,16 +172,16 @@ export const jobs: Job[] = [
     offer: {
       en: [
         'Build products used by real businesses',
-        'Modern stack — no legacy code maintenance',
-        'Flexible work — remote-first, results over hours',
+        'Modern stack. No legacy code maintenance',
+        'Flexible work. Remote-first, results over hours',
         'Competitive compensation (freelance or employment)',
         'Small team, big ownership',
         'Opportunity to work with AI tooling daily',
       ],
       nl: [
         'Bouw producten die door echte bedrijven worden gebruikt',
-        'Moderne stack — geen legacy code onderhoud',
-        'Flexibel werken — remote-first, resultaat boven uren',
+        'Moderne stack. Geen legacy code onderhoud',
+        'Flexibel werken. Remote-first, resultaat boven uren',
         'Competitieve vergoeding (freelance of dienstverband)',
         'Klein team, veel eigenaarschap',
         'Mogelijkheid om dagelijks met AI-tooling te werken',

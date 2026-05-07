@@ -1,5 +1,6 @@
 ---
 import Layout from '../../../layouts/Layout.astro';
+import Icon from '../../../components/Icon.astro';
 import { t } from '../../../i18n';
 import { getActiveJobs, getJobBySlug } from '../../../data/jobs';
 import type { GetStaticPaths } from 'astro';
@@ -27,8 +28,8 @@ const job = getJobBySlug(slug as string)!;
 
       <div class="job-detail">
         <div class="job-detail-meta">
-          <span>📍 {job.location}</span>
-          <span>💼 {job.type[lang]}</span>
+          <span><Icon name="map-pin" size={15} class="meta-icon" /> {job.location}</span>
+          <span><Icon name="briefcase" size={15} class="meta-icon" /> {job.type[lang]}</span>
         </div>
 
         <div class="job-tags">
@@ -38,35 +39,37 @@ const job = getJobBySlug(slug as string)!;
         </div>
 
         <div class="job-section">
-          <h2>{i.jobs.aboutRole}</h2>
+          <h2><Icon name="file-text" size={20} class="section-icon" /> {i.jobs.aboutRole}</h2>
           <p>{job.about[lang]}</p>
         </div>
 
         <div class="job-section">
-          <h2>{i.jobs.requirements}</h2>
+          <h2><Icon name="check-circle" size={20} class="section-icon" /> {i.jobs.requirements}</h2>
           <ul>
             {job.requirements[lang].map(req => <li>{req}</li>)}
           </ul>
         </div>
 
         <div class="job-section">
-          <h2>{i.jobs.niceToHave}</h2>
+          <h2><Icon name="star" size={20} class="section-icon" /> {i.jobs.niceToHave}</h2>
           <ul>
             {job.niceToHave[lang].map(item => <li>{item}</li>)}
           </ul>
         </div>
 
         <div class="job-section">
-          <h2>{i.jobs.whatWeOffer}</h2>
+          <h2><Icon name="gift" size={20} class="section-icon" /> {i.jobs.whatWeOffer}</h2>
           <ul>
             {job.offer[lang].map(item => <li>{item}</li>)}
           </ul>
         </div>
 
         <div class="apply-box">
-          <h2>{i.jobs.applyTitle}</h2>
+          <h2><Icon name="send" size={20} class="section-icon" /> {i.jobs.applyTitle}</h2>
           <p>{i.jobs.applyDesc} <a href="mailto:jobs@virge.io" class="apply-email">jobs@virge.io</a></p>
-          <a href="mailto:jobs@virge.io?subject=Sollicitatie: {job.title[lang]}" class="apply-btn">{i.jobs.applyNow} →</a>
+          <a href={`mailto:jobs@virge.io?subject=Sollicitatie: ${job.title[lang]}`} class="apply-btn">
+            {i.jobs.applyNow} <Icon name="arrow-right" size={16} />
+          </a>
         </div>
       </div>
     </div>
@@ -83,15 +86,18 @@ const job = getJobBySlug(slug as string)!;
     transition: opacity 0.2s;
   }
   .back-link:hover { opacity: 0.8; }
-  .job-detail {
-    max-width: 720px;
-  }
+  .job-detail { max-width: 720px; }
   .job-detail-meta {
     display: flex;
     gap: 1.5rem;
     color: var(--text-muted);
     font-size: 0.95rem;
     margin-bottom: 1rem;
+  }
+  .job-detail-meta span {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
   }
   .job-tags {
     display: flex;
@@ -108,10 +114,11 @@ const job = getJobBySlug(slug as string)!;
     font-weight: 600;
     border-radius: 6px;
   }
-  .job-section {
-    margin-bottom: 2.5rem;
-  }
+  .job-section { margin-bottom: 2.5rem; }
   .job-section h2 {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
     font-size: 1.3rem;
     font-weight: 700;
     color: var(--accent2);
@@ -122,10 +129,7 @@ const job = getJobBySlug(slug as string)!;
     font-size: 0.95rem;
     line-height: 1.7;
   }
-  .job-section ul {
-    list-style: none;
-    padding: 0;
-  }
+  .job-section ul { list-style: none; padding: 0; }
   .job-section li {
     color: var(--text-muted);
     font-size: 0.95rem;
@@ -134,11 +138,15 @@ const job = getJobBySlug(slug as string)!;
     position: relative;
   }
   .job-section li::before {
-    content: '✓';
+    content: '';
     position: absolute;
     left: 0;
-    color: var(--accent);
-    font-weight: 700;
+    top: 0.6rem;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--accent);
+    opacity: 0.6;
   }
   .apply-box {
     background: var(--surface);
@@ -148,6 +156,9 @@ const job = getJobBySlug(slug as string)!;
     margin-top: 3rem;
   }
   .apply-box h2 {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
     font-size: 1.3rem;
     font-weight: 700;
     color: #fff;
@@ -165,7 +176,9 @@ const job = getJobBySlug(slug as string)!;
   }
   .apply-email:hover { text-decoration: underline; }
   .apply-btn {
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
     padding: 0.75rem 1.5rem;
     background: var(--accent);
     color: #fff;
