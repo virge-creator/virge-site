@@ -6,7 +6,8 @@
     "ecommerce": "eCommerce",
     "blog": "Blog",
     "openclaw": "OpenClaw",
-    "contact": "Contact"
+    "contact": "Contact",
+    "jobs": "Vacatures"
   },
   "hero": {
     "title": "Software oplossingen <span>die schalen</span>",
@@ -115,5 +116,22 @@
     "readMore": "Lees meer →",
     "backToBlog": "← Terug naar Blog",
     "minRead": "min leestijd"
+  },
+  "jobs": {
+    "title": "Werk bij <span>Virge.io</span>",
+    "description": "Wij zoeken getalenteerde mensen die de toekomst van AI en software willen bouwen.",
+    "metaDesc": "Vacatures bij Virge.io — AI consulting, full-stack development en meer.",
+    "openPositions": "Openstaande vacatures",
+    "noJobs": "Momenteel geen openstaande vacatures. Kom later terug!",
+    "location": "Locatie",
+    "type": "Type",
+    "applyNow": "Solliciteer nu",
+    "backToJobs": "← Terug naar vacatures",
+    "applyTitle": "Interesse?",
+    "applyDesc": "Stuur je CV en een korte motivatie naar",
+    "whatWeOffer": "Wat wij bieden",
+    "requirements": "Vereisten",
+    "niceToHave": "Pré",
+    "aboutRole": "Over deze functie"
   }
 }

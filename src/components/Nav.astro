@@ -11,8 +11,15 @@ const i = t(lang);
 const otherLang = getOtherLang(lang);
 const base = `/${lang}/`;
 const currentPath = Astro.url.pathname;
-const switchPath = currentPath.replace(`/${lang}/`, `/${otherLang}/`);
+let switchPath = currentPath.replace(`/${lang}/`, `/${otherLang}/`);
+// Handle jobs/vacatures URL translation
+if (lang === 'en') {
+  switchPath = switchPath.replace('/nl/jobs/', '/nl/vacatures/');
+} else {
+  switchPath = switchPath.replace('/en/vacatures/', '/en/jobs/');
+}
 
+const jobsPath = lang === 'nl' ? `${base}vacatures/` : `${base}jobs/`;
 const links = [
   { href: base, label: i.nav.home },
   { href: `${base}ai/`, label: i.nav.ai },
@@ -20,6 +27,7 @@ const links = [
   { href: `${base}ecommerce/`, label: i.nav.ecommerce },
   { href: `${base}blog/`, label: i.nav.blog },
   { href: `${base}openclaw/`, label: i.nav.openclaw },
+  { href: jobsPath, label: i.nav.jobs },
   { href: `${base}contact/`, label: i.nav.contact },
 ];
 ---

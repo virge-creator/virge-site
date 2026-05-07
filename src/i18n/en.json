@@ -6,7 +6,8 @@
     "ecommerce": "eCommerce",
     "blog": "Blog",
     "openclaw": "OpenClaw",
-    "contact": "Contact"
+    "contact": "Contact",
+    "jobs": "Jobs"
   },
   "hero": {
     "title": "Software solutions <span>that scale</span>",
@@ -115,5 +116,22 @@
     "readMore": "Read more →",
     "backToBlog": "← Back to Blog",
     "minRead": "min read"
+  },
+  "jobs": {
+    "title": "Join our <span>Team</span>",
+    "description": "We are looking for talented people who want to build the future of AI and software.",
+    "metaDesc": "Career opportunities at Virge.io — AI consulting, full-stack development, and more.",
+    "openPositions": "Open Positions",
+    "noJobs": "No open positions at the moment. Check back later!",
+    "location": "Location",
+    "type": "Type",
+    "applyNow": "Apply Now",
+    "backToJobs": "← Back to Jobs",
+    "applyTitle": "Interested?",
+    "applyDesc": "Send your CV and a short motivation to",
+    "whatWeOffer": "What we offer",
+    "requirements": "Requirements",
+    "niceToHave": "Nice to have",
+    "aboutRole": "About this role"
   }
 }
