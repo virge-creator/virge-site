@@ -242,6 +242,53 @@ a.tag:hover { background: rgba(108,92,231,0.3); }
 .post-content ul, .post-content ol { color: var(--text-muted); margin-bottom: 1.25rem; padding-left: 1.5rem; }
 .post-content li { margin-bottom: 0.5rem; }
 
+/* Tables in blog posts */
+.post-content table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  margin: 1.5rem 0 2rem;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid rgba(108,92,231,0.2);
+  font-size: 0.95rem;
+}
+.post-content thead {
+  background: rgba(108,92,231,0.15);
+}
+.post-content th {
+  text-align: left;
+  padding: 0.85rem 1rem;
+  color: var(--accent2);
+  font-weight: 600;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  border-bottom: 1px solid rgba(108,92,231,0.2);
+}
+.post-content td {
+  padding: 0.75rem 1rem;
+  color: var(--text-muted);
+  border-bottom: 1px solid rgba(108,92,231,0.08);
+}
+.post-content tbody tr:last-child td {
+  border-bottom: none;
+}
+.post-content tbody tr {
+  transition: background 0.15s;
+}
+.post-content tbody tr:hover {
+  background: rgba(108,92,231,0.05);
+}
+.post-content td:first-child,
+.post-content th:first-child {
+  color: var(--text);
+  font-weight: 500;
+}
+.post-content td strong {
+  color: var(--text);
+}
+
 /* Mobile */
 @media (max-width: 768px) {
   .menu-toggle { display: block; }
