@@ -40,7 +40,7 @@ export const jobs: Job[] = [
       en: 'Senior AI Consultant',
       nl: 'Senior AI Consultant',
     },
-    location: 'Groningen / Remote',
+    location: 'Fully Remote',
     type: {
       en: 'Full-time / Freelance',
       nl: 'Fulltime / Freelance',
@@ -116,7 +116,7 @@ export const jobs: Job[] = [
       en: 'Fullstack Python Engineer',
       nl: 'Fullstack Python Engineer',
     },
-    location: 'Groningen / Remote',
+    location: 'Fully Remote',
     type: {
       en: 'Full-time / Freelance',
       nl: 'Fulltime / Freelance',

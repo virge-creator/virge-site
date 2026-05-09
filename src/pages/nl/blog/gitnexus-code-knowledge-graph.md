@@ -5,7 +5,7 @@ title: "GitNexus: Maak van elke codebase een doorzoekbare knowledge graph"
 description: "GitNexus indexeert je hele repository in een interactieve knowledge graph — met alle dependencies, call chains en execution flows in kaart gebracht. Dit is waarom dat belangrijk is voor iedereen die met grote codebases werkt."
 date: 2026-02-25
 author: "Virge.io"
-image: "https://images.unsplash.com/photo-1516116216624-8e28d5840eac?w=800&h=450&fit=crop"
+image: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=800&h=450&fit=crop"
 tags: ["coding","knowledge-graph","git","ai"]
 ---
 
