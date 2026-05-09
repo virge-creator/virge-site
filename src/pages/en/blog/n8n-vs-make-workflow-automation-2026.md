@@ -5,6 +5,8 @@ title: "n8n vs Make in 2026: Why developers are switching to open-source workflo
 description: "The workflow automation landscape is shifting. n8n's open-source approach and native AI capabilities are challenging Make's visual simplicity. Here's what enterprises should consider."
 date: 2026-03-15
 author: "Virge.io"
+image: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=800&h=450&fit=crop"
+tags: ["automation","workflow","n8n","comparison"]
 ---
 
 ![](/images/n8n-vs-make-2026.png)

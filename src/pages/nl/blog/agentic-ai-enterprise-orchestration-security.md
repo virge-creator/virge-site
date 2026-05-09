@@ -5,6 +5,8 @@ title: "Agentic AI in de enterprise: orchestratie-frameworks en beveiliging die 
 description: "AI-agents gaan van demo naar productie — maar de meeste enterprises zijn er niet klaar voor. Zo kies je orchestratie-frameworks en bouw je security die schaalt."
 date: 2026-03-05
 author: "Virge.io"
+image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800&h=450&fit=crop"
+tags: ["ai","agents","enterprise","orchestration"]
 ---
 
 ![](/images/agentic-ai-enterprise.png)

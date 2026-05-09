@@ -4,10 +4,9 @@ lang: en
 title: "Adobe CEO Steps Down: What AI Disruption Means for Creative Software"
 description: "After 18 years, Shantanu Narayen exits as AI threatens the traditional software business model. Here's what it signals for the industry."
 date: 2026-03-13
-heroImage: "/images/adobe-ceo-ai-disruption.jpg"
-category: "AI Industry"
-tags: ["AI", "Adobe", "SaaS", "Creative Tools", "Enterprise"]
 author: "Virge Team"
+image: "https://images.unsplash.com/photo-1561070791-2526d30994b5?w=800&h=450&fit=crop"
+tags: ["ai","business","creative"]
 ---
 
 After 18 years at the helm, Adobe CEO Shantanu Narayen announced his departure this week. The timing speaks volumes: despite beating Q1 earnings estimates, Adobe's stock fell as investors question whether AI will fundamentally disrupt the creative software giant's business model.

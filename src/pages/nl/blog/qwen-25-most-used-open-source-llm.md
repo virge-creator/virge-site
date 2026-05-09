@@ -5,6 +5,8 @@ title: "Qwen 2.5: hoe Alibaba's open-source model stilletjes 's werelds meest ge
 description: "Met 700+ miljoen downloads, 40% van alle LLM-derivaten en benchmarkscores op GPT-4o-niveau — Qwen 2.5 is niet langer de underdog. Dit zijn de cijfers achter de verschuiving."
 date: 2026-03-02
 author: "Virge.io"
+image: "https://images.unsplash.com/photo-1555255707-c07966088b7b?w=800&h=450&fit=crop"
+tags: ["llm","open-source","qwen","ai"]
 ---
 
 ![](/images/qwen-open-source.png)

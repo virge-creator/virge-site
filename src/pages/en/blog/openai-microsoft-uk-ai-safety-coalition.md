@@ -5,6 +5,8 @@ title: "OpenAI & Microsoft join UK AI safety coalition — why this matters for 
 description: "OpenAI and Microsoft have pledged €32M+ to the UK's AI alignment project. Here's why safe AI development matters — and what businesses should learn from it."
 date: 2026-02-21
 author: "Virge.io"
+image: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=800&h=450&fit=crop"
+tags: ["ai","safety","openai","policy"]
 ---
 
 ![](/images/openai-safety.png)

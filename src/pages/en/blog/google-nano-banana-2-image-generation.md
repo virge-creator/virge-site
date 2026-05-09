@@ -5,6 +5,8 @@ title: "Google Nano-Banana 2: sub-second 4K image generation that runs on your p
 description: "Google's Nano-Banana 2 generates 4K images in under 500ms on mobile hardware. Here's what the architecture looks like, why it matters beyond the memes, and what it means for businesses building with AI."
 date: 2026-02-27
 author: "Virge.io"
+image: "https://images.unsplash.com/photo-1547826039-bfc35e0f1ea8?w=800&h=450&fit=crop"
+tags: ["ai","image-generation","google","ml"]
 ---
 
 ![](/images/nano-banana-2.png)

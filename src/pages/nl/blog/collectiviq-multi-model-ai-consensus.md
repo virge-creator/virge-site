@@ -5,6 +5,8 @@ title: "CollectivIQ: waarom 10 AI-modellen bevragen beter werkt dan op één ver
 description: "Een nieuw platform bevraagt ChatGPT, Claude, Gemini en Grok tegelijk om consensus-antwoorden te produceren. Waarom multi-model AI de toekomst is van enterprise betrouwbaarheid."
 date: 2026-03-06
 author: "Virge.io"
+image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&h=450&fit=crop"
+tags: ["ai","llm","consensus","multi-model"]
 ---
 
 ![](/images/collectiviq-consensus.png)

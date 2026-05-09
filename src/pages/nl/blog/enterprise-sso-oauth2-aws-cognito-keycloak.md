@@ -5,6 +5,8 @@ title: "Enterprise SSO goed aanpakken: hoe we OAuth 2.0 met AWS Cognito integree
 description: "Single Sign-On is geen checkbox-feature — het is de ruggengraat van enterprise identity. Zo bouwden we SSO-integraties met AWS Cognito en waarom OAuth 2.0-expertise er meer toe doet dan ooit."
 date: 2026-02-26
 author: "Virge.io"
+image: "https://images.unsplash.com/photo-1563986768494-4dee2763ff3f?w=800&h=450&fit=crop"
+tags: ["sso","oauth2","security","enterprise"]
 ---
 
 ![](/images/enterprise-sso.png)

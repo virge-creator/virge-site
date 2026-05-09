@@ -4,8 +4,8 @@ title: "Yann LeCun Verlaat Meta om 'World Models' te Bouwen: Wat de €920M Fund
 description: "De Turing Award-winnaar zet alles in op AI die de fysieke wereld begrijpt. Dit is wat de verschuiving van LLMs naar world models betekent voor enterprise toepassingen."
 date: 2026-03-28
 author: "Virge.io Team"
-heroImage: "/images/blog/yann-lecun-ami-labs-2026/hero.jpg"
-tags: ["AI", "World Models", "LLMs", "Enterprise AI", "AMI Labs", "Yann LeCun"]
+image: "https://images.unsplash.com/photo-1507146426996-ef05306b995a?w=800&h=450&fit=crop"
+tags: ["ai","research","world-models","ml"]
 ---
 
 Yann LeCun heeft zojuist de meest gewaagde stap van zijn carrière gezet. Na 12 jaar bij Meta—waaronder een periode als Chief AI Scientist—heeft de 65-jarige Turing Award-winnaar het bedrijf verlaten om AMI Labs op te richten. Het bedrijf haalde in de eerste ronde **$1 miljard (ca. €920 miljoen) aan funding** op tegen een **waardering van $3,5 miljard**. Zijn missie: AI bouwen die daadwerkelijk de fysieke wereld begrijpt.

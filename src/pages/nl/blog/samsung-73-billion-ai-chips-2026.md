@@ -4,8 +4,8 @@ title: "Samsung's $73 Miljard AI Chip Gok: De Grootste Investering in Halfgeleid
 description: "Samsung kondigt record investering van 110 biljoen won aan om AI chips te domineren. Wat dit betekent voor NVIDIA, TSMC en de wereldwijde AI infrastructuur race."
 date: 2026-03-20
 author: "Virge.io Team"
-heroImage: "/images/blog/samsung-ai-chips-2026/hero.png"
-tags: ["Samsung", "AI", "Halfgeleiders", "HBM", "NVIDIA"]
+image: "https://images.unsplash.com/photo-1555664424-778a1e5e1b48?w=800&h=450&fit=crop"
+tags: ["ai","hardware","chips","samsung"]
 ---
 
 Samsung heeft zojuist de grootste gok in halfgeleidergeschiedenis geplaatst. De Koreaanse techgigant kondigde aan **meer dan $73 miljard (110 biljoen won) te investeren in 2026** om leiderschap te grijpen in de AI chip sector. Dit is geen incrementele groei—het is een oorlogsverklaring aan NVIDIA, TSMC en SK Hynix.

@@ -5,6 +5,8 @@ title: "exo: run 671B parameter models on a cluster of Mac Studios"
 description: "The open-source exo framework turns multiple Mac Studios into a single AI supercomputer. Here's how to run DeepSeek V3 and other frontier models locally."
 date: 2026-03-09
 author: "Virge.io"
+image: "https://images.unsplash.com/photo-1591799264318-7e6ef8ddb7ea?w=800&h=450&fit=crop"
+tags: ["llm","hardware","cluster","mac"]
 ---
 
 ![](/images/exo-mac-cluster.png)

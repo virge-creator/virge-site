@@ -5,9 +5,9 @@ title: "LLM Referral Traffic Reality Check: Waarom Organic Search Koning Blijft 
 description: "Nieuwe benchmarkdata toont aan dat AI referral traffic slechts 1.08% van websitebezoeken uitmaakt. Dit betekent het voor je SEO-strategie en waarom organic search nergens heen gaat."
 date: 2026-03-24
 author: "Virge Team"
-tags: ["SEO", "AI", "LLM", "Traffic", "Digital Marketing", "ChatGPT"]
-image: "/images/blog/llm-referral-traffic-seo-2026.png"
 canonical: "https://virge.io/nl/blog/llm-referral-traffic-seo-reality-check-2026/"
+image: "https://images.unsplash.com/photo-1432888498266-38ffec3eaf0a?w=800&h=450&fit=crop"
+tags: ["llm","seo","traffic","marketing"]
 ---
 
 ![](/images/blog/llm-referral-traffic-seo-2026.png)

@@ -5,6 +5,8 @@ title: "Why Dutch tech companies need AI automation to scale internationally"
 description: "The Netherlands has a thriving tech ecosystem, but scaling internationally remains a challenge. Here's how AI automation — from RAG pipelines to workflow orchestration — can help Dutch companies break through."
 date: 2026-02-20
 author: "Virge.io"
+image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800&h=450&fit=crop"
+tags: ["ai","automation","business","netherlands"]
 ---
 
 ![](/images/dutch-tech-ai.png)

@@ -5,6 +5,8 @@ title: "AnythingLLM: the all-in-one AI workspace that replaces your entire stack
 description: "Self-hosted, privacy-first, and ridiculously easy to set up. AnythingLLM combines Ollama, LangChain, vector databases, and a chat UI into one application."
 date: 2026-03-11
 author: "Virge.io"
+image: "https://images.unsplash.com/photo-1518186285589-2f7649de83e0?w=800&h=450&fit=crop"
+tags: ["ai","llm","self-hosted","workspace"]
 ---
 
 ![](/images/anythingllm-workspace.png)

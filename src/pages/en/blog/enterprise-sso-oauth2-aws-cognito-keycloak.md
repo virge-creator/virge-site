@@ -5,6 +5,8 @@ title: "Enterprise SSO done right: how we integrated OAuth 2.0 with AWS Cognito 
 description: "Single Sign-On isn't just a checkbox feature — it's the backbone of enterprise identity. Here's how we built SSO integrations with AWS Cognito and why OAuth 2.0 expertise matters more than ever."
 date: 2026-02-26
 author: "Virge.io"
+image: "https://images.unsplash.com/photo-1563986768494-4dee2763ff3f?w=800&h=450&fit=crop"
+tags: ["sso","oauth2","security","enterprise"]
 ---
 
 ![](/images/enterprise-sso.png)

@@ -5,6 +5,8 @@ title: "WebMCP: Chrome's Nieuwe Standaard voor AI-Agent-Ready Websites"
 description: "Google Chrome introduceert WebMCP, een nieuwe standaard waarmee AI-agents betrouwbaar met websites kunnen communiceren. Wat dit betekent voor ecommerce, enterprise en bedrijven die bouwen voor het agentic web."
 date: 2026-03-30
 author: "Virge.io"
+image: "https://images.unsplash.com/photo-1516116216624-8e28d5840eac?w=800&h=450&fit=crop"
+tags: ["ai","agents","browser","automation"]
 ---
 
 ![WebMCP maakt gestructureerde interactie tussen AI-agents en websites mogelijk](/images/blog/webmcp-chrome-ai-agents-2026.png)

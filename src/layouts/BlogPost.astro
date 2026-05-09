@@ -23,7 +23,17 @@ const dateLocale = lang === 'nl' ? 'nl-NL' : 'en-US';
           <span>·</span>
           <span>{readingTime} {i.blog.minRead}</span>
         </div>
+        {frontmatter.tags && frontmatter.tags.length > 0 && (
+          <div class="blog-tags" style="margin-top: 1rem;">
+            {frontmatter.tags.map(tag => (
+              <a href={`/${lang}/blog/?tag=${tag}`} class="tag">{tag}</a>
+            ))}
+          </div>
+        )}
       </header>
+      {frontmatter.image && (
+        <img src={frontmatter.image} alt={frontmatter.title} class="post-hero-image" />
+      )}
       <div class="post-content">
         <slot />
       </div>

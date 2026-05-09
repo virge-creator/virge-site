@@ -5,6 +5,8 @@ title: "RAG in 2026: from experiment to enterprise infrastructure"
 description: "Retrieval-Augmented Generation has evolved from a hallucination fix into strategic AI infrastructure. Here's which RAG architecture fits your enterprise workload."
 date: 2026-03-06
 author: "Virge.io"
+image: "https://images.unsplash.com/photo-1544197150-b99a580bb7a8?w=800&h=450&fit=crop"
+tags: ["rag","enterprise","llm","architecture"]
 ---
 
 ![](/images/rag-enterprise-2026.png)

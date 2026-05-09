@@ -5,6 +5,8 @@ title: "OpenAI gets the Pentagon deal. Anthropic gets blacklisted. Here's what a
 description: "Trump banned all federal use of Anthropic. Hours later, OpenAI signed a deal with the Pentagon for classified networks. The implications for AI safety, government contracts, and every business using AI are significant."
 date: 2026-02-28
 author: "Virge.io"
+image: "https://images.unsplash.com/photo-1589829085413-56de8ae18c73?w=800&h=450&fit=crop"
+tags: ["ai","policy","openai","government"]
 ---
 
 ![](/images/pentagon-ai-deal.png)

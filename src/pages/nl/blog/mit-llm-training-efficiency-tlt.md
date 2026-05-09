@@ -5,6 +5,8 @@ title: "MIT verdubbelt LLM-trainingssnelheid — door onbenutte GPU's nuttig wer
 description: "MIT-onderzoekers vonden een manier om verspilde rekentijd tijdens LLM-training te benutten en zo de snelheid van reasoning-modelontwikkeling te verdubbelen. Zo werkt de TLT-methode en waarom het ertoe doet."
 date: 2026-03-01
 author: "Virge.io"
+image: "https://images.unsplash.com/photo-1507146426996-ef05306b995a?w=800&h=450&fit=crop"
+tags: ["llm","training","efficiency","research"]
 ---
 
 ![](/images/mit-llm-training.png)

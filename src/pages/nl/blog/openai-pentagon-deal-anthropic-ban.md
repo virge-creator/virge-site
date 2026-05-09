@@ -5,6 +5,8 @@ title: "OpenAI krijgt de Pentagon-deal. Anthropic wordt op de zwarte lijst gezet
 description: "Trump verbood alle federale overheidsdiensten om Anthropic te gebruiken. Uren later tekende OpenAI een deal met het Pentagon voor geclassificeerde netwerken. De gevolgen voor AI-veiligheid, overheidscontracten en elk bedrijf dat AI gebruikt zijn groot."
 date: 2026-02-28
 author: "Virge.io"
+image: "https://images.unsplash.com/photo-1589829085413-56de8ae18c73?w=800&h=450&fit=crop"
+tags: ["ai","policy","openai","government"]
 ---
 
 ![](/images/pentagon-ai-deal.png)

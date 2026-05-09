@@ -5,6 +5,8 @@ title: "exo: draai 671B parameter modellen op een cluster van Mac Studios"
 description: "Het open-source exo framework maakt van meerdere Mac Studios één AI-supercomputer. Zo draai je DeepSeek V3 en andere frontier modellen lokaal."
 date: 2026-03-09
 author: "Virge.io"
+image: "https://images.unsplash.com/photo-1591799264318-7e6ef8ddb7ea?w=800&h=450&fit=crop"
+tags: ["llm","hardware","cluster","mac"]
 ---
 
 ![](/images/exo-mac-cluster.png)

@@ -4,8 +4,8 @@ title: "Samsung's $73 Billion AI Chip Gamble: The Biggest Bet in Semiconductor H
 description: "Samsung announces record 110 trillion won investment to dominate AI chips. What this means for NVIDIA, TSMC, and the global AI infrastructure race."
 date: 2026-03-20
 author: "Virge.io Team"
-heroImage: "/images/blog/samsung-ai-chips-2026/hero.png"
-tags: ["Samsung", "AI", "Semiconductors", "HBM", "NVIDIA"]
+image: "https://images.unsplash.com/photo-1555664424-778a1e5e1b48?w=800&h=450&fit=crop"
+tags: ["ai","hardware","chips","samsung"]
 ---
 
 Samsung just made the biggest bet in semiconductor history. The Korean tech giant announced it will invest **over $73 billion (110 trillion won) in 2026** to seize leadership in the AI chip sector. This isn't incremental growth—it's a declaration of war against NVIDIA, TSMC, and SK Hynix.

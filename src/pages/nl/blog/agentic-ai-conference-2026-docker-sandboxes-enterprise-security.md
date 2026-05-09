@@ -5,6 +5,8 @@ description: "De Future of Data & AI conferentie belicht kritieke security-uitda
 date: 2026-04-04
 lang: nl
 author: "Virge.io"
+image: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=800&h=450&fit=crop"
+tags: ["ai","agents","security","enterprise"]
 ---
 
 ![](/images/blog/agentic-ai-docker-security.jpg)

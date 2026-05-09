@@ -5,6 +5,8 @@ title: "MIT just doubled LLM training speed — by making idle GPUs do useful wo
 description: "MIT researchers found a way to use wasted computing time during LLM training to double the speed of reasoning model development. Here's how the TLT method works and why it matters."
 date: 2026-03-01
 author: "Virge.io"
+image: "https://images.unsplash.com/photo-1507146426996-ef05306b995a?w=800&h=450&fit=crop"
+tags: ["llm","training","efficiency","research"]
 ---
 
 ![](/images/mit-llm-training.png)

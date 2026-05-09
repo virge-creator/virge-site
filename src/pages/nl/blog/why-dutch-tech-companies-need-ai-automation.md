@@ -5,6 +5,8 @@ title: "Waarom Nederlandse techbedrijven AI-automatisering nodig hebben om inter
 description: "Nederland heeft een bloeiend tech-ecosysteem, maar internationaal opschalen blijft een uitdaging. Zo kan AI-automatisering — van RAG-pipelines tot workfloworkestratie — Nederlandse bedrijven helpen doorbreken."
 date: 2026-02-20
 author: "Virge.io"
+image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800&h=450&fit=crop"
+tags: ["ai","automation","business","netherlands"]
 ---
 
 ![](/images/dutch-tech-ai.png)

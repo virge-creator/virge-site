@@ -5,6 +5,8 @@ title: "AI agents with their own wallets: when software starts saving for its ow
 description: "Coinbase launched Agentic Wallets — crypto wallets built for AI agents. Uniswap added AI trading skills. We're entering the era where AI agents handle their own money. Here's what that means."
 date: 2026-02-23
 author: "Virge.io"
+image: "https://images.unsplash.com/photo-1639762681485-074b7f938ba0?w=800&h=450&fit=crop"
+tags: ["ai","agents","crypto","blockchain"]
 ---
 
 ![](/images/ai-agents-crypto.png)

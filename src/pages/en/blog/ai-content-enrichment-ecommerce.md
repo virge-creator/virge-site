@@ -5,6 +5,8 @@ title: "From product name to rich content: how AI content enrichment is changing
 description: "Manual product descriptions are a bottleneck for growing eCommerce businesses. Learn how AI-powered content enrichment turns a simple product name into complete, publish-ready content."
 date: 2026-02-21
 author: "Virge.io"
+image: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=800&h=450&fit=crop"
+tags: ["ai","ecommerce","content","automation"]
 ---
 
 ![](/images/ai-content-enrichment.png)

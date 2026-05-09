@@ -5,6 +5,8 @@ title: "Agentic AI in the enterprise: orchestration frameworks and security that
 description: "AI agents are moving from demos to production — but most enterprises aren't ready. Here's how to choose orchestration frameworks and build security that scales."
 date: 2026-03-05
 author: "Virge.io"
+image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800&h=450&fit=crop"
+tags: ["ai","agents","enterprise","orchestration"]
 ---
 
 ![](/images/agentic-ai-enterprise.png)

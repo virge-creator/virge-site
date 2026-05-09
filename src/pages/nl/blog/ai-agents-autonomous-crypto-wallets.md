@@ -5,6 +5,8 @@ title: "AI-agents met eigen portemonnee: als software begint te sparen voor z'n 
 description: "Coinbase lanceerde Agentic Wallets — crypto wallets gebouwd voor AI-agents. Uniswap voegde AI-trading skills toe. We betreden het tijdperk waarin AI-agents hun eigen geld beheren."
 date: 2026-02-23
 author: "Virge.io"
+image: "https://images.unsplash.com/photo-1639762681485-074b7f938ba0?w=800&h=450&fit=crop"
+tags: ["ai","agents","crypto","blockchain"]
 ---
 
 ![](/images/ai-agents-crypto.png)

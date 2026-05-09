@@ -5,6 +5,8 @@ title: "Van productnaam naar rijke content: hoe AI-contentverrijking eCommerce v
 description: "Handmatige productbeschrijvingen zijn een bottleneck voor groeiende webshops. Ontdek hoe AI-gestuurde contentverrijking een simpele productnaam omzet in complete, publicatieklare content."
 date: 2026-02-21
 author: "Virge.io"
+image: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=800&h=450&fit=crop"
+tags: ["ai","ecommerce","content","automation"]
 ---
 
 ![](/images/ai-content-enrichment.png)

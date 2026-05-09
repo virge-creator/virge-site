@@ -5,6 +5,8 @@ title: "Reddit's AI shopping search: wat het betekent voor eCommerce bedrijven"
 description: "Reddit test AI-gestuurde shopping search die community-aanbevelingen omzet in koopbare productcarrousels. Dit moeten eCommerce bedrijven weten — en hoe je je kunt voorbereiden."
 date: 2026-02-22
 author: "Virge.io"
+image: "https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=800&h=450&fit=crop"
+tags: ["ai","ecommerce","search","reddit"]
 ---
 
 ![](/images/reddit-shopping.png)

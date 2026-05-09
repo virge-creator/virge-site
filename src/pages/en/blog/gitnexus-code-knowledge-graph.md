@@ -5,6 +5,8 @@ title: "GitNexus: Turn any codebase into a knowledge graph you can actually quer
 description: "GitNexus indexes your entire repository into an interactive knowledge graph — mapping every dependency, call chain, and execution flow. Here's why that matters for anyone working with large codebases."
 date: 2026-02-25
 author: "Virge.io"
+image: "https://images.unsplash.com/photo-1516116216624-8e28d5840eac?w=800&h=450&fit=crop"
+tags: ["coding","knowledge-graph","git","ai"]
 ---
 
 ![GitNexus — Code Knowledge Graph](/images/gitnexus-knowledge-graph.png)

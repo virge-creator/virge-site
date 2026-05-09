@@ -5,6 +5,8 @@ title: "Google Nano-Banana 2: sub-second 4K beeldgeneratie die op je telefoon dr
 description: "Google's Nano-Banana 2 genereert 4K-afbeeldingen in minder dan 500ms op mobiele hardware. Dit is de architectuur, waarom het verder gaat dan de memes, en wat het betekent voor bedrijven die met AI bouwen."
 date: 2026-02-27
 author: "Virge.io"
+image: "https://images.unsplash.com/photo-1547826039-bfc35e0f1ea8?w=800&h=450&fit=crop"
+tags: ["ai","image-generation","google","ml"]
 ---
 
 ![](/images/nano-banana-2.png)

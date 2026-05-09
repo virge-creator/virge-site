@@ -5,6 +5,8 @@ title: "AI-agents in 2026: van demo naar dagelijks werk"
 description: "AI-agents verlaten de demofase en draaien nu in echte productieomgevingen. Dit is wat er veranderd is, waar ze daadwerkelijk waarde leveren, en waar je op moet letten bij adoptie."
 date: 2026-02-25
 author: "Virge.io"
+image: "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?w=800&h=450&fit=crop"
+tags: ["ai","agents","automation","productivity"]
 ---
 
 ![](/images/ai-agents-2026.png)

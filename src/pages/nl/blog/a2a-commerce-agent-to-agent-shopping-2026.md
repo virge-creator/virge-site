@@ -5,6 +5,8 @@ title: "A2A Commerce: Als AI agents voor je shoppen (en onderhandelen met merken
 description: "Agent-to-Agent commerce verandert hoe consumenten kopen en merken verkopen. Brand Twins, autonome shopping agents en nieuwe protocollen zoals A2A en AP2 creëren een zero-click commerce toekomst."
 date: 2026-03-16
 author: "Virge.io"
+image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&h=450&fit=crop"
+tags: ["ai","ecommerce","automation","agents"]
 ---
 
 ![](/images/a2a-commerce-2026.png)

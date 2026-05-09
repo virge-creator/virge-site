@@ -5,6 +5,8 @@ title: "How we built hybrid search for SURF's Orchestrator-Core — coming in v5
 description: "A small team collaboration between Virge.io and SURF resulted in a schema-agnostic hybrid search system built entirely on PostgreSQL. Here's how we did it — and why it matters for network orchestration."
 date: 2026-02-19
 author: "Virge.io"
+image: "https://images.unsplash.com/photo-1518186285589-2f7649de83e0?w=800&h=450&fit=crop"
+tags: ["search","hybrid","orchestration","ai"]
 ---
 
 ![](/images/hybrid-search.png)

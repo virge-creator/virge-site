@@ -4,8 +4,8 @@ title: "Yann LeCun Leaves Meta to Build 'World Models': What AMI Labs' $1B Raise
 description: "The Turing Award winner bets big on AI that understands the physical world. Here's what the shift from LLMs to world models means for enterprise applications."
 date: 2026-03-28
 author: "Virge.io Team"
-heroImage: "/images/blog/yann-lecun-ami-labs-2026/hero.jpg"
-tags: ["AI", "World Models", "LLMs", "Enterprise AI", "AMI Labs", "Yann LeCun"]
+image: "https://images.unsplash.com/photo-1507146426996-ef05306b995a?w=800&h=450&fit=crop"
+tags: ["ai","research","world-models","ml"]
 ---
 
 Yann LeCun just made the boldest move of his career. After 12 years at Meta—including time as the company's Chief AI Scientist—the 65-year-old Turing Award winner has left to found AMI Labs, raising **$1 billion in first-round funding** at a **$3.5 billion valuation**. His mission: build AI that actually understands the physical world.

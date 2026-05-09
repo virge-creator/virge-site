@@ -4,10 +4,9 @@ lang: nl
 title: "Adobe CEO stapt op: Wat AI-disruptie betekent voor creatieve software"
 description: "Na 18 jaar vertrekt Shantanu Narayen nu AI het traditionele software businessmodel bedreigt. Dit is wat het signaleert voor de industrie."
 date: 2026-03-13
-heroImage: "/images/adobe-ceo-ai-disruption.jpg"
-category: "AI Industry"
-tags: ["AI", "Adobe", "SaaS", "Creative Tools", "Enterprise"]
 author: "Virge Team"
+image: "https://images.unsplash.com/photo-1561070791-2526d30994b5?w=800&h=450&fit=crop"
+tags: ["ai","business","creative"]
 ---
 
 Na 18 jaar aan het roer kondigde Adobe CEO Shantanu Narayen deze week zijn vertrek aan. De timing zegt veel: ondanks het overtreffen van de Q1 verwachtingen, daalde Adobe's aandeel omdat investeerders zich afvragen of AI het businessmodel van de creatieve softwaregigant fundamenteel zal verstoren.

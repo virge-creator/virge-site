@@ -5,6 +5,8 @@ title: "OpenAI & Microsoft sluiten zich aan bij UK AI safety coalitie — waarom
 description: "OpenAI en Microsoft investeren €32M+ in het UK AI Alignment Project. Hier lees je waarom veilige AI-ontwikkeling ertoe doet — en wat bedrijven ervan kunnen leren."
 date: 2026-02-21
 author: "Virge.io"
+image: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=800&h=450&fit=crop"
+tags: ["ai","safety","openai","policy"]
 ---
 
 ![](/images/openai-safety.png)

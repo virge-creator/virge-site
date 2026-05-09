@@ -5,6 +5,8 @@ description: "SAP's April 2026 Developer Challenge combines CrewAI multi-agent o
 date: 2026-04-07
 lang: en
 author: "Virge.io"
+image: "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?w=800&h=450&fit=crop"
+tags: ["ai","agents","rag","sap"]
 ---
 
 ![](/images/blog/sap-crewai-rag-agents.jpg)

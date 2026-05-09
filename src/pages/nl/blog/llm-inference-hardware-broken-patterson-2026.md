@@ -4,8 +4,8 @@ title: "IEEE Bombshell: LLM Inference Is Fundamenteel Kapot op Hardware-Niveau"
 description: "Turing Award-winnaar David Patterson onthult waarom GPU's het verkeerde gereedschap zijn voor AI inference. Geheugenbandbreedte, niet rekenkracht, is de echte bottleneck."
 date: 2026-03-21
 author: "Virge.io Team"
-heroImage: "/images/blog/llm-inference-hardware-broken/hero.png"
-tags: ["AI", "Hardware", "LLM", "GPU", "Infrastructuur"]
+image: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=800&h=450&fit=crop"
+tags: ["llm","hardware","inference","performance"]
 ---
 
 Een baanbrekend paper geaccepteerd door IEEE Computer magazine dwingt de AI-industrie om een ongemakkelijke waarheid onder ogen te zien: **de hardware die we gebruiken voor LLM inference was er nooit voor ontworpen.**

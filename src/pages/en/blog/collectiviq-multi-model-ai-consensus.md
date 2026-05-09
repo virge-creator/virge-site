@@ -5,6 +5,8 @@ title: "CollectivIQ: why querying 10 AI models beats trusting one"
 description: "A new platform queries ChatGPT, Claude, Gemini, and Grok simultaneously to produce consensus answers. Here's why multi-model AI is the future of enterprise reliability."
 date: 2026-03-06
 author: "Virge.io"
+image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&h=450&fit=crop"
+tags: ["ai","llm","consensus","multi-model"]
 ---
 
 ![](/images/collectiviq-consensus.png)

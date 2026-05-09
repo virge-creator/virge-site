@@ -4,8 +4,8 @@ title: "IEEE Bombshell: LLM Inference Is Fundamentally Broken at the Hardware Le
 description: "Turing Award winner David Patterson reveals why GPUs are the wrong tool for AI inference. Memory bandwidth, not compute, is the real bottleneck—and the industry has been optimizing the wrong thing."
 date: 2026-03-21
 author: "Virge.io Team"
-heroImage: "/images/blog/llm-inference-hardware-broken/hero.png"
-tags: ["AI", "Hardware", "LLM", "GPU", "Infrastructure"]
+image: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=800&h=450&fit=crop"
+tags: ["llm","hardware","inference","performance"]
 ---
 
 A bombshell paper accepted by IEEE Computer magazine is forcing the AI industry to confront an uncomfortable truth: **the hardware we're using for LLM inference was never designed for it.**
