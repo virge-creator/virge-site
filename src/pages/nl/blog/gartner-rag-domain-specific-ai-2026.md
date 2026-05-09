@@ -1,5 +1,6 @@
 ---
 layout: ../../../layouts/BlogPost.astro
+lang: nl
 title: "Gartner's RAG Revolutie: Waarom Domain-Specific AI Generieke LLM Wrappers Verslaat"
 description: "Gartner voorspelt dat 70% van enterprise AI tegen 2026 RAG nodig heeft. Ontdek waarom domeinspecifieke retrieval-augmented generation beter presteert."
 date: 2026-03-19

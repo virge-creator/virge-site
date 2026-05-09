@@ -1,5 +1,6 @@
 ---
 layout: ../../../layouts/BlogPost.astro
+lang: nl
 title: "Samsung's $73 Miljard AI Chip Gok: De Grootste Investering in Halfgeleidergeschiedenis"
 description: "Samsung kondigt record investering van 110 biljoen won aan om AI chips te domineren. Wat dit betekent voor NVIDIA, TSMC en de wereldwijde AI infrastructuur race."
 date: 2026-03-20

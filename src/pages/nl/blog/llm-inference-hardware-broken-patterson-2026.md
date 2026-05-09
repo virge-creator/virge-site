@@ -1,5 +1,6 @@
 ---
 layout: ../../../layouts/BlogPost.astro
+lang: nl
 title: "IEEE Bombshell: LLM Inference Is Fundamenteel Kapot op Hardware-Niveau"
 description: "Turing Award-winnaar David Patterson onthult waarom GPU's het verkeerde gereedschap zijn voor AI inference. Geheugenbandbreedte, niet rekenkracht, is de echte bottleneck."
 date: 2026-03-21
