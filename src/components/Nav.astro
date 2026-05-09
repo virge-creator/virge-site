@@ -2,6 +2,7 @@
 import type { Lang } from '../i18n';
 import { t, getOtherLang } from '../i18n';
 import Icon from './Icon.astro';
+import { getAlternateSlug } from '../data/blog-slugs';
 
 interface Props {
   lang?: Lang;
@@ -13,11 +14,23 @@ const otherLang = getOtherLang(lang);
 const base = `/${lang}/`;
 const currentPath = Astro.url.pathname;
 let switchPath = currentPath.replace(`/${lang}/`, `/${otherLang}/`);
+
 // Handle jobs/vacatures URL translation
 if (lang === 'en') {
   switchPath = switchPath.replace('/nl/jobs/', '/nl/vacatures/');
 } else {
   switchPath = switchPath.replace('/en/vacatures/', '/en/jobs/');
+}
+
+// Handle blog post slug translation
+const blogPrefix = lang === 'nl' ? '/nl/blog/' : '/en/blog/';
+const altBlogPrefix = otherLang === 'nl' ? '/nl/blog/' : '/en/blog/';
+if (currentPath.startsWith(blogPrefix) && currentPath !== blogPrefix) {
+  const slug = currentPath.replace(blogPrefix, '').replace(/\/$/, '');
+  if (slug) {
+    const altSlug = getAlternateSlug(slug, lang);
+    switchPath = `${altBlogPrefix}${altSlug}/`;
+  }
 }
 
 const jobsPath = lang === 'nl' ? `${base}vacatures/` : `${base}jobs/`;

@@ -4,6 +4,7 @@ import Footer from '../components/Footer.astro';
 import '../styles/global.css';
 import type { Lang } from '../i18n';
 import { getOtherLang } from '../i18n';
+import { getAlternateSlug } from '../data/blog-slugs';
 
 interface Props {
   title: string;
@@ -14,7 +15,25 @@ interface Props {
 const { title, description = 'Virge.io — Software solutions in AI, SDN, and eCommerce that scale with your business.', lang = 'en' } = Astro.props;
 const otherLang = getOtherLang(lang);
 const currentPath = Astro.url.pathname;
-const alternatePath = currentPath.replace(`/${lang}/`, `/${otherLang}/`);
+
+// Build alternate path with blog slug translation
+let alternatePath = currentPath.replace(`/${lang}/`, `/${otherLang}/`);
+const blogPrefix = `/${lang}/blog/`;
+const altBlogPrefix = `/${otherLang}/blog/`;
+if (currentPath.startsWith(blogPrefix) && currentPath !== blogPrefix) {
+  const slug = currentPath.replace(blogPrefix, '').replace(/\/$/, '');
+  if (slug) {
+    const altSlug = getAlternateSlug(slug, lang);
+    alternatePath = `${altBlogPrefix}${altSlug}/`;
+  }
+}
+// Handle jobs/vacatures
+if (lang === 'en') {
+  alternatePath = alternatePath.replace(`/${otherLang}/jobs/`, `/${otherLang}/vacatures/`);
+} else {
+  alternatePath = alternatePath.replace(`/${otherLang}/vacatures/`, `/${otherLang}/jobs/`);
+}
+
 const canonicalURL = new URL(currentPath, 'https://virge.io').href;
 ---
 <!DOCTYPE html>
