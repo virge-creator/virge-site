@@ -1,0 +1,143 @@
+<!DOCTYPE html><html lang="nl"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="description" content="Hoe Kagent agentic AI naar Kubernetes brengt als CRDs, agents via MCP beschikbaar maakt voor tool-interoperabiliteit, en hoe LibreChat de perfecte chat-interface biedt om alles te orkestreren."><meta property="og:title" content="Kagent + MCP + LibreChat: AI-Gestuurde Kubernetes Operaties met een Chat Interface | Virge.io"><meta property="og:description" content="Hoe Kagent agentic AI naar Kubernetes brengt als CRDs, agents via MCP beschikbaar maakt voor tool-interoperabiliteit, en hoe LibreChat de perfecte chat-interface biedt om alles te orkestreren."><meta property="og:type" content="website"><meta property="og:locale" content="nl_NL"><link rel="canonical" href="https://virge.io/nl/blog/kagent-kubernetes-ai-agents-mcp-librechat-2026/"><link rel="alternate" hreflang="nl" href="https://virge.io/nl/blog/kagent-kubernetes-ai-agents-mcp-librechat-2026/"><link rel="alternate" hreflang="en" href="https://virge.io/en/blog/kagent-kubernetes-ai-agents-mcp-librechat-2026/"><title>Kagent + MCP + LibreChat: AI-Gestuurde Kubernetes Operaties met een Chat Interface | Virge.io</title><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="stylesheet" href="/_astro/a2a-commerce-agent-to-agent-shopping-2026.L6l9_w-o.css"></head> <body> <nav data-astro-cid-dmqpwcec> <div class="container" data-astro-cid-dmqpwcec> <a href="/nl/" class="logo" data-astro-cid-dmqpwcec><img src="/logo.png" alt="Virge.io" class="logo-img" data-astro-cid-dmqpwcec></a> <button class="menu-toggle" aria-label="Menu" onclick="document.querySelector('.links').classList.toggle('open')" data-astro-cid-dmqpwcec> <!-- @license lucide-static v1.14.0 - ISC -->
+<svg class="" style="display:inline-block;vertical-align:middle;"
+  class="lucide lucide-menu"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M4 5h16" />
+  <path d="M4 12h16" />
+  <path d="M4 19h16" />
+</svg>
+ </button> <ul class="links" data-astro-cid-dmqpwcec> <li data-astro-cid-dmqpwcec><a href="/nl/" data-astro-cid-dmqpwcec>Home</a></li><li data-astro-cid-dmqpwcec><a href="/nl/ai/" data-astro-cid-dmqpwcec>AI Consulting</a></li><li data-astro-cid-dmqpwcec><a href="/nl/sdn/" data-astro-cid-dmqpwcec>SDN</a></li><li data-astro-cid-dmqpwcec><a href="/nl/ecommerce/" data-astro-cid-dmqpwcec>eCommerce</a></li><li data-astro-cid-dmqpwcec><a href="/nl/blog/" data-astro-cid-dmqpwcec>Blog</a></li><li data-astro-cid-dmqpwcec><a href="/nl/openclaw/" data-astro-cid-dmqpwcec>OpenClaw</a></li><li data-astro-cid-dmqpwcec><a href="/nl/vacatures/" data-astro-cid-dmqpwcec>Vacatures</a></li><li data-astro-cid-dmqpwcec><a href="/nl/contact/" data-astro-cid-dmqpwcec>Contact</a></li> <li class="lang-switch" data-astro-cid-dmqpwcec> <a href="/en/blog/kagent-kubernetes-ai-agents-mcp-librechat-2026/" class="lang-btn" data-astro-cid-dmqpwcec>EN</a> </li> </ul> </div> </nav>  <main> <article class="blog-post"> <div class="container"> <a href="/nl/blog/" class="back-link">← Terug naar Blog</a> <header class="post-header"> <h1>Kagent + MCP + LibreChat: AI-Gestuurde Kubernetes Operaties met een Chat Interface</h1> <div class="post-meta"> <span>Virge.io Team</span> <span>·</span> <time>14 mei 2026</time> <span>·</span> <span>6 min leestijd</span> </div> <div class="blog-tags" style="margin-top: 1rem;"> <a href="/nl/blog/?tag=kubernetes" class="tag">kubernetes</a><a href="/nl/blog/?tag=ai-agents" class="tag">ai-agents</a><a href="/nl/blog/?tag=mcp" class="tag">mcp</a><a href="/nl/blog/?tag=devops" class="tag">devops</a><a href="/nl/blog/?tag=open-source" class="tag">open-source</a> </div> </header> <img src="https://images.unsplash.com/photo-1667372393119-3d4c48d07fc9?w=800&h=450&fit=crop" alt="Kagent + MCP + LibreChat: AI-Gestuurde Kubernetes Operaties met een Chat Interface" class="post-hero-image"> <div class="post-content"> <p>Wat als je Kubernetes-cluster zichzelf kon troubleshooten? Niet met rigide runbooks, maar met AI-agents die redeneren over problemen, tools aan elkaar koppelen en actie ondernemen — allemaal gedefinieerd als Kubernetes custom resources, versiebeheerd in Git en uitgerold met <code>kubectl</code>.</p>
+<p>Dat is precies wat <strong>Kagent</strong> doet. En wanneer je het combineert met het <strong>Model Context Protocol (MCP)</strong> en een chat-interface zoals <strong>LibreChat</strong>, krijg je iets bijzonders: een zelfherstellende infrastructuurstack met een strakke GUI erop.</p>
+<h2 id="wat-is-kagent">Wat is Kagent?</h2>
+<p><a href="https://kagent.dev/">Kagent</a> is een CNCF sandbox-project, gecreëerd door Solo.io in 2025. Het is een Kubernetes-native framework voor het bouwen, deployen en beheren van AI-agents. Het sleutelwoord is <em>native</em> — agents worden niet aan Kubernetes vastgeschroefd, ze <em>zijn</em> Kubernetes-resources.</p>
+<p>Een agent-definitie ziet er zo uit:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="yaml"><code><span class="line"><span style="color:#85E89D">apiVersion</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">kagent.dev/v1</span></span>
+<span class="line"><span style="color:#85E89D">kind</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">Agent</span></span>
+<span class="line"><span style="color:#85E89D">metadata</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#85E89D">  name</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">k8s-troubleshooter</span></span>
+<span class="line"><span style="color:#85E89D">spec</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#85E89D">  description</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"Diagnosticeert pod-fouten en netwerkproblemen"</span></span>
+<span class="line"><span style="color:#85E89D">  model</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#85E89D">    provider</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">anthropic</span></span>
+<span class="line"><span style="color:#85E89D">    name</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">claude-sonnet-4-5</span></span>
+<span class="line"><span style="color:#85E89D">  tools</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#E1E4E8">    - </span><span style="color:#85E89D">mcpServer</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">kubernetes-tools</span></span>
+<span class="line"><span style="color:#E1E4E8">    - </span><span style="color:#85E89D">mcpServer</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">prometheus-tools</span></span>
+<span class="line"><span style="color:#85E89D">  systemPrompt</span><span style="color:#E1E4E8">: </span><span style="color:#F97583">|</span></span>
+<span class="line"><span style="color:#9ECBFF">    Je bent een Kubernetes operations expert.</span></span>
+<span class="line"><span style="color:#9ECBFF">    Wanneer een gebruiker een probleem meldt, onderzoek</span></span>
+<span class="line"><span style="color:#9ECBFF">    het eerst met beschikbare tools voordat je een</span></span>
+<span class="line"><span style="color:#9ECBFF">    oplossing voorstelt.</span></span></code></pre>
+<p>Definieer het in YAML, review het in een PR, deploy het met ArgoCD. Dezelfde GitOps-workflow die je al gebruikt voor al het andere.</p>
+<h3 id="kerncomponenten">Kerncomponenten</h3>
+<ul>
+<li><strong>Agents</strong>: Systeemprompt + tools + LLM-configuratie, gedefinieerd als CRDs</li>
+<li><strong>Tools</strong>: MCP-compatibele functies — pod logs, Prometheus queries, Helm operaties, Istio-configuratie, Cilium policies</li>
+<li><strong>Multi-runtime</strong>: Go en Python ADK runtimes in hetzelfde cluster</li>
+<li><strong>Human-in-the-loop</strong>: Goedkeuringsgates voor destructieve acties</li>
+<li><strong>Agent-to-Agent (A2A)</strong>: Agents ontdekken en delegeren taken naar elkaar</li>
+<li><strong>Langetermijngeheugen</strong>: Vector-gebaseerde persistentie over sessies heen</li>
+</ul>
+<h2 id="de-mcp-connectie-waarom-het-ertoe-doet">De MCP-connectie: waarom het ertoe doet</h2>
+<p>Hier wordt het pas écht interessant. Kagent <em>consumeert</em> niet alleen MCP-tools — het werkt eraan om <strong>agents zelf als MCP-servers te ontsluiten</strong> (<a href="https://github.com/kagent-dev/kagent/issues/1160">GitHub issue #1160</a>). Dit is een gamechanger voor interoperabiliteit.</p>
+<h3 id="wat-mcp-mogelijk-maakt">Wat MCP mogelijk maakt</h3>
+<p>Het <a href="https://modelcontextprotocol.io/">Model Context Protocol</a> is een open standaard voor het verbinden van AI-modellen met externe tools en databronnen. Zie het als USB-C voor AI: één protocol, elke tool, elk model.</p>
+<p>Met Kagent’s MCP-ondersteuning:</p>
+<ol>
+<li><strong>Agents consumeren MCP-tools</strong>: Je k8s-troubleshooter agent kan elke MCP-server gebruiken — kubectl operaties, Prometheus queries, Grafana dashboards, custom HTTP endpoints</li>
+<li><strong>Agents worden MCP-servers</strong>: Andere tools (VS Code, Cursor, Claude Code, LibreChat) kunnen je Kagent-agents aanroepen alsof het gewoon een andere tool is</li>
+<li><strong>Composability</strong>: Bouw een keten waarbij LibreChat praat met een Kagent-agent, die delegeert naar sub-agents, die MCP-tools gebruiken — alles via een gestandaardiseerd protocol</li>
+</ol>
+<p>Dit creëert een schone architectuur:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>┌─────────────┐     MCP      ┌──────────┐     MCP      ┌────────────┐</span></span>
+<span class="line"><span>│  LibreChat   │────────────▶│  Kagent   │────────────▶│ K8s Tools  │</span></span>
+<span class="line"><span>│  (Chat GUI)  │             │  Agent    │             │ Prometheus │</span></span>
+<span class="line"><span>│              │◀────────────│           │────────────▶│ Istio      │</span></span>
+<span class="line"><span>└─────────────┘  responses   └──────────┘             └────────────┘</span></span></code></pre>
+<h2 id="librechat-de-ontbrekende-gui-laag">LibreChat: de ontbrekende GUI-laag</h2>
+<p>Kagent wordt geleverd met een eigen dashboard, maar <a href="https://www.librechat.ai/">LibreChat</a> tilt de ervaring naar een hoger niveau. Het is een open-source chat UI die MCP native ondersteunt, waardoor je Kagent-agents rechtstreeks kunt koppelen aan een gepolijste chat-interface.</p>
+<h3 id="waarom-librechat-perfect-past">Waarom LibreChat perfect past</h3>
+<ul>
+<li><strong>MCP-native</strong>: Configureer MCP-servers in <code>librechat.yaml</code> en ze zijn direct beschikbaar voor agents</li>
+<li><strong>Multi-model</strong>: Schakel tussen OpenAI, Anthropic, Ollama of elke OpenAI-compatibele endpoint</li>
+<li><strong>Agent builder</strong>: Maak agents met specifieke toolsets, systeemprompts en modelconfiguraties — visueel</li>
+<li><strong>Deferred tools</strong>: Laad MCP-tools on-demand in plaats van alles in het contextvenster te proppen</li>
+<li><strong>Self-hostable</strong>: Deploy naast Kagent in je cluster</li>
+</ul>
+<h3 id="een-praktische-setup">Een praktische setup</h3>
+<p>Zo koppel je LibreChat aan een Kagent-agent die via MCP is ontsloten:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="yaml"><code><span class="line"><span style="color:#6A737D"># librechat.yaml</span></span>
+<span class="line"><span style="color:#85E89D">mcpServers</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#85E89D">  kagent-k8s</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#85E89D">    url</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"http://kagent-mcp.kagent-system:8080/mcp"</span></span>
+<span class="line"><span style="color:#85E89D">    tools</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#E1E4E8">      - </span><span style="color:#9ECBFF">get_pod_logs</span></span>
+<span class="line"><span style="color:#E1E4E8">      - </span><span style="color:#9ECBFF">query_prometheus</span></span>
+<span class="line"><span style="color:#E1E4E8">      - </span><span style="color:#9ECBFF">describe_deployment</span></span>
+<span class="line"><span style="color:#E1E4E8">      - </span><span style="color:#9ECBFF">rollout_restart</span></span>
+<span class="line"><span style="color:#85E89D">    chatMenu</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">true</span><span style="color:#6A737D">  # Beschikbaar in agent builder</span></span></code></pre>
+<p>Nu kan elke LibreChat-agent je Kubernetes-tools gebruiken. Een platform engineer typt “waarom geeft de checkout-service 503s terug?” en de agent:</p>
+<ol>
+<li>Bevraagt pod-status via Kagent’s k8s tools</li>
+<li>Haalt foutlogs op van de falende pods</li>
+<li>Checkt Prometheus op latency-pieken</li>
+<li>Identificeert een OOMKilled container</li>
+<li>Stelt voor om geheugenlimieten te verhogen — of doet het automatisch indien goedgekeurd</li>
+</ol>
+<p>Alles via een strakke chat-interface, met volledige gespreksgeschiedenis en audit trail.</p>
+<h2 id="praktijkvoorbeelden">Praktijkvoorbeelden</h2>
+<h3 id="zelfherstellende-deployments">Zelfherstellende deployments</h3>
+<p>Configureer een Kagent-agent die Prometheus-alerts monitort en automatisch storingen onderzoekt. Wanneer een pod crasht, controleert de agent logs, identificeert de oorzaak en lost het op of maakt een Jira-ticket aan met volledige diagnostiek.</p>
+<p>Een recente <a href="https://kyrylai.com/2025/05/23/build-a-self-healing-k8s-agent-with-librechat-mcp/">demonstratie</a> toonde een LibreChat + MCP agent die een kapotte Deployment detecteerde, de verkeerde image tag identificeerde, het manifest patchte en verifieerde dat alle pods weer gezond waren — in minder dan 30 seconden.</p>
+<h3 id="gitops-gestuurd-agent-management">GitOps-gestuurd agent management</h3>
+<p>Omdat agents CRDs zijn, beheer je ze als elke andere Kubernetes-resource:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#6A737D"># Deploy een nieuwe agent</span></span>
+<span class="line"><span style="color:#B392F0">kubectl</span><span style="color:#9ECBFF"> apply</span><span style="color:#79B8FF"> -f</span><span style="color:#9ECBFF"> agents/security-scanner.yaml</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># Check agent status</span></span>
+<span class="line"><span style="color:#B392F0">kubectl</span><span style="color:#9ECBFF"> get</span><span style="color:#9ECBFF"> agents</span><span style="color:#79B8FF"> -n</span><span style="color:#9ECBFF"> kagent-system</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># Bekijk agent logs</span></span>
+<span class="line"><span style="color:#B392F0">kubectl</span><span style="color:#9ECBFF"> logs</span><span style="color:#79B8FF"> -l</span><span style="color:#9ECBFF"> kagent.dev/agent=security-scanner</span></span></code></pre>
+<p>Versiebeheer in Git, review wijzigingen in PRs, rollback met <code>kubectl rollout undo</code>. Je AI-agents volgen dezelfde levenscyclus als je applicaties.</p>
+<h3 id="multi-agent-orkestratie">Multi-agent orkestratie</h3>
+<p>Kagent ondersteunt agent-teams met een planningsagent die delegeert:</p>
+<ul>
+<li><strong>Triage agent</strong>: Classificeert binnenkomende alerts op ernst</li>
+<li><strong>Network agent</strong>: Onderzoekt connectiviteitsproblemen met Istio/Cilium tools</li>
+<li><strong>Performance agent</strong>: Analyseert Prometheus-metrics en stelt schaalwijzigingen voor</li>
+<li><strong>Security agent</strong>: Scant op CVE’s en misconfiguraties</li>
+</ul>
+<p>De planningsagent routeert elk probleem naar de juiste specialist, en LibreChat geeft je een geünificeerd overzicht van alle gesprekken.</p>
+<h2 id="aan-de-slag">Aan de slag</h2>
+<p>Het snelste pad naar een werkende setup:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#6A737D"># Installeer Kagent met demo agents</span></span>
+<span class="line"><span style="color:#B392F0">kagent</span><span style="color:#9ECBFF"> install</span><span style="color:#79B8FF"> --profile</span><span style="color:#9ECBFF"> demo</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># Open het Kagent dashboard</span></span>
+<span class="line"><span style="color:#B392F0">kagent</span><span style="color:#9ECBFF"> dashboard</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># Of koppel LibreChat</span></span>
+<span class="line"><span style="color:#B392F0">helm</span><span style="color:#9ECBFF"> install</span><span style="color:#9ECBFF"> librechat</span><span style="color:#9ECBFF"> librechat/librechat</span><span style="color:#79B8FF"> \</span></span>
+<span class="line"><span style="color:#79B8FF">  --set</span><span style="color:#9ECBFF"> mcpServers.kagent.url="http://kagent-mcp:8080/mcp"</span></span></code></pre>
+<p>Kagent ondersteunt alle grote LLM-providers: OpenAI, Anthropic, Google Vertex AI, Azure OpenAI en Ollama voor volledig lokale setups.</p>
+<h2 id="waarom-dit-belangrijk-is-voor-platformteams">Waarom dit belangrijk is voor platformteams</h2>
+<p>De combinatie Kagent + MCP + LibreChat lost drie problemen tegelijk op:</p>
+<ol>
+<li><strong>Agent lifecycle</strong>: Agents zijn Kubernetes-resources — deploy, versiebeheer, monitor en schaal met bestaande tools</li>
+<li><strong>Tool interoperabiliteit</strong>: MCP betekent geen vendor lock-in — wissel van LLM, wissel van UI, wissel van tools zonder agents te herschrijven</li>
+<li><strong>Developer experience</strong>: LibreChat geeft niet-DevOps teamleden een natural language interface naar infrastructuuroperaties</li>
+</ol>
+<p>We bewegen naar een wereld waarin “kubectl” niet de enige manier is om een cluster te beheren. Natuurlijke taal, ondersteund door goed gedefinieerde agents met juiste guardrails, is een legitieme operations-interface.</p>
+<p>Kagent is nog een CNCF sandbox-project, maar met Solo.io als backing en een groeiende community is het een van de meest interessante projecten in de cloud-native AI-ruimte op dit moment.</p>
+<hr>
+<p><em>Benieuwd hoe AI-agents je Kubernetes-operaties kunnen automatiseren? <a href="/nl/contact">Neem contact op met Virge.io</a> — wij helpen teams bij het implementeren van cloud-native AI-oplossingen.</em></p> </div> <div class="cta"> <div> <h2>Klaar om iets geweldigs te bouwen?</h2> <p>Laten we bespreken hoe Virge.io je kan helpen je software-oplossingen te schalen.</p> </div> <a href="/nl/contact/" class="btn">Neem contact op</a> </div> </div> </article> </main> <footer> <div class="container"> <p>&copy; 2026 Virge.io. Software oplossingen die schalen</p> </div> </footer> </body></html>
