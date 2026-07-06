@@ -32,7 +32,7 @@ const dateLocale = lang === 'nl' ? 'nl-NL' : 'en-US';
         )}
       </header>
       {frontmatter.image && (
-        <img src={frontmatter.image} alt={frontmatter.title} class="post-hero-image" />
+        <img src={frontmatter.image} alt={frontmatter.title} class="post-hero-image" style={frontmatter.imagePosition ? `object-position: ${frontmatter.imagePosition}` : undefined} />
       )}
       <div class="post-content">
         <slot />
