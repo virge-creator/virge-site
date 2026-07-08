@@ -34,15 +34,12 @@ if (currentPath.startsWith(blogPrefix) && currentPath !== blogPrefix) {
 }
 
 const jobsPath = lang === 'nl' ? `${base}vacatures/` : `${base}jobs/`;
-const links = [
-  { href: base, label: i.nav.home },
+
+const serviceItems = [
   { href: `${base}ai/`, label: i.nav.ai },
   { href: `${base}sdn/`, label: i.nav.sdn },
   { href: `${base}ecommerce/`, label: i.nav.ecommerce },
-  { href: `${base}blog/`, label: i.nav.blog },
   { href: `${base}openclaw/`, label: i.nav.openclaw },
-  { href: jobsPath, label: i.nav.jobs },
-  { href: `${base}contact/`, label: i.nav.contact },
 ];
 ---
 <nav>
@@ -52,7 +49,21 @@ const links = [
       <Icon name="menu" size={24} />
     </button>
     <ul class="links">
-      {links.map(l => <li><a href={l.href}>{l.label}</a></li>)}
+      <li><a href={base}>{i.nav.home}</a></li>
+      <li class="has-dropdown">
+        <a href={`${base}services/`} class="dropdown-parent">
+          {i.nav.services}
+          <svg class="chevron" width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+            <path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+        <ul class="dropdown">
+          {serviceItems.map(s => <li><a href={s.href}>{s.label}</a></li>)}
+        </ul>
+      </li>
+      <li><a href={`${base}cases/`}>{i.nav.cases}</a></li>
+      <li><a href={jobsPath}>{i.nav.jobs}</a></li>
+      <li><a href={`${base}contact/`}>{i.nav.contact}</a></li>
       <li class="lang-switch">
         <a href={switchPath} class="lang-btn">{otherLang.toUpperCase()}</a>
       </li>
@@ -83,4 +94,101 @@ const links = [
     background: rgba(139,92,246,0.2);
     color: #c4b5fd;
   }
+
+  /* Uniform link size */
+  :global(nav .links a),
+  :global(nav .links button) {
+    font-size: 1.05rem;
+  }
+
+  /* Dropdown */
+  .has-dropdown {
+    position: relative;
+  }
+  .dropdown-parent {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    font-size: 1.05rem;
+  }
+  .chevron {
+    transition: transform 0.2s;
+    opacity: 0.6;
+  }
+  .has-dropdown:hover .chevron {
+    transform: rotate(180deg);
+  }
+  .dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    min-width: 170px;
+    background: var(--bg-card);
+    border-left: 3px solid rgba(108,92,231,0.3);
+    border-radius: 0 var(--radius) var(--radius) 0;
+    padding: 0.5rem 0;
+    list-style: none;
+    z-index: 200;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-6px);
+    transition: opacity 0.15s ease, transform 0.15s ease, visibility 0.15s;
+  }
+  .has-dropdown:hover .dropdown {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+  .dropdown li a {
+    display: block;
+    padding: 0.5rem 1.25rem;
+    white-space: nowrap;
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    transition: color 0.2s, background 0.2s;
+  }
+  .dropdown li a:hover {
+    color: var(--text);
+    background: rgba(108,92,231,0.1);
+    text-decoration: none;
+  }
+
+  /* Mobile: dropdown becomes inline */
+  @media (max-width: 768px) {
+    .dropdown {
+      position: static;
+      border-radius: 0;
+      background: transparent;
+      box-shadow: none;
+      padding: 0 0 0 0.5rem;
+      margin-top: 0.25rem;
+      transform: none;
+      transition: none;
+      opacity: 0;
+      visibility: hidden;
+      max-height: 0;
+      overflow: hidden;
+    }
+    .has-dropdown:hover .dropdown {
+      opacity: 0;
+      visibility: hidden;
+    }
+    .has-dropdown.open .dropdown {
+      opacity: 1;
+      visibility: visible;
+      max-height: 200px;
+    }
+  }
 </style>
+
+<script>
+  if (window.matchMedia('(max-width: 768px)').matches) {
+    document.querySelectorAll('.has-dropdown .dropdown-parent').forEach(el => {
+      el.addEventListener('click', (e) => {
+        e.preventDefault();
+        el.closest('.has-dropdown')?.classList.toggle('open');
+      });
+    });
+  }
+</script>

@@ -35,12 +35,13 @@ nav {
   border-bottom: 1px solid rgba(108,92,231,0.15);
   padding: 1rem 0;
 }
-nav .container { display: flex; justify-content: space-between; align-items: center; }
-nav .logo { font-size: 1.4rem; font-weight: 700; }
-nav .links { display: flex; gap: 1.5rem; list-style: none; }
-nav .links a { color: var(--text-muted); font-size: 0.95rem; transition: color 0.2s; }
+nav .container { display: flex; justify-content: space-between; align-items: stretch; }
+nav .logo { font-size: 1.4rem; font-weight: 700; display: flex; align-items: center; }
+nav .links { display: flex; gap: 1.5rem; list-style: none; align-items: stretch; }
+nav .links li { display: flex; align-items: center; }
+nav .links a { color: var(--text-muted); font-size: 1.05rem; transition: color 0.2s; display: flex; align-items: center; }
 nav .links a:hover { color: var(--text); text-decoration: none; }
-.menu-toggle { display: none; background: none; border: none; color: var(--text); font-size: 1.5rem; cursor: pointer; }
+.menu-toggle { display: none; background: none; border: none; color: var(--text); font-size: 1.5rem; cursor: pointer; align-self: center; }
 
 /* Hero */
 .hero {

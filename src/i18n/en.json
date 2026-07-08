@@ -1,11 +1,13 @@
 {
   "nav": {
     "home": "Home",
+    "services": "Services",
     "ai": "AI Consulting",
     "sdn": "SDN",
     "ecommerce": "eCommerce",
     "blog": "Blog",
     "openclaw": "OpenClaw",
+    "cases": "Cases",
     "contact": "Contact",
     "jobs": "Jobs"
   },
