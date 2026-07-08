@@ -28,7 +28,7 @@ const i = t(lang);
 
   <!-- Services -->
   <section class="services-section">
-    <div class="container">
+    <div class="services-inner">
       <div class="section-intro reveal">
         <span class="section-label">{i.home.whatWeDo}</span>
         <h2>Gebouwd voor schaal,<br/>ontworpen voor de praktijk.</h2>
@@ -36,29 +36,25 @@ const i = t(lang);
 
       <div class="service-grid">
 
-        <a href={`/${lang}/ai/`} class="scard reveal-card" style="--ghost: 'AI'">
-          <div class="scard-top"><span class="scard-num">01</span><span class="scard-arrow">→</span></div>
-          <h3>{i.home.aiTitle}</h3>
-          <p>{i.home.aiDesc}</p>
-        </a>
-        <a href={`/${lang}/ecommerce/`} class="scard reveal-card" style="--ghost: 'EC'">
-          <div class="scard-top"><span class="scard-num">02</span><span class="scard-arrow">→</span></div>
-          <h3>{i.home.ecomTitle}</h3>
-          <p>{i.home.ecomDesc}</p>
-        </a>
-        <a href={`/${lang}/openclaw/`} class="scard reveal-card" style="--ghost: 'OC'">
-          <div class="scard-top"><span class="scard-num">03</span><span class="scard-arrow">→</span></div>
-          <h3>{i.home.openclawTitle}</h3>
-          <p>{i.home.openclawDesc}</p>
-        </a>
-
-        <div class="scard-wrap reveal-card">
-          <a href={`/${lang}/sdn/`} class="scard" style="--ghost: 'SDN'">
-            <div class="scard-top"><span class="scard-num">04</span><span class="scard-arrow">→</span></div>
-            <h3>{i.home.sdnTitle}</h3>
-            <p>{i.home.sdnDesc}</p>
-          </a>
-          <a href={`/${lang}/blog/librechat-as-agent-orchestrator/`} class="cases-card">
+        <!-- 1: AI cluster — card + points + case study -->
+        <div class="svc-cluster">
+          <div class="svc-row">
+            <a href={`/${lang}/ai/`} class="scard reveal-card" style="--ghost: 'AI'; --delay: 0s">
+              <div class="scard-top"><span class="scard-num">01</span><span class="scard-arrow">→</span></div>
+              <h3>{i.home.aiTitle}</h3>
+              <p>{i.home.aiDesc}</p>
+            </a>
+            <div class="svc-points reveal-card" style="--delay: 0.07s">
+              <p class="svc-points-lead">Wat we leveren</p>
+              <ul class="svc-points-list">
+                <li>Vector databases &amp; RAG</li>
+                <li>AI-integratie</li>
+                <li>Productiesystemen</li>
+                <li>Meetbare waarde</li>
+              </ul>
+            </div>
+          </div>
+          <a href={`/${lang}/blog/librechat-as-agent-orchestrator/`} class="cases-card reveal-card" style="--delay: 0.14s">
             <span class="cases-eyebrow">Case Study</span>
             <h4>WFO-agent opzetten met LibreChat: geen Kubernetes vereist</h4>
             <div class="cases-meta">
@@ -68,6 +64,72 @@ const i = t(lang);
             </div>
             <span class="cases-cta">Lees case →</span>
           </a>
+        </div>
+
+        <!-- 2: OpenClaw cluster — card + points -->
+        <div class="svc-cluster">
+          <div class="svc-row">
+            <a href={`/${lang}/openclaw/`} class="scard reveal-card" style="--ghost: 'OC'; --delay: 0.08s">
+              <div class="scard-top"><span class="scard-num">03</span><span class="scard-arrow">→</span></div>
+              <h3>{i.home.openclawTitle}</h3>
+              <p>{i.home.openclawDesc}</p>
+            </a>
+            <div class="svc-points reveal-card" style="--delay: 0.15s">
+              <p class="svc-points-lead">Wat we bieden</p>
+              <ul class="svc-points-list">
+                <li>Self-hosted AI</li>
+                <li>Managed hosting</li>
+                <li>Beveiliging &amp; hardening</li>
+                <li>Bedrijfsautomatisering</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3: SDN cluster — card + points -->
+        <div class="svc-cluster">
+          <div class="svc-row">
+            <a href={`/${lang}/sdn/`} class="scard reveal-card" style="--ghost: 'SDN'; --delay: 0.16s">
+              <div class="scard-top"><span class="scard-num">04</span><span class="scard-arrow">→</span></div>
+              <h3>{i.home.sdnTitle}</h3>
+              <p>{i.home.sdnDesc}</p>
+            </a>
+            <div class="svc-points reveal-card" style="--delay: 0.23s">
+              <p class="svc-points-lead">Wat we leveren</p>
+              <ul class="svc-points-list">
+                <li>Netwerkautomatisering</li>
+                <li>Workflow Orchestrator</li>
+                <li>Infrastructure as Code</li>
+                <li>Enterprise integratie</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- 4: eCommerce cluster — card + carousel (full-width bottom) -->
+        <div class="ec-cluster">
+          <a href={`/${lang}/ecommerce/`} class="scard reveal-card" style="--ghost: 'EC'; --delay: 0.24s">
+            <div class="scard-top"><span class="scard-num">02</span><span class="scard-arrow">→</span></div>
+            <h3>{i.home.ecomTitle}</h3>
+            <p>{i.home.ecomDesc}</p>
+          </a>
+          <div class="ec-carousel">
+            <a href={`/${lang}/ecommerce/`} class="ec-slide">
+              <span class="ec-slide-tag">Productcontent</span>
+              <h4>Content as a Service</h4>
+              <p>AI-gegenereerde productbeschrijvingen op schaal.</p>
+            </a>
+            <a href={`/${lang}/ecommerce/`} class="ec-slide">
+              <span class="ec-slide-tag">Webshop</span>
+              <h4>ShopVirge</h4>
+              <p>Volledige webshop in dagen, niet maanden.</p>
+            </a>
+            <a href={`/${lang}/ecommerce/`} class="ec-slide">
+              <span class="ec-slide-tag">Integraties</span>
+              <h4>Verbind je stack</h4>
+              <p>ERP, CRM, fulfilment &amp; marketing in één flow.</p>
+            </a>
+          </div>
         </div>
 
       </div>
@@ -209,7 +271,12 @@ const i = t(lang);
   }
 
   /* ---- Services section ---- */
-  .services-section { padding: 6rem 0 5rem; }
+  .services-section { padding: 6rem 0 5rem; overflow: visible; }
+  .services-inner {
+    max-width: 1320px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
   .section-intro { margin-bottom: 3.5rem; }
   .section-label {
     display: inline-block;
@@ -227,48 +294,161 @@ const i = t(lang);
     color: #fff;
   }
 
-  /* ---- Grid ---- */
+  /* ---- Editorial grid (10 cols) ---- */
   .service-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1.25rem;
+    grid-template-columns: repeat(10, 1fr);
+    column-gap: 1.25rem;
+    row-gap: 1.5rem;
+    align-items: start;
+    padding-bottom: 4rem;
   }
 
-  /* ---- Grid ---- */
-  .service-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1.25rem;
-    padding-bottom: 7rem;
-  }
-
-  /* ---- SDN wrapper ---- */
-  .scard-wrap {
+  /* 1 AI cluster: top-left (40%) */
+  .service-grid > *:nth-child(1) { grid-column: 1 / 5; grid-row: 1; position: relative; z-index: 3; }
+  /* 2 EC: top-right (60%), drops 1.5rem */
+  .service-grid > *:nth-child(2) { grid-column: 5 / 11; grid-row: 1; margin-top: 1.5rem; }
+  /* 3 OC: center-right, overlaps up */
+  .service-grid > *:nth-child(3) {
+    grid-column: 3 / 9;
+    grid-row: 2;
+    margin-top: -2.5rem;
     position: relative;
+    z-index: 2;
+  }
+  /* 4 SDN: full width, row 3 */
+  .service-grid > *:nth-child(4) { grid-column: 1 / 11; grid-row: 3; margin-top: 0.5rem; }
+
+  /* ---- Service clusters (shared: AI, OC, SDN) ---- */
+  .svc-cluster {
+    display: flex;
+    flex-direction: column;
     overflow: visible;
   }
-  .scard-wrap .scard {
-    height: 100%;
+  .svc-row {
+    display: flex;
+    gap: 1.25rem;
+    align-items: stretch;
+    flex: 1;
+  }
+  .svc-row .scard {
+    flex: 1;
+    min-width: 0;
+  }
+  .svc-points {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0.5rem 0.25rem;
+  }
+  .svc-points-lead {
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent2);
+    margin-bottom: 0.85rem;
+  }
+  .svc-points-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+  .svc-points-list li {
+    font-size: 0.83rem;
+    color: var(--text-muted);
+    display: flex;
+    align-items: flex-start;
+    gap: 0.35rem;
+    line-height: 1.4;
+  }
+  .svc-points-list li::before {
+    content: '·';
+    color: var(--accent2);
+    font-size: 1rem;
+    margin-top: 0;
+    flex-shrink: 0;
   }
 
-  /* Cases card — 50% hangs below the SDN card */
+  /* ---- eCommerce cluster — card + scroll carousel ---- */
+  .ec-cluster {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    overflow: visible;
+  }
+  .ec-carousel {
+    display: flex;
+    gap: 0.875rem;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    padding-bottom: 2px;
+  }
+  .ec-carousel::-webkit-scrollbar { display: none; }
+  .ec-slide {
+    flex: 0 0 calc(50% - 0.44rem);
+    scroll-snap-align: start;
+    background: var(--bg-card);
+    border: 1px solid rgba(108,92,231,0.12);
+    border-radius: var(--radius);
+    padding: 1rem 1.25rem;
+    text-decoration: none;
+    color: inherit;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+  .ec-slide:hover {
+    border-color: rgba(108,92,231,0.35);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+    text-decoration: none;
+  }
+  .ec-slide-tag {
+    display: block;
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent2);
+    margin-bottom: 0.4rem;
+  }
+  .ec-slide h4 {
+    font-size: 0.92rem;
+    font-weight: 700;
+    color: var(--text);
+    margin: 0 0 0.3rem;
+    line-height: 1.3;
+  }
+  .ec-slide p {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    line-height: 1.45;
+    margin: 0;
+  }
+
+  /* ---- Cases card (inside ai-cluster, overlaps AI bottom and bleeds left) ---- */
   .cases-card {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
     text-decoration: none;
     color: inherit;
-    position: absolute;
-    bottom: -5rem;
-    right: 1.5rem;
-    width: 230px;
     background: var(--bg-card);
     border: 1px solid rgba(108,92,231,0.35);
     border-radius: var(--radius);
     padding: 1.25rem;
-    z-index: 10;
     box-shadow: 0 8px 28px rgba(0,0,0,0.45);
     transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+    margin-top: -2.5rem;
+    margin-left: -1.5rem;
+    align-self: flex-start;
+    width: 240px;
+    position: relative;
+    z-index: 3;
   }
   .cases-card:hover {
     transform: translateY(-3px);
@@ -284,7 +464,7 @@ const i = t(lang);
     color: var(--accent2);
   }
   .cases-card h4 {
-    font-size: 0.95rem;
+    font-size: 0.92rem;
     font-weight: 600;
     line-height: 1.45;
     color: var(--text);
@@ -295,13 +475,13 @@ const i = t(lang);
     display: flex;
     align-items: center;
     gap: 0.4rem;
-    font-size: 0.78rem;
+    font-size: 0.76rem;
     color: var(--text-muted);
     margin-top: auto;
   }
   .cases-dot { opacity: 0.4; }
   .cases-cta {
-    font-size: 0.82rem;
+    font-size: 0.8rem;
     font-weight: 600;
     color: var(--accent2);
     margin-top: 0.25rem;
@@ -339,10 +519,7 @@ const i = t(lang);
     box-shadow: 0 8px 24px rgba(0,0,0,0.25);
     text-decoration: none;
   }
-  .scard:hover::before {
-    opacity: 1;
-  }
-  /* Ghost watermark — anchored left so cases card (right) doesn't cover it */
+  .scard:hover::before { opacity: 1; }
   .scard::after {
     content: var(--ghost, '');
     position: absolute;
@@ -376,18 +553,14 @@ const i = t(lang);
     transform: translateX(-6px);
     transition: opacity 0.2s ease, transform 0.2s ease;
   }
-  .scard:hover .scard-arrow,
-  .scard-featured:hover .scard-arrow {
-    opacity: 1;
-    transform: translateX(0);
-  }
-  .scard h3, .scard-featured h3 {
+  .scard:hover .scard-arrow { opacity: 1; transform: translateX(0); }
+  .scard h3 {
     font-size: 1.15rem;
     font-weight: 700;
     margin-bottom: 0.6rem;
     color: var(--text);
   }
-  .scard p, .scard-featured p {
+  .scard p {
     color: var(--text-muted);
     font-size: 0.92rem;
     line-height: 1.6;
@@ -405,14 +578,10 @@ const i = t(lang);
   .reveal-card {
     opacity: 0;
     transform: translateY(28px);
-    transition: opacity 0.55s ease, transform 0.55s ease,
-                box-shadow 0.25s ease, border-color 0.25s ease;
+    transition: opacity 0.6s ease, transform 0.6s ease;
+    transition-delay: var(--delay, 0s);
   }
   .reveal-card.is-visible { opacity: 1; transform: none; }
-  .reveal-card:nth-child(1) { transition-delay: 0s; }
-  .reveal-card:nth-child(2) { transition-delay: 0.08s; }
-  .reveal-card:nth-child(3) { transition-delay: 0.16s; }
-  .reveal-card:nth-child(4) { transition-delay: 0.24s; }
 
   @keyframes fadeUp {
     from { opacity: 0; transform: translateY(20px); }
@@ -421,13 +590,28 @@ const i = t(lang);
 
   /* ---- Mobile ---- */
   @media (max-width: 768px) {
+    .services-inner { padding: 0 1.25rem; }
     .service-grid {
       grid-template-columns: 1fr;
-      padding-bottom: 8rem;
+      row-gap: 1rem;
+      padding-bottom: 2rem;
     }
+    .service-grid > *:nth-child(1),
+    .service-grid > *:nth-child(2),
+    .service-grid > *:nth-child(3),
+    .service-grid > *:nth-child(4) {
+      grid-column: 1;
+      grid-row: auto;
+      margin-top: 0;
+    }
+    .svc-row { flex-direction: column; }
+    .svc-points { flex: none; }
+    .ec-slide { flex: 0 0 80%; }
     .cases-card {
-      width: calc(100% - 3rem);
-      right: 1.5rem;
+      margin-top: 1rem;
+      margin-left: 0;
+      align-self: stretch;
+      width: auto;
     }
   }
 </style>
