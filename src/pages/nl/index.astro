@@ -33,7 +33,32 @@ const i = t(lang);
         <span class="section-label">{i.home.whatWeDo}</span>
         <h2>Gebouwd voor schaal,<br/>ontworpen voor de praktijk.</h2>
       </div>
+
       <div class="service-grid">
+
+        <!-- Featured: SDN + overlaid cases card -->
+        <div class="featured-cluster reveal-card">
+          <a href={`/${lang}/sdn/`} class="scard scard-featured">
+            <div class="scard-top">
+              <span class="scard-num">02</span>
+              <span class="scard-arrow">→</span>
+            </div>
+            <h3>{i.home.sdnTitle}</h3>
+            <p>{i.home.sdnDesc}</p>
+          </a>
+          <a href={`/${lang}/blog/librechat-as-agent-orchestrator/`} class="cases-card">
+            <span class="cases-eyebrow">Case Study</span>
+            <h4>WFO-agent opzetten met LibreChat: geen Kubernetes vereist</h4>
+            <div class="cases-meta">
+              <span>Jul 2026</span>
+              <span class="cases-dot">·</span>
+              <span>SDN · LibreChat</span>
+            </div>
+            <span class="cases-cta">Lees case →</span>
+          </a>
+        </div>
+
+        <!-- Smaller cards -->
         <a href={`/${lang}/ai/`} class="scard reveal-card">
           <div class="scard-top">
             <span class="scard-num">01</span>
@@ -41,14 +66,6 @@ const i = t(lang);
           </div>
           <h3>{i.home.aiTitle}</h3>
           <p>{i.home.aiDesc}</p>
-        </a>
-        <a href={`/${lang}/sdn/`} class="scard reveal-card">
-          <div class="scard-top">
-            <span class="scard-num">02</span>
-            <span class="scard-arrow">→</span>
-          </div>
-          <h3>{i.home.sdnTitle}</h3>
-          <p>{i.home.sdnDesc}</p>
         </a>
         <a href={`/${lang}/ecommerce/`} class="scard reveal-card">
           <div class="scard-top">
@@ -66,6 +83,7 @@ const i = t(lang);
           <h3>{i.home.openclawTitle}</h3>
           <p>{i.home.openclawDesc}</p>
         </a>
+
       </div>
     </div>
   </section>
@@ -80,7 +98,7 @@ const i = t(lang);
 <script>
   const observer = new IntersectionObserver(
     (entries) => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('is-visible'); }),
-    { threshold: 0.12 }
+    { threshold: 0.1 }
   );
   document.querySelectorAll('.reveal, .reveal-card').forEach(el => observer.observe(el));
 </script>
@@ -132,7 +150,6 @@ const i = t(lang);
     background-size: 32px 32px;
     mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 40%, transparent 100%);
   }
-
   .hero-inner {
     position: relative;
     text-align: center;
@@ -197,13 +214,9 @@ const i = t(lang);
     text-decoration: none;
   }
 
-  /* ---- Services ---- */
-  .services-section {
-    padding: 6rem 0 5rem;
-  }
-  .section-intro {
-    margin-bottom: 3.5rem;
-  }
+  /* ---- Services section ---- */
+  .services-section { padding: 6rem 0 5rem; }
+  .section-intro { margin-bottom: 3.5rem; }
   .section-label {
     display: inline-block;
     font-size: 0.78rem;
@@ -220,11 +233,106 @@ const i = t(lang);
     color: #fff;
   }
 
+  /* ---- Grid ---- */
   .service-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    grid-template-columns: repeat(3, 1fr);
     gap: 1.25rem;
   }
+
+  /* ---- Featured cluster ---- */
+  .featured-cluster {
+    grid-column: 1 / 4;
+    display: grid;
+    grid-template-columns: 1fr 300px;
+    padding-bottom: 2.5rem;
+  }
+
+  .scard-featured {
+    position: relative;
+    overflow: hidden;
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    background: var(--bg-card);
+    border: 1px solid rgba(108,92,231,0.15);
+    border-radius: var(--radius) 0 0 var(--radius);
+    padding: 2.25rem;
+    min-height: 260px;
+    transition: border-color 0.25s ease;
+  }
+  .scard-featured:hover {
+    border-color: rgba(108,92,231,0.4);
+    text-decoration: none;
+  }
+  .scard-featured::after {
+    content: 'SDN';
+    position: absolute;
+    right: 2rem;
+    bottom: 1rem;
+    font-size: 7rem;
+    font-weight: 900;
+    letter-spacing: -0.03em;
+    color: rgba(108,92,231,0.055);
+    line-height: 1;
+    pointer-events: none;
+    user-select: none;
+  }
+
+  .cases-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    text-decoration: none;
+    color: inherit;
+    background: var(--bg);
+    border: 1px solid rgba(108,92,231,0.35);
+    border-radius: 0 var(--radius) var(--radius) 0;
+    padding: 1.75rem;
+    position: relative;
+    z-index: 2;
+    transform: translate(-1px, 2.5rem);
+    box-shadow: -6px 12px 36px rgba(0,0,0,0.45);
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+  }
+  .cases-card:hover {
+    transform: translate(-1px, 1.5rem);
+    box-shadow: -6px 20px 48px rgba(108,92,231,0.22);
+    border-color: rgba(108,92,231,0.6);
+    text-decoration: none;
+  }
+  .cases-eyebrow {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent2);
+  }
+  .cases-card h4 {
+    font-size: 0.95rem;
+    font-weight: 600;
+    line-height: 1.45;
+    color: var(--text);
+    margin: 0;
+    flex: 1;
+  }
+  .cases-meta {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    margin-top: auto;
+  }
+  .cases-dot { opacity: 0.4; }
+  .cases-cta {
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--accent2);
+    margin-top: 0.25rem;
+  }
+
+  /* ---- Small service cards ---- */
   .scard {
     display: block;
     text-decoration: none;
@@ -261,17 +369,18 @@ const i = t(lang);
     transform: translateX(-6px);
     transition: opacity 0.2s ease, transform 0.2s ease;
   }
-  .scard:hover .scard-arrow {
+  .scard:hover .scard-arrow,
+  .scard-featured:hover .scard-arrow {
     opacity: 1;
     transform: translateX(0);
   }
-  .scard h3 {
+  .scard h3, .scard-featured h3 {
     font-size: 1.15rem;
     font-weight: 700;
     margin-bottom: 0.6rem;
     color: var(--text);
   }
-  .scard p {
+  .scard p, .scard-featured p {
     color: var(--text-muted);
     font-size: 0.92rem;
     line-height: 1.6;
@@ -298,12 +407,32 @@ const i = t(lang);
   .reveal-card:nth-child(3) { transition-delay: 0.16s; }
   .reveal-card:nth-child(4) { transition-delay: 0.24s; }
 
-  .reveal-card.is-visible:hover {
-    transform: translateY(-5px);
-  }
+  .reveal-card.is-visible:hover { transform: translateY(-5px); }
+  .reveal-card.is-visible.featured-cluster:hover { transform: none; }
+  .reveal-card.is-visible .cases-card:hover { transform: translate(-1px, 1.5rem); }
 
   @keyframes fadeUp {
     from { opacity: 0; transform: translateY(20px); }
     to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ---- Mobile ---- */
+  @media (max-width: 768px) {
+    .service-grid { grid-template-columns: 1fr; }
+    .featured-cluster {
+      grid-column: 1;
+      grid-template-columns: 1fr;
+      padding-bottom: 0;
+    }
+    .scard-featured {
+      border-radius: var(--radius) var(--radius) 0 0;
+      min-height: auto;
+    }
+    .cases-card {
+      border-radius: 0 0 var(--radius) var(--radius);
+      transform: none;
+      box-shadow: none;
+    }
+    .cases-card:hover { transform: none; }
   }
 </style>
