@@ -33,12 +33,15 @@ const i = t(lang);
         <h2>Built for scale,<br/>designed for real-world use.</h2>
       </div>
 
-      <div class="service-grid">
+      <div class="service-list">
+        <div class="trace-rail" aria-hidden="true"></div>
 
-        <!-- 1: AI cluster — card + points + case study -->
-        <div class="svc-cluster svc-ai">
-          <div class="cluster-cc-border"></div>
-          <div class="svc-row">
+        <!-- 01: AI -->
+        <div class="svc-item reveal">
+          <div class="trace-anchor">
+            <div class="trace-dot"></div>
+          </div>
+          <div class="svc-pair">
             <a href={`/${lang}/ai/`} class="scard reveal-card" style="--ghost: 'AI'; --delay: 0s">
               <div class="scard-heading">
                 <span class="scard-num">01</span>
@@ -46,78 +49,97 @@ const i = t(lang);
                 <span class="scard-arrow">→</span>
               </div>
               <p>{i.home.aiDesc}</p>
+              <ul class="scard-bullets">
+                <li>Vector databases &amp; RAG</li>
+                <li>AI-native integrations</li>
+                <li>Production-ready systems</li>
+              </ul>
+            </a>
+            <a href={`/${lang}/blog/librechat-as-agent-orchestrator/`} class="cases-card reveal-card" style="--delay: 0.1s">
+              <div class="cc-img">
+                <img src="/images/librechat-agent-orchestrator.png" alt="" loading="lazy">
+                <span class="cc-badge">Case Study</span>
+              </div>
+              <h4>Setting up the WFO agent with LibreChat: no Kubernetes required</h4>
+              <div class="cases-meta">
+                <span>Jul 2026</span><span class="cases-dot">·</span><span>AI · LibreChat</span>
+              </div>
+              <span class="cases-cta">Read case →</span>
             </a>
           </div>
-          <span class="latest-cases-label">Our latest cases:</span>
-          <a href={`/${lang}/blog/librechat-as-agent-orchestrator/`} class="cases-card reveal-card" style="--delay: 0.14s">
-            <div class="cc-img">
-              <img src="/images/librechat-agent-orchestrator.png" alt="" loading="lazy">
-            </div>
-            <span class="cases-eyebrow">01 · AI</span>
-            <h4>Setting up the WFO agent with LibreChat: no Kubernetes required</h4>
-            <div class="cases-meta">
-              <span>Jul 2026</span>
-              <span class="cases-dot">·</span>
-              <span>AI · LibreChat</span>
-            </div>
-            <span class="cases-cta">Read case →</span>
-          </a>
         </div>
 
-        <!-- 2: OpenClaw cluster — card + case -->
-        <div class="svc-cluster svc-oc">
-          <div class="cluster-cc-border"></div>
-          <div class="svc-row">
-            <a href={`/${lang}/openclaw/`} class="scard reveal-card" style="--ghost: 'OC'; --delay: 0.08s">
+        <!-- 02: OpenClaw -->
+        <div class="svc-item reveal">
+          <div class="trace-anchor">
+            <div class="trace-dot"></div>
+          </div>
+          <div class="svc-pair">
+            <a href={`/${lang}/openclaw/`} class="scard reveal-card" style="--ghost: 'OC'; --delay: 0s">
               <div class="scard-heading">
                 <span class="scard-num">02</span>
                 <h3>{i.home.openclawTitle}</h3>
                 <span class="scard-arrow">→</span>
               </div>
               <p>{i.home.openclawDesc}</p>
+              <ul class="scard-bullets">
+                <li>Self-hosted AI</li>
+                <li>Managed hosting</li>
+                <li>Business automation</li>
+              </ul>
+            </a>
+            <a href={`/${lang}/openclaw/`} class="cases-card reveal-card" style="--delay: 0.1s">
+              <div class="cc-img">
+                <img src="/images/anythingllm-workspace.png" alt="" loading="lazy">
+                <span class="cc-badge">Case Study</span>
+              </div>
+              <h4>Secure self-hosted AI workspace for a legal firm in four days</h4>
+              <div class="cases-meta">
+                <span>Apr 2026</span><span class="cases-dot">·</span><span>OpenClaw · Self-hosted</span>
+              </div>
+              <span class="cases-cta">Read case →</span>
             </a>
           </div>
-          <a href={`/${lang}/openclaw/`} class="cases-card reveal-card" style="--delay: 0.22s">
-            <div class="cc-img">
-              <img src="/images/anythingllm-workspace.png" alt="" loading="lazy">
-            </div>
-            <span class="cases-eyebrow">02 · OC</span>
-            <h4>Secure self-hosted AI workspace for a legal firm in four days</h4>
-            <div class="cases-meta">
-              <span>Apr 2026</span>
-              <span class="cases-dot">·</span>
-              <span>OpenClaw · Self-hosted</span>
-            </div>
-            <span class="cases-cta">Read case →</span>
-          </a>
         </div>
 
-        <!-- 3: SDN cluster — card + case -->
-        <div class="svc-cluster svc-sdn">
-          <div class="cluster-cc-border"></div>
-          <div class="svc-row">
-            <a href={`/${lang}/sdn/`} class="scard reveal-card" style="--ghost: 'SDN'; --delay: 0.16s">
+        <!-- 03: SDN -->
+        <div class="svc-item reveal">
+          <div class="trace-anchor">
+            <div class="trace-dot"></div>
+          </div>
+          <div class="svc-pair">
+            <a href={`/${lang}/sdn/`} class="scard reveal-card" style="--ghost: 'SDN'; --delay: 0s">
               <div class="scard-heading">
                 <span class="scard-num">03</span>
                 <h3>{i.home.sdnTitle}</h3>
                 <span class="scard-arrow">→</span>
               </div>
               <p>{i.home.sdnDesc}</p>
+              <ul class="scard-bullets">
+                <li>Network automation</li>
+                <li>WFO platform</li>
+                <li>Infra as code</li>
+              </ul>
+            </a>
+            <a href={`/${lang}/sdn/`} class="cases-card reveal-card" style="--delay: 0.1s">
+              <div class="cc-img">
+                <img src="/images/agentic-ai-enterprise.png" alt="" loading="lazy">
+                <span class="cc-badge">Case Study</span>
+              </div>
+              <h4>Zero-touch network provisioning across 12 sites for a logistics group</h4>
+              <div class="cases-meta">
+                <span>May 2026</span><span class="cases-dot">·</span><span>SDN · Automation</span>
+              </div>
+              <span class="cases-cta">Read case →</span>
             </a>
           </div>
-          <a href={`/${lang}/sdn/`} class="cases-card reveal-card" style="--delay: 0.30s">
-            <div class="cc-img">
-              <img src="/images/agentic-ai-enterprise.png" alt="" loading="lazy">
-            </div>
-            <span class="cases-eyebrow">03 · SDN</span>
-            <h4>Zero-touch network provisioning across 12 sites for a logistics group</h4>
-            <div class="cases-meta">
-              <span>May 2026</span>
-              <span class="cases-dot">·</span>
-              <span>SDN · Automation</span>
-            </div>
-            <span class="cases-cta">Read case →</span>
-          </a>
+        </div>
+
+        <!-- 04: eCommerce — terminal node only, card is the ec-banner below -->
+        <div class="svc-item svc-item--terminal svc-item--end">
+          <div class="trace-anchor trace-anchor--terminal">
+            <div class="trace-dot"></div>
+          </div>
         </div>
 
       </div>
@@ -126,16 +148,13 @@ const i = t(lang);
 
   <!-- eCommerce banner -->
   <section class="ec-banner reveal">
-    <!-- Table: 5 columns × 3 rows (last col + last row are cosmetic) -->
+    <div class="ec-trace-cont" aria-hidden="true"></div>
     <div class="ec-table">
-      <!-- Row 1: number | title | empty | empty | cosmetic -->
       <div class="ec-cell ec-cell-num"><span class="ec-num">04</span></div>
       <div class="ec-cell ec-cell-title"><h3>{i.home.ecomTitle}</h3></div>
       <div class="ec-cell ec-cell-empty"></div>
       <div class="ec-cell ec-cell-empty"></div>
       <div class="ec-cell ec-cell-cosmetic-col"></div>
-
-      <!-- Row 2: blank | subtitle | bullets col 1 | bullets col 2 | cosmetic -->
       <div class="ec-cell ec-cell-blank"></div>
       <div class="ec-cell ec-cell-sub"><p>{i.home.ecomDesc}</p></div>
       <div class="ec-cell ec-cell-bullets">
@@ -151,18 +170,15 @@ const i = t(lang);
         </ul>
       </div>
       <div class="ec-cell ec-cell-cosmetic-col"></div>
-
-      <!-- Row 3: cosmetic (1 char tall) -->
       <div class="ec-cell ec-cell-cosmetic-row"></div>
       <div class="ec-cell ec-cell-cosmetic-row"></div>
       <div class="ec-cell ec-cell-cosmetic-row"></div>
       <div class="ec-cell ec-cell-cosmetic-row"></div>
       <div class="ec-cell ec-cell-cosmetic-row"></div>
     </div>
-
     <div class="ec-banner-bottom">
       <div class="ec-cases-header">
-        <span class="svc-points-lead">Case studies</span>
+        <span class="ec-cases-lead">Case studies</span>
         <div class="ec-cases-actions">
           <a href={`/${lang}/ecommerce/`} class="btn-ghost ec-explore-btn">Explore eCommerce →</a>
           <div class="ec-cases-btns">
@@ -218,61 +234,89 @@ const i = t(lang);
 </Layout>
 
 <script>
+  // Scroll reveal
   const observer = new IntersectionObserver(
     (entries) => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('is-visible'); }),
     { threshold: 0.1 }
   );
   document.querySelectorAll('.reveal, .reveal-card').forEach(el => observer.observe(el));
 
-  // Shared gradient across scard + cases-card (shapes.html technique)
-  function applyClusterGradient(cluster) {
-    if (!cluster) return;
-    const scard = cluster.querySelector('.scard');
-    const cc = cluster.querySelector('.cases-card');
-    const ccBorder = cluster.querySelector('.cluster-cc-border');
-    if (!scard || !cc) return;
+  // Draw trace rail when service list scrolls into view
+  const traceRail = document.querySelector('.trace-rail');
+  if (traceRail) {
+    new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) traceRail.classList.add('is-drawn'); },
+      { threshold: 0.05 }
+    ).observe(traceRail.parentElement);
+  }
 
-    const cr = cluster.getBoundingClientRect();
-    const sr = scard.getBoundingClientRect();
-    const ccr = cc.getBoundingClientRect();
+  // Trace glow — fixed viewport position, appears when line scrolls behind it
+  (() => {
+    const rail = document.querySelector('.trace-rail');
+    const ecCont = document.querySelector('.ec-trace-cont');
+    if (!rail) return;
 
-    const s = { l: sr.left - cr.left, t: sr.top - cr.top, r: sr.right - cr.left, b: sr.bottom - cr.top };
-    const c = { l: ccr.left - cr.left, t: ccr.top - cr.top, r: ccr.right - cr.left, b: ccr.bottom - cr.top };
+    // Inject styles globally — Astro scopes component <style>, so the
+    // dynamically-created element won't get the scoped attribute otherwise.
+    const styleEl = document.createElement('style');
+    styleEl.textContent = `
+      .trace-glow {
+        position: fixed;
+        top: 42vh;
+        transform: translate(-50%, -50%);
+        width: 0;
+        height: 50px;
+        pointer-events: none;
+        z-index: 50;
+        box-shadow: 0 0 6px 3px rgba(37,147,229,0.18),
+                    0 0 18px 8px rgba(37,147,229,0.09),
+                    0 0 40px 16px rgba(37,147,229,0.04);
+        opacity: 0;
+      }
+    `;
+    document.head.appendChild(styleEl);
 
-    const sceneX = Math.min(s.l, c.l);
-    const sceneY = Math.min(s.t, c.t);
-    const sceneW = Math.max(s.r, c.r) - sceneX;
-    const sceneH = Math.max(s.b, c.b) - sceneY;
+    const glow = document.createElement('div');
+    glow.className = 'trace-glow';
+    document.body.appendChild(glow);
 
-    const grad = 'linear-gradient(200deg, #4833b8 0%, #4833b8 62%, #2593e5 100%)';
-    const bsz  = `${sceneW}px ${sceneH}px`;
+    const TARGET = 0.42;
+    let visible = false;
 
-    scard.style.background          = grad;
-    scard.style.backgroundSize      = bsz;
-    scard.style.backgroundPosition  = `${-(s.l - sceneX)}px ${-(s.t - sceneY)}px`;
+    function update() {
+      const r = rail.getBoundingClientRect();
+      glow.style.left = `${r.left + 0.5}px`;
 
-    // cases-card uses its own muted CSS background
+      const target = window.innerHeight * TARGET;
+      const segments = [r];
+      if (ecCont) segments.push(ecCont.getBoundingClientRect());
 
-    if (ccBorder) {
-      ccBorder.style.left   = `${c.l}px`;
-      ccBorder.style.top    = `${c.t}px`;
-      ccBorder.style.width  = `${ccr.width}px`;
-      ccBorder.style.height = `${ccr.height}px`;
+      const onLine = segments.some(s => s.top <= target && s.bottom >= target);
+      if (onLine !== visible) {
+        visible = onLine;
+        // Slow fade-in (0.9s + 0.2s delay), fast fade-out (0.12s)
+        glow.style.transition = onLine
+          ? 'opacity 0.9s ease 0.2s'
+          : 'opacity 0.12s ease';
+        glow.style.opacity = onLine ? '1' : '0';
+      }
     }
-  }
 
-  function applyAllGradients() {
-    document.querySelectorAll('.svc-cluster').forEach(applyClusterGradient);
-  }
-  applyAllGradients();
-  window.addEventListener('resize', applyAllGradients);
+    update();
+    window.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', update);
+  })();
 
-  // Re-measure after each cluster's cases-card reveal animation finishes
-  document.querySelectorAll('.svc-cluster .cases-card').forEach(cc => {
-    cc.addEventListener('transitionend', applyAllGradients, { once: true });
+  // Spotlight: track cursor per card
+  document.querySelectorAll('.scard, .cases-card').forEach(card => {
+    card.addEventListener('mousemove', (e) => {
+      const r = card.getBoundingClientRect();
+      card.style.setProperty('--mx', `${e.clientX - r.left}px`);
+      card.style.setProperty('--my', `${e.clientY - r.top}px`);
+    });
   });
 
-  // Cases carousel prev/next buttons
+  // Cases carousel prev/next
   const ecCases = document.querySelector('.ec-cases');
   const ecPrev  = document.querySelector('.ec-btn-prev');
   const ecNext  = document.querySelector('.ec-btn-next');
@@ -286,8 +330,8 @@ const i = t(lang);
     ecNext.addEventListener('click', () => scroll(1));
   }
 
-  // Spotlight: track cursor per card
-  document.querySelectorAll('.scard, .ec-case, .cases-card').forEach(card => {
+  // Spotlight for ec-case cards
+  document.querySelectorAll('.ec-case').forEach(card => {
     card.addEventListener('mousemove', (e) => {
       const r = card.getBoundingClientRect();
       card.style.setProperty('--mx', `${e.clientX - r.left}px`);
@@ -295,7 +339,7 @@ const i = t(lang);
     });
   });
 
-  // Section spotlight: CSS variable tracking for hero and banner
+  // Section spotlight for hero and ec-banner
   document.querySelectorAll('.hero-wrap, .ec-banner').forEach(section => {
     section.addEventListener('mousemove', (e) => {
       const r = section.getBoundingClientRect();
@@ -426,11 +470,9 @@ const i = t(lang);
   }
 
   /* ---- Services section ---- */
-  .services-section { padding: 6rem 0 5rem; overflow: visible; }
-  .services-inner {
-    padding: 0 3% 0 8%;
-  }
-  .section-intro { margin-bottom: 3.5rem; margin-left: -5%; }
+  .services-section { padding: 6rem 0 0; overflow: visible; }
+  .services-inner { padding: 0 5% 0 8%; }
+  .section-intro { margin-bottom: 3rem; }
   .section-label {
     display: inline-block;
     font-size: 1.5rem;
@@ -447,250 +489,95 @@ const i = t(lang);
     color: #fff;
   }
 
-  /* ---- Service grid — single row, 3 equal columns ---- */
-  .service-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    column-gap: 3rem;
-    align-items: start;
-    padding-bottom: 4rem;
+  /* ---- Vertical service list with trace ---- */
+  .service-list {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    padding-left: 3rem;
   }
 
-  .svc-ai  { position: relative; z-index: 3; }
-  .svc-sdn { position: relative; z-index: 2; }
+  /* Vertical trace rail */
+  .trace-rail {
+    position: absolute;
+    left: 1rem;
+    top: -2.5rem; /* extends up toward section-intro */
+    bottom: 0;
+    width: 1px;
+    z-index: 1;
+    background: linear-gradient(
+      to bottom,
+      transparent 0%,
+      var(--accent) 6%,
+      var(--accent2) 100%
+    );
+    transform-origin: top;
+    transform: scaleY(0);
+    transition: transform 1.8s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .trace-rail.is-drawn { transform: scaleY(1); }
 
-  /* ---- Service clusters (shared: AI, OC, SDN) ---- */
-  .svc-cluster {
-    display: flex;
-    flex-direction: column;
-    overflow: visible;
+  /* Each row */
+  .svc-item {
+    position: relative;
+    padding: 2.5rem 0;
   }
-  .svc-row {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    flex: 1;
-  }
-  .svc-row .scard {
-    flex: none;
-    min-height: 200px;
+  .svc-item + .svc-item {
+    border-top: 1px solid rgba(108,92,231,0.08);
   }
 
-  .svc-points {
-    flex: 1;
+  /* Node anchored on the trace rail */
+  .trace-anchor {
+    position: absolute;
+    left: -3rem;
+    top: 2.75rem;
+    width: 2rem;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    padding: 0.5rem 0.25rem;
+    align-items: center;
+    z-index: 2;
   }
-  .svc-points-lead {
-    font-size: 0.68rem;
-    font-weight: 700;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--accent2);
-    margin-bottom: 0.85rem;
-  }
-  .svc-points-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 0.6rem;
-  }
-  .svc-points-list li {
-    font-size: 0.95rem;
-    color: var(--text-muted);
-    display: flex;
-    align-items: flex-start;
-    gap: 0.35rem;
-    line-height: 1.4;
-  }
-  .svc-points-list li::before {
-    content: '·';
-    color: var(--accent2);
-    font-size: 1rem;
-    margin-top: 0;
+  .trace-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--accent2);
+    box-shadow: 0 0 0 3px rgba(37,147,229,0.15), 0 0 8px rgba(37,147,229,0.35);
     flex-shrink: 0;
   }
 
-  /* ---- eCommerce banner ---- */
-  .ec-banner {
-    display: flex;
-    flex-direction: column;
-    border-top: 1px solid rgba(108,92,231,0.15);
-    border-bottom: 1px solid rgba(108,92,231,0.15);
-    background: rgba(108,92,231,0.04);
-    overflow: hidden;
-    position: relative;
-  }
-  .ec-banner::before {
+  /* Horizontal branch from each dot to its card pair */
+  .svc-item:not(.svc-item--end) .trace-anchor::after {
     content: '';
     position: absolute;
-    inset: 0;
-    background:
-      radial-gradient(280px circle at var(--mx, -999px) var(--my, -999px), rgba(108,92,231,0.13), transparent 65%),
-      radial-gradient(rgba(108,92,231,0.12) 1px, transparent 1px);
-    background-size: auto, 32px 32px;
-    pointer-events: none;
+    left: calc(50% + 4px);
+    top: 3px;
+    width: calc(2rem - 4px);
+    height: 1px;
+    background: linear-gradient(to right, var(--accent2), rgba(37,147,229,0.2));
+    z-index: 1;
   }
-  .ec-banner::after {
-    content: '';
-    position: absolute;
-    width: 500px;
-    height: 500px;
+
+  .trace-anchor--terminal .trace-dot {
+    width: 11px;
+    height: 11px;
     background: var(--accent);
-    border-radius: 50%;
-    filter: blur(120px);
-    opacity: 0.06;
-    top: -150px;
-    right: 10%;
-    pointer-events: none;
+    box-shadow: 0 0 0 4px rgba(108,92,231,0.18), 0 0 14px rgba(108,92,231,0.5);
   }
 
-  /* ---- Table layout ---- */
-  .ec-table {
+  /* Minimal end node for 04 — no card, just the dot */
+  .svc-item--end {
+    padding: 1rem 0 2rem;
+    border-top: 1px solid rgba(108,92,231,0.08);
+  }
+  .svc-item--end .trace-anchor { top: 1rem; }
+
+  /* Service card + case card side by side */
+  .svc-pair {
     display: grid;
-    grid-template-columns: 3.5rem 1.5fr 1fr 1fr 3.5rem;
-    grid-template-rows: auto auto auto;
-    position: relative;
-    z-index: 1;
-    width: 85%;
-    margin: 0 auto;
-  }
-  .ec-cell {
-    border-right: 1px solid rgba(108,92,231,0.12);
-    border-bottom: 1px solid rgba(108,92,231,0.12);
-    padding: 1.25rem 1.75rem;
-  }
-  .ec-cell:nth-child(5n) { border-right: none; }
-  .ec-cell-num {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 1.5rem 0.75rem;
-  }
-  .ec-num {
-    font-size: 0.72rem;
-    font-weight: 700;
-    letter-spacing: 0.08em;
-    color: var(--accent2);
-    opacity: 0.7;
-  }
-  .ec-cell-title {
-    display: flex;
-    align-items: center;
-  }
-  .ec-cell-title h3 {
-    font-size: 1.45rem;
-    font-weight: 700;
-    color: var(--text);
-    margin: 0;
-  }
-  .ec-cell-empty { min-height: 3.5rem; }
-  .ec-cell-blank { }
-  .ec-cell-sub {
-    padding-top: 1rem;
-    padding-bottom: 1.75rem;
-  }
-  .ec-cell-sub p {
-    font-size: 1rem;
-    color: var(--text-muted);
-    line-height: 1.65;
-    margin: 0;
-  }
-  .ec-cell-bullets {
-    padding-top: 1rem;
-    padding-bottom: 1.75rem;
-    display: flex;
-    align-items: flex-start;
-  }
-  .ec-cell-cosmetic-col { }
-  .ec-cell-cosmetic-row {
-    border-bottom: none;
-    padding: 0;
-    height: 1.4em;
-  }
-
-  .ec-banner-bottom {
-    padding: 1rem 7.5%;
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    position: relative;
-    z-index: 1;
-  }
-  .ec-cases-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-  .ec-cases-header .svc-points-lead { margin-bottom: 0; }
-  .ec-cases-actions {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-  }
-  .ec-explore-btn {
-    font-size: 0.85rem;
-    padding: 0.5rem 1.25rem;
-  }
-  .ec-cases-btns { display: flex; gap: 0.5rem; }
-  .ec-btn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 4rem;
-    height: 4rem;
-    border-radius: 50%;
-    border: none;
-    background: transparent;
-    color: var(--accent2);
-    cursor: pointer;
-    transition: background 0.2s ease;
-  }
-  .ec-btn:hover { background: rgba(108,92,231,0.12); }
-  .ec-btn:disabled { opacity: 0.3; cursor: default; }
-  .ec-cases {
-    display: flex;
-    gap: 0.875rem;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-  }
-  .ec-cases::-webkit-scrollbar { display: none; }
-  .ec-case {
-    flex: 0 0 calc(33.333% - 0.6rem);
-    scroll-snap-align: start;
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-    text-decoration: none;
-    color: inherit;
-    background: linear-gradient(200deg, #4833b8 0%, #4833b8 62%, #2593e5 100%);
-    border: none;
-    border-radius: var(--radius);
-    padding: 1.25rem;
-    position: relative;
-    overflow: hidden;
-    box-shadow: inset 0 0 0 1.5px rgba(255,255,255,0.18);
-    transition: box-shadow 0.2s ease;
-  }
-  .ec-case:hover {
-    box-shadow: inset 0 0 0 1.5px rgba(255,255,255,0.4),
-                0 0 18px 5px rgba(72,51,184,0.45),
-                0 0 44px 10px rgba(37,147,229,0.2);
-    text-decoration: none;
-  }
-  .ec-case h4 {
-    font-size: 0.92rem;
-    font-weight: 600;
-    line-height: 1.45;
-    color: #fff;
-    margin: 0;
-    flex: 1;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    align-items: stretch;
   }
 
   /* ---- Cases card — muted dark style, subordinate to service cards ---- */
@@ -707,8 +594,6 @@ const i = t(lang);
     box-shadow: none;
     overflow: hidden;
     transition: box-shadow 0.2s ease;
-    margin-top: 2.5rem;
-    margin-left: 0;
     align-self: stretch;
     position: relative;
     z-index: 3;
@@ -725,6 +610,22 @@ const i = t(lang);
     position: absolute;
     inset: 0;
     background: rgba(0,0,10,0.55);
+  }
+  .cc-badge {
+    position: absolute;
+    bottom: 0.6rem;
+    left: 0.75rem;
+    z-index: 2;
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.9);
+    background: rgba(37,147,229,0.5);
+    backdrop-filter: blur(6px);
+    border: 1px solid rgba(255,255,255,0.18);
+    border-radius: 4px;
+    padding: 0.2rem 0.55rem;
   }
   .cc-img img {
     width: 100%;
@@ -763,24 +664,9 @@ const i = t(lang);
   .ec-case:hover::before,
   .cases-card:hover::before { opacity: 1; }
 
-  .cases-card .cases-eyebrow,
-  .cases-card .cases-cta { color: rgba(255,255,255,0.55); }
+  .cases-card .cases-eyebrow { color: rgba(255,255,255,0.55); }
+  .cases-card .cases-cta { color: var(--accent2); }
   .cases-card .cases-meta { color: rgba(255,255,255,0.35); }
-
-  /* scard sits above .cluster-cc-border (z:1) so the overlap hides cases-card border */
-  .svc-cluster .scard {
-    position: relative;
-    z-index: 2;
-  }
-
-  /* Border proxy for cases-card — sits at z:1, hidden in overlap zone by scard (z:2) */
-  .cluster-cc-border {
-    position: absolute;
-    border-radius: var(--radius);
-    box-shadow: none;
-    z-index: 1;
-    pointer-events: none;
-  }
 
   .cases-eyebrow {
     font-size: 0.7rem;
@@ -804,20 +690,16 @@ const i = t(lang);
     color: var(--accent2);
     margin-top: 0.25rem;
   }
-  .ec-case .cases-eyebrow,
-  .ec-case .cases-cta { color: rgba(255,255,255,0.8); }
-  .ec-case .cases-meta { color: rgba(255,255,255,0.6); }
-
-
   /* ---- Service cards ---- */
   .scard {
-    display: block;
+    display: flex;
+    flex-direction: column;
     text-decoration: none;
     color: inherit;
     background: linear-gradient(200deg, #4833b8 0%, #4833b8 62%, #2593e5 100%);
     border: none;
     border-radius: var(--radius);
-    padding: 2rem;
+    padding: 1.5rem;
     position: relative;
     overflow: hidden;
     box-shadow: inset 0 0 0 1.5px rgba(255,255,255,0.18);
@@ -872,7 +754,7 @@ const i = t(lang);
   }
   .scard h3 {
     flex: 1;
-    font-size: 1.45rem;
+    font-size: 2.1rem;
     font-weight: 700;
     margin: 0;
     color: #fff;
@@ -891,6 +773,31 @@ const i = t(lang);
     font-size: 0.92rem;
     line-height: 1.6;
     margin: 0;
+  }
+  .scard-bullets {
+    list-style: none;
+    padding: 0;
+    margin: auto 2rem 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.3rem;
+    padding-top: 1.25rem;
+  }
+  .scard-bullets li {
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    color: rgba(255,255,255,0.55);
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+  }
+  .scard-bullets li::after {
+    content: '·';
+    color: rgba(255,255,255,0.6);
+    font-size: 1.1rem;
+    line-height: 1;
   }
 
   /* ---- Scroll reveal ---- */
@@ -914,46 +821,142 @@ const i = t(lang);
     to   { opacity: 1; transform: translateY(0); }
   }
 
-  /* ---- Latest cases label ---- */
-  .latest-cases-label {
-    display: block;
-    font-size: clamp(1.8rem, 3.5vw, 2.6rem);
-    font-weight: 800;
-    line-height: 1;
-    color: var(--text);
-    white-space: nowrap;
-    overflow: visible;
-    padding-top: 1.5rem;
-    margin-bottom: -1.5rem;
+  /* ---- eCommerce banner ---- */
+  /* Trace continuation — terminates at the 04 label */
+  .ec-trace-cont {
+    position: absolute;
+    left: calc(8% + 1rem);
+    top: 0;
+    height: 7.5rem;
+    width: 1px;
+    background: linear-gradient(
+      to bottom,
+      var(--accent2) 0%,
+      var(--accent2) 80%,
+      transparent 100%
+    );
+    z-index: 2;
     pointer-events: none;
-    user-select: none;
   }
+  .ec-banner {
+    display: flex;
+    flex-direction: column;
+    border-top: 1px solid rgba(108,92,231,0.15);
+    border-bottom: 1px solid rgba(108,92,231,0.15);
+    background: rgba(108,92,231,0.04);
+    overflow: hidden;
+    position: relative;
+  }
+  .ec-banner::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(280px circle at var(--mx, -999px) var(--my, -999px), rgba(108,92,231,0.13), transparent 65%),
+      radial-gradient(rgba(108,92,231,0.12) 1px, transparent 1px);
+    background-size: auto, 32px 32px;
+    pointer-events: none;
+  }
+  .ec-banner::after {
+    content: '';
+    position: absolute;
+    width: 500px; height: 500px;
+    background: var(--accent);
+    border-radius: 50%;
+    filter: blur(120px);
+    opacity: 0.06;
+    top: -150px; right: 10%;
+    pointer-events: none;
+  }
+  .ec-table {
+    display: grid;
+    grid-template-columns: 3.5rem 1.5fr 1fr 1fr 3.5rem;
+    grid-template-rows: auto auto auto;
+    position: relative; z-index: 1;
+    width: 85%; margin: 0 auto;
+  }
+  .ec-cell {
+    border-right: 1px solid rgba(108,92,231,0.12);
+    border-bottom: 1px solid rgba(108,92,231,0.12);
+    padding: 1.25rem 1.75rem;
+  }
+  .ec-cell:nth-child(5n) { border-right: none; }
+  .ec-cell-num { display: flex; align-items: center; justify-content: center; padding: 1.5rem 0.75rem; }
+  .ec-num { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.08em; color: var(--accent2); opacity: 0.7; }
+  .ec-cell-title { display: flex; align-items: center; }
+  .ec-cell-title h3 { font-size: 2.1rem; font-weight: 700; color: var(--text); margin: 0; }
+  .ec-cell-empty { min-height: 3.5rem; }
+  .ec-cell-sub { padding-top: 1rem; padding-bottom: 1.75rem; }
+  .ec-cell-sub p { font-size: 1rem; color: var(--text-muted); line-height: 1.65; margin: 0; }
+  .ec-cell-bullets { padding-top: 1rem; padding-bottom: 1.75rem; display: flex; align-items: flex-start; }
+  .ec-cell-cosmetic-row { border-bottom: none; padding: 0; height: 1.4em; }
+  .svc-points-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.6rem; }
+  .svc-points-list li { font-size: 0.95rem; color: var(--text-muted); display: flex; align-items: flex-start; gap: 0.35rem; line-height: 1.4; }
+  .svc-points-list li::before { content: '·'; color: var(--accent2); font-size: 1rem; flex-shrink: 0; }
+  .ec-banner-bottom { padding: 1rem 7.5%; display: flex; flex-direction: column; gap: 1rem; position: relative; z-index: 1; }
+  .ec-cases-header { display: flex; align-items: center; justify-content: space-between; }
+  .ec-cases-lead { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent2); }
+  .ec-cases-actions { display: flex; align-items: center; gap: 0.75rem; }
+  .ec-explore-btn { font-size: 0.85rem; padding: 0.5rem 1.25rem; }
+  .ec-cases-btns { display: flex; gap: 0.5rem; }
+  .ec-btn { display: flex; align-items: center; justify-content: center; width: 4rem; height: 4rem; border-radius: 50%; border: none; background: transparent; color: var(--accent2); cursor: pointer; transition: background 0.2s ease; }
+  .ec-btn:hover { background: rgba(108,92,231,0.12); }
+  .ec-cases { display: flex; gap: 0.875rem; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; -ms-overflow-style: none; }
+  .ec-cases::-webkit-scrollbar { display: none; }
+  .ec-case {
+    flex: 0 0 calc(33.333% - 0.6rem);
+    scroll-snap-align: start;
+    display: flex; flex-direction: column; gap: 0.5rem;
+    text-decoration: none; color: inherit;
+    background: linear-gradient(200deg, #4833b8 0%, #4833b8 62%, #2593e5 100%);
+    border: none; border-radius: var(--radius); padding: 1.25rem;
+    position: relative; overflow: hidden;
+    box-shadow: inset 0 0 0 1.5px rgba(255,255,255,0.18);
+    transition: box-shadow 0.2s ease;
+  }
+  .ec-case::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(280px circle at var(--mx, -999px) var(--my, -999px), rgba(255,255,255,0.22), transparent 70%);
+    opacity: 0; transition: opacity 0.3s ease; pointer-events: none; border-radius: inherit;
+  }
+  .ec-case:hover { box-shadow: inset 0 0 0 1.5px rgba(255,255,255,0.4), 0 0 18px 5px rgba(72,51,184,0.45), 0 0 44px 10px rgba(37,147,229,0.2); text-decoration: none; }
+  .ec-case:hover::before { opacity: 1; }
+  .ec-case h4 { font-size: 0.92rem; font-weight: 600; line-height: 1.45; color: #fff; margin: 0; flex: 1; }
+  .ec-case .cases-eyebrow, .ec-case .cases-cta { color: rgba(255,255,255,0.8); }
+  .ec-case .cases-meta { color: rgba(255,255,255,0.6); }
 
   /* ---- Mobile ---- */
   @media (max-width: 768px) {
     .services-inner { padding: 0 1rem; }
-    .service-grid {
+    .service-list { padding-left: 2.25rem; }
+    .trace-rail { left: 0.75rem; }
+    .trace-anchor { left: -2.25rem; width: 1.5rem; top: 2rem; }
+    .svc-item:not(.svc-item--end) .trace-anchor::after { width: calc(1.5rem - 4px); }
+    .svc-item { padding: 1.75rem 0; }
+    .svc-pair {
       grid-template-columns: 1fr;
-      row-gap: 1rem;
-      padding-bottom: 2rem;
+      gap: 1rem;
     }
-    .svc-points { flex: none; }
-    .ec-table { grid-template-columns: 2.5rem 1fr; }
-    .ec-cell-empty { display: none; }
+    .cases-card { margin-top: 0; }
+    .ec-trace-cont { left: calc(1rem + 0.75rem); }
+    .ec-table {
+      grid-template-columns: 2.5rem 1fr;
+      width: 100%;
+    }
     .ec-cell { padding: 0.875rem 1rem; }
-    .ec-cell-blank { display: none; }
-    .ec-cell-sub { padding-top: 0.875rem; }
-    .ec-cell-bullets { padding-top: 0.875rem; }
+    .ec-cell-empty,
+    .ec-cell-blank,
+    .ec-cell-cosmetic-col,
+    .ec-cell-cosmetic-row { display: none; }
+    .ec-cell-sub,
+    .ec-cell-bullets { grid-column: 1 / -1; }
+    .ec-cell-bullets { padding-top: 0; padding-bottom: 1rem; }
     .ec-banner-bottom { padding: 1.5rem; }
     .ec-case { flex: 0 0 80%; }
-    .cases-card {
-      margin-top: 1rem;
-      margin-left: 0;
-      align-self: stretch;
-      width: auto;
-    }
     .ec-cases-header { flex-wrap: wrap; gap: 0.75rem; }
     .ec-cases-actions { flex-wrap: wrap; gap: 0.5rem; }
     .ec-explore-btn { font-size: 0.8rem; }
   }
+
 </style>
