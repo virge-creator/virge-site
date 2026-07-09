@@ -21,7 +21,6 @@ const i = t(lang);
       <p>{i.hero.description}</p>
       <div class="hero-actions">
         <a href={`/${lang}/contact/`} class="btn">{i.hero.cta}</a>
-        <a href={`/${lang}/services/`} class="btn-ghost">Our services →</a>
       </div>
     </div>
   </div>
@@ -38,72 +37,87 @@ const i = t(lang);
 
         <!-- 1: AI cluster — card + points + case study -->
         <div class="svc-cluster svc-ai">
+          <div class="cluster-cc-border"></div>
           <div class="svc-row">
             <a href={`/${lang}/ai/`} class="scard reveal-card" style="--ghost: 'AI'; --delay: 0s">
-              <div class="scard-top"><span class="scard-num">01</span><span class="scard-arrow">→</span></div>
-              <h3>{i.home.aiTitle}</h3>
+              <div class="scard-heading">
+                <span class="scard-num">01</span>
+                <h3>{i.home.aiTitle}</h3>
+                <span class="scard-arrow">→</span>
+              </div>
               <p>{i.home.aiDesc}</p>
             </a>
-            <div class="svc-points reveal-card" style="--delay: 0.07s">
-              <p class="svc-points-lead">What we deliver</p>
-              <ul class="svc-points-list">
-                <li>Vector databases &amp; RAG</li>
-                <li>AI integration</li>
-                <li>Production systems</li>
-                <li>Real business value</li>
-              </ul>
-            </div>
           </div>
+          <span class="latest-cases-label">Our latest cases:</span>
           <a href={`/${lang}/blog/librechat-as-agent-orchestrator/`} class="cases-card reveal-card" style="--delay: 0.14s">
-            <span class="cases-eyebrow">Case Study</span>
+            <div class="cc-img">
+              <img src="/images/librechat-agent-orchestrator.png" alt="" loading="lazy">
+            </div>
+            <span class="cases-eyebrow">01 · AI</span>
             <h4>Setting up the WFO agent with LibreChat: no Kubernetes required</h4>
             <div class="cases-meta">
               <span>Jul 2026</span>
               <span class="cases-dot">·</span>
-              <span>SDN · LibreChat</span>
+              <span>AI · LibreChat</span>
             </div>
             <span class="cases-cta">Read case →</span>
           </a>
         </div>
 
-        <!-- 3: OpenClaw cluster — card + points -->
+        <!-- 2: OpenClaw cluster — card + case -->
         <div class="svc-cluster svc-oc">
+          <div class="cluster-cc-border"></div>
           <div class="svc-row">
             <a href={`/${lang}/openclaw/`} class="scard reveal-card" style="--ghost: 'OC'; --delay: 0.08s">
-              <div class="scard-top"><span class="scard-num">03</span><span class="scard-arrow">→</span></div>
-              <h3>{i.home.openclawTitle}</h3>
+              <div class="scard-heading">
+                <span class="scard-num">02</span>
+                <h3>{i.home.openclawTitle}</h3>
+                <span class="scard-arrow">→</span>
+              </div>
               <p>{i.home.openclawDesc}</p>
             </a>
-            <div class="svc-points reveal-card" style="--delay: 0.15s">
-              <p class="svc-points-lead">What we offer</p>
-              <ul class="svc-points-list">
-                <li>Self-hosted AI</li>
-                <li>Managed hosting</li>
-                <li>Security hardening</li>
-                <li>Business automation</li>
-              </ul>
-            </div>
           </div>
+          <a href={`/${lang}/openclaw/`} class="cases-card reveal-card" style="--delay: 0.22s">
+            <div class="cc-img">
+              <img src="/images/anythingllm-workspace.png" alt="" loading="lazy">
+            </div>
+            <span class="cases-eyebrow">02 · OC</span>
+            <h4>Secure self-hosted AI workspace for a legal firm in four days</h4>
+            <div class="cases-meta">
+              <span>Apr 2026</span>
+              <span class="cases-dot">·</span>
+              <span>OpenClaw · Self-hosted</span>
+            </div>
+            <span class="cases-cta">Read case →</span>
+          </a>
         </div>
 
-        <!-- 4: SDN cluster — card + points -->
+        <!-- 3: SDN cluster — card + case -->
         <div class="svc-cluster svc-sdn">
+          <div class="cluster-cc-border"></div>
           <div class="svc-row">
             <a href={`/${lang}/sdn/`} class="scard reveal-card" style="--ghost: 'SDN'; --delay: 0.16s">
-              <div class="scard-top"><span class="scard-num">04</span><span class="scard-arrow">→</span></div>
-              <h3>{i.home.sdnTitle}</h3>
+              <div class="scard-heading">
+                <span class="scard-num">03</span>
+                <h3>{i.home.sdnTitle}</h3>
+                <span class="scard-arrow">→</span>
+              </div>
               <p>{i.home.sdnDesc}</p>
             </a>
-            <div class="svc-points reveal-card" style="--delay: 0.23s">
-              <p class="svc-points-lead">What we deliver</p>
-              <ul class="svc-points-list">
-                <li>Network automation</li>
-                <li>Workflow Orchestrator</li>
-                <li>Infrastructure as Code</li>
-                <li>Enterprise integration</li>
-              </ul>
-            </div>
           </div>
+          <a href={`/${lang}/sdn/`} class="cases-card reveal-card" style="--delay: 0.30s">
+            <div class="cc-img">
+              <img src="/images/agentic-ai-enterprise.png" alt="" loading="lazy">
+            </div>
+            <span class="cases-eyebrow">03 · SDN</span>
+            <h4>Zero-touch network provisioning across 12 sites for a logistics group</h4>
+            <div class="cases-meta">
+              <span>May 2026</span>
+              <span class="cases-dot">·</span>
+              <span>SDN · Automation</span>
+            </div>
+            <span class="cases-cta">Read case →</span>
+          </a>
         </div>
 
       </div>
@@ -115,7 +129,7 @@ const i = t(lang);
     <!-- Table: 5 columns × 3 rows (last col + last row are cosmetic) -->
     <div class="ec-table">
       <!-- Row 1: number | title | empty | empty | cosmetic -->
-      <div class="ec-cell ec-cell-num"><span class="ec-num">02</span></div>
+      <div class="ec-cell ec-cell-num"><span class="ec-num">04</span></div>
       <div class="ec-cell ec-cell-title"><h3>{i.home.ecomTitle}</h3></div>
       <div class="ec-cell ec-cell-empty"></div>
       <div class="ec-cell ec-cell-empty"></div>
@@ -210,6 +224,54 @@ const i = t(lang);
   );
   document.querySelectorAll('.reveal, .reveal-card').forEach(el => observer.observe(el));
 
+  // Shared gradient across scard + cases-card (shapes.html technique)
+  function applyClusterGradient(cluster) {
+    if (!cluster) return;
+    const scard = cluster.querySelector('.scard');
+    const cc = cluster.querySelector('.cases-card');
+    const ccBorder = cluster.querySelector('.cluster-cc-border');
+    if (!scard || !cc) return;
+
+    const cr = cluster.getBoundingClientRect();
+    const sr = scard.getBoundingClientRect();
+    const ccr = cc.getBoundingClientRect();
+
+    const s = { l: sr.left - cr.left, t: sr.top - cr.top, r: sr.right - cr.left, b: sr.bottom - cr.top };
+    const c = { l: ccr.left - cr.left, t: ccr.top - cr.top, r: ccr.right - cr.left, b: ccr.bottom - cr.top };
+
+    const sceneX = Math.min(s.l, c.l);
+    const sceneY = Math.min(s.t, c.t);
+    const sceneW = Math.max(s.r, c.r) - sceneX;
+    const sceneH = Math.max(s.b, c.b) - sceneY;
+
+    const grad = 'linear-gradient(200deg, #4833b8 0%, #4833b8 62%, #2593e5 100%)';
+    const bsz  = `${sceneW}px ${sceneH}px`;
+
+    scard.style.background          = grad;
+    scard.style.backgroundSize      = bsz;
+    scard.style.backgroundPosition  = `${-(s.l - sceneX)}px ${-(s.t - sceneY)}px`;
+
+    // cases-card uses its own muted CSS background
+
+    if (ccBorder) {
+      ccBorder.style.left   = `${c.l}px`;
+      ccBorder.style.top    = `${c.t}px`;
+      ccBorder.style.width  = `${ccr.width}px`;
+      ccBorder.style.height = `${ccr.height}px`;
+    }
+  }
+
+  function applyAllGradients() {
+    document.querySelectorAll('.svc-cluster').forEach(applyClusterGradient);
+  }
+  applyAllGradients();
+  window.addEventListener('resize', applyAllGradients);
+
+  // Re-measure after each cluster's cases-card reveal animation finishes
+  document.querySelectorAll('.svc-cluster .cases-card').forEach(cc => {
+    cc.addEventListener('transitionend', applyAllGradients, { once: true });
+  });
+
   // Cases carousel prev/next buttons
   const ecCases = document.querySelector('.ec-cases');
   const ecPrev  = document.querySelector('.ec-btn-prev');
@@ -247,7 +309,7 @@ const i = t(lang);
   /* ---- Hero ---- */
   .hero-wrap {
     position: relative;
-    min-height: 88vh;
+    min-height: 68vh;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -366,14 +428,14 @@ const i = t(lang);
   /* ---- Services section ---- */
   .services-section { padding: 6rem 0 5rem; overflow: visible; }
   .services-inner {
-    padding: 0 5% 0 15%;
+    padding: 0 3% 0 8%;
   }
   .section-intro { margin-bottom: 3.5rem; margin-left: -5%; }
   .section-label {
     display: inline-block;
-    font-size: 0.78rem;
-    font-weight: 600;
-    letter-spacing: 0.12em;
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
     text-transform: uppercase;
     color: var(--accent2);
     margin-bottom: 0.85rem;
@@ -385,22 +447,17 @@ const i = t(lang);
     color: #fff;
   }
 
-  /* ---- Editorial grid (10 cols) ---- */
+  /* ---- Service grid — single row, 3 equal columns ---- */
   .service-grid {
     display: grid;
-    grid-template-columns: repeat(10, 1fr);
-    column-gap: 1.25rem;
-    row-gap: 1.5rem;
+    grid-template-columns: repeat(3, 1fr);
+    column-gap: 3rem;
     align-items: start;
     padding-bottom: 4rem;
   }
 
-  /* 1 AI: left half, row 1 (includes cases-card at bottom) */
-  .svc-ai  { grid-column: 1 / 6; grid-row: 1; position: relative; z-index: 3; }
-  /* 3 OC: right half, row 1 — margin-top drops it to cases-card level */
-  .svc-oc  { grid-column: 6 / 11; grid-row: 1; margin-top: 13rem; }
-  /* 4 SDN: center, row 2 */
-  .svc-sdn { grid-column: 2 / 7; grid-row: 2; position: relative; z-index: 2; }
+  .svc-ai  { position: relative; z-index: 3; }
+  .svc-sdn { position: relative; z-index: 2; }
 
   /* ---- Service clusters (shared: AI, OC, SDN) ---- */
   .svc-cluster {
@@ -410,16 +467,15 @@ const i = t(lang);
   }
   .svc-row {
     display: flex;
-    gap: 1.25rem;
-    align-items: stretch;
+    flex-direction: column;
+    gap: 1rem;
     flex: 1;
-    min-height: 200px;
   }
   .svc-row .scard {
-    flex: 0 0 360px;
+    flex: none;
     min-height: 200px;
-    max-height: 270px;
   }
+
   .svc-points {
     flex: 1;
     display: flex;
@@ -444,7 +500,7 @@ const i = t(lang);
     gap: 0.6rem;
   }
   .svc-points-list li {
-    font-size: 0.83rem;
+    font-size: 0.95rem;
     color: var(--text-muted);
     display: flex;
     align-items: flex-start;
@@ -511,7 +567,7 @@ const i = t(lang);
   .ec-cell:nth-child(5n) { border-right: none; }
   .ec-cell-num {
     display: flex;
-    align-items: flex-start;
+    align-items: center;
     justify-content: center;
     padding: 1.5rem 0.75rem;
   }
@@ -527,7 +583,7 @@ const i = t(lang);
     align-items: center;
   }
   .ec-cell-title h3 {
-    font-size: 1.25rem;
+    font-size: 1.45rem;
     font-weight: 700;
     color: var(--text);
     margin: 0;
@@ -539,7 +595,7 @@ const i = t(lang);
     padding-bottom: 1.75rem;
   }
   .ec-cell-sub p {
-    font-size: 0.9rem;
+    font-size: 1rem;
     color: var(--text-muted);
     line-height: 1.65;
     margin: 0;
@@ -613,43 +669,77 @@ const i = t(lang);
     gap: 0.5rem;
     text-decoration: none;
     color: inherit;
-    background: var(--bg-card);
-    border: 1px solid rgba(108,92,231,0.2);
+    background: linear-gradient(200deg, #4833b8 0%, #4833b8 62%, #2593e5 100%);
+    border: none;
     border-radius: var(--radius);
     padding: 1.25rem;
     position: relative;
     overflow: hidden;
-    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: inset 0 0 0 1.5px rgba(255,255,255,0.18);
+    transition: box-shadow 0.2s ease;
   }
-  .ec-case:hover { border-color: rgba(108,92,231,0.45); box-shadow: 0 6px 20px rgba(108,92,231,0.12); text-decoration: none; }
+  .ec-case:hover {
+    box-shadow: inset 0 0 0 1.5px rgba(255,255,255,0.4),
+                0 0 18px 5px rgba(72,51,184,0.45),
+                0 0 44px 10px rgba(37,147,229,0.2);
+    text-decoration: none;
+  }
   .ec-case h4 {
     font-size: 0.92rem;
     font-weight: 600;
     line-height: 1.45;
-    color: var(--text);
+    color: #fff;
     margin: 0;
     flex: 1;
   }
 
-  /* ---- Cases card (inside ai-cluster, below the svc-row) ---- */
+  /* ---- Cases card — muted dark style, subordinate to service cards ---- */
   .cases-card {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
     text-decoration: none;
     color: inherit;
-    background: var(--bg-card);
-    border: 1px solid rgba(108,92,231,0.35);
+    border: none;
     border-radius: var(--radius);
     padding: 1.25rem;
-    box-shadow: 0 8px 28px rgba(0,0,0,0.45);
-    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
-    margin-top: -1rem;
-    margin-left: -1.5rem;
-    align-self: flex-start;
-    width: 240px;
+    background: linear-gradient(160deg, #111028 0%, #0d0c1e 100%);
+    box-shadow: none;
+    overflow: hidden;
+    transition: box-shadow 0.2s ease;
+    margin-top: 2.5rem;
+    margin-left: 0;
+    align-self: stretch;
     position: relative;
     z-index: 3;
+  }
+  .cc-img {
+    margin: -1.25rem -1.25rem 0.875rem;
+    height: 150px;
+    flex-shrink: 0;
+    overflow: hidden;
+    position: relative;
+  }
+  .cc-img::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,10,0.55);
+  }
+  .cc-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    filter: grayscale(40%);
+  }
+  .cases-card h4 {
+    font-size: 0.92rem;
+    font-weight: 600;
+    line-height: 1.45;
+    color: rgba(255,255,255,0.75);
+    margin: 0;
+    flex: 1;
   }
   .ec-case::before,
   .cases-card::before {
@@ -658,36 +748,46 @@ const i = t(lang);
     inset: 0;
     background: radial-gradient(
       280px circle at var(--mx, -999px) var(--my, -999px),
-      rgba(108,92,231,0.13),
-      transparent 65%
+      rgba(255,255,255,0.22),
+      transparent 70%
     );
     opacity: 0;
-    transition: opacity 0.35s ease;
+    transition: opacity 0.3s ease;
     pointer-events: none;
     border-radius: inherit;
   }
   .cases-card:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 12px 32px rgba(108,92,231,0.18);
-    border-color: rgba(108,92,231,0.55);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.35);
     text-decoration: none;
   }
   .ec-case:hover::before,
   .cases-card:hover::before { opacity: 1; }
+
+  .cases-card .cases-eyebrow,
+  .cases-card .cases-cta { color: rgba(255,255,255,0.55); }
+  .cases-card .cases-meta { color: rgba(255,255,255,0.35); }
+
+  /* scard sits above .cluster-cc-border (z:1) so the overlap hides cases-card border */
+  .svc-cluster .scard {
+    position: relative;
+    z-index: 2;
+  }
+
+  /* Border proxy for cases-card — sits at z:1, hidden in overlap zone by scard (z:2) */
+  .cluster-cc-border {
+    position: absolute;
+    border-radius: var(--radius);
+    box-shadow: none;
+    z-index: 1;
+    pointer-events: none;
+  }
+
   .cases-eyebrow {
     font-size: 0.7rem;
     font-weight: 700;
     letter-spacing: 0.1em;
     text-transform: uppercase;
     color: var(--accent2);
-  }
-  .cases-card h4 {
-    font-size: 0.92rem;
-    font-weight: 600;
-    line-height: 1.45;
-    color: var(--text);
-    margin: 0;
-    flex: 1;
   }
   .cases-meta {
     display: flex;
@@ -704,37 +804,43 @@ const i = t(lang);
     color: var(--accent2);
     margin-top: 0.25rem;
   }
+  .ec-case .cases-eyebrow,
+  .ec-case .cases-cta { color: rgba(255,255,255,0.8); }
+  .ec-case .cases-meta { color: rgba(255,255,255,0.6); }
+
 
   /* ---- Service cards ---- */
   .scard {
     display: block;
     text-decoration: none;
     color: inherit;
-    background: var(--bg-card);
-    border: 1px solid rgba(108,92,231,0.12);
+    background: linear-gradient(200deg, #4833b8 0%, #4833b8 62%, #2593e5 100%);
+    border: none;
     border-radius: var(--radius);
     padding: 2rem;
     position: relative;
     overflow: hidden;
-    transition: border-color 0.25s ease, box-shadow 0.25s ease;
+    box-shadow: inset 0 0 0 1.5px rgba(255,255,255,0.18);
+    transition: box-shadow 0.25s ease;
   }
   .scard::before {
     content: '';
     position: absolute;
     inset: 0;
     background: radial-gradient(
-      280px circle at var(--mx, -999px) var(--my, -999px),
-      rgba(108,92,231,0.13),
-      transparent 65%
+      320px circle at var(--mx, -999px) var(--my, -999px),
+      rgba(255,255,255,0.22),
+      transparent 70%
     );
     opacity: 0;
-    transition: opacity 0.35s ease;
+    transition: opacity 0.3s ease;
     pointer-events: none;
     border-radius: inherit;
   }
   .scard:hover {
-    border-color: rgba(108,92,231,0.35);
-    box-shadow: 0 8px 24px rgba(0,0,0,0.25);
+    box-shadow: inset 0 0 0 1.5px rgba(255,255,255,0.4),
+                0 0 18px 5px rgba(108,92,231,0.45),
+                0 0 44px 10px rgba(37,147,229,0.2);
     text-decoration: none;
   }
   .scard:hover::before { opacity: 1; }
@@ -747,39 +853,41 @@ const i = t(lang);
     font-weight: 900;
     letter-spacing: -0.03em;
     line-height: 1;
-    color: rgba(108,92,231,0.07);
+    color: rgba(255,255,255,0.07);
     pointer-events: none;
     user-select: none;
   }
-  .scard-top {
+  .scard-heading {
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    margin-bottom: 1.25rem;
+    gap: 0.55rem;
+    margin-bottom: 0.6rem;
   }
   .scard-num {
-    font-size: 0.75rem;
+    font-size: 0.72rem;
     font-weight: 700;
     letter-spacing: 0.08em;
-    color: var(--accent2);
-    opacity: 0.7;
+    color: rgba(255,255,255,0.75);
+    flex-shrink: 0;
+  }
+  .scard h3 {
+    flex: 1;
+    font-size: 1.45rem;
+    font-weight: 700;
+    margin: 0;
+    color: #fff;
   }
   .scard-arrow {
+    flex-shrink: 0;
     font-size: 1rem;
-    color: var(--accent2);
+    color: rgba(255,255,255,0.85);
     opacity: 0;
     transform: translateX(-6px);
     transition: opacity 0.2s ease, transform 0.2s ease;
   }
   .scard:hover .scard-arrow { opacity: 1; transform: translateX(0); }
-  .scard h3 {
-    font-size: 1.15rem;
-    font-weight: 700;
-    margin-bottom: 0.6rem;
-    color: var(--text);
-  }
   .scard p {
-    color: var(--text-muted);
+    color: rgba(255,255,255,0.7);
     font-size: 0.92rem;
     line-height: 1.6;
     margin: 0;
@@ -806,6 +914,21 @@ const i = t(lang);
     to   { opacity: 1; transform: translateY(0); }
   }
 
+  /* ---- Latest cases label ---- */
+  .latest-cases-label {
+    display: block;
+    font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+    font-weight: 800;
+    line-height: 1;
+    color: var(--text);
+    white-space: nowrap;
+    overflow: visible;
+    padding-top: 1.5rem;
+    margin-bottom: -1.5rem;
+    pointer-events: none;
+    user-select: none;
+  }
+
   /* ---- Mobile ---- */
   @media (max-width: 768px) {
     .services-inner { padding: 0 1rem; }
@@ -814,12 +937,6 @@ const i = t(lang);
       row-gap: 1rem;
       padding-bottom: 2rem;
     }
-    .service-grid > * {
-      grid-column: 1;
-      grid-row: auto;
-      margin-top: 0;
-    }
-    .svc-row { flex-direction: column; }
     .svc-points { flex: none; }
     .ec-table { grid-template-columns: 2.5rem 1fr; }
     .ec-cell-empty { display: none; }
@@ -829,14 +946,14 @@ const i = t(lang);
     .ec-cell-bullets { padding-top: 0.875rem; }
     .ec-banner-bottom { padding: 1.5rem; }
     .ec-case { flex: 0 0 80%; }
-    .ec-cases-header { flex-wrap: wrap; gap: 0.75rem; }
-    .ec-cases-actions { flex-wrap: wrap; gap: 0.5rem; }
-    .ec-explore-btn { font-size: 0.8rem; }
     .cases-card {
       margin-top: 1rem;
       margin-left: 0;
       align-self: stretch;
       width: auto;
     }
+    .ec-cases-header { flex-wrap: wrap; gap: 0.75rem; }
+    .ec-cases-actions { flex-wrap: wrap; gap: 0.5rem; }
+    .ec-explore-btn { font-size: 0.8rem; }
   }
 </style>
