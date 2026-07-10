@@ -1,0 +1,10 @@
+---
+import { renderMermaid } from '../lib/mermaid-flow.mjs'
+
+interface Props {
+  diagram: string
+}
+
+const html = renderMermaid(Astro.props.diagram)
+---
+<Fragment set:html={html} />

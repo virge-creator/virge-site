@@ -1,8 +1,37 @@
 ---
 import Layout from '../../../layouts/Layout.astro';
 import CTA from '../../../components/CTA.astro';
+import FlowDiagram from '../../../components/FlowDiagram.astro';
 
 const lang = 'en';
+
+const referralSteps = [
+  {
+    actor: 'Case worker',
+    title: 'Referral submitted',
+    desc: "Case worker fills in the referral form with the client's details and their own organisation.",
+  },
+  {
+    actor: 'WFO',
+    title: 'Magic link sent',
+    desc: 'Workflow Orchestrator creates a subscription and emails a verification link to the young person.',
+  },
+  {
+    actor: 'Young person',
+    title: 'Link clicked',
+    desc: 'Client clicks the link. Referral verified. Approval token stored in the browser.',
+  },
+  {
+    actor: 'Shop',
+    title: 'Cart unlocked',
+    desc: 'The shop validates the token. Without it, checkout is blocked. With it, they can buy.',
+  },
+  {
+    actor: 'Stripe',
+    title: 'Order placed',
+    desc: 'Client pays shipping via Stripe. Token consumed after checkout. Single use.',
+  },
+];
 ---
 <Layout
   title="JVJ Selection — Case Study"
@@ -71,55 +100,12 @@ const lang = 'en';
         <p>We built that on ShopVirge.</p>
       </div>
 
-      <div class="case-content">
-        <h2>Referral flow</h2>
-      </div>
-      <div class="referral-flow">
-          <div class="flow-step">
-            <div class="flow-num">1</div>
-            <div class="flow-body">
-              <span class="flow-actor">Case worker</span>
-              <strong class="flow-title">Referral submitted</strong>
-              <p class="flow-desc">Case worker fills in the referral form with the client's details and their own organisation.</p>
-            </div>
-          </div>
-          <div class="flow-arrow" aria-hidden="true"></div>
-          <div class="flow-step">
-            <div class="flow-num">2</div>
-            <div class="flow-body">
-              <span class="flow-actor">WFO</span>
-              <strong class="flow-title">Magic link sent</strong>
-              <p class="flow-desc">Workflow Orchestrator creates a subscription and emails a verification link to the young person.</p>
-            </div>
-          </div>
-          <div class="flow-arrow" aria-hidden="true"></div>
-          <div class="flow-step">
-            <div class="flow-num">3</div>
-            <div class="flow-body">
-              <span class="flow-actor">Young person</span>
-              <strong class="flow-title">Link clicked</strong>
-              <p class="flow-desc">Client clicks the link. Referral verified. Approval token stored in the browser.</p>
-            </div>
-          </div>
-          <div class="flow-arrow" aria-hidden="true"></div>
-          <div class="flow-step">
-            <div class="flow-num">4</div>
-            <div class="flow-body">
-              <span class="flow-actor">Shop</span>
-              <strong class="flow-title">Cart unlocked</strong>
-              <p class="flow-desc">The shop validates the token. Without it, checkout is blocked. With it, they can buy.</p>
-            </div>
-          </div>
-          <div class="flow-arrow" aria-hidden="true"></div>
-          <div class="flow-step">
-            <div class="flow-num">5</div>
-            <div class="flow-body">
-              <span class="flow-actor">Stripe</span>
-              <strong class="flow-title">Order placed</strong>
-              <p class="flow-desc">Client pays shipping via Stripe. Token consumed after checkout. Single use.</p>
-            </div>
-          </div>
-      </div>
+      <FlowDiagram
+        label="Referral flow"
+        headingLevel={2}
+        note="5 actors · single-use token"
+        steps={referralSteps}
+      />
 
       <div class="post-content case-content">
         <h2>Checkout control</h2>
@@ -175,7 +161,8 @@ const lang = 'en';
 
   const overview = document.querySelector('[data-header-overview]');
   const list = document.querySelector('[data-header-overview-list]');
-  const headings = Array.from(document.querySelectorAll('.case-post h2, .case-post h3'));
+  const headings = Array.from(document.querySelectorAll('.case-post h2, .case-post h3'))
+    .filter((h) => !h.closest('.cta'));
   if (overview && list && headings.length) {
     const usedIds = new Set();
     headings.forEach((heading) => {
@@ -268,7 +255,7 @@ const lang = 'en';
 
   function initCaseIllustrations() {
     document
-      .querySelectorAll('.case-screenshot, .screenshot-placeholder, .referral-flow, .case-content img, .case-content svg, .case-content figure')
+      .querySelectorAll('.case-screenshot, .screenshot-placeholder, .case-content img, .case-content svg, .case-content figure')
       .forEach((element) => element.classList.add('article-illustration'));
   }
 
@@ -295,7 +282,7 @@ const lang = 'en';
 
       let targetLeft = overviewRect.left;
       document
-        .querySelectorAll('.article-illustration, .case-screenshot, .screenshot-placeholder, .referral-flow')
+        .querySelectorAll('.article-illustration, .case-screenshot, .screenshot-placeholder')
         .forEach((element) => {
           const rect = element.getBoundingClientRect();
           if (!rect.width || !rect.height) return;
@@ -359,8 +346,6 @@ const lang = 'en';
     flex-wrap: wrap;
     gap: 0.75rem 2rem;
     padding: 1.25rem 0;
-    border-top: 1px solid rgba(108,92,231,0.15);
-    border-bottom: 1px solid rgba(108,92,231,0.15);
   }
 
   .case-meta-item {
@@ -451,149 +436,7 @@ const lang = 'en';
     color: var(--accent2);
   }
 
-  /* Referral flow diagram */
-  .referral-flow {
-    display: flex;
-    align-items: flex-start;
-    gap: 0;
-    width: min(100%, var(--case-flow-width));
-    margin: 2rem auto 2.5rem;
-    padding: 1.75rem;
-    border: 1px solid rgba(108,92,231,0.14);
-    border-radius: 12px;
-    background: rgba(18,18,42,0.36);
-    overflow-x: auto;
-    scrollbar-width: none;
-  }
-  .referral-flow::-webkit-scrollbar { display: none; }
-
-  .flow-step {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.75rem;
-    flex: 1;
-    min-width: 130px;
-    text-align: center;
-  }
-
-  .flow-num {
-    width: 2.25rem;
-    height: 2.25rem;
-    border-radius: 50%;
-    background: linear-gradient(135deg, var(--accent), var(--accent2));
-    color: #fff;
-    font-size: 0.85rem;
-    font-weight: 700;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-  }
-
-  .flow-body {
-    display: flex;
-    flex-direction: column;
-    gap: 0.3rem;
-    align-items: center;
-  }
-
-  .flow-actor {
-    font-size: 0.72rem;
-    font-weight: 700;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--accent2);
-  }
-
-  .flow-title {
-    font-size: 0.96rem;
-    font-weight: 700;
-    color: var(--text);
-    display: block;
-  }
-
-  .flow-desc {
-    font-size: 0.88rem;
-    color: #fcf0e0;
-    line-height: 1.5;
-    margin: 0;
-    max-width: 155px;
-  }
-
-  .flow-arrow {
-    flex-shrink: 0;
-    width: 2rem;
-    align-self: center;
-    margin-bottom: 3.5rem;
-    position: relative;
-  }
-  .flow-arrow::after {
-    content: '';
-    display: block;
-    width: 100%;
-    height: 1px;
-    background: linear-gradient(90deg, var(--accent), var(--accent2));
-    position: relative;
-  }
-  .flow-arrow::before {
-    content: '';
-    position: absolute;
-    right: 0;
-    top: 50%;
-    transform: translateY(-50%) translateX(0);
-    width: 0;
-    height: 0;
-    border-top: 4px solid transparent;
-    border-bottom: 4px solid transparent;
-    border-left: 6px solid var(--accent2);
-    margin-top: 0.5px;
-  }
-
   @media (max-width: 768px) {
     .case-meta-row { gap: 1rem; }
-
-    .referral-flow {
-      flex-direction: column;
-      align-items: stretch;
-      gap: 0;
-      padding: 1.25rem;
-    }
-
-    .flow-step {
-      flex-direction: row;
-      text-align: left;
-      align-items: flex-start;
-      min-width: unset;
-      gap: 1rem;
-      padding: 0.75rem 0;
-    }
-
-    .flow-body { align-items: flex-start; }
-    .flow-desc { max-width: none; }
-
-    .flow-arrow {
-      width: 1px;
-      height: 1.5rem;
-      align-self: flex-start;
-      margin-left: 1.1rem;
-      margin-bottom: 0;
-    }
-    .flow-arrow::after {
-      width: 1px;
-      height: 100%;
-      background: linear-gradient(180deg, var(--accent), var(--accent2));
-    }
-    .flow-arrow::before {
-      right: unset;
-      left: 50%;
-      top: unset;
-      bottom: 0;
-      transform: translateX(-50%) translateY(0);
-      border-left: 4px solid transparent;
-      border-right: 4px solid transparent;
-      border-top: 6px solid var(--accent2);
-      border-bottom: none;
-    }
   }
 </style>

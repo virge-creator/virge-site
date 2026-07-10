@@ -32,7 +32,6 @@ a:hover { text-decoration: underline; }
 nav {
   position: sticky; top: 0; z-index: 100;
   background: rgba(10,10,26,0.85); backdrop-filter: blur(12px);
-  border-bottom: 1px solid rgba(108,92,231,0.15);
   padding: 1rem 0;
 }
 nav .container { display: flex; justify-content: space-between; align-items: stretch; }
@@ -472,6 +471,190 @@ figure.article-illustration {
   color: var(--text);
 }
 
+/* Mermaid diagram — matches FlowDiagram.astro aesthetic */
+.mermaid-diagram {
+  width: min(100%, 1040px);
+  margin: 1.5rem auto 2.5rem;
+  border: 1px solid rgba(108,92,231,0.14);
+  border-radius: 10px;
+  background: rgba(18,18,42,0.36);
+  overflow: hidden;
+}
+.mermaid-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.55rem 1rem;
+  background: rgba(108,92,231,0.1);
+  border-bottom: 1px solid rgba(108,92,231,0.14);
+}
+.mermaid-bar-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--accent2);
+  margin: 0;
+  line-height: 1;
+}
+.mermaid-bar-note {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  line-height: 1;
+}
+/* SVG fallback body */
+.mermaid-body {
+  display: flex;
+  justify-content: center;
+  padding: 1.75rem 1.5rem;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.mermaid-body::-webkit-scrollbar { display: none; }
+.mermaid-body svg {
+  max-width: 100%;
+  height: auto;
+}
+/* Flow-style track for linear chains */
+.mermaid-flow-track {
+  display: flex;
+  align-items: flex-start;
+  padding: 1.5rem 1.75rem;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.mermaid-flow-track::-webkit-scrollbar { display: none; }
+.mermaid-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  flex: 1;
+  min-width: 110px;
+  text-align: center;
+}
+.mermaid-step-num {
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  color: #fff;
+  font-size: 0.85rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.mermaid-step-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  align-items: center;
+}
+.mermaid-step-actor {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent2);
+}
+.mermaid-step-title {
+  font-size: 0.93rem;
+  font-weight: 700;
+  color: var(--text);
+  display: block;
+  line-height: 1.4;
+}
+.mermaid-step-desc {
+  font-size: 0.88rem;
+  color: #fcf0e0;
+  line-height: 1.5;
+  margin: 0;
+  max-width: 155px;
+}
+/* Push arrow up to align with step num circles when descriptions are present */
+.mermaid-flow-track.has-desc .mermaid-flow-arrow {
+  margin-bottom: 3.5rem;
+}
+.mermaid-flow-arrow {
+  flex-shrink: 0;
+  width: 2rem;
+  align-self: center;
+  margin-bottom: 1.5rem;
+  position: relative;
+}
+.mermaid-flow-arrow::after {
+  content: '';
+  display: block;
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, var(--accent), var(--accent2));
+}
+.mermaid-flow-arrow::before {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%) translateX(0);
+  width: 0;
+  height: 0;
+  border-top: 4px solid transparent;
+  border-bottom: 4px solid transparent;
+  border-left: 6px solid var(--accent2);
+  margin-top: 0.5px;
+}
+
+/* Vertical (graph TD) flow track */
+.mermaid-flow-track.is-vertical {
+  flex-direction: column;
+  padding: 1.25rem 1.75rem;
+  max-width: 560px;
+  margin: 0 auto;
+}
+.mermaid-flow-track.is-vertical .mermaid-step {
+  flex-direction: row;
+  text-align: left;
+  align-items: flex-start;
+  min-width: unset;
+  gap: 1rem;
+  padding: 0.5rem 0;
+}
+.mermaid-flow-track.is-vertical .mermaid-step-content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding-top: 0.35rem;
+  gap: 0.3rem;
+}
+.mermaid-flow-track.is-vertical .mermaid-step-desc {
+  max-width: none;
+}
+.mermaid-flow-track.is-vertical .mermaid-flow-arrow {
+  width: 1px;
+  height: 1.25rem;
+  align-self: flex-start;
+  margin-left: 1.1rem;
+  margin-bottom: 0;
+}
+.mermaid-flow-track.is-vertical .mermaid-flow-arrow::after {
+  width: 1px;
+  height: 100%;
+  background: linear-gradient(180deg, var(--accent), var(--accent2));
+}
+.mermaid-flow-track.is-vertical .mermaid-flow-arrow::before {
+  right: unset;
+  left: 50%;
+  top: unset;
+  bottom: 0;
+  transform: translateX(-50%) translateY(0);
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-top: 6px solid var(--accent2);
+  border-bottom: none;
+}
+
 /* Mobile */
 @media (max-width: 768px) {
   .menu-toggle { display: block; }
@@ -479,6 +662,43 @@ figure.article-illustration {
   nav .links.open { display: flex; }
   .cta { flex-direction: column; text-align: center; }
   .footer-inner { flex-direction: column; }
+
+  .mermaid-flow-track {
+    flex-direction: column;
+    padding: 1rem 1.25rem;
+  }
+  .mermaid-step {
+    flex-direction: row;
+    text-align: left;
+    align-items: flex-start;
+    min-width: unset;
+    gap: 1rem;
+    padding: 0.75rem 0;
+  }
+  .mermaid-step-content { align-items: flex-start; }
+  .mermaid-flow-arrow {
+    width: 1px;
+    height: 1.5rem;
+    align-self: flex-start;
+    margin-left: 1.1rem;
+    margin-bottom: 0;
+  }
+  .mermaid-flow-arrow::after {
+    width: 1px;
+    height: 100%;
+    background: linear-gradient(180deg, var(--accent), var(--accent2));
+  }
+  .mermaid-flow-arrow::before {
+    right: unset;
+    left: 50%;
+    top: unset;
+    bottom: 0;
+    transform: translateX(-50%) translateY(0);
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    border-top: 6px solid var(--accent2);
+    border-bottom: none;
+  }
 }
 
 @media (max-width: 1560px) {

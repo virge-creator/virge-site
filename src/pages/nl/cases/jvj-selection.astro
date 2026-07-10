@@ -175,7 +175,8 @@ const lang = 'nl';
 
   const overview = document.querySelector('[data-header-overview]');
   const list = document.querySelector('[data-header-overview-list]');
-  const headings = Array.from(document.querySelectorAll('.case-post h2, .case-post h3'));
+  const headings = Array.from(document.querySelectorAll('.case-post h2, .case-post h3'))
+    .filter((h) => !h.closest('.cta'));
   if (overview && list && headings.length) {
     const usedIds = new Set();
     headings.forEach((heading) => {
@@ -359,8 +360,6 @@ const lang = 'nl';
     flex-wrap: wrap;
     gap: 0.75rem 2rem;
     padding: 1.25rem 0;
-    border-top: 1px solid rgba(108,92,231,0.15);
-    border-bottom: 1px solid rgba(108,92,231,0.15);
   }
 
   .case-meta-item {
