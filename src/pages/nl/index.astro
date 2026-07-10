@@ -36,73 +36,7 @@ const i = t(lang);
       <div class="service-list">
         <div class="trace-rail" aria-hidden="true"></div>
 
-        <!-- 01: AI -->
-        <div class="svc-item reveal">
-          <div class="trace-anchor">
-            <div class="trace-dot"></div>
-          </div>
-          <div class="svc-pair">
-<a href={`/${lang}/ai/`} class="scard reveal-card" style="--ghost: 'AI'; --delay: 0s">
-              <div class="scard-heading">
-                <span class="scard-num">01</span>
-                <h3>{i.home.aiTitle}</h3>
-                <span class="scard-arrow">→</span>
-              </div>
-              <p>{i.home.aiDesc}</p>
-              <ul class="scard-bullets">
-                <li>Vector databases &amp; RAG</li>
-                <li>AI-native integraties</li>
-                <li>Productiesystemen</li>
-              </ul>
-            </a>
-            <a href={`/${lang}/blog/librechat-as-agent-orchestrator/`} class="cases-card reveal-card" style="--delay: 0.1s">
-              <div class="cc-img">
-                <img src="/images/librechat-agent-orchestrator.png" alt="" loading="lazy">
-                <span class="cc-badge">Case study</span>
-              </div>
-              <h4>WFO-agent opzetten met LibreChat: geen Kubernetes vereist</h4>
-              <div class="cases-meta">
-                <span>Jul 2026</span><span class="cases-dot">·</span><span>AI · LibreChat</span>
-              </div>
-              <span class="cases-cta">Lees case →</span>
-            </a>
-          </div>
-        </div>
-
-        <!-- 02: OpenClaw -->
-        <div class="svc-item reveal">
-          <div class="trace-anchor">
-            <div class="trace-dot"></div>
-          </div>
-          <div class="svc-pair">
-<a href={`/${lang}/openclaw/`} class="scard reveal-card" style="--ghost: 'OC'; --delay: 0s">
-              <div class="scard-heading">
-                <span class="scard-num">02</span>
-                <h3>{i.home.openclawTitle}</h3>
-                <span class="scard-arrow">→</span>
-              </div>
-              <p>{i.home.openclawDesc}</p>
-              <ul class="scard-bullets">
-                <li>Self-hosted AI</li>
-                <li>Managed hosting</li>
-                <li>Bedrijfsautomatisering</li>
-              </ul>
-            </a>
-            <a href={`/${lang}/openclaw/`} class="cases-card reveal-card" style="--delay: 0.1s">
-              <div class="cc-img">
-                <img src="/images/anythingllm-workspace.png" alt="" loading="lazy">
-                <span class="cc-badge">Case study</span>
-              </div>
-              <h4>Beveiligde self-hosted AI-werkplek voor een juridisch kantoor in vier dagen</h4>
-              <div class="cases-meta">
-                <span>Apr 2026</span><span class="cases-dot">·</span><span>OpenClaw · Self-hosted</span>
-              </div>
-              <span class="cases-cta">Lees case →</span>
-            </a>
-          </div>
-        </div>
-
-        <!-- 03: SDN -->
+        <!-- 01: SDN -->
         <div class="svc-item reveal">
           <div class="trace-anchor">
             <div class="trace-dot"></div>
@@ -110,7 +44,7 @@ const i = t(lang);
           <div class="svc-pair">
 <a href={`/${lang}/sdn/`} class="scard reveal-card" style="--ghost: 'SDN'; --delay: 0s">
               <div class="scard-heading">
-                <span class="scard-num">03</span>
+                <span class="scard-num">01</span>
                 <h3>{i.home.sdnTitle}</h3>
                 <span class="scard-arrow">→</span>
               </div>
@@ -135,7 +69,73 @@ const i = t(lang);
           </div>
         </div>
 
-        <!-- 04: eCommerce — terminal node only, card is the ec-banner below -->
+        <!-- 02: AI -->
+        <div class="svc-item reveal">
+          <div class="trace-anchor">
+            <div class="trace-dot"></div>
+          </div>
+          <div class="svc-pair">
+<a href={`/${lang}/ai/`} class="scard reveal-card" style="--ghost: 'AI'; --delay: 0s">
+              <div class="scard-heading">
+                <span class="scard-num">02</span>
+                <h3>{i.home.aiTitle}</h3>
+                <span class="scard-arrow">→</span>
+              </div>
+              <p>{i.home.aiDesc}</p>
+              <ul class="scard-bullets">
+                <li>Vector databases &amp; RAG</li>
+                <li>AI-native integraties</li>
+                <li>Productiesystemen</li>
+              </ul>
+            </a>
+            <a href={`/${lang}/blog/librechat-as-agent-orchestrator/`} class="cases-card reveal-card" style="--delay: 0.1s">
+              <div class="cc-img">
+                <img src="/images/librechat-agent-orchestrator.png" alt="" loading="lazy">
+                <span class="cc-badge">Case study</span>
+              </div>
+              <h4>WFO-agent opzetten met LibreChat: geen Kubernetes vereist</h4>
+              <div class="cases-meta">
+                <span>Jul 2026</span><span class="cases-dot">·</span><span>AI · LibreChat</span>
+              </div>
+              <span class="cases-cta">Lees case →</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- 03: OpenClaw -->
+        <div class="svc-item reveal">
+          <div class="trace-anchor">
+            <div class="trace-dot"></div>
+          </div>
+          <div class="svc-pair">
+<a href={`/${lang}/openclaw/`} class="scard reveal-card" style="--ghost: 'OC'; --delay: 0s">
+              <div class="scard-heading">
+                <span class="scard-num">03</span>
+                <h3>{i.home.openclawTitle}</h3>
+                <span class="scard-arrow">→</span>
+              </div>
+              <p>{i.home.openclawDesc}</p>
+              <ul class="scard-bullets">
+                <li>Self-hosted AI</li>
+                <li>Managed hosting</li>
+                <li>Bedrijfsautomatisering</li>
+              </ul>
+            </a>
+            <a href={`/${lang}/openclaw/`} class="cases-card reveal-card" style="--delay: 0.1s">
+              <div class="cc-img">
+                <img src="/images/anythingllm-workspace.png" alt="" loading="lazy">
+                <span class="cc-badge">Case study</span>
+              </div>
+              <h4>Beveiligde self-hosted AI-werkplek voor een juridisch kantoor in vier dagen</h4>
+              <div class="cases-meta">
+                <span>Apr 2026</span><span class="cases-dot">·</span><span>OpenClaw · Self-hosted</span>
+              </div>
+              <span class="cases-cta">Lees case →</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- 04: eCommerce terminal node only, card is the ec-banner below -->
         <div class="svc-item svc-item--terminal svc-item--end">
           <div class="trace-anchor trace-anchor--terminal">
             <div class="trace-dot"></div>
@@ -197,7 +197,7 @@ const i = t(lang);
         <!-- 1: JVJ case study -->
         <a href={`/${lang}/cases/jvj-selection/`} class="ec-case">
           <span class="cases-eyebrow">Case study</span>
-          <h4>Een webshop met referral-gate voor Jas voor Jeugd — gratis kleding voor jongeren in Limburg</h4>
+          <h4>Een webshop met referral-gate voor Jas voor Jeugd gratis kleding voor jongeren in Limburg</h4>
           <div class="cases-meta"><span>2026</span><span class="cases-dot">·</span><span>ShopVirge · Goed doel</span></div>
           <span class="cases-cta">Lees case →</span>
         </a>
@@ -208,12 +208,12 @@ const i = t(lang);
             <svg width="9" height="9" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 1h6v6M9 1L1 9"/></svg>
             Live winkel · ShopVirge
           </span>
-          <h4>JVJ Selection — Jas voor Jeugd</h4>
+          <h4>JVJ Selection Jas voor Jeugd</h4>
           <div class="cases-meta"><span>Limburg, NL</span><span class="cases-dot">·</span><span>Gratis kledingherverdeling voor jongeren</span></div>
           <span class="cases-cta">Bezoek winkel ↗</span>
         </a>
 
-        <!-- 3: Blog post 1 — TODO: replace href with actual slug -->
+        <!-- 3: Blog post 1 TODO: replace href with actual slug -->
         <a href="https://shopvirge.com/nl/blog/" target="_blank" rel="noopener" class="ec-case ec-case--sv">
           <span class="ec-ext-label">
             <svg width="9" height="9" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 1h6v6M9 1L1 9"/></svg>
@@ -235,18 +235,18 @@ const i = t(lang);
           <span class="cases-cta">Bezoek winkel ↗</span>
         </a>
 
-        <!-- 5: Blog post 2 — TODO: replace href with actual slug -->
+        <!-- 5: Blog post 2 TODO: replace href with actual slug -->
         <a href="https://shopvirge.com/nl/blog/" target="_blank" rel="noopener" class="ec-case ec-case--sv">
           <span class="ec-ext-label">
             <svg width="9" height="9" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 1h6v6M9 1L1 9"/></svg>
             ShopVirge Blog
           </span>
-          <h4>Multi-tenant theming met Next.js 14 en CSS-variabelen — wat we leerden</h4>
+          <h4>Multi-tenant theming met Next.js 14 en CSS-variabelen wat we leerden</h4>
           <div class="cases-meta"><span>jun 2026</span><span class="cases-dot">·</span><span>Engineering · Frontend</span></div>
           <span class="cases-cta">Lees artikel ↗</span>
         </a>
 
-        <!-- 6: Blog post 3 — TODO: replace href with actual slug -->
+        <!-- 6: Blog post 3 TODO: replace href with actual slug -->
         <a href="https://shopvirge.com/nl/blog/" target="_blank" rel="noopener" class="ec-case ec-case--sv">
           <span class="ec-ext-label">
             <svg width="9" height="9" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 1h6v6M9 1L1 9"/></svg>
@@ -319,12 +319,12 @@ const i = t(lang);
     ).observe(traceRail.parentElement);
   }
 
-  // Trace glow — fixed viewport position, appears when line scrolls behind it
+  // Trace glow fixed viewport position, appears when line scrolls behind it
   (() => {
     const rail = document.querySelector('.trace-rail');
     if (!rail) return;
 
-    // Inject styles globally — Astro scopes component <style>, so the
+    // Inject styles globally Astro scopes component <style>, so the
     // dynamically-created element won't get the scoped attribute otherwise.
     const styleEl = document.createElement('style');
     styleEl.textContent = `
@@ -638,7 +638,7 @@ const i = t(lang);
     box-shadow: 0 0 0 4px rgba(108,92,231,0.18), 0 0 14px rgba(108,92,231,0.5);
   }
 
-  /* Minimal end node for 04 — no card, just the dot */
+  /* Minimal end node for 04 no card, just the dot */
   .svc-item--end {
     padding: 1rem 0 0;
     border-top: 1px solid rgba(108,92,231,0.08);
@@ -654,7 +654,7 @@ const i = t(lang);
     position: relative;
   }
 
-  /* ---- Cases card — muted dark style, subordinate to service cards ---- */
+  /* ---- Cases card muted dark style, subordinate to service cards ---- */
   .cases-card {
     display: flex;
     flex-direction: column;
@@ -986,6 +986,14 @@ const i = t(lang);
   .ec-case h4 { font-size: 0.92rem; font-weight: 600; line-height: 1.45; color: #fff; margin: 0; flex: 1; }
   .ec-case .cases-eyebrow, .ec-case .cases-cta { color: rgba(255,255,255,0.8); }
   .ec-case .cases-meta { color: rgba(255,255,255,0.6); }
+  .ec-case-visual {
+    display: flex; align-items: center; justify-content: center;
+    background: #fff; border-radius: 8px;
+    padding: 0.75rem 1rem; gap: 0.75rem;
+    margin-bottom: 0.25rem;
+  }
+  .ec-case-logo { height: 40px; width: auto; object-fit: contain; }
+  .ec-case-logo-x { font-size: 1.5rem; font-weight: 100; color: #000; line-height: 1; }
 
   .ec-cell-title { gap: 1.5rem; }
   .sv-launch-btn {
@@ -1013,7 +1021,7 @@ const i = t(lang);
     text-transform: uppercase; color: rgba(255,255,255,0.55);
   }
 
-  /* ShopVirge blog card — #2f45ff brand blue */
+  /* ShopVirge blog card #2f45ff brand blue */
   .ec-case--sv {
     background: linear-gradient(200deg, #0a0f3a 0%, #111966 55%, #1e2fa8 100%);
   }
@@ -1024,7 +1032,7 @@ const i = t(lang);
                 0 0 44px 10px rgba(47,69,255,0.18);
   }
 
-  /* Live store card — deeper blue-green tint */
+  /* Live store card deeper blue-green tint */
   .ec-case--store {
     background: linear-gradient(200deg, #071228 0%, #0c1e48 55%, #143a6e 100%);
   }

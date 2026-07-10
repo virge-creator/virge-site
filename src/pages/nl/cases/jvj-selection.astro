@@ -5,7 +5,7 @@ import CTA from '../../../components/CTA.astro';
 const lang = 'nl';
 ---
 <Layout
-  title="JVJ Selection — Case Study"
+  title="JVJ Selection Case Study"
   description="Hoe Virge een webshop met referralsysteem bouwde voor Jas voor Jeugd, een Maastrichtse stichting die gedoneerde kleding herverdeelt aan jongeren in nood."
   lang={lang}
 >
@@ -29,6 +29,19 @@ const lang = 'nl';
         </div>
         <h1>JVJ Selection</h1>
         <p class="case-subtitle">Een webshop met referralgate voor Jas voor Jeugd</p>
+
+        <div class="case-partner-logos">
+          <a href="https://jvjselection.nl" target="_blank" rel="noopener" class="partner-logo-wrap">
+            <img src="/images/cases/jvj-selection/jvj-logo.png" alt="JVJ Selection" class="partner-logo partner-logo--square" />
+          </a>
+          <a href="https://lefteam.nl" target="_blank" rel="noopener" class="partner-logo-wrap">
+            <img src="/images/cases/jvj-selection/lefteam-logo.png" alt="LEFteam" class="partner-logo" />
+          </a>
+          <a href="https://shopvirge.com" target="_blank" rel="noopener" class="partner-logo-wrap partner-logo-wrap--dark">
+            <img src="/images/cases/jvj-selection/shopvirge-logo.png" alt="ShopVirge" class="partner-logo partner-logo--square" />
+          </a>
+        </div>
+
         <div class="case-meta-row">
           <div class="case-meta-item">
             <span class="case-meta-label">Klant</span>
@@ -49,18 +62,7 @@ const lang = 'nl';
         </div>
       </header>
 
-      <!--
-        SCREENSHOT 1 — Homepage / productoverzicht
-        Maak screenshot van: https://shop.jvjselection.nl/ op 1440px breedte
-        Sla op als: /public/images/cases/jvj/homepage.png
-        Vervang daarna de placeholder hieronder door:
-        <img src="/images/cases/jvj/homepage.png" alt="JVJ Selection homepage" class="case-screenshot" />
-      -->
-      <div class="screenshot-placeholder">
-        <span class="screenshot-icon">📸</span>
-        <p class="screenshot-label">Homepage — productoverzicht</p>
-        <p class="screenshot-hint">Screenshot op 1440px · opslaan als <code>/public/images/cases/jvj/homepage.png</code></p>
-      </div>
+      <img src="/images/cases/jvj/homepage.png" alt="JVJ Selection homepage — productoverzicht" class="case-screenshot" />
 
       <div class="post-content case-content">
         <h2>De uitdaging</h2>
@@ -123,36 +125,14 @@ const lang = 'nl';
 
       <div class="post-content case-content">
         <h2>Checkout-controle</h2>
-        <!--
-          SCREENSHOT 2 — Referral / activatiepagina
-          Maak screenshot van: https://shop.jvjselection.nl/nl/account/activation/start op 1440px
-          Sla op als: /public/images/cases/jvj/referral.png
-          Vervang daarna de placeholder hieronder door:
-          <img src="/images/cases/jvj/referral.png" alt="JVJ Selection referral activatie" class="case-screenshot" />
-        -->
-        <div class="screenshot-placeholder">
-          <span class="screenshot-icon">📸</span>
-          <p class="screenshot-label">Referral-activatiepagina</p>
-          <p class="screenshot-hint">Screenshot op 1440px · opslaan als <code>/public/images/cases/jvj/referral.png</code></p>
-        </div>
+        <img src="/images/cases/jvj/referral.png" alt="JVJ Selection doorverwijzersformulier" class="case-screenshot" />
 
         <p>De referralflow loopt via Workflow Orchestrator. Een begeleider dient een verwijzing in voor een cliënt: diens gegevens, plus wie verwijst en vanuit welke organisatie. WFO maakt een JVJ Customer-abonnement aan en stuurt een magische link naar de jongere. Die klikt erop. De verwijzing is geverifieerd. Een goedkeuringstoken belandt in de browser. Vanaf dat moment kan de jongere afrekenen. Zonder token blokkeert de winkelwagen.</p>
 
         <p>Het token is eenmalig bruikbaar. Na het plaatsen van een bestelling wordt het verbruikt.</p>
 
         <h2>Live storefront</h2>
-        <!--
-          SCREENSHOT 3 — Productpagina of winkelwagen
-          Maak screenshot van een productpagina of de winkelwagen op 1440px
-          Sla op als: /public/images/cases/jvj/product.png
-          Vervang daarna de placeholder hieronder door:
-          <img src="/images/cases/jvj/product.png" alt="JVJ Selection product of winkelwagen" class="case-screenshot" />
-        -->
-        <div class="screenshot-placeholder">
-          <span class="screenshot-icon">📸</span>
-          <p class="screenshot-label">Productpagina of winkelwagen</p>
-          <p class="screenshot-hint">Screenshot op 1440px · opslaan als <code>/public/images/cases/jvj/product.png</code></p>
-        </div>
+        <img src="/images/cases/jvj/product.png" alt="JVJ Selection winkelwagen" class="case-screenshot" />
 
         <p>ShopVirge regelt de rest: een Nederlandstalige webshop, een productcatalogus met kleding en schoenen, Stripe voor de betaling van verzendkosten, en een beheerinterface waarmee het LEFteam-team de catalogus beheert zonder code aan te raken. De shop draait uitsluitend in het Nederlands. Het platform ondersteunt meerdere talen, maar JVJ's doelgroep zijn Limburgse jongeren.</p>
 
@@ -547,6 +527,54 @@ const lang = 'nl';
     border-bottom: 4px solid transparent;
     border-left: 6px solid var(--accent2);
     margin-top: 0.5px;
+  }
+
+  /* Partner logos */
+  .case-partner-logos {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+  }
+
+  .partner-logo-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 52px;
+    background: #fff;
+    border-radius: 8px;
+    padding: 0 0.9rem;
+    text-decoration: none;
+    transition: opacity 0.2s ease;
+  }
+
+  .partner-logo-wrap:hover {
+    opacity: 0.85;
+  }
+
+  .partner-logo {
+    height: 32px;
+    width: auto;
+    object-fit: contain;
+    display: block;
+  }
+
+  .partner-logo--square {
+    height: 36px;
+    width: 36px;
+    border-radius: 6px;
+  }
+
+  .partner-logo-wrap--dark {
+    background: transparent;
+    padding: 0;
+  }
+
+  .partner-logo-wrap--dark .partner-logo {
+    height: 52px;
+    width: 52px;
   }
 
   @media (max-width: 768px) {

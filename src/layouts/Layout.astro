@@ -12,7 +12,7 @@ interface Props {
   lang?: Lang;
 }
 
-const { title, description = 'Virge.io — Software solutions in AI, SDN, and eCommerce that scale with your business.', lang = 'en' } = Astro.props;
+const { title, description = 'Virge.io Software solutions in AI, SDN, and eCommerce that scale with your business.', lang = 'en' } = Astro.props;
 const otherLang = getOtherLang(lang);
 const currentPath = Astro.url.pathname;
 

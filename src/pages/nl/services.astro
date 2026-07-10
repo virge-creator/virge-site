@@ -1,11 +1,208 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import CTA from '../../components/CTA.astro';
+import { t } from '../../i18n';
 
 const lang = 'nl';
+const i = t(lang);
 ---
-<Layout title="Diensten" description="Virge.io diensten — AI, SDN, eCommerce en OpenClaw consultancy." lang={lang}>
+<Layout title="Diensten" description="Virge.io diensten: AI, SDN, eCommerce en OpenClaw consultancy." lang={lang}>
   <div class="page-header">
     <h1>Onze <span>Diensten</span></h1>
     <p>Expertconsultancy en producten op het gebied van AI, netwerken en eCommerce.</p>
   </div>
+
+  <section class="services-section">
+    <div class="container">
+      <div class="services-grid">
+
+        <a href={`/${lang}/ai/`} class="scard" style="--ghost: 'AI'">
+          <div class="scard-heading">
+            <span class="scard-num">01</span>
+            <h3>{i.home.aiTitle}</h3>
+            <span class="scard-arrow">→</span>
+          </div>
+          <p>{i.home.aiDesc}</p>
+          <ul class="scard-bullets">
+            <li>Vector databases &amp; RAG</li>
+            <li>AI-native integraties</li>
+            <li>Productie-klare systemen</li>
+          </ul>
+        </a>
+
+        <a href={`/${lang}/openclaw/`} class="scard" style="--ghost: 'OC'">
+          <div class="scard-heading">
+            <span class="scard-num">02</span>
+            <h3>{i.home.openclawTitle}</h3>
+            <span class="scard-arrow">→</span>
+          </div>
+          <p>{i.home.openclawDesc}</p>
+          <ul class="scard-bullets">
+            <li>Self-hosted AI</li>
+            <li>Managed hosting</li>
+            <li>Bedrijfsautomatisering</li>
+          </ul>
+        </a>
+
+        <a href={`/${lang}/sdn/`} class="scard" style="--ghost: 'SDN'">
+          <div class="scard-heading">
+            <span class="scard-num">03</span>
+            <h3>{i.home.sdnTitle}</h3>
+            <span class="scard-arrow">→</span>
+          </div>
+          <p>{i.home.sdnDesc}</p>
+          <ul class="scard-bullets">
+            <li>Netwerkautomatisering</li>
+            <li>WFO-platform</li>
+            <li>Infra as code</li>
+          </ul>
+        </a>
+
+        <a href={`/${lang}/ecommerce/`} class="scard" style="--ghost: 'EC'">
+          <div class="scard-heading">
+            <span class="scard-num">04</span>
+            <h3>{i.home.ecomTitle}</h3>
+            <span class="scard-arrow">→</span>
+          </div>
+          <p>{i.home.ecomDesc}</p>
+          <ul class="scard-bullets">
+            <li>ShopVirge webshop</li>
+            <li>ERP &amp; CRM-integraties</li>
+            <li>AI-productbeschrijvingen</li>
+          </ul>
+        </a>
+
+      </div>
+      <CTA lang={lang} />
+    </div>
+  </section>
 </Layout>
+
+<style>
+  .services-section {
+    padding: 2rem 0 4rem;
+  }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 340px), 1fr));
+    gap: 1.25rem;
+    padding-bottom: 3rem;
+    --service-card-gradient: linear-gradient(180deg, #4833b8 0%, #5d46d8 34%, #376dd9 68%, #2593e5 100%);
+  }
+
+  .scard {
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    color: inherit;
+    background: var(--service-card-gradient);
+    border-radius: var(--radius);
+    padding: 1.75rem;
+    position: relative;
+    overflow: hidden;
+    box-shadow: inset 0 0 0 1.5px rgba(255,255,255,0.18);
+    transition: box-shadow 0.25s ease;
+    min-height: 260px;
+  }
+
+  .scard::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(320px circle at var(--mx, -999px) var(--my, -999px), rgba(255,255,255,0.22), transparent 70%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+    border-radius: inherit;
+  }
+
+  .scard:hover {
+    box-shadow: inset 0 0 0 1.5px rgba(255,255,255,0.4),
+                0 0 18px 5px rgba(108,92,231,0.45),
+                0 0 44px 10px rgba(37,147,229,0.2);
+    text-decoration: none;
+  }
+  .scard:hover::before { opacity: 1; }
+
+  .scard::after {
+    content: var(--ghost, '');
+    position: absolute;
+    left: 1.5rem;
+    bottom: 0.75rem;
+    font-size: 6.5rem;
+    font-weight: 900;
+    letter-spacing: -0.03em;
+    line-height: 1;
+    color: rgba(255,255,255,0.07);
+    pointer-events: none;
+    user-select: none;
+  }
+
+  .scard-heading {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .scard-num {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: rgba(255,255,255,0.75);
+    flex-shrink: 0;
+  }
+
+  .scard h3 {
+    flex: 1;
+    font-size: 1.6rem;
+    font-weight: 700;
+    margin: 0;
+    color: #fff;
+  }
+
+  .scard-arrow {
+    flex-shrink: 0;
+    font-size: 1rem;
+    color: rgba(255,255,255,0.85);
+    opacity: 0;
+    transform: translateX(-6px);
+    transition: opacity 0.2s ease, transform 0.2s ease;
+  }
+  .scard:hover .scard-arrow { opacity: 1; transform: translateX(0); }
+
+  .scard p {
+    color: rgba(255,255,255,0.7);
+    font-size: 0.92rem;
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  .scard-bullets {
+    list-style: none;
+    padding: 0;
+    margin: auto 2rem 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.3rem;
+    padding-top: 1.25rem;
+  }
+
+  .scard-bullets li {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: rgba(255,255,255,0.55);
+  }
+</style>
+
+<script>
+  document.querySelectorAll('.scard').forEach(card => {
+    card.addEventListener('mousemove', (e) => {
+      const rect = card.getBoundingClientRect();
+      card.style.setProperty('--mx', `${e.clientX - rect.left}px`);
+      card.style.setProperty('--my', `${e.clientY - rect.top}px`);
+    });
+  });
+</script>

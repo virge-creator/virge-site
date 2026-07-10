@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="description" content="How we built a multi-agent orchestration layer using LibreChat on a plain VPS — one UI, specialist agents per domain, MCP-connected backends, and real user identity forwarded to every call."><meta property="og:title" content="Setting up the WFO agent with LibreChat: no Kubernetes required | Virge.io"><meta property="og:description" content="How we built a multi-agent orchestration layer using LibreChat on a plain VPS — one UI, specialist agents per domain, MCP-connected backends, and real user identity forwarded to every call."><meta property="og:type" content="website"><meta property="og:locale" content="en_US"><link rel="canonical" href="https://virge.io/en/blog/librechat-as-agent-orchestrator/"><link rel="alternate" hreflang="en" href="https://virge.io/en/blog/librechat-as-agent-orchestrator/"><link rel="alternate" hreflang="nl" href="https://virge.io/nl/blog/librechat-as-agent-orchestrator/"><title>Setting up the WFO agent with LibreChat: no Kubernetes required | Virge.io</title><link rel="icon" href="/favicon.ico" sizes="any"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="stylesheet" href="/_astro/a2a-commerce-agent-to-agent-shopping-2026.CCfN3jR7.css"></head> <body> <nav data-astro-cid-dmqpwcec> <div class="container" data-astro-cid-dmqpwcec> <a href="/en/" class="logo" data-astro-cid-dmqpwcec><img src="/logo.png" alt="Virge.io" class="logo-img" data-astro-cid-dmqpwcec></a> <button class="menu-toggle" aria-label="Menu" onclick="document.querySelector('.links').classList.toggle('open')" data-astro-cid-dmqpwcec> <!-- @license lucide-static v1.14.0 - ISC -->
+<!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="description" content="How we built a multi-agent orchestration layer using LibreChat on a plain VPS — one UI, specialist agents per domain, MCP-connected backends, and real user identity forwarded to every call."><meta property="og:title" content="Setting up the WFO agent with LibreChat: no Kubernetes required | Virge.io"><meta property="og:description" content="How we built a multi-agent orchestration layer using LibreChat on a plain VPS — one UI, specialist agents per domain, MCP-connected backends, and real user identity forwarded to every call."><meta property="og:type" content="website"><meta property="og:locale" content="en_US"><link rel="canonical" href="https://virge.io/en/blog/librechat-as-agent-orchestrator/"><link rel="alternate" hreflang="en" href="https://virge.io/en/blog/librechat-as-agent-orchestrator/"><link rel="alternate" hreflang="nl" href="https://virge.io/nl/blog/librechat-as-agent-orchestrator/"><title>Setting up the WFO agent with LibreChat: no Kubernetes required | Virge.io</title><link rel="icon" href="/favicon.ico" sizes="any"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="stylesheet" href="/_astro/a2a-commerce-agent-to-agent-shopping-2026.BrhEoKck.css"></head> <body> <nav data-astro-cid-dmqpwcec> <div class="container" data-astro-cid-dmqpwcec> <a href="/en/" class="logo" data-astro-cid-dmqpwcec><img src="/logo.png" alt="Virge.io" class="logo-img" data-astro-cid-dmqpwcec></a> <button class="menu-toggle" aria-label="Menu" onclick="document.querySelector('.links').classList.toggle('open')" data-astro-cid-dmqpwcec> <!-- @license lucide-static v1.14.0 - ISC -->
 <svg class="" style="display:inline-block;vertical-align:middle;"
   class="lucide lucide-menu"
   xmlns="http://www.w3.org/2000/svg"
@@ -22,10 +22,57 @@
 <p>It’s not a replacement for kagent or agentgateway, but LibreChat can sit comfortably as the UI and orchestration layer even when you eventually graduate to those services. The agent and MCP configuration carries over. Either way, this post works as the starting point.</p>
 <h2 id="the-idea">The idea</h2>
 <p>The setup follows a “planner + specialists” pattern: one orchestrator agent that routes requests, and specialist agents that each own a domain:</p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>User</span></span>
-<span class="line"><span> └─► Orchestrator agent          (routes by intent)</span></span>
-<span class="line"><span>       ├─► Shop-admin agent      (catalog CRUD via shop MCP)</span></span>
-<span class="line"><span>       └─► WFO agent             (subscriptions/workflows via WFO MCP)</span></span></code></pre>
+<div class="mermaid-diagram article-illustration"><div class="mermaid-bar"><span class="mermaid-bar-label">Agent Routing Architecture</span></div><div class="mermaid-body"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 582.4069999999999 320.5" width="582.4069999999999" height="320.5" style="--bg:transparent;--fg:#f5f0e8;--accent:#6c5ce7;--muted:#8884aa;background:var(--bg);--surface:rgba(108,92,231,0.13);--border:rgba(168,85,247,0.42);--line:rgba(108,92,231,0.55)">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+  text { font-family: 'Inter', system-ui, sans-serif; }
+  svg {
+    /* Derived from --bg and --fg (overridable via --line, --accent, etc.) */
+    --_text:          var(--fg);
+    --_text-sec:      var(--muted, color-mix(in srgb, var(--fg) 60%, var(--bg)));
+    --_text-muted:    var(--muted, color-mix(in srgb, var(--fg) 40%, var(--bg)));
+    --_text-faint:    color-mix(in srgb, var(--fg) 25%, var(--bg));
+    --_line:          var(--line, color-mix(in srgb, var(--fg) 50%, var(--bg)));
+    --_arrow:         var(--accent, color-mix(in srgb, var(--fg) 85%, var(--bg)));
+    --_node-fill:     var(--surface, color-mix(in srgb, var(--fg) 3%, var(--bg)));
+    --_node-stroke:   var(--border, color-mix(in srgb, var(--fg) 20%, var(--bg)));
+    --_group-fill:    var(--bg);
+    --_group-hdr:     color-mix(in srgb, var(--fg) 5%, var(--bg));
+    --_inner-stroke:  color-mix(in srgb, var(--fg) 12%, var(--bg));
+    --_key-badge:     color-mix(in srgb, var(--fg) 10%, var(--bg));
+  }
+</style>
+<defs>
+  <marker id="arrowhead" markerWidth="8" markerHeight="5" refX="7" refY="2.5" orient="auto">
+    <polygon points="0 0, 8 2.5, 0 5" fill="var(--_arrow)" stroke="var(--_arrow)" stroke-width="0.75" stroke-linejoin="round"></polygon>
+  </marker>
+  <marker id="arrowhead-start" markerWidth="8" markerHeight="5" refX="1" refY="2.5" orient="auto-start-reverse">
+    <polygon points="8 0, 0 2.5, 8 5" fill="var(--_arrow)" stroke="var(--_arrow)" stroke-width="0.75" stroke-linejoin="round"></polygon>
+  </marker>
+</defs>
+<polyline class="edge" data-from="User" data-to="Orch" data-style="solid" data-arrow-start="false" data-arrow-end="true" points="275.45724999999993,76.9 275.45724999999993,124.9" fill="none" stroke="var(--_line)" stroke-width="1" marker-end="url(#arrowhead)"></polyline>
+<polyline class="edge" data-from="Orch" data-to="Shop" data-style="solid" data-arrow-start="false" data-arrow-end="true" points="275.45724999999993,178.70000000000002 275.45724999999993,202.70000000000002 142.85549999999998,202.70000000000002 142.85549999999998,226.70000000000002" fill="none" stroke="var(--_line)" stroke-width="1" marker-end="url(#arrowhead)"></polyline>
+<polyline class="edge" data-from="Orch" data-to="WFO" data-style="solid" data-arrow-start="false" data-arrow-end="true" points="275.45724999999993,178.70000000000002 275.45724999999993,202.70000000000002 408.0589999999999,202.70000000000002 408.0589999999999,226.70000000000002" fill="none" stroke="var(--_line)" stroke-width="1" marker-end="url(#arrowhead)"></polyline>
+<g class="node" data-id="User" data-label="User" data-shape="stadium">
+  <rect x="239.66224999999991" y="40" width="71.59" height="36.900000000000006" rx="18.450000000000003" ry="18.450000000000003" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="0.75"></rect>
+  <text x="275.45724999999993" y="58.45" text-anchor="middle" font-size="13" font-weight="500" fill="var(--_text)" dy="4.55">User</text>
+</g>
+<g class="node" data-id="Orch" data-label="Orchestrator agent
+routes by intent" data-shape="rectangle">
+  <rect x="198.53674999999993" y="124.9" width="153.841" height="53.800000000000004" rx="0" ry="0" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="0.75"></rect>
+  <text x="275.45724999999993" y="151.8" text-anchor="middle" font-size="13" font-weight="500" fill="var(--_text)"><tspan x="275.45724999999993" dy="-3.9000000000000012">Orchestrator agent</tspan><tspan x="275.45724999999993" dy="16.900000000000002">routes by intent</tspan></text>
+</g>
+<g class="node" data-id="Shop" data-label="Shop-admin agent
+catalog CRUD via shop MCP" data-shape="rectangle">
+  <rect x="40" y="226.70000000000002" width="205.71099999999996" height="53.800000000000004" rx="0" ry="0" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="0.75"></rect>
+  <text x="142.85549999999998" y="253.60000000000002" text-anchor="middle" font-size="13" font-weight="500" fill="var(--_text)"><tspan x="142.85549999999998" dy="-3.9000000000000012">Shop-admin agent</tspan><tspan x="142.85549999999998" dy="16.900000000000002">catalog CRUD via shop MCP</tspan></text>
+</g>
+<g class="node" data-id="WFO" data-label="WFO agent
+subscriptions/workflows via WFO MCP" data-shape="rectangle">
+  <rect x="273.71099999999996" y="226.70000000000002" width="268.6959999999999" height="53.800000000000004" rx="0" ry="0" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="0.75"></rect>
+  <text x="408.0589999999999" y="253.60000000000002" text-anchor="middle" font-size="13" font-weight="500" fill="var(--_text)"><tspan x="408.0589999999999" dy="-3.9000000000000012">WFO agent</tspan><tspan x="408.0589999999999" dy="16.900000000000002">subscriptions/workflows via WFO MCP</tspan></text>
+</g>
+</svg></div></div>
 <p>In a proper Kubernetes setup with something like kagent, each of these would be a long-lived A2A endpoint with its own pod and network address. That gives you independent deployment and scaling, but it’s a lot of infrastructure for a first proof of concept. LibreChat lets you skip all of that; agents live inside the same process, communicate internally, and share the user session without any network hops.</p>
 <h3 id="how-agents-talk-to-each-other">How agents talk to each other</h3>
 <p>We’re currently using LibreChat’s <strong><a href="https://www.librechat.ai/docs/features/agents#agent-chain">Agent Chain</a></strong> feature, which takes a Mixture-of-Agents (MoA) approach: specialist agents are registered as chain participants, and each one receives the previous agents’ outputs as context. It works well and is stable.</p>
@@ -109,13 +156,7 @@
 <p>Neither agent fabricated a match when the data wasn’t there, and neither could have answered the question alone. Worth comparing to the Agent Chain version of the same query: there, shop-admin ran first by default (it’s first in the chain), hit the dead end about the missing token field, and the WFO agent then picked up from that context. Same result, but the subagent version was more intentional; the orchestrator planned the order of operations upfront rather than discovering the constraint mid-chain.</p>
 <h2 id="how-identity-actually-flows">How identity actually flows</h2>
 <p>The short version: every tool call reads the signed-in user’s access token from MongoDB and substitutes it into the <code>Authorization</code> header before hitting your backend.</p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>User sends a message</span></span>
-<span class="line"><span>  → LibreChat deserializes req.user from session</span></span>
-<span class="line"><span>  → Reads federatedTokens.access_token from MongoDB</span></span>
-<span class="line"><span>  → Substitutes it into the Authorization header defined in librechat.yaml</span></span>
-<span class="line"><span>  → Calls POST /mcp/ on the backend with that token</span></span>
-<span class="line"><span>  → Backend validates against the IdP's JWKS endpoint</span></span>
-<span class="line"><span>  → Backend enforces that user's group membership / permissions</span></span></code></pre>
+<div class="mermaid-diagram article-illustration"><div class="mermaid-bar"><span class="mermaid-bar-label">Identity Flow per Tool Call</span></div><div class="mermaid-flow-track is-vertical"><div class="mermaid-step"><div class="mermaid-step-num">1</div><div class="mermaid-step-content"><strong class="mermaid-step-title">User sends a message</strong></div></div><div class="mermaid-flow-arrow" aria-hidden="true"></div><div class="mermaid-step"><div class="mermaid-step-num">2</div><div class="mermaid-step-content"><strong class="mermaid-step-title">Deserialize req.user from session</strong></div></div><div class="mermaid-flow-arrow" aria-hidden="true"></div><div class="mermaid-step"><div class="mermaid-step-num">3</div><div class="mermaid-step-content"><strong class="mermaid-step-title">Read federatedTokens.access_token from MongoDB</strong></div></div><div class="mermaid-flow-arrow" aria-hidden="true"></div><div class="mermaid-step"><div class="mermaid-step-num">4</div><div class="mermaid-step-content"><strong class="mermaid-step-title">Substitute token into Authorization header</strong></div></div><div class="mermaid-flow-arrow" aria-hidden="true"></div><div class="mermaid-step"><div class="mermaid-step-num">5</div><div class="mermaid-step-content"><strong class="mermaid-step-title">POST /mcp/ on backend</strong></div></div><div class="mermaid-flow-arrow" aria-hidden="true"></div><div class="mermaid-step"><div class="mermaid-step-num">6</div><div class="mermaid-step-content"><strong class="mermaid-step-title">Validate against IdP JWKS endpoint</strong></div></div><div class="mermaid-flow-arrow" aria-hidden="true"></div><div class="mermaid-step"><div class="mermaid-step-num">7</div><div class="mermaid-step-content"><strong class="mermaid-step-title">Enforce group membership and permissions</strong></div></div></div></div>
 <p>Authorization happens at the backend, not in LibreChat. LibreChat is a trusted forwarder; it doesn’t make access decisions. You can’t grant someone access by pointing them at a different agent; the backend rejects them based on their actual token.</p>
 <p>A shared API key would give every user the same permissions, which defeats the point. With per-user tokens, a non-admin user literally cannot perform writes, no matter which agent they’re talking through.</p>
 <p>One thing we learned the hard way: <strong>identity dies at any hop that doesn’t forward the token</strong>. This is why we dropped <code>cagent</code> (Docker Agent): its MCP/A2A endpoints have no inbound auth support and headers are static, so the user token never made it past the first hop. Any intermediary you introduce later needs to explicitly forward <code>Authorization: Bearer &#x3C;user-token></code> or you silently break the identity chain.</p>
