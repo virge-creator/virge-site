@@ -284,6 +284,25 @@ const i = t(lang);
   window.addEventListener('resize', extendTraceRail);
   extendTraceRail();
 
+  function syncServiceCardGradient() {
+    const cards = [...document.querySelectorAll('.service-list .svc-item:not(.svc-item--end) .scard')];
+    if (!cards.length) return;
+
+    const first = cards[0].getBoundingClientRect();
+    const last = cards[cards.length - 1].getBoundingClientRect();
+    const span = Math.max(last.bottom - first.top, first.height);
+
+    cards.forEach(card => {
+      const cardRect = card.getBoundingClientRect();
+      card.style.setProperty('--service-card-gradient-height', `${span}px`);
+      card.style.setProperty('--service-card-gradient-y', `${cardRect.top - first.top}px`);
+    });
+  }
+  window.addEventListener('load', syncServiceCardGradient);
+  window.addEventListener('resize', syncServiceCardGradient);
+  if (document.fonts) document.fonts.ready.then(syncServiceCardGradient);
+  syncServiceCardGradient();
+
   // Scroll reveal
   const observer = new IntersectionObserver(
     (entries) => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('is-visible'); }),
@@ -541,6 +560,13 @@ const i = t(lang);
     display: flex;
     flex-direction: column;
     padding-left: 3rem;
+    --service-card-gradient: linear-gradient(
+      180deg,
+      #4833b8 0%,
+      #5d46d8 34%,
+      #376dd9 68%,
+      #2593e5 100%
+    );
   }
 
   /* Vertical trace rail */
@@ -744,7 +770,10 @@ const i = t(lang);
     flex-direction: column;
     text-decoration: none;
     color: inherit;
-    background: linear-gradient(200deg, #4833b8 0%, #4833b8 62%, #2593e5 100%);
+    background-image: var(--service-card-gradient);
+    background-size: 100% var(--service-card-gradient-height, 100%);
+    background-position: center calc(var(--service-card-gradient-y, 0px) * -1);
+    background-repeat: no-repeat;
     border: none;
     border-radius: var(--radius);
     padding: 1.5rem;

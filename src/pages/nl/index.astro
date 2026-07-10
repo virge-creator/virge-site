@@ -37,7 +37,7 @@ const i = t(lang);
       <div class="service-grid">
 
         <!-- 1: AI cluster — card + points + case study -->
-        <div class="svc-cluster">
+        <div class="svc-cluster svc-ai">
           <div class="svc-row">
             <a href={`/${lang}/ai/`} class="scard reveal-card" style="--ghost: 'AI'; --delay: 0s">
               <div class="scard-top"><span class="scard-num">01</span><span class="scard-arrow">→</span></div>
@@ -150,7 +150,90 @@ const i = t(lang);
   );
   document.querySelectorAll('.reveal, .reveal-card').forEach(el => observer.observe(el));
 
-  document.querySelectorAll('.scard').forEach(card => {
+  // Draw unified L-shape border for AI cluster
+  function drawAiBorder() {
+    const cluster = document.querySelector('.svc-ai');
+    if (!cluster) return;
+    const scard = cluster.querySelector('.scard');
+    const cc = cluster.querySelector('.cases-card');
+    if (!scard || !cc) return;
+
+    const cr = cluster.getBoundingClientRect();
+    const sr = scard.getBoundingClientRect();
+    const ccr = cc.getBoundingClientRect();
+
+    const s = { l: sr.left - cr.left, t: sr.top - cr.top, r: sr.right - cr.left, b: sr.bottom - cr.top };
+    const c = { l: ccr.left - cr.left, t: ccr.top - cr.top, r: ccr.right - cr.left, b: ccr.bottom - cr.top };
+
+    const R = 12;
+    const d = [
+      `M ${s.l + R} ${s.t}`,
+      `L ${s.r - R} ${s.t}`,
+      `A ${R} ${R} 0 0 1 ${s.r} ${s.t + R}`,
+      `L ${s.r} ${s.b - R}`,
+      `A ${R} ${R} 0 0 1 ${s.r - R} ${s.b}`,
+      `L ${c.r} ${s.b}`,
+      `L ${c.r} ${c.b - R}`,
+      `A ${R} ${R} 0 0 1 ${c.r - R} ${c.b}`,
+      `L ${c.l + R} ${c.b}`,
+      `A ${R} ${R} 0 0 1 ${c.l} ${c.b - R}`,
+      `L ${c.l} ${c.t + R}`,
+      `A ${R} ${R} 0 0 1 ${c.l + R} ${c.t}`,
+      `L ${s.l} ${c.t}`,
+      `L ${s.l} ${s.t + R}`,
+      `A ${R} ${R} 0 0 1 ${s.l + R} ${s.t}`,
+      'Z'
+    ].join(' ');
+
+    let svg = cluster.querySelector('.ai-border-svg');
+    if (!svg) {
+      svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+      svg.classList.add('ai-border-svg');
+
+      const defs = document.createElementNS('http://www.w3.org/2000/svg', 'defs');
+      const grad = document.createElementNS('http://www.w3.org/2000/svg', 'linearGradient');
+      grad.id = 'ai-border-grad';
+      grad.setAttribute('gradientUnits', 'userSpaceOnUse');
+      const s1 = document.createElementNS('http://www.w3.org/2000/svg', 'stop');
+      s1.setAttribute('offset', '0%'); s1.setAttribute('stop-color', '#6c5ce7');
+      const s2 = document.createElementNS('http://www.w3.org/2000/svg', 'stop');
+      s2.setAttribute('offset', '100%'); s2.setAttribute('stop-color', '#2593e5');
+      grad.appendChild(s1); grad.appendChild(s2);
+      defs.appendChild(grad);
+      svg.appendChild(defs);
+
+      const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+      path.classList.add('ai-border-path');
+      path.setAttribute('fill', 'none');
+      path.setAttribute('stroke', 'url(#ai-border-grad)');
+      path.setAttribute('stroke-width', '1');
+      svg.appendChild(path);
+      cluster.prepend(svg);
+    }
+
+    const grad = svg.querySelector('linearGradient');
+    grad.setAttribute('x1', s.r); grad.setAttribute('y1', s.t);
+    grad.setAttribute('x2', c.l); grad.setAttribute('y2', c.b);
+
+    svg.querySelector('.ai-border-path').setAttribute('d', d);
+  }
+  drawAiBorder();
+  window.addEventListener('resize', drawAiBorder);
+
+  // Unified glow overlay for AI cluster
+  const aiCluster = document.querySelector('.svc-ai');
+  if (aiCluster) {
+    const glow = document.createElement('div');
+    glow.className = 'ai-glow-overlay';
+    aiCluster.appendChild(glow);
+    aiCluster.addEventListener('mousemove', (e) => {
+      const r = glow.getBoundingClientRect();
+      glow.style.setProperty('--mx', `${e.clientX - r.left}px`);
+      glow.style.setProperty('--my', `${e.clientY - r.top}px`);
+    });
+  }
+
+  document.querySelectorAll('.scard, .cases-card').forEach(card => {
     card.addEventListener('mousemove', (e) => {
       const r = card.getBoundingClientRect();
       card.style.setProperty('--mx', `${e.clientX - r.left}px`);
@@ -324,6 +407,7 @@ const i = t(lang);
     display: flex;
     flex-direction: column;
     overflow: visible;
+    position: relative;
   }
   .svc-row {
     display: flex;
@@ -335,6 +419,7 @@ const i = t(lang);
     flex: 1;
     min-width: 0;
   }
+
   .svc-points {
     flex: 1;
     display: flex;
@@ -430,7 +515,7 @@ const i = t(lang);
     margin: 0;
   }
 
-  /* ---- Cases card (inside ai-cluster, overlaps AI bottom and bleeds left) ---- */
+  /* ---- Cases card (overlapping offset below-left of the AI scard) ---- */
   .cases-card {
     display: flex;
     flex-direction: column;
@@ -450,19 +535,6 @@ const i = t(lang);
     position: relative;
     z-index: 3;
   }
-  .cases-card:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 12px 32px rgba(108,92,231,0.18);
-    border-color: rgba(108,92,231,0.55);
-    text-decoration: none;
-  }
-  .cases-eyebrow {
-    font-size: 0.7rem;
-    font-weight: 700;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--accent2);
-  }
   .cases-card h4 {
     font-size: 0.92rem;
     font-weight: 600;
@@ -470,6 +542,84 @@ const i = t(lang);
     color: var(--text);
     margin: 0;
     flex: 1;
+  }
+  .cases-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+      280px circle at var(--mx, -999px) var(--my, -999px),
+      rgba(108,92,231,0.13),
+      transparent 65%
+    );
+    opacity: 0;
+    transition: opacity 0.35s ease;
+    pointer-events: none;
+    border-radius: inherit;
+  }
+  .cases-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 32px rgba(108,92,231,0.18);
+    border-color: rgba(108,92,231,0.55);
+    text-decoration: none;
+  }
+  .cases-card:hover::before { opacity: 1; }
+
+  /* Remove individual borders — SVG draws the unified L-shape outline */
+  .svc-ai .scard {
+    border-color: transparent;
+    box-shadow: none;
+  }
+  /* Suppress per-card spotlight — unified overlay handles it */
+  .svc-ai .scard::before { display: none; }
+
+  .cases-card {
+    border-color: transparent;
+    box-shadow: none;
+    /* Top-right matches scard bg (seamless at overlap), bottom-left fades to blue */
+    background: linear-gradient(to bottom left, var(--bg-card) 25%, rgba(37,147,229,0.18) 80%);
+  }
+
+  /* Single glow overlay that spans the full L-shape */
+  .ai-glow-overlay {
+    position: absolute;
+    top: 0;
+    left: -2rem;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+    z-index: 5;
+    background: radial-gradient(320px circle at var(--mx, -9999px) var(--my, -9999px), rgba(108,92,231,0.13), transparent 65%);
+    opacity: 0;
+    transition: opacity 0.35s ease;
+  }
+  .svc-ai:hover .ai-glow-overlay { opacity: 1; }
+  .ai-border-svg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 1px;
+    height: 1px;
+    overflow: visible;
+    pointer-events: none;
+    z-index: 10;
+  }
+  .ai-border-path {
+    fill: none;
+    stroke-width: 1;
+    opacity: 0.7;
+    transition: opacity 0.25s ease;
+  }
+  .svc-ai:hover .ai-border-path {
+    opacity: 1;
+  }
+
+  .cases-eyebrow {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent2);
   }
   .cases-meta {
     display: flex;

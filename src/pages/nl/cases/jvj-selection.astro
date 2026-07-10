@@ -1,0 +1,599 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import CTA from '../../../components/CTA.astro';
+
+const lang = 'nl';
+---
+<Layout
+  title="JVJ Selection — Case Study"
+  description="Hoe Virge een webshop met referralsysteem bouwde voor Jas voor Jeugd, een Maastrichtse stichting die gedoneerde kleding herverdeelt aan jongeren in nood."
+  lang={lang}
+>
+  <aside class="header-overview" data-header-overview aria-label="Kopoverzicht">
+    <span class="header-overview-title">Overzicht</span>
+    <nav data-header-overview-list></nav>
+  </aside>
+
+  <article class="case-post">
+    <div class="container">
+      <a href={`/${lang}/cases/`} class="back-link">← Alle cases</a>
+
+      <header class="case-header">
+        <div class="case-eyebrow-row">
+          <span class="cases-eyebrow">Case Study</span>
+          <div class="case-tags">
+            <span class="tag">eCommerce</span>
+            <span class="tag">ShopVirge</span>
+            <span class="tag">Sociaal ondernemen</span>
+          </div>
+        </div>
+        <h1>JVJ Selection</h1>
+        <p class="case-subtitle">Een webshop met referralgate voor Jas voor Jeugd</p>
+        <div class="case-meta-row">
+          <div class="case-meta-item">
+            <span class="case-meta-label">Klant</span>
+            <span>Stichting LEFteam</span>
+          </div>
+          <div class="case-meta-item">
+            <span class="case-meta-label">Initiatief</span>
+            <span>Jas voor Jeugd</span>
+          </div>
+          <div class="case-meta-item">
+            <span class="case-meta-label">Stack</span>
+            <span>Next.js 14 · Stripe · WFO · ShopVirge</span>
+          </div>
+          <div class="case-meta-item">
+            <span class="case-meta-label">Live</span>
+            <a href="https://shop.jvjselection.nl" target="_blank" rel="noopener">shop.jvjselection.nl ↗</a>
+          </div>
+        </div>
+      </header>
+
+      <!--
+        SCREENSHOT 1 — Homepage / productoverzicht
+        Maak screenshot van: https://shop.jvjselection.nl/ op 1440px breedte
+        Sla op als: /public/images/cases/jvj/homepage.png
+        Vervang daarna de placeholder hieronder door:
+        <img src="/images/cases/jvj/homepage.png" alt="JVJ Selection homepage" class="case-screenshot" />
+      -->
+      <div class="screenshot-placeholder">
+        <span class="screenshot-icon">📸</span>
+        <p class="screenshot-label">Homepage — productoverzicht</p>
+        <p class="screenshot-hint">Screenshot op 1440px · opslaan als <code>/public/images/cases/jvj/homepage.png</code></p>
+      </div>
+
+      <div class="post-content case-content">
+        <h2>De uitdaging</h2>
+        <p>Stichting LEFteam runt Jas voor Jeugd: een programma dat gedoneerde kleding, schoenen en accessoires verzamelt bij Limburgse scholen en niet-opgeëiste spullen van de Universiteit Maastricht, en die vervolgens doorgeeft aan jongeren die ze nodig hebben. Zo'n 1.450 jongeren per jaar, 31 scholen betrokken, ruim 4.000 kilo aan spullen herverdeeld. De producten zijn gratis. Klanten betalen alleen de verzendkosten.</p>
+
+        <p>Een openbare webshop werkt niet voor dat model. De voorraad is niet voor iedereen: die is voor de jongeren die hun medewerkers actief begeleiden. Ze hadden een shop nodig die het afrekenen alleen opende voor mensen die waren doorverwezen door een begeleider of partnerorganisatie.</p>
+
+        <p>Dat bouwden we op ShopVirge.</p>
+      </div>
+
+      <div class="case-content">
+        <h2>Referral flow</h2>
+      </div>
+      <div class="referral-flow">
+          <div class="flow-step">
+            <div class="flow-num">1</div>
+            <div class="flow-body">
+              <span class="flow-actor">Begeleider</span>
+              <strong class="flow-title">Verwijzing ingediend</strong>
+              <p class="flow-desc">De begeleider vult het verwijzingsformulier in met de gegevens van de cliënt en de eigen organisatie.</p>
+            </div>
+          </div>
+          <div class="flow-arrow" aria-hidden="true"></div>
+          <div class="flow-step">
+            <div class="flow-num">2</div>
+            <div class="flow-body">
+              <span class="flow-actor">WFO</span>
+              <strong class="flow-title">Magische link verstuurd</strong>
+              <p class="flow-desc">Workflow Orchestrator maakt een abonnement aan en stuurt een verificatielink naar de jongere.</p>
+            </div>
+          </div>
+          <div class="flow-arrow" aria-hidden="true"></div>
+          <div class="flow-step">
+            <div class="flow-num">3</div>
+            <div class="flow-body">
+              <span class="flow-actor">Jongere</span>
+              <strong class="flow-title">Link geklikt</strong>
+              <p class="flow-desc">De jongere klikt de link. Verwijzing geverifieerd. Goedkeuringstoken opgeslagen in de browser.</p>
+            </div>
+          </div>
+          <div class="flow-arrow" aria-hidden="true"></div>
+          <div class="flow-step">
+            <div class="flow-num">4</div>
+            <div class="flow-body">
+              <span class="flow-actor">Webshop</span>
+              <strong class="flow-title">Winkelwagen ontgrendeld</strong>
+              <p class="flow-desc">De shop valideert het token. Zonder token is afrekenen geblokkeerd. Met token kan de jongere bestellen.</p>
+            </div>
+          </div>
+          <div class="flow-arrow" aria-hidden="true"></div>
+          <div class="flow-step">
+            <div class="flow-num">5</div>
+            <div class="flow-body">
+              <span class="flow-actor">Stripe</span>
+              <strong class="flow-title">Bestelling geplaatst</strong>
+              <p class="flow-desc">De jongere betaalt de verzendkosten via Stripe. Token verbruikt na afrekenen. Eenmalig gebruik.</p>
+            </div>
+          </div>
+      </div>
+
+      <div class="post-content case-content">
+        <h2>Checkout-controle</h2>
+        <!--
+          SCREENSHOT 2 — Referral / activatiepagina
+          Maak screenshot van: https://shop.jvjselection.nl/nl/account/activation/start op 1440px
+          Sla op als: /public/images/cases/jvj/referral.png
+          Vervang daarna de placeholder hieronder door:
+          <img src="/images/cases/jvj/referral.png" alt="JVJ Selection referral activatie" class="case-screenshot" />
+        -->
+        <div class="screenshot-placeholder">
+          <span class="screenshot-icon">📸</span>
+          <p class="screenshot-label">Referral-activatiepagina</p>
+          <p class="screenshot-hint">Screenshot op 1440px · opslaan als <code>/public/images/cases/jvj/referral.png</code></p>
+        </div>
+
+        <p>De referralflow loopt via Workflow Orchestrator. Een begeleider dient een verwijzing in voor een cliënt: diens gegevens, plus wie verwijst en vanuit welke organisatie. WFO maakt een JVJ Customer-abonnement aan en stuurt een magische link naar de jongere. Die klikt erop. De verwijzing is geverifieerd. Een goedkeuringstoken belandt in de browser. Vanaf dat moment kan de jongere afrekenen. Zonder token blokkeert de winkelwagen.</p>
+
+        <p>Het token is eenmalig bruikbaar. Na het plaatsen van een bestelling wordt het verbruikt.</p>
+
+        <h2>Live storefront</h2>
+        <!--
+          SCREENSHOT 3 — Productpagina of winkelwagen
+          Maak screenshot van een productpagina of de winkelwagen op 1440px
+          Sla op als: /public/images/cases/jvj/product.png
+          Vervang daarna de placeholder hieronder door:
+          <img src="/images/cases/jvj/product.png" alt="JVJ Selection product of winkelwagen" class="case-screenshot" />
+        -->
+        <div class="screenshot-placeholder">
+          <span class="screenshot-icon">📸</span>
+          <p class="screenshot-label">Productpagina of winkelwagen</p>
+          <p class="screenshot-hint">Screenshot op 1440px · opslaan als <code>/public/images/cases/jvj/product.png</code></p>
+        </div>
+
+        <p>ShopVirge regelt de rest: een Nederlandstalige webshop, een productcatalogus met kleding en schoenen, Stripe voor de betaling van verzendkosten, en een beheerinterface waarmee het LEFteam-team de catalogus beheert zonder code aan te raken. De shop draait uitsluitend in het Nederlands. Het platform ondersteunt meerdere talen, maar JVJ's doelgroep zijn Limburgse jongeren.</p>
+
+        <p>De shop is live op <a href="https://shop.jvjselection.nl" target="_blank" rel="noopener">shop.jvjselection.nl</a>.</p>
+      </div>
+
+      <CTA lang={lang} />
+    </div>
+  </article>
+</Layout>
+
+<script>
+  function slugifyHeading(text) {
+    return text
+      .toLowerCase()
+      .trim()
+      .replace(/[^a-z0-9]+/g, '-')
+      .replace(/^-+|-+$/g, '');
+  }
+
+  const overview = document.querySelector('[data-header-overview]');
+  const list = document.querySelector('[data-header-overview-list]');
+  const headings = Array.from(document.querySelectorAll('.case-post h2, .case-post h3'));
+  if (overview && list && headings.length) {
+    const usedIds = new Set();
+    headings.forEach((heading) => {
+      const base = heading.id || slugifyHeading(heading.textContent || 'section') || 'section';
+      let id = base;
+      let index = 2;
+      while (usedIds.has(id) || document.getElementById(id)) {
+        id = `${base}-${index}`;
+        index += 1;
+      }
+      usedIds.add(id);
+      heading.id = id;
+
+      const link = document.createElement('a');
+      link.href = `#${id}`;
+      link.textContent = heading.textContent || '';
+      link.className = heading.tagName.toLowerCase() === 'h3' ? 'is-subheading' : '';
+      list.appendChild(link);
+    });
+  } else {
+    overview?.remove();
+  }
+
+  function initCaseCodeCopy() {
+    const labels = { copy: 'Kopieer', copied: 'Gekopieerd', fallback: 'Code' };
+    const languageLabels = {
+      bash: 'Bash',
+      css: 'CSS',
+      dotenv: 'ENV',
+      html: 'HTML',
+      js: 'JavaScript',
+      json: 'JSON',
+      md: 'Markdown',
+      markdown: 'Markdown',
+      py: 'Python',
+      python: 'Python',
+      sh: 'Shell',
+      ts: 'TypeScript',
+      yaml: 'YAML',
+      yml: 'YAML',
+    };
+
+    function getCodeBlockTitle(pre) {
+      const code = pre.querySelector('code');
+      const languageClass = Array.from(code?.classList || [])
+        .find((className) => className.startsWith('language-'));
+      const language = languageClass?.replace('language-', '') || pre.dataset.language || '';
+      return languageLabels[language.toLowerCase()] || language.toUpperCase() || labels.fallback;
+    }
+
+    document.querySelectorAll('.case-post pre').forEach((pre) => {
+      if (pre.parentElement?.classList.contains('code-block-shell')) return;
+
+      const wrapper = document.createElement('div');
+      wrapper.className = 'code-block-shell article-illustration';
+      pre.parentNode?.insertBefore(wrapper, pre);
+
+      const toolbar = document.createElement('div');
+      toolbar.className = 'code-block-toolbar';
+
+      const title = document.createElement('span');
+      title.className = 'code-block-title';
+      title.textContent = getCodeBlockTitle(pre);
+
+      const button = document.createElement('button');
+      button.type = 'button';
+      button.className = 'code-copy-btn';
+      button.textContent = labels.copy;
+
+      toolbar.append(title, button);
+      wrapper.appendChild(toolbar);
+      wrapper.appendChild(pre);
+
+      button.addEventListener('click', async () => {
+        const code = pre.querySelector('code')?.textContent || pre.textContent || '';
+        try {
+          await navigator.clipboard.writeText(code);
+          button.textContent = labels.copied;
+          button.classList.add('is-copied');
+          window.setTimeout(() => {
+            button.textContent = labels.copy;
+            button.classList.remove('is-copied');
+          }, 1500);
+        } catch {
+          button.textContent = labels.copy;
+        }
+      });
+    });
+  }
+
+  function initCaseIllustrations() {
+    document
+      .querySelectorAll('.case-screenshot, .screenshot-placeholder, .referral-flow, .case-content img, .case-content svg, .case-content figure')
+      .forEach((element) => element.classList.add('article-illustration'));
+  }
+
+  initCaseCodeCopy();
+  initCaseIllustrations();
+
+  if (overview) {
+    const gap = 24;
+    let frame = 0;
+
+    function overlaps(a, b) {
+      return a.left < b.right + gap
+        && a.right > b.left - gap
+        && a.top < b.bottom
+        && a.bottom > b.top;
+    }
+
+    function updateOverviewPosition() {
+      frame = 0;
+      overview.style.setProperty('--overview-shift', '0px');
+
+      const overviewRect = overview.getBoundingClientRect();
+      if (!overviewRect.width || !overviewRect.height) return;
+
+      let targetLeft = overviewRect.left;
+      document
+        .querySelectorAll('.article-illustration, .case-screenshot, .screenshot-placeholder, .referral-flow')
+        .forEach((element) => {
+          const rect = element.getBoundingClientRect();
+          if (!rect.width || !rect.height) return;
+          if (!overlaps(overviewRect, rect)) return;
+          targetLeft = Math.min(targetLeft, rect.left - gap - overviewRect.width);
+        });
+
+      overview.style.setProperty('--overview-shift', `${targetLeft - overviewRect.left}px`);
+    }
+
+    function scheduleUpdate() {
+      if (frame) return;
+      frame = window.requestAnimationFrame(updateOverviewPosition);
+    }
+
+    scheduleUpdate();
+    window.addEventListener('load', scheduleUpdate, { once: true });
+    window.addEventListener('resize', scheduleUpdate);
+    window.addEventListener('scroll', scheduleUpdate, { passive: true });
+    document.querySelectorAll('img').forEach((image) => {
+      image.addEventListener('load', scheduleUpdate, { once: true });
+    });
+  }
+</script>
+
+<style>
+  .case-post {
+    --case-content-width: 720px;
+    --case-visual-width: 860px;
+    --case-flow-width: 1040px;
+    padding: 2rem 0 4rem;
+  }
+
+  .case-header {
+    margin-bottom: 3rem;
+    padding: 2rem;
+    border: 1px solid rgba(108,92,231,0.16);
+    border-radius: 12px;
+    background:
+      radial-gradient(circle at 84% 20%, rgba(168,85,247,0.18), transparent 28%),
+      linear-gradient(180deg, rgba(255,255,255,0.035), rgba(255,255,255,0.01));
+  }
+
+  .case-eyebrow-row {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .case-subtitle {
+    color: var(--text-muted);
+    font-size: 1.18rem;
+    margin-top: 0.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .case-meta-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem 2rem;
+    padding: 1.25rem 0;
+    border-top: 1px solid rgba(108,92,231,0.15);
+    border-bottom: 1px solid rgba(108,92,231,0.15);
+  }
+
+  .case-meta-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .case-meta-label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent2);
+  }
+
+  .case-meta-item span:not(.case-meta-label),
+  .case-meta-item a {
+    font-size: 0.9rem;
+    color: var(--text);
+  }
+
+  .case-content {
+    max-width: var(--case-content-width);
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .case-content h2 {
+    scroll-margin-top: 6rem;
+  }
+
+  .case-content code {
+    font-size: 0.85em;
+    background: rgba(108,92,231,0.12);
+    padding: 0.1em 0.4em;
+    border-radius: 4px;
+    color: var(--accent2);
+  }
+
+  .case-screenshot {
+    width: min(100%, var(--case-visual-width));
+    border-radius: var(--radius);
+    border: 1px solid rgba(108,92,231,0.15);
+    margin: 1.5rem auto;
+    display: block;
+  }
+
+  .screenshot-placeholder {
+    width: min(100%, var(--case-visual-width));
+    aspect-ratio: 16 / 9;
+    background: rgba(108,92,231,0.05);
+    border: 1px dashed rgba(108,92,231,0.3);
+    border-radius: var(--radius);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    margin: 1.5rem auto;
+    padding: 2rem;
+    text-align: center;
+  }
+
+  .screenshot-icon {
+    font-size: 2rem;
+    opacity: 0.5;
+  }
+
+  .screenshot-label {
+    color: var(--text);
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin: 0;
+  }
+
+  .screenshot-hint {
+    color: var(--text-muted);
+    font-size: 0.8rem;
+    margin: 0;
+  }
+
+  .screenshot-hint code {
+    font-size: 0.75em;
+    background: rgba(108,92,231,0.12);
+    padding: 0.1em 0.4em;
+    border-radius: 4px;
+    color: var(--accent2);
+  }
+
+  /* Referral flow diagram */
+  .referral-flow {
+    display: flex;
+    align-items: flex-start;
+    gap: 0;
+    width: min(100%, var(--case-flow-width));
+    margin: 2rem auto 2.5rem;
+    padding: 1.75rem;
+    border: 1px solid rgba(108,92,231,0.14);
+    border-radius: 12px;
+    background: rgba(18,18,42,0.36);
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .referral-flow::-webkit-scrollbar { display: none; }
+
+  .flow-step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+    flex: 1;
+    min-width: 130px;
+    text-align: center;
+  }
+
+  .flow-num {
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    color: #fff;
+    font-size: 0.85rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .flow-body {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    align-items: center;
+  }
+
+  .flow-actor {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent2);
+  }
+
+  .flow-title {
+    font-size: 0.96rem;
+    font-weight: 700;
+    color: var(--text);
+    display: block;
+  }
+
+  .flow-desc {
+    font-size: 0.88rem;
+    color: #fcf0e0;
+    line-height: 1.5;
+    margin: 0;
+    max-width: 155px;
+  }
+
+  .flow-arrow {
+    flex-shrink: 0;
+    width: 2rem;
+    align-self: center;
+    margin-bottom: 3.5rem;
+    position: relative;
+  }
+  .flow-arrow::after {
+    content: '';
+    display: block;
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    position: relative;
+  }
+  .flow-arrow::before {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%) translateX(0);
+    width: 0;
+    height: 0;
+    border-top: 4px solid transparent;
+    border-bottom: 4px solid transparent;
+    border-left: 6px solid var(--accent2);
+    margin-top: 0.5px;
+  }
+
+  @media (max-width: 768px) {
+    .case-meta-row { gap: 1rem; }
+
+    .referral-flow {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0;
+      padding: 1.25rem;
+    }
+
+    .flow-step {
+      flex-direction: row;
+      text-align: left;
+      align-items: flex-start;
+      min-width: unset;
+      gap: 1rem;
+      padding: 0.75rem 0;
+    }
+
+    .flow-body { align-items: flex-start; }
+    .flow-desc { max-width: none; }
+
+    .flow-arrow {
+      width: 1px;
+      height: 1.5rem;
+      align-self: flex-start;
+      margin-left: 1.1rem;
+      margin-bottom: 0;
+    }
+    .flow-arrow::after {
+      width: 1px;
+      height: 100%;
+      background: linear-gradient(180deg, var(--accent), var(--accent2));
+    }
+    .flow-arrow::before {
+      right: unset;
+      left: 50%;
+      top: unset;
+      bottom: 0;
+      transform: translateX(-50%) translateY(0);
+      border-left: 4px solid transparent;
+      border-right: 4px solid transparent;
+      border-top: 6px solid var(--accent2);
+      border-bottom: none;
+    }
+  }
+</style>

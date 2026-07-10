@@ -11,6 +11,11 @@ const readingTime = rawContent ? Math.ceil(rawContent().split(/\s+/).length / 20
 const dateLocale = lang === 'nl' ? 'nl-NL' : 'en-US';
 ---
 <Layout title={frontmatter.title} description={frontmatter.description} lang={lang}>
+  <aside class="header-overview" data-header-overview aria-label={lang === 'nl' ? 'Kopoverzicht' : 'Header overview'}>
+    <span class="header-overview-title">{lang === 'nl' ? 'Overzicht' : 'Overview'}</span>
+    <nav data-header-overview-list></nav>
+  </aside>
+
   <article class="blog-post">
     <div class="container">
       <a href={`/${lang}/blog/`} class="back-link">{i.blog.backToBlog}</a>
@@ -32,7 +37,7 @@ const dateLocale = lang === 'nl' ? 'nl-NL' : 'en-US';
         )}
       </header>
       {frontmatter.image && (
-        <img src={frontmatter.image} alt={frontmatter.title} class="post-hero-image" style={frontmatter.imagePosition ? `object-position: ${frontmatter.imagePosition}` : undefined} />
+        <img src={frontmatter.image} alt={frontmatter.title} class="post-hero-image article-illustration" style={frontmatter.imagePosition ? `object-position: ${frontmatter.imagePosition}` : undefined} />
       )}
       <div class="post-content">
         <slot />
@@ -41,3 +46,173 @@ const dateLocale = lang === 'nl' ? 'nl-NL' : 'en-US';
     </div>
   </article>
 </Layout>
+
+<script>
+  function slugifyHeading(text) {
+    return text
+      .toLowerCase()
+      .trim()
+      .replace(/[^a-z0-9]+/g, '-')
+      .replace(/^-+|-+$/g, '');
+  }
+
+  function initHeaderOverview() {
+    const overview = document.querySelector('[data-header-overview]');
+    const list = document.querySelector('[data-header-overview-list]');
+    const content = document.querySelector('.post-content');
+    if (!overview || !list || !content) return;
+
+    const headings = Array.from(content.querySelectorAll('h2, h3'));
+    if (!headings.length) {
+      overview.remove();
+      return;
+    }
+
+    const usedIds = new Set();
+    list.innerHTML = '';
+    headings.forEach((heading) => {
+      const base = heading.id || slugifyHeading(heading.textContent || 'section') || 'section';
+      let id = base;
+      let index = 2;
+      while (usedIds.has(id) || document.getElementById(id)) {
+        id = `${base}-${index}`;
+        index += 1;
+      }
+      usedIds.add(id);
+      heading.id = id;
+
+      const link = document.createElement('a');
+      link.href = `#${id}`;
+      link.textContent = heading.textContent || '';
+      link.className = heading.tagName.toLowerCase() === 'h3' ? 'is-subheading' : '';
+      list.appendChild(link);
+    });
+  }
+
+  function initCodeCopy() {
+    const labels = document.documentElement.lang === 'nl'
+      ? { copy: 'Kopieer', copied: 'Gekopieerd', fallback: 'Code' }
+      : { copy: 'Copy', copied: 'Copied', fallback: 'Code' };
+
+    const languageLabels = {
+      bash: 'Bash',
+      css: 'CSS',
+      dotenv: 'ENV',
+      html: 'HTML',
+      js: 'JavaScript',
+      json: 'JSON',
+      md: 'Markdown',
+      markdown: 'Markdown',
+      py: 'Python',
+      python: 'Python',
+      sh: 'Shell',
+      ts: 'TypeScript',
+      yaml: 'YAML',
+      yml: 'YAML',
+    };
+
+    function getCodeBlockTitle(pre) {
+      const code = pre.querySelector('code');
+      const languageClass = Array.from(code?.classList || [])
+        .find((className) => className.startsWith('language-'));
+      const language = languageClass?.replace('language-', '') || pre.dataset.language || '';
+      return languageLabels[language.toLowerCase()] || language.toUpperCase() || labels.fallback;
+    }
+
+    document.querySelectorAll('.post-content pre').forEach((pre) => {
+      if (pre.parentElement?.classList.contains('code-block-shell')) return;
+
+      const wrapper = document.createElement('div');
+      wrapper.className = 'code-block-shell article-illustration';
+      pre.parentNode?.insertBefore(wrapper, pre);
+
+      const toolbar = document.createElement('div');
+      toolbar.className = 'code-block-toolbar';
+
+      const title = document.createElement('span');
+      title.className = 'code-block-title';
+      title.textContent = getCodeBlockTitle(pre);
+
+      const button = document.createElement('button');
+      button.type = 'button';
+      button.className = 'code-copy-btn';
+      button.textContent = labels.copy;
+
+      toolbar.append(title, button);
+      wrapper.appendChild(toolbar);
+      wrapper.appendChild(pre);
+
+      button.addEventListener('click', async () => {
+        const code = pre.querySelector('code')?.textContent || pre.textContent || '';
+        try {
+          await navigator.clipboard.writeText(code);
+          button.textContent = labels.copied;
+          button.classList.add('is-copied');
+          window.setTimeout(() => {
+            button.textContent = labels.copy;
+            button.classList.remove('is-copied');
+          }, 1500);
+        } catch {
+          button.textContent = labels.copy;
+        }
+      });
+    });
+  }
+
+  function initArticleIllustrations() {
+    document
+      .querySelectorAll('.post-hero-image, .post-content img, .post-content svg, .post-content figure')
+      .forEach((element) => element.classList.add('article-illustration'));
+  }
+
+  function initOverviewCollisionGuard() {
+    const overview = document.querySelector('[data-header-overview]');
+    if (!overview) return;
+
+    const gap = 24;
+    let frame = 0;
+
+    function overlaps(a, b) {
+      return a.left < b.right + gap
+        && a.right > b.left - gap
+        && a.top < b.bottom
+        && a.bottom > b.top;
+    }
+
+    function updateOverviewPosition() {
+      frame = 0;
+      overview.style.setProperty('--overview-shift', '0px');
+
+      const overviewRect = overview.getBoundingClientRect();
+      if (!overviewRect.width || !overviewRect.height) return;
+
+      let targetLeft = overviewRect.left;
+      document.querySelectorAll('.article-illustration').forEach((element) => {
+        const rect = element.getBoundingClientRect();
+        if (!rect.width || !rect.height) return;
+        if (!overlaps(overviewRect, rect)) return;
+        targetLeft = Math.min(targetLeft, rect.left - gap - overviewRect.width);
+      });
+
+      overview.style.setProperty('--overview-shift', `${targetLeft - overviewRect.left}px`);
+    }
+
+    function scheduleUpdate() {
+      if (frame) return;
+      frame = window.requestAnimationFrame(updateOverviewPosition);
+    }
+
+    scheduleUpdate();
+    window.addEventListener('load', scheduleUpdate, { once: true });
+    window.addEventListener('resize', scheduleUpdate);
+    window.addEventListener('scroll', scheduleUpdate, { passive: true });
+    document.querySelectorAll('img').forEach((image) => {
+      image.addEventListener('load', scheduleUpdate, { once: true });
+    });
+  }
+
+  initHeaderOverview();
+  initCodeCopy();
+  initArticleIllustrations();
+  initOverviewCollisionGuard();
+</script>

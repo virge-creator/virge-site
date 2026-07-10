@@ -1,5 +1,6 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import CTA from '../../components/CTA.astro';
 
 const lang = 'en';
 ---
@@ -8,4 +9,158 @@ const lang = 'en';
     <h1>Our <span>Cases</span></h1>
     <p>Real-world projects we've delivered for our clients.</p>
   </div>
+
+  <section>
+    <div class="container">
+      <div class="cases-grid">
+
+        <a href={`/${lang}/cases/jvj-selection/`} class="case-card">
+          <div class="case-card-visual" aria-hidden="true">
+            <span>JVJ</span>
+            <div>
+              <strong>1,450</strong>
+              <small>youth yearly</small>
+            </div>
+          </div>
+          <div class="case-card-top">
+            <span class="cases-eyebrow">Case Study</span>
+            <div class="case-card-tags">
+              <span class="tag">eCommerce</span>
+              <span class="tag">ShopVirge</span>
+            </div>
+          </div>
+          <h3>JVJ Selection</h3>
+          <p>A referral-gated webshop for Jas voor Jeugd: a foundation that redistributes donated clothing to disadvantaged youth in Limburg. Only referred clients can check out.</p>
+          <div class="case-card-footer">
+            <div class="case-card-meta">
+              <span>Social enterprise</span>
+              <span class="cases-dot">·</span>
+              <span>Next.js 14 · WFO · Stripe</span>
+            </div>
+            <span class="cases-cta">Read case →</span>
+          </div>
+        </a>
+
+      </div>
+      <CTA lang={lang} />
+    </div>
+  </section>
 </Layout>
+
+<style>
+  .cases-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 360px), 1fr));
+    gap: 1.5rem;
+    padding: 2rem 0 4rem;
+  }
+
+  .case-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+    text-decoration: none;
+    color: inherit;
+    background:
+      linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.01)),
+      rgba(18,18,42,0.58);
+    border: 1px solid rgba(108,92,231,0.18);
+    border-radius: 12px;
+    padding: 1rem;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+  }
+
+  .case-card:hover {
+    border-color: rgba(168,85,247,0.45);
+    box-shadow: 0 18px 48px rgba(0,0,0,0.28), 0 0 28px rgba(108,92,231,0.12);
+    transform: translateY(-3px);
+    text-decoration: none;
+  }
+
+  .case-card-visual {
+    min-height: 170px;
+    border-radius: 8px;
+    padding: 1rem;
+    background:
+      radial-gradient(circle at 18% 20%, rgba(168,85,247,0.42), transparent 28%),
+      linear-gradient(135deg, #4833b8 0%, #2593e5 100%);
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 1rem;
+    overflow: hidden;
+  }
+
+  .case-card-visual > span {
+    color: rgba(255,255,255,0.18);
+    font-size: clamp(4rem, 11vw, 7rem);
+    font-weight: 900;
+    line-height: 0.8;
+    letter-spacing: 0;
+  }
+
+  .case-card-visual div {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    color: #fff;
+  }
+
+  .case-card-visual strong {
+    font-size: 1.6rem;
+    line-height: 1;
+  }
+
+  .case-card-visual small {
+    color: rgba(255,255,255,0.72);
+    font-size: 0.76rem;
+  }
+
+  .case-card-top {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
+
+  .case-card-tags {
+    display: flex;
+    gap: 0.4rem;
+    flex-wrap: wrap;
+  }
+
+  .case-card h3 {
+    font-size: 1.45rem;
+    font-weight: 700;
+    color: var(--text);
+    margin: 0;
+  }
+
+  .case-card p {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    line-height: 1.65;
+    margin: 0;
+    flex: 1;
+  }
+
+  .case-card-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-top: auto;
+    padding-top: 0.75rem;
+    border-top: 1px solid rgba(108,92,231,0.1);
+  }
+
+  .case-card-meta {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+  }
+</style>
