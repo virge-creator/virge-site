@@ -10,7 +10,15 @@ const i = t(lang);
 const readingTime = rawContent ? Math.ceil(rawContent().split(/\s+/).length / 200) : 5;
 const dateLocale = lang === 'nl' ? 'nl-NL' : 'en-US';
 ---
-<Layout title={frontmatter.title} description={frontmatter.description} lang={lang}>
+<Layout
+  title={frontmatter.title}
+  description={frontmatter.description}
+  lang={lang}
+  type="article"
+  image={frontmatter.image}
+  publishedDate={frontmatter.date}
+  author={frontmatter.author}
+>
   <aside class="header-overview" data-header-overview aria-label={lang === 'nl' ? 'Kopoverzicht' : 'Header overview'}>
     <span class="header-overview-title">{lang === 'nl' ? 'Overzicht' : 'Overview'}</span>
     <nav data-header-overview-list></nav>
@@ -24,7 +32,7 @@ const dateLocale = lang === 'nl' ? 'nl-NL' : 'en-US';
         <div class="post-meta">
           <span>{frontmatter.author}</span>
           <span>·</span>
-          <time>{new Date(frontmatter.date).toLocaleDateString(dateLocale, { year: 'numeric', month: 'long', day: 'numeric' })}</time>
+          <time datetime={new Date(frontmatter.date).toISOString().slice(0, 10)}>{new Date(frontmatter.date).toLocaleDateString(dateLocale, { year: 'numeric', month: 'long', day: 'numeric' })}</time>
           <span>·</span>
           <span>{readingTime} {i.blog.minRead}</span>
         </div>
