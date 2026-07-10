@@ -42,7 +42,7 @@ const i = t(lang);
             <div class="trace-dot"></div>
           </div>
           <div class="svc-pair">
-            <a href={`/${lang}/ai/`} class="scard reveal-card" style="--ghost: 'AI'; --delay: 0s">
+<a href={`/${lang}/ai/`} class="scard reveal-card" style="--ghost: 'AI'; --delay: 0s">
               <div class="scard-heading">
                 <span class="scard-num">01</span>
                 <h3>{i.home.aiTitle}</h3>
@@ -75,7 +75,7 @@ const i = t(lang);
             <div class="trace-dot"></div>
           </div>
           <div class="svc-pair">
-            <a href={`/${lang}/openclaw/`} class="scard reveal-card" style="--ghost: 'OC'; --delay: 0s">
+<a href={`/${lang}/openclaw/`} class="scard reveal-card" style="--ghost: 'OC'; --delay: 0s">
               <div class="scard-heading">
                 <span class="scard-num">02</span>
                 <h3>{i.home.openclawTitle}</h3>
@@ -108,7 +108,7 @@ const i = t(lang);
             <div class="trace-dot"></div>
           </div>
           <div class="svc-pair">
-            <a href={`/${lang}/sdn/`} class="scard reveal-card" style="--ghost: 'SDN'; --delay: 0s">
+<a href={`/${lang}/sdn/`} class="scard reveal-card" style="--ghost: 'SDN'; --delay: 0s">
               <div class="scard-heading">
                 <span class="scard-num">03</span>
                 <h3>{i.home.sdnTitle}</h3>
@@ -148,10 +148,11 @@ const i = t(lang);
 
   <!-- eCommerce banner -->
   <section class="ec-banner reveal">
-    <div class="ec-trace-cont" aria-hidden="true"></div>
     <div class="ec-table">
       <div class="ec-cell ec-cell-num"><span class="ec-num">04</span></div>
-      <div class="ec-cell ec-cell-title"><h3>{i.home.ecomTitle}</h3></div>
+      <div class="ec-cell ec-cell-title">
+        <h3>{i.home.ecomTitle} - ShopVirge</h3>
+      </div>
       <div class="ec-cell ec-cell-empty"></div>
       <div class="ec-cell ec-cell-empty"></div>
       <div class="ec-cell ec-cell-cosmetic-col"></div>
@@ -180,7 +181,8 @@ const i = t(lang);
       <div class="ec-cases-header">
         <span class="ec-cases-lead">Case studies</span>
         <div class="ec-cases-actions">
-          <a href={`/${lang}/ecommerce/`} class="btn-ghost ec-explore-btn">Explore eCommerce →</a>
+          <a href={`/${lang}/ecommerce/`} class="btn-ghost ec-explore-btn">Our eCommerce services →</a>
+          <a href="https://shopvirge.com/en/" target="_blank" rel="noopener" class="sv-launch-btn">Launch your store ↗</a>
           <div class="ec-cases-btns">
             <button class="ec-btn ec-btn-prev" aria-label="Previous">
               <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="13,4 7,10 13,16"/></svg>
@@ -192,35 +194,67 @@ const i = t(lang);
         </div>
       </div>
       <div class="ec-cases">
-        <a href={`/${lang}/ecommerce/`} class="ec-case">
+        <!-- 1: JVJ case study -->
+        <a href={`/${lang}/cases/jvj-selection/`} class="ec-case">
           <span class="cases-eyebrow">Case Study</span>
-          <h4>Scaling product content with AI across a 50k-SKU catalogue</h4>
-          <div class="cases-meta"><span>Jun 2026</span><span class="cases-dot">·</span><span>eCommerce · AI</span></div>
+          <h4>A referral-gated webshop for Jas voor Jeugd — free clothing for youth in Limburg</h4>
+          <div class="cases-meta"><span>2026</span><span class="cases-dot">·</span><span>ShopVirge · Charity</span></div>
           <span class="cases-cta">Read case →</span>
         </a>
-        <a href={`/${lang}/ecommerce/`} class="ec-case">
-          <span class="cases-eyebrow">Case Study</span>
-          <h4>ShopVirge: from brief to live store in under two weeks</h4>
-          <div class="cases-meta"><span>May 2026</span><span class="cases-dot">·</span><span>eCommerce · ShopVirge</span></div>
-          <span class="cases-cta">Read case →</span>
+
+        <!-- 2: JVJ live store -->
+        <a href="https://shop.jvjselection.nl/" target="_blank" rel="noopener" class="ec-case ec-case--store">
+          <span class="ec-ext-label">
+            <svg width="9" height="9" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 1h6v6M9 1L1 9"/></svg>
+            Live Store · ShopVirge
+          </span>
+          <h4>JVJ Selection — Jas voor Jeugd</h4>
+          <div class="cases-meta"><span>Limburg, NL</span><span class="cases-dot">·</span><span>Free clothing redistribution for youth</span></div>
+          <span class="cases-cta">Visit store ↗</span>
         </a>
-        <a href={`/${lang}/ecommerce/`} class="ec-case">
-          <span class="cases-eyebrow">Case Study</span>
-          <h4>Zero-downtime ERP ↔ storefront integration for a B2B retailer</h4>
-          <div class="cases-meta"><span>Apr 2026</span><span class="cases-dot">·</span><span>eCommerce · Integrations</span></div>
-          <span class="cases-cta">Read case →</span>
+
+        <!-- 3: Blog post 1 — TODO: replace href with actual slug -->
+        <a href="https://shopvirge.com/en/blog/" target="_blank" rel="noopener" class="ec-case ec-case--sv">
+          <span class="ec-ext-label">
+            <svg width="9" height="9" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 1h6v6M9 1L1 9"/></svg>
+            ShopVirge Blog
+          </span>
+          <h4>From brief to live store: how we ship a ShopVirge shop in under two weeks</h4>
+          <div class="cases-meta"><span>Jul 2026</span><span class="cases-dot">·</span><span>Platform · Launch</span></div>
+          <span class="cases-cta">Read post ↗</span>
         </a>
-        <a href={`/${lang}/ecommerce/`} class="ec-case">
-          <span class="cases-eyebrow">Case Study</span>
-          <h4>Automating reorder logic with AI agents for a fashion brand</h4>
-          <div class="cases-meta"><span>Mar 2026</span><span class="cases-dot">·</span><span>eCommerce · Automation</span></div>
-          <span class="cases-cta">Read case →</span>
+
+        <!-- 4: CO2 Tree live store -->
+        <a href="https://shop.co2-tree.eu/" target="_blank" rel="noopener" class="ec-case ec-case--store">
+          <span class="ec-ext-label">
+            <svg width="9" height="9" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 1h6v6M9 1L1 9"/></svg>
+            Live Store · ShopVirge
+          </span>
+          <h4>CO2 Tree</h4>
+          <div class="cases-meta"><span>Europe</span><span class="cases-dot">·</span><span>Sustainable products &amp; CO2 offsetting</span></div>
+          <span class="cases-cta">Visit store ↗</span>
         </a>
-        <a href={`/${lang}/ecommerce/`} class="ec-case">
-          <span class="cases-eyebrow">Case Study</span>
-          <h4>Multilingual storefront rollout across 6 markets in 3 months</h4>
-          <div class="cases-meta"><span>Feb 2026</span><span class="cases-dot">·</span><span>eCommerce · ShopVirge</span></div>
-          <span class="cases-cta">Read case →</span>
+
+        <!-- 5: Blog post 2 — TODO: replace href with actual slug -->
+        <a href="https://shopvirge.com/en/blog/" target="_blank" rel="noopener" class="ec-case ec-case--sv">
+          <span class="ec-ext-label">
+            <svg width="9" height="9" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 1h6v6M9 1L1 9"/></svg>
+            ShopVirge Blog
+          </span>
+          <h4>Multi-tenant theming with Next.js 14 and CSS variables — what we learned</h4>
+          <div class="cases-meta"><span>Jun 2026</span><span class="cases-dot">·</span><span>Engineering · Frontend</span></div>
+          <span class="cases-cta">Read post ↗</span>
+        </a>
+
+        <!-- 6: Blog post 3 — TODO: replace href with actual slug -->
+        <a href="https://shopvirge.com/en/blog/" target="_blank" rel="noopener" class="ec-case ec-case--sv">
+          <span class="ec-ext-label">
+            <svg width="9" height="9" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 1h6v6M9 1L1 9"/></svg>
+            ShopVirge Blog
+          </span>
+          <h4>ERP integrations that actually work: lessons from connecting Exact to a live storefront</h4>
+          <div class="cases-meta"><span>May 2026</span><span class="cases-dot">·</span><span>Integrations · ERP</span></div>
+          <span class="cases-cta">Read post ↗</span>
         </a>
       </div>
     </div>
@@ -234,6 +268,22 @@ const i = t(lang);
 </Layout>
 
 <script>
+  // Extend trace-rail through the ec-banner
+  function extendTraceRail() {
+    const rail = document.querySelector('.trace-rail');
+    const serviceList = document.querySelector('.service-list');
+    const ecBanner = document.querySelector('.ec-banner');
+    if (!rail || !serviceList || !ecBanner) return;
+    const listBottom = serviceList.getBoundingClientRect().bottom;
+    const title = ecBanner.querySelector('.ec-cell-title h3');
+    const target = title ? title.getBoundingClientRect().top : ecBanner.getBoundingClientRect().bottom;
+    const extension = target - listBottom;
+    rail.style.bottom = (extension > 0 ? -extension : 0) + 'px';
+  }
+  window.addEventListener('load', extendTraceRail);
+  window.addEventListener('resize', extendTraceRail);
+  extendTraceRail();
+
   // Scroll reveal
   const observer = new IntersectionObserver(
     (entries) => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('is-visible'); }),
@@ -253,7 +303,6 @@ const i = t(lang);
   // Trace glow — fixed viewport position, appears when line scrolls behind it
   (() => {
     const rail = document.querySelector('.trace-rail');
-    const ecCont = document.querySelector('.ec-trace-cont');
     if (!rail) return;
 
     // Inject styles globally — Astro scopes component <style>, so the
@@ -288,10 +337,7 @@ const i = t(lang);
       glow.style.left = `${r.left + 0.5}px`;
 
       const target = window.innerHeight * TARGET;
-      const segments = [r];
-      if (ecCont) segments.push(ecCont.getBoundingClientRect());
-
-      const onLine = segments.some(s => s.top <= target && s.bottom >= target);
+      const onLine = r.top <= target && r.bottom >= target;
       if (onLine !== visible) {
         visible = onLine;
         // Slow fade-in (0.9s + 0.2s delay), fast fade-out (0.12s)
@@ -471,7 +517,7 @@ const i = t(lang);
 
   /* ---- Services section ---- */
   .services-section { padding: 6rem 0 0; overflow: visible; }
-  .services-inner { padding: 0 5% 0 8%; }
+  .services-inner { padding: 0 5% 0 8%; max-width: 2000px; margin: 0 auto; }
   .section-intro { margin-bottom: 3rem; }
   .section-label {
     display: inline-block;
@@ -520,6 +566,7 @@ const i = t(lang);
   /* Each row */
   .svc-item {
     position: relative;
+    --trace-anchor-top: calc(2.5rem + 1.5rem + 1.68rem);
     padding: 2.5rem 0;
   }
   .svc-item + .svc-item {
@@ -530,7 +577,7 @@ const i = t(lang);
   .trace-anchor {
     position: absolute;
     left: -3rem;
-    top: 2.75rem;
+    top: calc(var(--trace-anchor-top) - 4px);
     width: 2rem;
     display: flex;
     flex-direction: column;
@@ -567,7 +614,7 @@ const i = t(lang);
 
   /* Minimal end node for 04 — no card, just the dot */
   .svc-item--end {
-    padding: 1rem 0 2rem;
+    padding: 1rem 0 0;
     border-top: 1px solid rgba(108,92,231,0.08);
   }
   .svc-item--end .trace-anchor { top: 1rem; }
@@ -578,6 +625,7 @@ const i = t(lang);
     grid-template-columns: 1fr 1fr;
     gap: 1.5rem;
     align-items: stretch;
+    position: relative;
   }
 
   /* ---- Cases card — muted dark style, subordinate to service cards ---- */
@@ -822,22 +870,6 @@ const i = t(lang);
   }
 
   /* ---- eCommerce banner ---- */
-  /* Trace continuation — terminates at the 04 label */
-  .ec-trace-cont {
-    position: absolute;
-    left: calc(8% + 1rem);
-    top: 0;
-    height: 7.5rem;
-    width: 1px;
-    background: linear-gradient(
-      to bottom,
-      var(--accent2) 0%,
-      var(--accent2) 80%,
-      transparent 100%
-    );
-    z-index: 2;
-    pointer-events: none;
-  }
   .ec-banner {
     display: flex;
     flex-direction: column;
@@ -926,12 +958,61 @@ const i = t(lang);
   .ec-case .cases-eyebrow, .ec-case .cases-cta { color: rgba(255,255,255,0.8); }
   .ec-case .cases-meta { color: rgba(255,255,255,0.6); }
 
+  .ec-cell-title { gap: 1.5rem; }
+  .sv-launch-btn {
+    display: inline-flex; align-items: center;
+    min-width: 150px;
+    padding: 0.55rem 1.35rem;
+    background: #2f45ff;
+    color: #fff;
+    border-radius: 50px;
+    font-size: 0.85rem; font-weight: 600;
+    text-decoration: none;
+    transition: background 0.2s ease, box-shadow 0.2s ease;
+  }
+  .sv-launch-btn:hover {
+    background: #1e30e0;
+    box-shadow: 0 0 18px 4px rgba(47,69,255,0.4);
+    text-decoration: none;
+    color: #fff;
+  }
+
+  /* External label (blog + store cards) */
+  .ec-ext-label {
+    display: flex; align-items: center; gap: 0.3rem;
+    font-size: 0.6rem; font-weight: 700; letter-spacing: 0.1em;
+    text-transform: uppercase; color: rgba(255,255,255,0.55);
+  }
+
+  /* ShopVirge blog card — #2f45ff brand blue */
+  .ec-case--sv {
+    background: linear-gradient(200deg, #0a0f3a 0%, #111966 55%, #1e2fa8 100%);
+  }
+  .ec-case--sv .ec-ext-label { color: #7b8fff; }
+  .ec-case--sv:hover {
+    box-shadow: inset 0 0 0 1.5px rgba(127,148,255,0.5),
+                0 0 18px 5px rgba(47,69,255,0.4),
+                0 0 44px 10px rgba(47,69,255,0.18);
+  }
+
+  /* Live store card — deeper blue-green tint */
+  .ec-case--store {
+    background: linear-gradient(200deg, #071228 0%, #0c1e48 55%, #143a6e 100%);
+  }
+  .ec-case--store .ec-ext-label { color: #6ab0ff; }
+  .ec-case--store:hover {
+    box-shadow: inset 0 0 0 1.5px rgba(106,176,255,0.5),
+                0 0 18px 5px rgba(20,58,110,0.6),
+                0 0 44px 10px rgba(37,147,229,0.2);
+  }
+
   /* ---- Mobile ---- */
   @media (max-width: 768px) {
     .services-inner { padding: 0 1rem; }
     .service-list { padding-left: 2.25rem; }
     .trace-rail { left: 0.75rem; }
-    .trace-anchor { left: -2.25rem; width: 1.5rem; top: 2rem; }
+    .svc-item { --trace-anchor-top: calc(1.75rem + 1.5rem + 1.68rem); }
+    .trace-anchor { left: -2.25rem; width: 1.5rem; }
     .svc-item:not(.svc-item--end) .trace-anchor::after { width: calc(1.5rem - 4px); }
     .svc-item { padding: 1.75rem 0; }
     .svc-pair {
@@ -939,8 +1020,7 @@ const i = t(lang);
       gap: 1rem;
     }
     .cases-card { margin-top: 0; }
-    .ec-trace-cont { left: calc(1rem + 0.75rem); }
-    .ec-table {
+.ec-table {
       grid-template-columns: 2.5rem 1fr;
       width: 100%;
     }
