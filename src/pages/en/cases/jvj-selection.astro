@@ -1,0 +1,471 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import CTA from '../../../components/CTA.astro';
+import FlowDiagram from '../../../components/FlowDiagram.astro';
+
+const lang = 'en';
+
+const referralSteps = [
+  {
+    actor: 'Case worker',
+    title: 'Referral submitted',
+    desc: "Case worker fills in the referral form with the client's details and their own organisation.",
+  },
+  {
+    actor: 'WFO',
+    title: 'Magic link sent',
+    desc: 'Workflow Orchestrator creates a subscription and emails a verification link to the young person.',
+  },
+  {
+    actor: 'Young person',
+    title: 'Link clicked',
+    desc: 'Client clicks the link. Referral verified. Approval token stored in the browser.',
+  },
+  {
+    actor: 'Shop',
+    title: 'Cart unlocked',
+    desc: 'The shop validates the token. Without it, checkout is blocked. With it, they can buy.',
+    rowBreak: true,
+  },
+  {
+    actor: 'Stripe',
+    title: 'Order placed',
+    desc: 'Client pays shipping via Stripe. Token consumed after checkout. Single use.',
+  },
+];
+---
+<Layout
+  title="JVJ Selection Case Study"
+  description="How Virge built a referral-gated webshop for Jas voor Jeugd, a Maastricht foundation that redistributes donated clothing to disadvantaged youth."
+  lang={lang}
+>
+  <aside class="header-overview" data-header-overview aria-label="Header overview">
+    <span class="header-overview-title">Overview</span>
+    <nav data-header-overview-list></nav>
+  </aside>
+
+  <article class="case-post">
+    <div class="container">
+      <a href={`/${lang}/cases/`} class="back-link">← All cases</a>
+
+      <header class="case-header">
+        <div class="case-eyebrow-row">
+          <span class="cases-eyebrow">Case Study</span>
+          <div class="case-tags">
+            <span class="tag">eCommerce</span>
+            <span class="tag">ShopVirge</span>
+            <span class="tag">Social enterprise</span>
+          </div>
+        </div>
+        <h1>JVJ Selection</h1>
+        <p class="case-subtitle">A referral-gated webshop for Jas voor Jeugd</p>
+
+        <div class="case-partner-logos">
+          <a href="https://jvjselection.nl" target="_blank" rel="noopener" class="partner-logo-wrap">
+            <img src="/images/cases/jvj-selection/jvj-logo.png" alt="JVJ Selection" class="partner-logo partner-logo--square" />
+          </a>
+          <a href="https://lefteam.nl" target="_blank" rel="noopener" class="partner-logo-wrap">
+            <img src="/images/cases/jvj-selection/lefteam-logo.png" alt="LEFteam" class="partner-logo" />
+          </a>
+          <a href="https://shopvirge.com" target="_blank" rel="noopener" class="partner-logo-wrap partner-logo-wrap--dark">
+            <img src="/images/cases/jvj-selection/shopvirge-logo.png" alt="ShopVirge" class="partner-logo partner-logo--square" />
+          </a>
+        </div>
+
+        <div class="case-meta-row">
+          <div class="case-meta-item">
+            <span class="case-meta-label">Client</span>
+            <span>Stichting LEFteam</span>
+          </div>
+          <div class="case-meta-item">
+            <span class="case-meta-label">Initiative</span>
+            <span>Jas voor Jeugd</span>
+          </div>
+          <div class="case-meta-item">
+            <span class="case-meta-label">Stack</span>
+            <span>Next.js 14 · Stripe · WFO · ShopVirge</span>
+          </div>
+          <div class="case-meta-item">
+            <span class="case-meta-label">Live</span>
+            <a href="https://shop.jvjselection.nl" target="_blank" rel="noopener">shop.jvjselection.nl ↗</a>
+          </div>
+        </div>
+      </header>
+
+      <img src="/images/cases/jvj/homepage.png" alt="JVJ Selection homepage — product grid" class="case-screenshot" />
+
+      <div class="post-content case-content">
+        <h2>The challenge</h2>
+        <p>Stichting LEFteam runs Jas voor Jeugd: a program that collects donated clothing, shoes, and accessories from Limburgian schools and unclaimed items from Universiteit Maastricht, then gets them to young people who need them. Around 1,450 youth a year, 31 schools involved, roughly 4,000 kg of items redistributed. The items are free. Customers pay only shipping.</p>
+
+        <p>A public webshop doesn't work for that model. The stock isn't for everyone: it's for the young people their case workers are actively supporting. They needed a shop that only opened its checkout to people who'd been referred by a social worker or partner organisation.</p>
+
+        <p>We built that on ShopVirge.</p>
+      </div>
+
+      <FlowDiagram
+        label="Referral flow"
+        headingLevel={2}
+        note="5 actors · single-use token"
+        steps={referralSteps}
+      />
+
+      <div class="post-content case-content">
+        <h2>Checkout control</h2>
+        <img src="/images/cases/jvj/referral.png" alt="JVJ Selection referral form" class="case-screenshot" />
+
+        <p>The referral flow runs through Workflow Orchestrator. A case worker submits a referral for a client: their details, plus who is referring them and from which organisation. WFO creates a JVJ Customer subscription and sends a magic link to the young person. They click it. Their referral is verified. An approval token lands in their browser. From that point, they can check out. Without it, the cart blocks them.</p>
+
+        <p>The token is single-use. Once they complete an order, it's consumed.</p>
+
+        <h2>Live storefront</h2>
+        <img src="/images/cases/jvj/product.png" alt="JVJ Selection shopping cart" class="case-screenshot" />
+
+        <p>ShopVirge handles the rest: a Dutch-language storefront, product catalog with clothing and shoes, Stripe for the shipping payment, and an admin interface the LEFteam team can use without touching code. The store runs in Dutch. The platform supports more languages, but JVJ's audience is Limburgian youth.</p>
+
+        <p>The store is live at <a href="https://shop.jvjselection.nl" target="_blank" rel="noopener">shop.jvjselection.nl</a>.</p>
+      </div>
+
+      <CTA lang={lang} />
+    </div>
+  </article>
+</Layout>
+
+<script>
+  function slugifyHeading(text) {
+    return text
+      .toLowerCase()
+      .trim()
+      .replace(/[^a-z0-9]+/g, '-')
+      .replace(/^-+|-+$/g, '');
+  }
+
+  const overview = document.querySelector('[data-header-overview]');
+  const list = document.querySelector('[data-header-overview-list]');
+  const headings = Array.from(document.querySelectorAll('.case-post h2, .case-post h3'))
+    .filter((h) => !h.closest('.cta'));
+  if (overview && list && headings.length) {
+    const usedIds = new Set();
+    headings.forEach((heading) => {
+      const base = heading.id || slugifyHeading(heading.textContent || 'section') || 'section';
+      let id = base;
+      let index = 2;
+      while (usedIds.has(id) || document.getElementById(id)) {
+        id = `${base}-${index}`;
+        index += 1;
+      }
+      usedIds.add(id);
+      heading.id = id;
+
+      const link = document.createElement('a');
+      link.href = `#${id}`;
+      link.textContent = heading.textContent || '';
+      link.className = heading.tagName.toLowerCase() === 'h3' ? 'is-subheading' : '';
+      list.appendChild(link);
+    });
+  } else {
+    overview?.remove();
+  }
+
+  function initCaseCodeCopy() {
+    const labels = { copy: 'Copy', copied: 'Copied', fallback: 'Code' };
+    const languageLabels = {
+      bash: 'Bash',
+      css: 'CSS',
+      dotenv: 'ENV',
+      html: 'HTML',
+      js: 'JavaScript',
+      json: 'JSON',
+      md: 'Markdown',
+      markdown: 'Markdown',
+      py: 'Python',
+      python: 'Python',
+      sh: 'Shell',
+      ts: 'TypeScript',
+      yaml: 'YAML',
+      yml: 'YAML',
+    };
+
+    function getCodeBlockTitle(pre) {
+      const code = pre.querySelector('code');
+      const languageClass = Array.from(code?.classList || [])
+        .find((className) => className.startsWith('language-'));
+      const language = languageClass?.replace('language-', '') || pre.dataset.language || '';
+      return languageLabels[language.toLowerCase()] || language.toUpperCase() || labels.fallback;
+    }
+
+    document.querySelectorAll('.case-post pre').forEach((pre) => {
+      if (pre.parentElement?.classList.contains('code-block-shell')) return;
+
+      const wrapper = document.createElement('div');
+      wrapper.className = 'code-block-shell article-illustration';
+      pre.parentNode?.insertBefore(wrapper, pre);
+
+      const toolbar = document.createElement('div');
+      toolbar.className = 'code-block-toolbar';
+
+      const title = document.createElement('span');
+      title.className = 'code-block-title';
+      title.textContent = getCodeBlockTitle(pre);
+
+      const button = document.createElement('button');
+      button.type = 'button';
+      button.className = 'code-copy-btn';
+      button.textContent = labels.copy;
+
+      toolbar.append(title, button);
+      wrapper.appendChild(toolbar);
+      wrapper.appendChild(pre);
+
+      button.addEventListener('click', async () => {
+        const code = pre.querySelector('code')?.textContent || pre.textContent || '';
+        try {
+          await navigator.clipboard.writeText(code);
+          button.textContent = labels.copied;
+          button.classList.add('is-copied');
+          window.setTimeout(() => {
+            button.textContent = labels.copy;
+            button.classList.remove('is-copied');
+          }, 1500);
+        } catch {
+          button.textContent = labels.copy;
+        }
+      });
+    });
+  }
+
+  function initCaseIllustrations() {
+    document
+      .querySelectorAll('.case-screenshot, .screenshot-placeholder, .case-content img, .case-content svg, .case-content figure')
+      .forEach((element) => element.classList.add('article-illustration'));
+  }
+
+  initCaseCodeCopy();
+  initCaseIllustrations();
+
+  if (overview) {
+    const gap = 24;
+    let frame = 0;
+
+    function overlaps(a, b) {
+      return a.left < b.right + gap
+        && a.right > b.left - gap
+        && a.top < b.bottom
+        && a.bottom > b.top;
+    }
+
+    function updateOverviewPosition() {
+      frame = 0;
+      overview.style.setProperty('--overview-shift', '0px');
+
+      const overviewRect = overview.getBoundingClientRect();
+      if (!overviewRect.width || !overviewRect.height) return;
+
+      let targetLeft = overviewRect.left;
+      document
+        .querySelectorAll('.article-illustration, .case-screenshot, .screenshot-placeholder')
+        .forEach((element) => {
+          const rect = element.getBoundingClientRect();
+          if (!rect.width || !rect.height) return;
+          if (!overlaps(overviewRect, rect)) return;
+          targetLeft = Math.min(targetLeft, rect.left - gap - overviewRect.width);
+        });
+
+      overview.style.setProperty('--overview-shift', `${targetLeft - overviewRect.left}px`);
+    }
+
+    function scheduleUpdate() {
+      if (frame) return;
+      frame = window.requestAnimationFrame(updateOverviewPosition);
+    }
+
+    scheduleUpdate();
+    window.addEventListener('load', scheduleUpdate, { once: true });
+    window.addEventListener('resize', scheduleUpdate);
+    window.addEventListener('scroll', scheduleUpdate, { passive: true });
+    document.querySelectorAll('img').forEach((image) => {
+      image.addEventListener('load', scheduleUpdate, { once: true });
+    });
+  }
+</script>
+
+<style>
+  .case-post {
+    --case-content-width: 720px;
+    --case-visual-width: 860px;
+    --case-flow-width: 1040px;
+    padding: 2rem 0 4rem;
+  }
+
+  .case-header {
+    margin-bottom: 3rem;
+    padding: 2rem;
+    border: 1px solid rgba(108,92,231,0.16);
+    border-radius: 12px;
+    background:
+      radial-gradient(circle at 84% 20%, rgba(168,85,247,0.18), transparent 28%),
+      linear-gradient(180deg, rgba(255,255,255,0.035), rgba(255,255,255,0.01));
+  }
+
+  .case-eyebrow-row {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .case-subtitle {
+    color: var(--text-muted);
+    font-size: 1.18rem;
+    margin-top: 0.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .case-meta-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem 2rem;
+    padding: 1.25rem 0;
+  }
+
+  .case-meta-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .case-meta-label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent2);
+  }
+
+  .case-meta-item span:not(.case-meta-label),
+  .case-meta-item a {
+    font-size: 0.9rem;
+    color: var(--text);
+  }
+
+  .case-content {
+    max-width: var(--case-content-width);
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .case-content h2 {
+    scroll-margin-top: 6rem;
+  }
+
+  .case-content code {
+    font-size: 0.85em;
+    background: rgba(108,92,231,0.12);
+    padding: 0.1em 0.4em;
+    border-radius: 4px;
+    color: var(--accent2);
+  }
+
+  .case-screenshot {
+    width: min(100%, var(--case-visual-width));
+    border-radius: var(--radius);
+    border: 1px solid rgba(108,92,231,0.15);
+    margin: 1.5rem auto;
+    display: block;
+  }
+
+  .screenshot-placeholder {
+    width: min(100%, var(--case-visual-width));
+    aspect-ratio: 16 / 9;
+    background: rgba(108,92,231,0.05);
+    border: 1px dashed rgba(108,92,231,0.3);
+    border-radius: var(--radius);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    margin: 1.5rem auto;
+    padding: 2rem;
+    text-align: center;
+  }
+
+  .screenshot-icon {
+    font-size: 2rem;
+    opacity: 0.5;
+  }
+
+  .screenshot-label {
+    color: var(--text);
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin: 0;
+  }
+
+  .screenshot-hint {
+    color: var(--text-muted);
+    font-size: 0.8rem;
+    margin: 0;
+  }
+
+  .screenshot-hint code {
+    font-size: 0.75em;
+    background: rgba(108,92,231,0.12);
+    padding: 0.1em 0.4em;
+    border-radius: 4px;
+    color: var(--accent2);
+  }
+
+  /* Partner logos */
+  .case-partner-logos {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+  }
+
+  .partner-logo-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 52px;
+    background: #fff;
+    border-radius: 8px;
+    padding: 0 0.9rem;
+    text-decoration: none;
+    transition: opacity 0.2s ease;
+  }
+
+  .partner-logo-wrap:hover {
+    opacity: 0.85;
+  }
+
+  .partner-logo {
+    height: 32px;
+    width: auto;
+    object-fit: contain;
+    display: block;
+  }
+
+  .partner-logo--square {
+    height: 36px;
+    width: 36px;
+    border-radius: 6px;
+  }
+
+  .partner-logo-wrap--dark {
+    background: transparent;
+    padding: 0;
+  }
+
+  .partner-logo-wrap--dark .partner-logo {
+    height: 52px;
+    width: 52px;
+  }
+
+  @media (max-width: 768px) {
+    .case-meta-row { gap: 1rem; }
+  }
+</style>

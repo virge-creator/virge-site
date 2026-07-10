@@ -9,9 +9,6 @@ image: "https://images.unsplash.com/photo-1518186285589-2f7649de83e0?w=800&h=450
 tags: ["ai","llm","self-hosted","workspace"]
 ---
 
-![](/images/anythingllm-workspace.png)
-
-
 Building a local AI application that can chat with your documents used to require assembling a Frankenstein's monster of tools: Ollama for running models, LangChain for orchestration, Chroma or Pinecone for vector storage, and a custom UI to tie it all together. Each piece has its own configuration, its own failure modes, and its own learning curve.
 
 **AnythingLLM** collapses that entire stack into a single application. Download it, run it, drag in your documents, and start chatting. No Python scripts, no Docker compose files, no terminal windows to babysit.

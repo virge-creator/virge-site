@@ -1,0 +1,39 @@
+---
+import { renderMermaidSVG } from 'beautiful-mermaid'
+
+interface Props {
+  diagram: string
+  label?: string
+}
+
+const VIRGE_THEME = {
+  bg: '#0d0d1f',
+  fg: '#f5f0e8',
+  accent: '#6c5ce7',
+  muted: '#8884aa',
+}
+
+const { diagram, label } = Astro.props
+const svg = renderMermaidSVG(diagram.trim(), VIRGE_THEME)
+---
+
+<figure class="mermaid-diagram article-illustration">
+  {label && <figcaption>{label}</figcaption>}
+  <Fragment set:html={svg} />
+</figure>
+
+<style>
+  .mermaid-diagram {
+    margin: 1.5rem auto 2.5rem;
+    overflow-x: auto;
+  }
+  .mermaid-diagram figcaption {
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent2);
+    text-align: center;
+    margin-bottom: 0.5rem;
+  }
+</style>

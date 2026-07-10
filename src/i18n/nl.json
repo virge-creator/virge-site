@@ -1,16 +1,18 @@
 {
   "nav": {
     "home": "Home",
+    "services": "Diensten",
     "ai": "AI Consulting",
     "sdn": "SDN",
     "ecommerce": "eCommerce",
     "blog": "Blog",
     "openclaw": "OpenClaw",
+    "cases": "Cases",
     "contact": "Contact",
     "jobs": "Vacatures"
   },
   "hero": {
-    "title": "Software oplossingen <span>die schalen</span>",
+    "title": "<span>Virge.</span><br/>Software oplossingen die schalen.",
     "description": "Virge.io levert deskundige consultancy en producten op het gebied van AI, Software Defined Networking en eCommerce. waarmee bedrijven veerkrachtige, toekomstbestendige technologie bouwen.",
     "cta": "Neem Contact Op"
   },

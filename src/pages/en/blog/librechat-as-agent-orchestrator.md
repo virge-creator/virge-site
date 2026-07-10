@@ -24,11 +24,16 @@ It's not a replacement for kagent or agentgateway, but LibreChat can sit comfort
 
 The setup follows a "planner + specialists" pattern: one orchestrator agent that routes requests, and specialist agents that each own a domain:
 
-```
-User
- └─► Orchestrator agent          (routes by intent)
-       ├─► Shop-admin agent      (catalog CRUD via shop MCP)
-       └─► WFO agent             (subscriptions/workflows via WFO MCP)
+```mermaid
+%%label: Agent Routing Architecture
+graph TD
+  User([User])
+  Orch[Orchestrator agent<br/>routes by intent]
+  Shop[Shop-admin agent<br/>catalog CRUD via shop MCP]
+  WFO[WFO agent<br/>subscriptions/workflows via WFO MCP]
+  User --> Orch
+  Orch --> Shop
+  Orch --> WFO
 ```
 
 In a proper Kubernetes setup with something like kagent, each of these would be a long-lived A2A endpoint with its own pod and network address. That gives you independent deployment and scaling, but it's a lot of infrastructure for a first proof of concept. LibreChat lets you skip all of that; agents live inside the same process, communicate internally, and share the user session without any network hops.
@@ -149,14 +154,17 @@ Neither agent fabricated a match when the data wasn't there, and neither could h
 
 The short version: every tool call reads the signed-in user's access token from MongoDB and substitutes it into the `Authorization` header before hitting your backend.
 
-```
-User sends a message
-  → LibreChat deserializes req.user from session
-  → Reads federatedTokens.access_token from MongoDB
-  → Substitutes it into the Authorization header defined in librechat.yaml
-  → Calls POST /mcp/ on the backend with that token
-  → Backend validates against the IdP's JWKS endpoint
-  → Backend enforces that user's group membership / permissions
+```mermaid
+%%label: Identity Flow per Tool Call
+graph TD
+  A([User sends a message])
+  B[Deserialize req.user from session]
+  C[Read federatedTokens.access_token from MongoDB]
+  D[Substitute token into Authorization header]
+  E[POST /mcp/ on backend]
+  F[Validate against IdP JWKS endpoint]
+  G[Enforce group membership and permissions]
+  A --> B --> C --> D --> E --> F --> G
 ```
 
 Authorization happens at the backend, not in LibreChat. LibreChat is a trusted forwarder; it doesn't make access decisions. You can't grant someone access by pointing them at a different agent; the backend rejects them based on their actual token.

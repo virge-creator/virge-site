@@ -1,0 +1,616 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import CTA from '../../../components/CTA.astro';
+import MermaidFlow from '../../../components/MermaidFlow.astro';
+
+const lang = 'en';
+
+const agentWorkflow = `
+%%label: Agent Workflow
+%%note: Discover · Build · Execute
+graph LR
+  Discover["Agent<br/>Discover<br/>Queries valid indexed paths matching user intent. Surfaces missing fields. Handles ambiguity before building the query."]
+  Build["Agent<br/>Build<br/>Constructs a typed query object: filters, sorting, aggregations. Structurally valid by construction. No SQL generated."]
+  Execute["System<br/>Execute<br/>Compiles the query to validated SQL and runs it. Returns a stable cursor for pagination, even if the data changes mid-session."]
+  Discover --> Build --> Execute
+`;
+---
+<Layout
+  title="SURF: Hybrid Search for Orchestrator-Core"
+  description="How Virge collaborated with SURF and Tim Fröhlich to build a schema-agnostic hybrid search system for orchestrator-core, funded by GÉANT. Shipped in v5.0."
+  lang={lang}
+>
+  <aside class="header-overview" data-header-overview aria-label="Header overview">
+    <span class="header-overview-title">Overview</span>
+    <nav data-header-overview-list></nav>
+  </aside>
+
+  <article class="case-post">
+    <div class="container">
+      <a href={`/${lang}/cases/`} class="back-link">← All cases</a>
+
+      <header class="case-header">
+        <div class="case-eyebrow-row">
+          <span class="cases-eyebrow">Case Study</span>
+          <div class="case-tags">
+            <span class="tag">AI Search</span>
+            <span class="tag">RAG</span>
+            <span class="tag">Open Source</span>
+            <span class="tag">Network Orchestration</span>
+          </div>
+        </div>
+        <h1>Hybrid search for Orchestrator-Core</h1>
+        <p class="case-subtitle">Schema-agnostic search for SURF's network infrastructure, shipped as open source in orchestrator-core v5.0</p>
+
+        <div class="case-partner-logos">
+          <a href="https://www.surf.nl" target="_blank" rel="noopener" class="partner-logo-wrap">
+            <img src="/images/cases/surf-orchestrator-core/surf-logo.png" alt="SURF" class="partner-logo" />
+          </a>
+          <a href="https://geant.org" target="_blank" rel="noopener" class="partner-logo-wrap">
+            <img src="/images/cases/surf-orchestrator-core/geant-logo.png" alt="GÉANT" class="partner-logo partner-logo--wide" />
+          </a>
+          <a href="https://github.com/workfloworchestrator" target="_blank" rel="noopener" class="partner-logo-wrap partner-logo-wrap--dark">
+            <img src="/images/cases/surf-orchestrator-core/wfo-logo.png" alt="Workflow Orchestrator" class="partner-logo partner-logo--square" />
+          </a>
+        </div>
+
+        <div class="case-meta-row">
+          <div class="case-meta-item">
+            <span class="case-meta-label">Client</span>
+            <span>SURF</span>
+          </div>
+          <div class="case-meta-item">
+            <span class="case-meta-label">Collaborator</span>
+            <span>Tim Fröhlich</span>
+          </div>
+          <div class="case-meta-item">
+            <span class="case-meta-label">Funded by</span>
+            <span>GÉANT GN5-2 Incubator</span>
+          </div>
+          <div class="case-meta-item">
+            <span class="case-meta-label">Stack</span>
+            <span>Python · PostgreSQL · pgvector · pg_trgm · ltree · PydanticAI</span>
+          </div>
+          <div class="case-meta-item">
+            <span class="case-meta-label">Released</span>
+            <a href="https://workfloworchestrator.org/orchestrator-core/" target="_blank" rel="noopener">orchestrator-core v5.0 ↗</a>
+          </div>
+          <div class="case-meta-item">
+            <span class="case-meta-label">GitHub</span>
+            <a href="https://github.com/workfloworchestrator" target="_blank" rel="noopener">workfloworchestrator ↗</a>
+          </div>
+        </div>
+      </header>
+
+      <div class="post-content case-content">
+        <h2>The challenge</h2>
+        <p><a href="https://workfloworchestrator.org/orchestrator-core/" target="_blank" rel="noopener">Orchestrator-core</a> is an open-source framework for managing product lifecycles and workflows for network infrastructure. It was built by and for the NREN community: National Research and Education Networks like SURF, which runs it to manage subscriptions, services, and configurations across more than 100 Dutch educational and research institutions, and GÉANT, the pan-European backbone that connects them all.</p>
+
+        <p>The problem was search. Orchestrator-core's domain models are user-defined: operators assemble products from reusable product blocks, which can nest arbitrarily. A single subscription can contain hundreds of attributes spread across deeply nested structures. The schema isn't fixed. It evolves whenever someone defines a new product type.</p>
+
+        <p>Traditional search doesn't work here. Elasticsearch needs a known schema. Static column indexes can't track a structure that doesn't exist until runtime. Simple <code>LIKE</code> queries don't understand meaning. For operators managing thousands of subscriptions, finding anything required clicking through nested pages by hand.</p>
+      </div>
+
+      <div class="post-content case-content">
+        <h2>The collaboration</h2>
+        <p>SURF initiated the project and secured funding through the GÉANT GN5-2 Incubator program. Tim Fröhlich designed and built the core search system. Virge contributed the AI agent layer: the type-safe query DSL, the PydanticAI integration, and the three-phase agent architecture that makes natural language search production-safe.</p>
+
+        <p>Small team. Six months. Shipped in orchestrator-core v5.0 under Apache 2.0.</p>
+      </div>
+
+      <div class="post-content case-content">
+        <h2>The solution</h2>
+        <p>Everything runs on PostgreSQL. No Elasticsearch cluster, no separate vector database, no extra infrastructure to operate or scale.</p>
+
+        <p>The foundation is Entity-Attribute-Value indexing with hierarchical paths. Instead of mapping dynamic schemas to fixed columns, each attribute gets its own index row: a path (stored with PostgreSQL's <code>ltree</code> extension), a typed value, and an optional embedding vector. A field like <code>product.interface.speed</code> becomes a traversable path. New product types are searchable the moment they're defined. No migrations, no reindexing.</p>
+
+        <p>Three retrievers run in parallel on top of that index:</p>
+        <ul>
+          <li><strong>pgvector</strong>: semantic search. Finds results by meaning, not just matching text.</li>
+          <li><strong>pg_trgm</strong>: fuzzy text matching. Catches typos, partial matches, and exact ID searches that semantic search would miss.</li>
+          <li><strong>Structured filters</strong>: typed predicates on dates, enums, booleans, and UUIDs.</li>
+        </ul>
+        <p>Reciprocal Rank Fusion merges all three into a single ranking. Each retriever contributes its own ordering; RRF combines them without score normalization. The result: a search that handles "amsterdam network" and "sub-550e8400" equally well.</p>
+      </div>
+
+      <!-- Architecture diagram -->
+      <div class="search-arch-diagram article-illustration">
+        <div class="diagram-bar">
+          <span class="diagram-label">Search architecture</span>
+          <span class="diagram-note">PostgreSQL-native · no external services</span>
+        </div>
+        <div class="arch-grid">
+          <!-- EAV index: spans all 3 retriever rows -->
+          <div class="arch-node arch-node-index arch-eav">
+            <span class="arch-node-label">EAV index</span>
+            <span class="arch-node-sub">ltree · typed values · embeddings</span>
+          </div>
+          <!-- Left fan-out: one arrow per retriever -->
+          <div class="arch-arr arch-lr1" aria-hidden="true"></div>
+          <div class="arch-arr arch-lr2" aria-hidden="true"></div>
+          <div class="arch-arr arch-lr3" aria-hidden="true"></div>
+          <!-- Retrievers: one per row -->
+          <div class="arch-node arch-node-retriever arch-r1">
+            <span class="arch-node-icon">&#x1F9E0;</span>
+            <span class="arch-node-label">pgvector</span>
+            <span class="arch-node-sub">semantic similarity</span>
+          </div>
+          <div class="arch-node arch-node-retriever arch-r2">
+            <span class="arch-node-icon">&#x1F50D;</span>
+            <span class="arch-node-label">pg_trgm</span>
+            <span class="arch-node-sub">fuzzy text</span>
+          </div>
+          <div class="arch-node arch-node-retriever arch-r3">
+            <span class="arch-node-icon">&#x1F3F7;</span>
+            <span class="arch-node-label">filters</span>
+            <span class="arch-node-sub">typed predicates</span>
+          </div>
+          <!-- Right fan-in: one arrow per retriever -->
+          <div class="arch-arr arch-rr1" aria-hidden="true"></div>
+          <div class="arch-arr arch-rr2" aria-hidden="true"></div>
+          <div class="arch-arr arch-rr3" aria-hidden="true"></div>
+          <!-- RRF: spans all 3 rows -->
+          <div class="arch-node arch-node-rrf arch-rrf">
+            <span class="arch-node-label">RRF</span>
+            <span class="arch-node-sub">Reciprocal Rank Fusion</span>
+          </div>
+          <!-- Final arrow + output: span all 3 rows -->
+          <div class="arch-arr arch-arr--final arch-final-arr" aria-hidden="true"></div>
+          <div class="arch-node arch-node-output arch-output">
+            <span class="arch-node-label">Ranked results</span>
+            <span class="arch-node-sub">cursor-paginated</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="post-content case-content">
+        <h2>Safe for AI agents</h2>
+        <p>Raw SQL generation by an LLM is a bad idea. One hallucinated <code>DROP TABLE</code> and the day is ruined. We built a Pydantic-based query DSL that compiles to validated SQL. The agent never touches query strings directly.</p>
+
+        <p>The same Pydantic models that define the DSL serve as typed tool parameters for PydanticAI. The agent fills in a structured form; the system compiles and validates it before anything reaches the database. The agent can construct filters, sorting, aggregations, and pagination, all without generating a single line of SQL.</p>
+
+        <p>The agent workflow runs in three phases:</p>
+      </div>
+
+      <MermaidFlow diagram={agentWorkflow} />
+
+      <div class="post-content case-content">
+        <p>This means an operator can ask "show me all 10Gbps interfaces in Amsterdam provisioned last month" and get back accurate, paginated results. No raw query involved.</p>
+
+        <h2>The outcome</h2>
+        <p>Hybrid search shipped in orchestrator-core v5.0, Apache 2.0. Any organization running orchestrator-core gets it out of the box. No configuration, no extra infrastructure. SURF's operators can now search across thousands of subscriptions and workflows in seconds.</p>
+
+        <p>Incremental indexing uses SHA-256 content hashing to skip re-embedding unchanged fields, so the index stays current without full rebuilds. Keyset pagination embeds a <code>(score, entity_id, query_id)</code> cursor so result sets stay stable even when the underlying data changes mid-session. The EAV approach scales to millions of indexed attributes across deeply nested schemas.</p>
+
+        <p>For the full technical write-up (EAV implementation, retriever routing, keyset pagination, and agent architecture), see Tim Fröhlich's post: <a href="https://timfrohlich.com/blog/postgresql-hybrid-search" target="_blank" rel="noopener">Building a Schema-Agnostic Hybrid Search System in PostgreSQL ↗</a></p>
+      </div>
+
+      <CTA lang={lang} />
+    </div>
+  </article>
+</Layout>
+
+<script>
+  function slugifyHeading(text) {
+    return text
+      .toLowerCase()
+      .trim()
+      .replace(/[^a-z0-9]+/g, '-')
+      .replace(/^-+|-+$/g, '');
+  }
+
+  const overview = document.querySelector('[data-header-overview]');
+  const list = document.querySelector('[data-header-overview-list]');
+  const headings = Array.from(document.querySelectorAll('.case-post h2, .case-post h3'))
+    .filter((h) => !h.closest('.cta'));
+  if (overview && list && headings.length) {
+    const usedIds = new Set();
+    headings.forEach((heading) => {
+      const base = heading.id || slugifyHeading(heading.textContent || 'section') || 'section';
+      let id = base;
+      let index = 2;
+      while (usedIds.has(id) || document.getElementById(id)) {
+        id = `${base}-${index}`;
+        index += 1;
+      }
+      usedIds.add(id);
+      heading.id = id;
+
+      const link = document.createElement('a');
+      link.href = `#${id}`;
+      link.textContent = heading.textContent || '';
+      link.className = heading.tagName.toLowerCase() === 'h3' ? 'is-subheading' : '';
+      list.appendChild(link);
+    });
+  } else {
+    overview?.remove();
+  }
+
+  function initCaseCodeCopy() {
+    const labels = { copy: 'Copy', copied: 'Copied', fallback: 'Code' };
+    const languageLabels = {
+      bash: 'Bash', css: 'CSS', dotenv: 'ENV', html: 'HTML',
+      js: 'JavaScript', json: 'JSON', md: 'Markdown', markdown: 'Markdown',
+      py: 'Python', python: 'Python', sh: 'Shell', ts: 'TypeScript',
+      yaml: 'YAML', yml: 'YAML',
+    };
+
+    function getCodeBlockTitle(pre) {
+      const code = pre.querySelector('code');
+      const languageClass = Array.from(code?.classList || [])
+        .find((c) => c.startsWith('language-'));
+      const language = languageClass?.replace('language-', '') || pre.dataset.language || '';
+      return languageLabels[language.toLowerCase()] || language.toUpperCase() || labels.fallback;
+    }
+
+    document.querySelectorAll('.case-post pre').forEach((pre) => {
+      if (pre.parentElement?.classList.contains('code-block-shell')) return;
+      const wrapper = document.createElement('div');
+      wrapper.className = 'code-block-shell article-illustration';
+      pre.parentNode?.insertBefore(wrapper, pre);
+      const toolbar = document.createElement('div');
+      toolbar.className = 'code-block-toolbar';
+      const title = document.createElement('span');
+      title.className = 'code-block-title';
+      title.textContent = getCodeBlockTitle(pre);
+      const button = document.createElement('button');
+      button.type = 'button';
+      button.className = 'code-copy-btn';
+      button.textContent = labels.copy;
+      toolbar.append(title, button);
+      wrapper.appendChild(toolbar);
+      wrapper.appendChild(pre);
+      button.addEventListener('click', async () => {
+        const code = pre.querySelector('code')?.textContent || pre.textContent || '';
+        try {
+          await navigator.clipboard.writeText(code);
+          button.textContent = labels.copied;
+          button.classList.add('is-copied');
+          window.setTimeout(() => {
+            button.textContent = labels.copy;
+            button.classList.remove('is-copied');
+          }, 1500);
+        } catch {
+          button.textContent = labels.copy;
+        }
+      });
+    });
+  }
+
+  function initCaseIllustrations() {
+    document
+      .querySelectorAll('.case-screenshot, .screenshot-placeholder, .search-arch-diagram, .case-content img, .case-content svg, .case-content figure')
+      .forEach((el) => el.classList.add('article-illustration'));
+  }
+
+  initCaseCodeCopy();
+  initCaseIllustrations();
+
+  if (overview) {
+    const gap = 24;
+    let frame = 0;
+
+    function overlaps(a, b) {
+      return a.left < b.right + gap && a.right > b.left - gap
+        && a.top < b.bottom && a.bottom > b.top;
+    }
+
+    function updateOverviewPosition() {
+      frame = 0;
+      overview.style.setProperty('--overview-shift', '0px');
+      const overviewRect = overview.getBoundingClientRect();
+      if (!overviewRect.width || !overviewRect.height) return;
+      let targetLeft = overviewRect.left;
+      document
+        .querySelectorAll('.article-illustration, .search-arch-diagram')
+        .forEach((el) => {
+          const rect = el.getBoundingClientRect();
+          if (!rect.width || !rect.height) return;
+          if (!overlaps(overviewRect, rect)) return;
+          targetLeft = Math.min(targetLeft, rect.left - gap - overviewRect.width);
+        });
+      overview.style.setProperty('--overview-shift', `${targetLeft - overviewRect.left}px`);
+    }
+
+    function scheduleUpdate() {
+      if (frame) return;
+      frame = window.requestAnimationFrame(updateOverviewPosition);
+    }
+
+    scheduleUpdate();
+    window.addEventListener('load', scheduleUpdate, { once: true });
+    window.addEventListener('resize', scheduleUpdate);
+    window.addEventListener('scroll', scheduleUpdate, { passive: true });
+  }
+</script>
+
+<style>
+  .case-post {
+    --case-content-width: 720px;
+    --case-visual-width: 860px;
+    --case-flow-width: 860px;
+    padding: 2rem 0 4rem;
+  }
+
+  .case-header {
+    margin-bottom: 3rem;
+    padding: 2rem;
+    border: 1px solid rgba(108,92,231,0.16);
+    border-radius: 12px;
+    background:
+      radial-gradient(circle at 84% 20%, rgba(168,85,247,0.18), transparent 28%),
+      linear-gradient(180deg, rgba(255,255,255,0.035), rgba(255,255,255,0.01));
+  }
+
+  .case-eyebrow-row {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .case-subtitle {
+    color: var(--text-muted);
+    font-size: 1.18rem;
+    margin-top: 0.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  /* Partner logos */
+  .case-partner-logos {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+  }
+
+  .partner-logo-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 52px;
+    background: #fff;
+    border-radius: 8px;
+    padding: 0 0.9rem;
+    text-decoration: none;
+    transition: opacity 0.2s ease;
+  }
+
+  .partner-logo-wrap:hover {
+    opacity: 0.85;
+  }
+
+  .partner-logo {
+    height: 32px;
+    width: auto;
+    object-fit: contain;
+    display: block;
+  }
+
+  .partner-logo--square {
+    height: 52px;
+    width: 52px;
+    border-radius: 8px;
+  }
+
+  .partner-logo-wrap--dark {
+    background: transparent;
+    padding: 0;
+  }
+
+  .case-meta-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem 2rem;
+    padding: 1.25rem 0;
+  }
+
+  .case-meta-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .case-meta-label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent2);
+  }
+
+  .case-meta-item span:not(.case-meta-label),
+  .case-meta-item a {
+    font-size: 0.9rem;
+    color: var(--text);
+  }
+
+  .case-content {
+    max-width: var(--case-content-width);
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .case-content h2 {
+    scroll-margin-top: 6rem;
+  }
+
+  .case-content code {
+    font-size: 0.85em;
+    background: rgba(108,92,231,0.12);
+    padding: 0.1em 0.4em;
+    border-radius: 4px;
+    color: var(--accent2);
+  }
+
+  .case-content ul {
+    padding-left: 1.25rem;
+    margin: 0.75rem 0 1rem;
+  }
+
+  .case-content ul li {
+    margin-bottom: 0.4rem;
+    line-height: 1.6;
+  }
+
+  /* Architecture diagram */
+  .search-arch-diagram {
+    width: min(100%, var(--case-visual-width));
+    margin: 1.5rem auto 2.5rem;
+    border: 1px solid rgba(108,92,231,0.14);
+    border-radius: 10px;
+    background: rgba(18,18,42,0.36);
+    overflow: hidden;
+  }
+
+  /* Caption bar matches FlowDiagram component */
+  .diagram-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    padding: 0.55rem 1rem;
+    background: rgba(108,92,231,0.1);
+    border-bottom: 1px solid rgba(108,92,231,0.14);
+  }
+
+  .diagram-label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: var(--accent2);
+    margin: 0;
+    line-height: 1;
+  }
+
+  .diagram-note {
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    line-height: 1;
+  }
+
+  /* Grid: EAV → [fan-out arrows] → retrievers → [fan-in arrows] → RRF → arrow → output */
+  .arch-grid {
+    display: grid;
+    grid-template-columns: auto 1.75rem 1fr 1.75rem auto 1.75rem auto;
+    grid-template-rows: repeat(3, 1fr);
+    align-items: center;
+    gap: 0.5rem 0;
+    padding: 1.25rem 1.5rem;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .arch-grid::-webkit-scrollbar { display: none; }
+
+  /* Grid placement */
+  .arch-eav        { grid-column: 1; grid-row: 1 / span 3; }
+  .arch-lr1        { grid-column: 2; grid-row: 1; }
+  .arch-lr2        { grid-column: 2; grid-row: 2; }
+  .arch-lr3        { grid-column: 2; grid-row: 3; }
+  .arch-r1         { grid-column: 3; grid-row: 1; }
+  .arch-r2         { grid-column: 3; grid-row: 2; }
+  .arch-r3         { grid-column: 3; grid-row: 3; }
+  .arch-rr1        { grid-column: 4; grid-row: 1; }
+  .arch-rr2        { grid-column: 4; grid-row: 2; }
+  .arch-rr3        { grid-column: 4; grid-row: 3; }
+  .arch-rrf        { grid-column: 5; grid-row: 1 / span 3; }
+  .arch-final-arr  { grid-column: 6; grid-row: 1 / span 3; align-self: center; }
+  .arch-output     { grid-column: 7; grid-row: 1 / span 3; }
+
+  /* Arrow cells horizontal lines with arrowhead */
+  .arch-arr {
+    height: 1px;
+    background: linear-gradient(90deg, rgba(108,92,231,0.45), rgba(168,85,247,0.75));
+    position: relative;
+    align-self: center;
+  }
+  .arch-arr::before {
+    content: '';
+    position: absolute;
+    right: -1px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 0; height: 0;
+    border-top: 3px solid transparent;
+    border-bottom: 3px solid transparent;
+    border-left: 5px solid rgba(168,85,247,0.75);
+  }
+  .arch-arr--final {
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+  }
+  .arch-arr--final::before {
+    border-left-color: var(--accent2);
+    border-top-width: 4px;
+    border-bottom-width: 4px;
+    border-left-width: 6px;
+  }
+
+  /* Nodes */
+  .arch-node {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.2rem;
+    padding: 0.65rem 0.9rem;
+    border-radius: 8px;
+    border: 1px solid rgba(108,92,231,0.22);
+    background: rgba(108,92,231,0.08);
+    text-align: center;
+  }
+
+  .arch-node-index {
+    border-color: rgba(168,85,247,0.3);
+    background: rgba(168,85,247,0.07);
+  }
+
+  .arch-node-rrf {
+    border-color: rgba(168,85,247,0.4);
+    background: rgba(168,85,247,0.12);
+  }
+
+  .arch-node-output {
+    border-color: rgba(108,231,130,0.3);
+    background: rgba(108,231,130,0.06);
+  }
+
+  .arch-node-icon { font-size: 1.1rem; }
+
+  .arch-node-label {
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: var(--text);
+  }
+
+  .arch-node-sub {
+    font-size: 0.68rem;
+    color: var(--text-muted);
+    line-height: 1.3;
+  }
+
+  @media (max-width: 768px) {
+    .case-meta-row { gap: 1rem; }
+
+    /* Stack arch grid vertically: EAV → retrievers (3) → RRF → output */
+    .arch-grid {
+      grid-template-columns: 1fr;
+      grid-template-rows: none;
+      gap: 0.5rem;
+      padding: 1rem;
+    }
+
+    .arch-eav        { grid-column: 1; grid-row: auto; }
+    .arch-lr1, .arch-lr2, .arch-lr3,
+    .arch-rr1, .arch-rr2, .arch-rr3  { display: none; }
+    .arch-r1         { grid-column: 1; grid-row: auto; }
+    .arch-r2         { grid-column: 1; grid-row: auto; }
+    .arch-r3         { grid-column: 1; grid-row: auto; }
+    .arch-rrf        { grid-column: 1; grid-row: auto; }
+    .arch-final-arr  { display: none; }
+    .arch-output     { grid-column: 1; grid-row: auto; }
+
+    .arch-node { width: 100%; }
+  }
+</style>

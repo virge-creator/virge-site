@@ -1,0 +1,354 @@
+---
+interface Step {
+  actor: string;
+  title: string;
+  desc: string;
+  rowBreak?: boolean;
+}
+
+interface Props {
+  label: string;
+  steps: Step[];
+  note?: string;
+  headingLevel?: 2 | 3;
+}
+
+const { label, steps, note, headingLevel } = Astro.props;
+
+// Assign global numbers and split into rows at rowBreak markers
+const numbered = steps.map((s, i) => ({ ...s, num: i + 1 }))
+const rows: (typeof numbered)[][] = [[]]
+for (const step of numbered) {
+  if (step.rowBreak && rows[rows.length - 1].length > 0) {
+    rows.push([step])
+  } else {
+    rows[rows.length - 1].push(step)
+  }
+}
+const isSnake = rows.length > 1
+// Longest row drives column count for ghost-spacer alignment
+const maxRowLen = Math.max(...rows.map(r => r.length))
+const isNarrow = maxRowLen <= 3
+---
+
+<div class={`flow-diagram article-illustration${isNarrow ? ' is-narrow' : ''}`}>
+  <div class="diagram-bar">
+    {headingLevel === 2 ? (
+      <h2 class="diagram-label">{label}</h2>
+    ) : headingLevel === 3 ? (
+      <h3 class="diagram-label">{label}</h3>
+    ) : (
+      <span class="diagram-label">{label}</span>
+    )}
+    {note && <span class="diagram-note">{note}</span>}
+  </div>
+
+  {isSnake ? (
+    <div class="flow-body" style={`--max-row:${maxRowLen}`}>
+      {rows.map((row, ri) => {
+        const isReverse = ri % 2 === 1
+        const ghosts = isReverse ? maxRowLen - row.length : 0
+        return (
+          <>
+            {ri > 0 && <div class="flow-turn" />}
+            <div class={isReverse ? 'flow-row is-reverse' : 'flow-row'}>
+              {row.map((step, i) => (
+                <>
+                  <div class="flow-step">
+                    <div class="step-num">{step.num}</div>
+                    <div class="step-content">
+                      <span class="step-actor">{step.actor}</span>
+                      <strong class="step-title">{step.title}</strong>
+                      <p class="step-desc">{step.desc}</p>
+                    </div>
+                  </div>
+                  {i < row.length - 1 && (
+                    <div class={isReverse ? 'flow-arrow is-left' : 'flow-arrow'} aria-hidden="true" />
+                  )}
+                </>
+              ))}
+              {/* Ghost items fill missing columns so step4 aligns under step3.
+                  In row-reverse these appear at the visual START (left side). */}
+              {Array.from({ length: ghosts }).map(() => (
+                <>
+                  <div class="flow-arrow flow-arrow--ghost" aria-hidden="true" />
+                  <div class="flow-step flow-step--ghost" aria-hidden="true" />
+                </>
+              ))}
+            </div>
+          </>
+        )
+      })}
+    </div>
+  ) : (
+    <div class="flow-track">
+      {steps.map((step, i) => (
+        <>
+          <div class="flow-step">
+            <div class="step-num">{i + 1}</div>
+            <div class="step-content">
+              <span class="step-actor">{step.actor}</span>
+              <strong class="step-title">{step.title}</strong>
+              <p class="step-desc">{step.desc}</p>
+            </div>
+          </div>
+          {i < steps.length - 1 && (
+            <div class="flow-arrow" aria-hidden="true"></div>
+          )}
+        </>
+      ))}
+    </div>
+  )}
+</div>
+
+<style>
+  .flow-diagram {
+    width: min(100%, var(--case-flow-width, 1040px));
+  }
+
+  .flow-diagram.is-narrow {
+    width: min(100%, var(--article-content-width, 760px));
+    margin: 1.5rem auto 2.5rem;
+    border: 1px solid rgba(108,92,231,0.14);
+    border-radius: 10px;
+    background: rgba(18,18,42,0.36);
+    overflow: hidden;
+  }
+
+  .diagram-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    padding: 0.55rem 1rem;
+    background: rgba(108,92,231,0.1);
+    border-bottom: 1px solid rgba(108,92,231,0.14);
+  }
+
+  .diagram-label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: var(--accent2);
+    margin: 0;
+    line-height: 1;
+  }
+
+  .diagram-note {
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    line-height: 1;
+  }
+
+  /* ── Single-row layout ──────────────────────────────────────── */
+  .flow-track {
+    display: flex;
+    align-items: flex-start;
+    padding: 1.5rem 1.75rem;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .flow-track::-webkit-scrollbar { display: none; }
+
+  /* ── Snake (multi-row) layout ───────────────────────────────── */
+  .flow-body {
+    padding: 1.5rem 1.75rem;
+  }
+
+  .flow-row {
+    display: flex;
+    align-items: flex-start;
+  }
+
+  /* Reversed row: step 4 rightmost (aligns under step 3), step 5 to its left */
+  .flow-row.is-reverse {
+    flex-direction: row-reverse;
+  }
+
+  /* Ghost items are invisible but take up the same space as real items,
+     forcing step 4 to align perfectly under step 3. */
+  .flow-step--ghost,
+  .flow-arrow--ghost {
+    visibility: hidden;
+    pointer-events: none;
+  }
+
+  /* Vertical turn connector between rows.
+     Positioned at the center of the rightmost column:
+     right = (content_width - (maxRow-1)*arrow_width) / (maxRow*2)
+     For maxRow=3, arrows=2rem each: right ≈ (100% - 4rem) / 6 */
+  .flow-turn {
+    height: 2.25rem;
+    position: relative;
+  }
+  .flow-turn::after {
+    content: '';
+    position: absolute;
+    right: calc((100% - 4rem) / 6);
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background: linear-gradient(180deg, var(--accent), var(--accent2));
+  }
+  .flow-turn::before {
+    content: '';
+    position: absolute;
+    right: calc((100% - 4rem) / 6 - 4.5px);
+    bottom: 0;
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 7px solid var(--accent2);
+  }
+
+  /* ── Shared step styles ─────────────────────────────────────── */
+  .flow-step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+    flex: 1;
+    min-width: 130px;
+    text-align: center;
+  }
+
+  .step-num {
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    color: #fff;
+    font-size: 0.85rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .step-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    align-items: center;
+  }
+
+  .step-actor {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent2);
+  }
+
+  .step-title {
+    font-size: 0.96rem;
+    font-weight: 700;
+    color: var(--text);
+    display: block;
+  }
+
+  .step-desc {
+    font-size: 0.88rem;
+    color: #fcf0e0;
+    line-height: 1.5;
+    margin: 0;
+    max-width: 155px;
+  }
+
+  /* ── Arrow styles ───────────────────────────────────────────── */
+  .flow-arrow {
+    flex-shrink: 0;
+    width: 2rem;
+    align-self: center;
+    margin-bottom: 3.5rem;
+    position: relative;
+  }
+  .flow-arrow::after {
+    content: '';
+    display: block;
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+  }
+  /* Right-pointing arrowhead (default) */
+  .flow-arrow::before {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 0;
+    height: 0;
+    border-top: 4px solid transparent;
+    border-bottom: 4px solid transparent;
+    border-left: 6px solid var(--accent2);
+    margin-top: 0.5px;
+  }
+  /* Left-pointing arrowhead (reversed row) */
+  .flow-arrow.is-left::after {
+    background: linear-gradient(270deg, var(--accent), var(--accent2));
+  }
+  .flow-arrow.is-left::before {
+    right: auto;
+    left: 0;
+    border-left: none;
+    border-right: 6px solid var(--accent2);
+  }
+
+  /* ── Mobile: collapse to vertical ─────────────────────────────── */
+  @media (max-width: 768px) {
+    .flow-track,
+    .flow-row,
+    .flow-row.is-reverse {
+      flex-direction: column;
+    }
+
+    .flow-body { padding: 0.5rem 1.25rem; }
+    .flow-row { padding: 0.5rem 0; }
+
+    .flow-turn,
+    .flow-step--ghost,
+    .flow-arrow--ghost { display: none; }
+
+    .flow-step {
+      flex-direction: row;
+      text-align: left;
+      align-items: flex-start;
+      min-width: unset;
+      gap: 1rem;
+      padding: 0.75rem 0;
+    }
+    .step-content { align-items: flex-start; }
+    .step-desc { max-width: none; }
+
+    .flow-arrow,
+    .flow-arrow.is-left {
+      width: 1px;
+      height: 1.5rem;
+      align-self: flex-start;
+      margin-left: 1.1rem;
+      margin-bottom: 0;
+    }
+    .flow-arrow::after,
+    .flow-arrow.is-left::after {
+      width: 1px;
+      height: 100%;
+      background: linear-gradient(180deg, var(--accent), var(--accent2));
+    }
+    .flow-arrow::before,
+    .flow-arrow.is-left::before {
+      right: unset;
+      left: 50%;
+      top: unset;
+      bottom: 0;
+      transform: translateX(-50%);
+      border-left: 4px solid transparent;
+      border-right: 4px solid transparent;
+      border-top: 6px solid var(--accent2);
+      border-bottom: none;
+    }
+  }
+</style>

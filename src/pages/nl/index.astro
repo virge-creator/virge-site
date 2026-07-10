@@ -7,37 +7,1075 @@ const lang = 'nl';
 const i = t(lang);
 ---
 <Layout title="Home" lang={lang}>
-  <div class="hero">
-    <h1><Fragment set:html={i.hero.title} /></h1>
-    <p>{i.hero.description}</p>
-    <a href={`/${lang}/contact/`} class="btn">{i.hero.cta}</a>
+
+  <!-- Hero -->
+  <div class="hero-wrap">
+    <div class="hero-bg">
+      <div class="orb orb-1"></div>
+      <div class="orb orb-2"></div>
+      <div class="dot-grid"></div>
+    </div>
+    <div class="hero-inner">
+      <span class="hero-eyebrow">AI · SDN · eCommerce</span>
+      <h1><Fragment set:html={i.hero.title} /></h1>
+      <p>{i.hero.description}</p>
+      <div class="hero-actions">
+        <a href={`/${lang}/contact/`} class="btn">{i.hero.cta}</a>
+      </div>
+    </div>
   </div>
 
-  <section>
-    <div class="container">
-      <h2>{i.home.whatWeDo}</h2>
-      <div class="cards">
-        <a href={`/${lang}/ai/`} class="card" style="text-decoration:none;color:inherit">
-          <h3>{i.home.aiTitle}</h3>
-          <p>{i.home.aiDesc}</p>
+  <!-- Services -->
+  <section class="services-section">
+    <div class="services-inner">
+      <div class="section-intro reveal">
+        <span class="section-label">{i.home.whatWeDo}</span>
+        <h2>Gebouwd voor schaal,<br/>ontworpen voor de praktijk.</h2>
+      </div>
+
+      <div class="service-list">
+        <div class="trace-rail" aria-hidden="true"></div>
+
+        <!-- 01: SDN -->
+        <div class="svc-item reveal">
+          <div class="trace-anchor">
+            <div class="trace-dot"></div>
+          </div>
+          <div class="svc-pair">
+<a href={`/${lang}/sdn/`} class="scard reveal-card" style="--ghost: 'SDN'; --delay: 0s">
+              <div class="scard-heading">
+                <span class="scard-num">01</span>
+                <h3>{i.home.sdnTitle}</h3>
+                <span class="scard-arrow">→</span>
+              </div>
+              <p>{i.home.sdnDesc}</p>
+              <ul class="scard-bullets">
+                <li>Netwerkautomatisering</li>
+                <li>WFO-platform</li>
+                <li>Infrastructure as code</li>
+              </ul>
+            </a>
+            <a href="/en/cases/surf-orchestrator-core/" class="cases-card reveal-card" style="--delay: 0.1s">
+              <div class="cc-logos">
+                <img src="/images/cases/surf-orchestrator-core/surf-logo.png" alt="SURF" class="cc-logo" />
+                <span class="cc-logo-divider"></span>
+                <img src="/images/cases/surf-orchestrator-core/geant-logo.png" alt="GÉANT" class="cc-logo" />
+                <span class="cc-badge">Case study</span>
+              </div>
+              <h4>Hybrid search voor SURF's Orchestrator-Core</h4>
+              <div class="cases-meta">
+                <span>Feb 2026</span><span class="cases-dot">·</span><span>SDN · WFO</span>
+              </div>
+              <span class="cases-cta">Lees case →</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- 02: AI -->
+        <div class="svc-item reveal">
+          <div class="trace-anchor">
+            <div class="trace-dot"></div>
+          </div>
+          <div class="svc-pair">
+<a href={`/${lang}/ai/`} class="scard reveal-card" style="--ghost: 'AI'; --delay: 0s">
+              <div class="scard-heading">
+                <span class="scard-num">02</span>
+                <h3>{i.home.aiTitle}</h3>
+                <span class="scard-arrow">→</span>
+              </div>
+              <p>{i.home.aiDesc}</p>
+              <ul class="scard-bullets">
+                <li>Vector databases &amp; RAG</li>
+                <li>AI-native integraties</li>
+                <li>Productiesystemen</li>
+              </ul>
+            </a>
+            <a href={`/${lang}/blog/librechat-as-agent-orchestrator/`} class="cases-card reveal-card" style="--delay: 0.1s">
+              <div class="cc-img">
+                <img src="/images/librechat-agent-orchestrator.png" alt="" loading="lazy">
+                <span class="cc-badge">Case study</span>
+              </div>
+              <h4>WFO-agent opzetten met LibreChat: geen Kubernetes vereist</h4>
+              <div class="cases-meta">
+                <span>Jul 2026</span><span class="cases-dot">·</span><span>AI · LibreChat</span>
+              </div>
+              <span class="cases-cta">Lees case →</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- 03: OpenClaw -->
+        <div class="svc-item reveal">
+          <div class="trace-anchor">
+            <div class="trace-dot"></div>
+          </div>
+          <div class="svc-pair">
+<a href={`/${lang}/openclaw/`} class="scard reveal-card" style="--ghost: 'OC'; --delay: 0s">
+              <div class="scard-heading">
+                <span class="scard-num">03</span>
+                <h3>{i.home.openclawTitle}</h3>
+                <span class="scard-arrow">→</span>
+              </div>
+              <p>{i.home.openclawDesc}</p>
+              <ul class="scard-bullets">
+                <li>Self-hosted AI</li>
+                <li>Managed hosting</li>
+                <li>Bedrijfsautomatisering</li>
+              </ul>
+            </a>
+            <a href={`/${lang}/openclaw/`} class="cases-card reveal-card" style="--delay: 0.1s">
+              <div class="cc-img">
+                <img src="/images/anythingllm-workspace.png" alt="" loading="lazy">
+                <span class="cc-badge">Case study</span>
+              </div>
+              <h4>Beveiligde self-hosted AI-werkplek voor een juridisch kantoor in vier dagen</h4>
+              <div class="cases-meta">
+                <span>Apr 2026</span><span class="cases-dot">·</span><span>OpenClaw · Self-hosted</span>
+              </div>
+              <span class="cases-cta">Lees case →</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- 04: eCommerce terminal node only, card is the ec-banner below -->
+        <div class="svc-item svc-item--terminal svc-item--end">
+          <div class="trace-anchor trace-anchor--terminal">
+            <div class="trace-dot"></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- eCommerce banner -->
+  <section class="ec-banner reveal">
+    <div class="ec-table">
+      <div class="ec-cell ec-cell-num"><span class="ec-num">04</span></div>
+      <div class="ec-cell ec-cell-title">
+        <h3>{i.home.ecomTitle} - ShopVirge</h3>
+      </div>
+      <div class="ec-cell ec-cell-empty"></div>
+      <div class="ec-cell ec-cell-empty"></div>
+      <div class="ec-cell ec-cell-cosmetic-col"></div>
+      <div class="ec-cell ec-cell-blank"></div>
+      <div class="ec-cell ec-cell-sub"><p>{i.home.ecomDesc}</p></div>
+      <div class="ec-cell ec-cell-bullets">
+        <ul class="svc-points-list">
+          <li>Content as a Service</li>
+          <li>ShopVirge webshop</li>
+        </ul>
+      </div>
+      <div class="ec-cell ec-cell-bullets">
+        <ul class="svc-points-list">
+          <li>ERP- &amp; CRM-integraties</li>
+          <li>AI-productbeschrijvingen</li>
+        </ul>
+      </div>
+      <div class="ec-cell ec-cell-cosmetic-col"></div>
+      <div class="ec-cell ec-cell-cosmetic-row"></div>
+      <div class="ec-cell ec-cell-cosmetic-row"></div>
+      <div class="ec-cell ec-cell-cosmetic-row"></div>
+      <div class="ec-cell ec-cell-cosmetic-row"></div>
+      <div class="ec-cell ec-cell-cosmetic-row"></div>
+    </div>
+    <div class="ec-banner-bottom">
+      <div class="ec-cases-header">
+        <span class="ec-cases-lead">Case studies</span>
+        <div class="ec-cases-actions">
+          <a href={`/${lang}/ecommerce/`} class="btn-ghost ec-explore-btn">Onze eCommerce-diensten →</a>
+          <a href="https://shopvirge.com/nl/" target="_blank" rel="noopener" class="sv-launch-btn">Lanceer je winkel ↗</a>
+          <div class="ec-cases-btns">
+            <button class="ec-btn ec-btn-prev" aria-label="Vorige">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="13,4 7,10 13,16"/></svg>
+            </button>
+            <button class="ec-btn ec-btn-next" aria-label="Volgende">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="7,4 13,10 7,16"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="ec-cases">
+        <!-- 1: JVJ case study -->
+        <a href={`/${lang}/cases/jvj-selection/`} class="ec-case">
+          <span class="cases-eyebrow">Case study</span>
+          <h4>Een webshop met referral-gate voor Jas voor Jeugd gratis kleding voor jongeren in Limburg</h4>
+          <div class="cases-meta"><span>2026</span><span class="cases-dot">·</span><span>ShopVirge · Goed doel</span></div>
+          <span class="cases-cta">Lees case →</span>
         </a>
-        <a href={`/${lang}/sdn/`} class="card" style="text-decoration:none;color:inherit">
-          <h3>{i.home.sdnTitle}</h3>
-          <p>{i.home.sdnDesc}</p>
+
+        <!-- 2: JVJ live store -->
+        <a href="https://shop.jvjselection.nl/" target="_blank" rel="noopener" class="ec-case ec-case--store">
+          <span class="ec-ext-label">
+            <svg width="9" height="9" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 1h6v6M9 1L1 9"/></svg>
+            Live winkel · ShopVirge
+          </span>
+          <h4>JVJ Selection Jas voor Jeugd</h4>
+          <div class="cases-meta"><span>Limburg, NL</span><span class="cases-dot">·</span><span>Gratis kledingherverdeling voor jongeren</span></div>
+          <span class="cases-cta">Bezoek winkel ↗</span>
         </a>
-        <a href={`/${lang}/ecommerce/`} class="card" style="text-decoration:none;color:inherit">
-          <h3>{i.home.ecomTitle}</h3>
-          <p>{i.home.ecomDesc}</p>
+
+        <!-- 3: Blog post 1 TODO: replace href with actual slug -->
+        <a href="https://shopvirge.com/nl/blog/" target="_blank" rel="noopener" class="ec-case ec-case--sv">
+          <span class="ec-ext-label">
+            <svg width="9" height="9" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 1h6v6M9 1L1 9"/></svg>
+            ShopVirge Blog
+          </span>
+          <h4>Van briefing naar live winkel: hoe we een ShopVirge-shop binnen twee weken opleveren</h4>
+          <div class="cases-meta"><span>jul 2026</span><span class="cases-dot">·</span><span>Platform · Lancering</span></div>
+          <span class="cases-cta">Lees artikel ↗</span>
         </a>
-        <a href={`/${lang}/openclaw/`} class="card" style="text-decoration:none;color:inherit">
-          <h3>{i.home.openclawTitle}</h3>
-          <p>{i.home.openclawDesc}</p>
+
+        <!-- 4: CO2 Tree live store -->
+        <a href="https://shop.co2-tree.eu/" target="_blank" rel="noopener" class="ec-case ec-case--store">
+          <span class="ec-ext-label">
+            <svg width="9" height="9" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 1h6v6M9 1L1 9"/></svg>
+            Live winkel · ShopVirge
+          </span>
+          <h4>CO2 Tree</h4>
+          <div class="cases-meta"><span>Europa</span><span class="cases-dot">·</span><span>Duurzame producten &amp; CO2-compensatie</span></div>
+          <span class="cases-cta">Bezoek winkel ↗</span>
+        </a>
+
+        <!-- 5: Blog post 2 TODO: replace href with actual slug -->
+        <a href="https://shopvirge.com/nl/blog/" target="_blank" rel="noopener" class="ec-case ec-case--sv">
+          <span class="ec-ext-label">
+            <svg width="9" height="9" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 1h6v6M9 1L1 9"/></svg>
+            ShopVirge Blog
+          </span>
+          <h4>Multi-tenant theming met Next.js 14 en CSS-variabelen wat we leerden</h4>
+          <div class="cases-meta"><span>jun 2026</span><span class="cases-dot">·</span><span>Engineering · Frontend</span></div>
+          <span class="cases-cta">Lees artikel ↗</span>
+        </a>
+
+        <!-- 6: Blog post 3 TODO: replace href with actual slug -->
+        <a href="https://shopvirge.com/nl/blog/" target="_blank" rel="noopener" class="ec-case ec-case--sv">
+          <span class="ec-ext-label">
+            <svg width="9" height="9" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 1h6v6M9 1L1 9"/></svg>
+            ShopVirge Blog
+          </span>
+          <h4>ERP-integraties die echt werken: lessen uit het koppelen van Exact aan een live storefront</h4>
+          <div class="cases-meta"><span>mei 2026</span><span class="cases-dot">·</span><span>Integraties · ERP</span></div>
+          <span class="cases-cta">Lees artikel ↗</span>
         </a>
       </div>
     </div>
   </section>
 
-  <div class="container">
+  <!-- CTA -->
+  <div class="container reveal">
     <CTA lang={lang} />
   </div>
+
 </Layout>
+
+<script>
+  // Extend trace-rail through the ec-banner
+  function extendTraceRail() {
+    const rail = document.querySelector('.trace-rail');
+    const serviceList = document.querySelector('.service-list');
+    const ecBanner = document.querySelector('.ec-banner');
+    if (!rail || !serviceList || !ecBanner) return;
+    const listBottom = serviceList.getBoundingClientRect().bottom;
+    const title = ecBanner.querySelector('.ec-cell-title h3');
+    const target = title ? title.getBoundingClientRect().top : ecBanner.getBoundingClientRect().bottom;
+    const extension = target - listBottom;
+    rail.style.bottom = (extension > 0 ? -extension : 0) + 'px';
+  }
+  window.addEventListener('load', extendTraceRail);
+  window.addEventListener('resize', extendTraceRail);
+  extendTraceRail();
+
+  function syncServiceCardGradient() {
+    const cards = [...document.querySelectorAll('.service-list .svc-item:not(.svc-item--end) .scard')];
+    if (!cards.length) return;
+
+    const first = cards[0].getBoundingClientRect();
+    const last = cards[cards.length - 1].getBoundingClientRect();
+    const span = Math.max(last.bottom - first.top, first.height);
+
+    cards.forEach(card => {
+      const cardRect = card.getBoundingClientRect();
+      card.style.setProperty('--service-card-gradient-height', `${span}px`);
+      card.style.setProperty('--service-card-gradient-y', `${cardRect.top - first.top}px`);
+    });
+  }
+  window.addEventListener('load', syncServiceCardGradient);
+  window.addEventListener('resize', syncServiceCardGradient);
+  if (document.fonts) document.fonts.ready.then(syncServiceCardGradient);
+  syncServiceCardGradient();
+
+  // Scroll reveal
+  const observer = new IntersectionObserver(
+    (entries) => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('is-visible'); }),
+    { threshold: 0.1 }
+  );
+  document.querySelectorAll('.reveal, .reveal-card').forEach(el => observer.observe(el));
+
+  // Draw trace rail when service list scrolls into view
+  const traceRail = document.querySelector('.trace-rail');
+  if (traceRail) {
+    new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) traceRail.classList.add('is-drawn'); },
+      { threshold: 0.05 }
+    ).observe(traceRail.parentElement);
+  }
+
+  // Trace glow fixed viewport position, appears when line scrolls behind it
+  (() => {
+    const rail = document.querySelector('.trace-rail');
+    if (!rail) return;
+
+    // Inject styles globally Astro scopes component <style>, so the
+    // dynamically-created element won't get the scoped attribute otherwise.
+    const styleEl = document.createElement('style');
+    styleEl.textContent = `
+      .trace-glow {
+        position: fixed;
+        top: 42vh;
+        transform: translate(-50%, -50%);
+        width: 0;
+        height: 50px;
+        pointer-events: none;
+        z-index: 50;
+        box-shadow: 0 0 6px 3px rgba(37,147,229,0.18),
+                    0 0 18px 8px rgba(37,147,229,0.09),
+                    0 0 40px 16px rgba(37,147,229,0.04);
+        opacity: 0;
+      }
+    `;
+    document.head.appendChild(styleEl);
+
+    const glow = document.createElement('div');
+    glow.className = 'trace-glow';
+    document.body.appendChild(glow);
+
+    const TARGET = 0.42;
+    let visible = false;
+
+    function update() {
+      const r = rail.getBoundingClientRect();
+      glow.style.left = `${r.left + 0.5}px`;
+
+      const target = window.innerHeight * TARGET;
+      const onLine = r.top <= target && r.bottom >= target;
+      if (onLine !== visible) {
+        visible = onLine;
+        // Slow fade-in (0.9s + 0.2s delay), fast fade-out (0.12s)
+        glow.style.transition = onLine
+          ? 'opacity 0.9s ease 0.2s'
+          : 'opacity 0.12s ease';
+        glow.style.opacity = onLine ? '1' : '0';
+      }
+    }
+
+    update();
+    window.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', update);
+  })();
+
+  // Spotlight: track cursor per card
+  document.querySelectorAll('.scard, .cases-card').forEach(card => {
+    card.addEventListener('mousemove', (e) => {
+      const r = card.getBoundingClientRect();
+      card.style.setProperty('--mx', `${e.clientX - r.left}px`);
+      card.style.setProperty('--my', `${e.clientY - r.top}px`);
+    });
+  });
+
+  // Cases carousel prev/next
+  const ecCases = document.querySelector('.ec-cases');
+  const ecPrev  = document.querySelector('.ec-btn-prev');
+  const ecNext  = document.querySelector('.ec-btn-next');
+  if (ecCases && ecPrev && ecNext) {
+    const scroll = (dir) => {
+      const card = ecCases.querySelector('.ec-case');
+      const step = card ? card.offsetWidth + 14 : 300;
+      ecCases.scrollBy({ left: dir * step, behavior: 'smooth' });
+    };
+    ecPrev.addEventListener('click', () => scroll(-1));
+    ecNext.addEventListener('click', () => scroll(1));
+  }
+
+  // Spotlight for ec-case cards
+  document.querySelectorAll('.ec-case').forEach(card => {
+    card.addEventListener('mousemove', (e) => {
+      const r = card.getBoundingClientRect();
+      card.style.setProperty('--mx', `${e.clientX - r.left}px`);
+      card.style.setProperty('--my', `${e.clientY - r.top}px`);
+    });
+  });
+
+  // Section spotlight for hero and ec-banner
+  document.querySelectorAll('.hero-wrap, .ec-banner').forEach(section => {
+    section.addEventListener('mousemove', (e) => {
+      const r = section.getBoundingClientRect();
+      section.style.setProperty('--mx', `${e.clientX - r.left}px`);
+      section.style.setProperty('--my', `${e.clientY - r.top}px`);
+    });
+  });
+</script>
+
+<style>
+  /* ---- Hero ---- */
+  .hero-wrap {
+    position: relative;
+    min-height: 68vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    padding: 6rem 1.5rem 5rem;
+  }
+  .hero-wrap::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(280px circle at var(--mx, -999px) var(--my, -999px), rgba(108,92,231,0.13), transparent 65%);
+    pointer-events: none;
+    z-index: 0;
+  }
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+  .orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(90px);
+    opacity: 0.13;
+    animation: drift 10s ease-in-out infinite;
+  }
+  .orb-1 {
+    width: 520px; height: 520px;
+    background: var(--accent);
+    top: -140px; left: -120px;
+  }
+  .orb-2 {
+    width: 380px; height: 380px;
+    background: var(--accent2);
+    bottom: -80px; right: 5%;
+    animation-delay: -5s;
+    animation-duration: 13s;
+  }
+  @keyframes drift {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    33%       { transform: translate(30px, -40px) scale(1.04); }
+    66%       { transform: translate(-20px, 20px) scale(0.97); }
+  }
+  .dot-grid {
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(rgba(108,92,231,0.18) 1px, transparent 1px);
+    background-size: 32px 32px;
+    mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 40%, transparent 100%);
+  }
+  .hero-inner {
+    position: relative;
+    text-align: center;
+    max-width: 720px;
+    z-index: 1;
+  }
+  .hero-eyebrow {
+    display: inline-block;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent2);
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    animation: fadeUp 0.6s ease 0.05s both;
+  }
+  .hero-inner h1 {
+    font-size: clamp(2.4rem, 6vw, 4rem);
+    font-weight: 800;
+    line-height: 1.1;
+    color: #fff;
+    margin-bottom: 1.25rem;
+    opacity: 0;
+    animation: fadeUp 0.7s ease 0.15s both;
+  }
+  :global(.hero-inner h1 span) {
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .hero-inner p {
+    color: var(--text-muted);
+    font-size: 1.15rem;
+    max-width: 560px;
+    margin: 0 auto 2.25rem;
+    line-height: 1.7;
+    opacity: 0;
+    animation: fadeUp 0.7s ease 0.28s both;
+  }
+  .hero-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    opacity: 0;
+    animation: fadeUp 0.7s ease 0.42s both;
+  }
+  .btn-ghost {
+    display: inline-block;
+    padding: 0.75rem 1.75rem;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 1rem;
+    color: var(--text-muted);
+    border: 1px solid rgba(108,92,231,0.25);
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .btn-ghost:hover {
+    color: var(--text);
+    border-color: rgba(108,92,231,0.6);
+    text-decoration: none;
+  }
+
+  /* ---- Services section ---- */
+  .services-section { padding: 6rem 0 0; overflow: visible; }
+  .services-inner { padding: 0 5% 0 8%; max-width: 2000px; margin: 0 auto; }
+  .section-intro { margin-bottom: 3rem; }
+  .section-label {
+    display: inline-block;
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--accent2);
+    margin-bottom: 0.85rem;
+  }
+  .section-intro h2 {
+    font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+    font-weight: 800;
+    line-height: 1.2;
+    color: #fff;
+  }
+
+  /* ---- Vertical service list with trace ---- */
+  .service-list {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    padding-left: 3rem;
+    --service-card-gradient: linear-gradient(
+      180deg,
+      #4833b8 0%,
+      #5d46d8 34%,
+      #376dd9 68%,
+      #2593e5 100%
+    );
+  }
+
+  /* Vertical trace rail */
+  .trace-rail {
+    position: absolute;
+    left: 1rem;
+    top: -2.5rem; /* extends up toward section-intro */
+    bottom: 0;
+    width: 1px;
+    z-index: 1;
+    background: linear-gradient(
+      to bottom,
+      transparent 0%,
+      var(--accent) 6%,
+      var(--accent2) 100%
+    );
+    transform-origin: top;
+    transform: scaleY(0);
+    transition: transform 1.8s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .trace-rail.is-drawn { transform: scaleY(1); }
+
+  /* Each row */
+  .svc-item {
+    position: relative;
+    --trace-anchor-top: calc(2.5rem + 1.5rem + 1.68rem);
+    padding: 2.5rem 0;
+  }
+  .svc-item + .svc-item {
+    border-top: 1px solid rgba(108,92,231,0.08);
+  }
+
+  /* Node anchored on the trace rail */
+  .trace-anchor {
+    position: absolute;
+    left: -3rem;
+    top: calc(var(--trace-anchor-top) - 4px);
+    width: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 2;
+  }
+  .trace-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--accent2);
+    box-shadow: 0 0 0 3px rgba(37,147,229,0.15), 0 0 8px rgba(37,147,229,0.35);
+    flex-shrink: 0;
+  }
+
+  /* Horizontal branch from each dot to its card pair */
+  .svc-item:not(.svc-item--end) .trace-anchor::after {
+    content: '';
+    position: absolute;
+    left: calc(50% + 4px);
+    top: 3px;
+    width: calc(2rem - 4px);
+    height: 1px;
+    background: linear-gradient(to right, var(--accent2), rgba(37,147,229,0.2));
+    z-index: 1;
+  }
+
+  .trace-anchor--terminal .trace-dot {
+    width: 11px;
+    height: 11px;
+    background: var(--accent);
+    box-shadow: 0 0 0 4px rgba(108,92,231,0.18), 0 0 14px rgba(108,92,231,0.5);
+  }
+
+  /* Minimal end node for 04 no card, just the dot */
+  .svc-item--end {
+    padding: 1rem 0 0;
+    border-top: 1px solid rgba(108,92,231,0.08);
+  }
+  .svc-item--end .trace-anchor { top: 1rem; }
+
+  /* Service card + case card side by side */
+  .svc-pair {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    align-items: stretch;
+    position: relative;
+  }
+
+  /* ---- Cases card muted dark style, subordinate to service cards ---- */
+  .cases-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    text-decoration: none;
+    color: inherit;
+    border: none;
+    border-radius: var(--radius);
+    padding: 1.25rem;
+    background: linear-gradient(160deg, #111028 0%, #0d0c1e 100%);
+    box-shadow: none;
+    overflow: hidden;
+    transition: box-shadow 0.2s ease;
+    align-self: stretch;
+    position: relative;
+    z-index: 3;
+  }
+  .cc-img {
+    margin: -1.25rem -1.25rem 0.875rem;
+    height: 150px;
+    flex-shrink: 0;
+    overflow: hidden;
+    position: relative;
+  }
+  .cc-img::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,10,0.55);
+  }
+  .cc-badge {
+    position: absolute;
+    bottom: 0.6rem;
+    left: 0.75rem;
+    z-index: 2;
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.9);
+    background: rgba(37,147,229,0.5);
+    backdrop-filter: blur(6px);
+    border: 1px solid rgba(255,255,255,0.18);
+    border-radius: 4px;
+    padding: 0.2rem 0.55rem;
+  }
+  .cc-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    filter: grayscale(40%);
+  }
+  .cases-card h4 {
+    font-size: 0.92rem;
+    font-weight: 600;
+    line-height: 1.45;
+    color: rgba(255,255,255,0.75);
+    margin: 0;
+    flex: 1;
+  }
+  .ec-case::before,
+  .cases-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+      280px circle at var(--mx, -999px) var(--my, -999px),
+      rgba(255,255,255,0.22),
+      transparent 70%
+    );
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+    border-radius: inherit;
+  }
+  .cases-card:hover {
+    box-shadow: 0 4px 20px rgba(0,0,0,0.35);
+    text-decoration: none;
+  }
+  .ec-case:hover::before,
+  .cases-card:hover::before { opacity: 1; }
+
+  .cases-card .cases-eyebrow { color: rgba(255,255,255,0.55); }
+  .cases-card .cases-cta { color: var(--accent2); }
+  .cases-card .cases-meta { color: rgba(255,255,255,0.35); }
+
+  .cases-eyebrow {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent2);
+  }
+  .cases-meta {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.76rem;
+    color: var(--text-muted);
+    margin-top: auto;
+  }
+  .cases-dot { opacity: 0.4; }
+  .cases-cta {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--accent2);
+    margin-top: 0.25rem;
+  }
+  /* ---- Service cards ---- */
+  .scard {
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    color: inherit;
+    background-image: var(--service-card-gradient);
+    background-size: 100% var(--service-card-gradient-height, 100%);
+    background-position: center calc(var(--service-card-gradient-y, 0px) * -1);
+    background-repeat: no-repeat;
+    border: none;
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    position: relative;
+    overflow: hidden;
+    box-shadow: inset 0 0 0 1.5px rgba(255,255,255,0.18);
+    transition: box-shadow 0.25s ease;
+  }
+  .scard::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+      320px circle at var(--mx, -999px) var(--my, -999px),
+      rgba(255,255,255,0.22),
+      transparent 70%
+    );
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+    border-radius: inherit;
+  }
+  .scard:hover {
+    box-shadow: inset 0 0 0 1.5px rgba(255,255,255,0.4),
+                0 0 18px 5px rgba(108,92,231,0.45),
+                0 0 44px 10px rgba(37,147,229,0.2);
+    text-decoration: none;
+  }
+  .scard:hover::before { opacity: 1; }
+  .scard::after {
+    content: var(--ghost, '');
+    position: absolute;
+    left: 1.5rem;
+    bottom: 0.75rem;
+    font-size: 6.5rem;
+    font-weight: 900;
+    letter-spacing: -0.03em;
+    line-height: 1;
+    color: rgba(255,255,255,0.07);
+    pointer-events: none;
+    user-select: none;
+  }
+  .scard-heading {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    margin-bottom: 0.6rem;
+  }
+  .scard-num {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: rgba(255,255,255,0.75);
+    flex-shrink: 0;
+  }
+  .scard h3 {
+    flex: 1;
+    font-size: 2.1rem;
+    font-weight: 700;
+    margin: 0;
+    color: #fff;
+  }
+  .scard-arrow {
+    flex-shrink: 0;
+    font-size: 1rem;
+    color: rgba(255,255,255,0.85);
+    opacity: 0;
+    transform: translateX(-6px);
+    transition: opacity 0.2s ease, transform 0.2s ease;
+  }
+  .scard:hover .scard-arrow { opacity: 1; transform: translateX(0); }
+  .scard p {
+    color: rgba(255,255,255,0.7);
+    font-size: 0.92rem;
+    line-height: 1.6;
+    margin: 0;
+  }
+  .scard-bullets {
+    list-style: none;
+    padding: 0;
+    margin: auto 2rem 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.3rem;
+    padding-top: 1.25rem;
+  }
+  .scard-bullets li {
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    color: rgba(255,255,255,0.55);
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+  }
+  .scard-bullets li::after {
+    content: '·';
+    color: rgba(255,255,255,0.6);
+    font-size: 1.1rem;
+    line-height: 1;
+  }
+
+  /* ---- Scroll reveal ---- */
+  .reveal {
+    opacity: 0;
+    transform: translateY(22px);
+    transition: opacity 0.65s ease, transform 0.65s ease;
+  }
+  .reveal.is-visible { opacity: 1; transform: none; }
+
+  .reveal-card {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+    transition-delay: var(--delay, 0s);
+  }
+  .reveal-card.is-visible { opacity: 1; transform: none; }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ---- eCommerce banner ---- */
+  .ec-banner {
+    display: flex;
+    flex-direction: column;
+    border-top: 1px solid rgba(108,92,231,0.15);
+    border-bottom: 1px solid rgba(108,92,231,0.15);
+    background: rgba(108,92,231,0.04);
+    overflow: hidden;
+    position: relative;
+  }
+  .ec-banner::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(280px circle at var(--mx, -999px) var(--my, -999px), rgba(108,92,231,0.13), transparent 65%),
+      radial-gradient(rgba(108,92,231,0.12) 1px, transparent 1px);
+    background-size: auto, 32px 32px;
+    pointer-events: none;
+  }
+  .ec-banner::after {
+    content: '';
+    position: absolute;
+    width: 500px; height: 500px;
+    background: var(--accent);
+    border-radius: 50%;
+    filter: blur(120px);
+    opacity: 0.06;
+    top: -150px; right: 10%;
+    pointer-events: none;
+  }
+  .ec-table {
+    display: grid;
+    grid-template-columns: 3.5rem 1.5fr 1fr 1fr 3.5rem;
+    grid-template-rows: auto auto auto;
+    position: relative; z-index: 1;
+    width: 85%; margin: 0 auto;
+  }
+  .ec-cell {
+    border-right: 1px solid rgba(108,92,231,0.12);
+    border-bottom: 1px solid rgba(108,92,231,0.12);
+    padding: 1.25rem 1.75rem;
+  }
+  .ec-cell:nth-child(5n) { border-right: none; }
+  .ec-cell-num { display: flex; align-items: center; justify-content: center; padding: 1.5rem 0.75rem; }
+  .ec-num { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.08em; color: var(--accent2); opacity: 0.7; }
+  .ec-cell-title { display: flex; align-items: center; }
+  .ec-cell-title h3 { font-size: 2.1rem; font-weight: 700; color: var(--text); margin: 0; }
+  .ec-cell-empty { min-height: 3.5rem; }
+  .ec-cell-sub { padding-top: 1rem; padding-bottom: 1.75rem; }
+  .ec-cell-sub p { font-size: 1rem; color: var(--text-muted); line-height: 1.65; margin: 0; }
+  .ec-cell-bullets { padding-top: 1rem; padding-bottom: 1.75rem; display: flex; align-items: flex-start; }
+  .ec-cell-cosmetic-row { border-bottom: none; padding: 0; height: 1.4em; }
+  .svc-points-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.6rem; }
+  .svc-points-list li { font-size: 0.95rem; color: var(--text-muted); display: flex; align-items: flex-start; gap: 0.35rem; line-height: 1.4; }
+  .svc-points-list li::before { content: '·'; color: var(--accent2); font-size: 1rem; flex-shrink: 0; }
+  .ec-banner-bottom { padding: 1rem 7.5%; display: flex; flex-direction: column; gap: 1rem; position: relative; z-index: 1; }
+  .ec-cases-header { display: flex; align-items: center; justify-content: space-between; }
+  .ec-cases-lead { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent2); }
+  .ec-cases-actions { display: flex; align-items: center; gap: 0.75rem; }
+  .ec-explore-btn { font-size: 0.85rem; padding: 0.5rem 1.25rem; }
+  .ec-cases-btns { display: flex; gap: 0.5rem; }
+  .ec-btn { display: flex; align-items: center; justify-content: center; width: 4rem; height: 4rem; border-radius: 50%; border: none; background: transparent; color: var(--accent2); cursor: pointer; transition: background 0.2s ease; }
+  .ec-btn:hover { background: rgba(108,92,231,0.12); }
+  .ec-cases { display: flex; gap: 0.875rem; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; -ms-overflow-style: none; }
+  .ec-cases::-webkit-scrollbar { display: none; }
+  .ec-case {
+    flex: 0 0 calc(33.333% - 0.6rem);
+    scroll-snap-align: start;
+    display: flex; flex-direction: column; gap: 0.5rem;
+    text-decoration: none; color: inherit;
+    background: linear-gradient(200deg, #4833b8 0%, #4833b8 62%, #2593e5 100%);
+    border: none; border-radius: var(--radius); padding: 1.25rem;
+    position: relative; overflow: hidden;
+    box-shadow: inset 0 0 0 1.5px rgba(255,255,255,0.18);
+    transition: box-shadow 0.2s ease;
+  }
+  .ec-case::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(280px circle at var(--mx, -999px) var(--my, -999px), rgba(255,255,255,0.22), transparent 70%);
+    opacity: 0; transition: opacity 0.3s ease; pointer-events: none; border-radius: inherit;
+  }
+  .ec-case:hover { box-shadow: inset 0 0 0 1.5px rgba(255,255,255,0.4), 0 0 18px 5px rgba(72,51,184,0.45), 0 0 44px 10px rgba(37,147,229,0.2); text-decoration: none; }
+  .ec-case:hover::before { opacity: 1; }
+  .ec-case h4 { font-size: 0.92rem; font-weight: 600; line-height: 1.45; color: #fff; margin: 0; flex: 1; }
+  .ec-case .cases-eyebrow, .ec-case .cases-cta { color: rgba(255,255,255,0.8); }
+  .ec-case .cases-meta { color: rgba(255,255,255,0.6); }
+  .ec-case-visual {
+    display: flex; align-items: center; justify-content: center;
+    background: #fff; border-radius: 8px;
+    padding: 0.75rem 1rem; gap: 0.75rem;
+    margin-bottom: 0.25rem;
+  }
+  .ec-case-logo { height: 40px; width: auto; object-fit: contain; }
+  .ec-case-logo-x { font-size: 1.5rem; font-weight: 100; color: #000; line-height: 1; }
+
+  .ec-cell-title { gap: 1.5rem; }
+  .sv-launch-btn {
+    display: inline-flex; align-items: center;
+    min-width: 150px;
+    padding: 0.55rem 1.35rem;
+    background: #2f45ff;
+    color: #fff;
+    border-radius: 50px;
+    font-size: 0.85rem; font-weight: 600;
+    text-decoration: none;
+    transition: background 0.2s ease, box-shadow 0.2s ease;
+  }
+  .sv-launch-btn:hover {
+    background: #1e30e0;
+    box-shadow: 0 0 18px 4px rgba(47,69,255,0.4);
+    text-decoration: none;
+    color: #fff;
+  }
+
+  /* External label (blog + store cards) */
+  .ec-ext-label {
+    display: flex; align-items: center; gap: 0.3rem;
+    font-size: 0.6rem; font-weight: 700; letter-spacing: 0.1em;
+    text-transform: uppercase; color: rgba(255,255,255,0.55);
+  }
+
+  /* ShopVirge blog card #2f45ff brand blue */
+  .ec-case--sv {
+    background: linear-gradient(200deg, #0a0f3a 0%, #111966 55%, #1e2fa8 100%);
+  }
+  .ec-case--sv .ec-ext-label { color: #7b8fff; }
+  .ec-case--sv:hover {
+    box-shadow: inset 0 0 0 1.5px rgba(127,148,255,0.5),
+                0 0 18px 5px rgba(47,69,255,0.4),
+                0 0 44px 10px rgba(47,69,255,0.18);
+  }
+
+  /* Live store card deeper blue-green tint */
+  .ec-case--store {
+    background: linear-gradient(200deg, #071228 0%, #0c1e48 55%, #143a6e 100%);
+  }
+  .ec-case--store .ec-ext-label { color: #6ab0ff; }
+  .ec-case--store:hover {
+    box-shadow: inset 0 0 0 1.5px rgba(106,176,255,0.5),
+                0 0 18px 5px rgba(20,58,110,0.6),
+                0 0 44px 10px rgba(37,147,229,0.2);
+  }
+
+  /* ---- Mobile ---- */
+  @media (max-width: 768px) {
+    .services-inner { padding: 0 1rem; }
+    .service-list { padding-left: 2.25rem; }
+    .trace-rail { left: 0.75rem; }
+    .svc-item { --trace-anchor-top: calc(1.75rem + 1.5rem + 1.68rem); }
+    .trace-anchor { left: -2.25rem; width: 1.5rem; }
+    .svc-item:not(.svc-item--end) .trace-anchor::after { width: calc(1.5rem - 4px); }
+    .svc-item { padding: 1.75rem 0; }
+    .svc-pair {
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+    .cases-card { margin-top: 0; }
+.ec-table {
+      grid-template-columns: 2.5rem 1fr;
+      width: 100%;
+    }
+    .ec-cell { padding: 0.875rem 1rem; }
+    .ec-cell-empty,
+    .ec-cell-blank,
+    .ec-cell-cosmetic-col,
+    .ec-cell-cosmetic-row { display: none; }
+    .ec-cell-sub,
+    .ec-cell-bullets { grid-column: 1 / -1; }
+    .ec-cell-bullets { padding-top: 0; padding-bottom: 1rem; }
+    .ec-banner-bottom { padding: 1.5rem; }
+    .ec-case { flex: 0 0 80%; }
+    .ec-cases-header { flex-wrap: wrap; gap: 0.75rem; }
+    .ec-cases-actions { flex-wrap: wrap; gap: 0.5rem; }
+    .ec-explore-btn { font-size: 0.8rem; }
+  }
+
+</style>
