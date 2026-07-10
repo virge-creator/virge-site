@@ -14,13 +14,37 @@ const lang = 'en';
     <div class="container">
       <div class="cases-grid">
 
-        <a href={`/${lang}/cases/jvj-selection/`} class="case-card">
-          <div class="case-card-visual" aria-hidden="true">
-            <span>JVJ</span>
-            <div>
-              <strong>1,450</strong>
-              <small>youth yearly</small>
+        <a href={`/${lang}/cases/surf-orchestrator-core/`} class="case-card">
+          <div class="case-card-visual case-card-visual--surf" aria-hidden="true">
+            <img src="/images/cases/surf-orchestrator-core/surf-logo.png" alt="SURF" class="case-card-logo" />
+            <span class="case-card-logo-divider"></span>
+            <img src="/images/cases/surf-orchestrator-core/geant-logo.png" alt="GÉANT" class="case-card-logo" />
+          </div>
+          <div class="case-card-top">
+            <span class="cases-eyebrow">Case Study</span>
+            <div class="case-card-tags">
+              <span class="tag">AI Search</span>
+              <span class="tag">RAG</span>
+              <span class="tag">Open Source</span>
             </div>
+          </div>
+          <h3>SURF Hybrid Search</h3>
+          <p>Schema-agnostic hybrid search for orchestrator-core, built with SURF and Tim Fröhlich. Funded by GÉANT. Shipped in v5.0 under Apache 2.0.</p>
+          <div class="case-card-footer">
+            <div class="case-card-meta">
+              <span>Network orchestration</span>
+              <span class="cases-dot">·</span>
+              <span>pgvector · pg_trgm · PydanticAI</span>
+            </div>
+            <span class="cases-cta">Read case →</span>
+          </div>
+        </a>
+
+        <a href={`/${lang}/cases/jvj-selection/`} class="case-card">
+          <div class="case-card-visual case-card-visual--white" aria-hidden="true">
+            <img src="/images/cases/jvj-selection/shopvirge-logo.png" alt="ShopVirge" class="case-card-logo case-card-logo--square" />
+            <span class="case-card-logo-x">×</span>
+            <img src="/images/cases/jvj-selection/jvj-logo.png" alt="JVJ Selection" class="case-card-logo case-card-logo--square" />
           </div>
           <div class="case-card-top">
             <span class="cases-eyebrow">Case Study</span>
@@ -82,40 +106,51 @@ const lang = 'en';
   .case-card-visual {
     min-height: 170px;
     border-radius: 8px;
-    padding: 1rem;
+    padding: 1.5rem;
     background:
       radial-gradient(circle at 18% 20%, rgba(168,85,247,0.42), transparent 28%),
       linear-gradient(135deg, #4833b8 0%, #2593e5 100%);
     display: flex;
-    align-items: flex-end;
-    justify-content: space-between;
-    gap: 1rem;
+    align-items: center;
+    justify-content: center;
     overflow: hidden;
   }
 
-  .case-card-visual > span {
-    color: rgba(255,255,255,0.18);
-    font-size: clamp(4rem, 11vw, 7rem);
-    font-weight: 900;
-    line-height: 0.8;
-    letter-spacing: 0;
+  .case-card-visual--surf {
+    background: #fff;
   }
 
-  .case-card-visual div {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    color: #fff;
+  .case-card-logo {
+    max-height: 88px;
+    max-width: 38%;
+    object-fit: contain;
+    opacity: 0.92;
   }
 
-  .case-card-visual strong {
-    font-size: 1.6rem;
+  .case-card-logo-divider {
+    width: 3px;
+    height: 110px;
+    background: #000;
+    flex-shrink: 0;
+    margin: 0 1.5rem;
+  }
+
+  .case-card-logo-x {
+    font-size: 4rem;
+    font-weight: 100;
+    color: #000;
+    margin: 0 1.5rem;
     line-height: 1;
+    flex-shrink: 0;
   }
 
-  .case-card-visual small {
-    color: rgba(255,255,255,0.72);
-    font-size: 0.76rem;
+  .case-card-visual--white {
+    background: #fff;
+  }
+
+  .case-card-logo--square {
+    max-height: 88px;
+    max-width: 88px;
   }
 
   .case-card-top {
