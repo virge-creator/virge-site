@@ -118,7 +118,10 @@ export function buildLinearChain(nodes, edges) {
 export function renderFlowHTML(label, note, chain, dir) {
   const isVertical = !dir || /^(TD|TB|BT)$/i.test(dir)
   const hasDesc    = chain.some(s => s.desc)
+  const isNarrow   = chain.length <= 3
   const classes    = ['mermaid-flow-track', isVertical && 'is-vertical', hasDesc && 'has-desc']
+    .filter(Boolean).join(' ')
+  const wrapClass  = ['mermaid-diagram', 'article-illustration', isNarrow && 'is-narrow']
     .filter(Boolean).join(' ')
 
   const noteHtml = note ? `<span class="mermaid-bar-note">${esc(note)}</span>` : ''
@@ -132,7 +135,7 @@ export function renderFlowHTML(label, note, chain, dir) {
     return `<div class="mermaid-step"><div class="mermaid-step-num">${i + 1}</div><div class="mermaid-step-content">${actorHtml}<strong class="mermaid-step-title">${esc(step.title)}</strong>${descHtml}</div></div>${arrow}`
   }).join('')
 
-  return `<div class="mermaid-diagram article-illustration"><div class="mermaid-bar"><span class="mermaid-bar-label">${esc(label)}</span>${noteHtml}</div><div class="${classes}">${steps}</div></div>`
+  return `<div class="${wrapClass}"><div class="mermaid-bar"><span class="mermaid-bar-label">${esc(label)}</span>${noteHtml}</div><div class="${classes}">${steps}</div></div>`
 }
 
 // ─── SVG fallback ─────────────────────────────────────────────────────────────

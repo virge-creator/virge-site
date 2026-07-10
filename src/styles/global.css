@@ -474,6 +474,9 @@ figure.article-illustration {
 /* Mermaid diagram — matches FlowDiagram.astro aesthetic */
 .mermaid-diagram {
   width: min(100%, 1040px);
+}
+.mermaid-diagram.is-narrow {
+  width: min(100%, var(--article-content-width, 760px));
   margin: 1.5rem auto 2.5rem;
   border: 1px solid rgba(108,92,231,0.14);
   border-radius: 10px;

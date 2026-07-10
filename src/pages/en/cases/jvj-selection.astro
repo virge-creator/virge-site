@@ -25,6 +25,7 @@ const referralSteps = [
     actor: 'Shop',
     title: 'Cart unlocked',
     desc: 'The shop validates the token. Without it, checkout is blocked. With it, they can buy.',
+    rowBreak: true,
   },
   {
     actor: 'Stripe',
@@ -34,7 +35,7 @@ const referralSteps = [
 ];
 ---
 <Layout
-  title="JVJ Selection — Case Study"
+  title="JVJ Selection Case Study"
   description="How Virge built a referral-gated webshop for Jas voor Jeugd, a Maastricht foundation that redistributes donated clothing to disadvantaged youth."
   lang={lang}
 >
@@ -58,6 +59,19 @@ const referralSteps = [
         </div>
         <h1>JVJ Selection</h1>
         <p class="case-subtitle">A referral-gated webshop for Jas voor Jeugd</p>
+
+        <div class="case-partner-logos">
+          <a href="https://jvjselection.nl" target="_blank" rel="noopener" class="partner-logo-wrap">
+            <img src="/images/cases/jvj-selection/jvj-logo.png" alt="JVJ Selection" class="partner-logo partner-logo--square" />
+          </a>
+          <a href="https://lefteam.nl" target="_blank" rel="noopener" class="partner-logo-wrap">
+            <img src="/images/cases/jvj-selection/lefteam-logo.png" alt="LEFteam" class="partner-logo" />
+          </a>
+          <a href="https://shopvirge.com" target="_blank" rel="noopener" class="partner-logo-wrap partner-logo-wrap--dark">
+            <img src="/images/cases/jvj-selection/shopvirge-logo.png" alt="ShopVirge" class="partner-logo partner-logo--square" />
+          </a>
+        </div>
+
         <div class="case-meta-row">
           <div class="case-meta-item">
             <span class="case-meta-label">Client</span>
@@ -78,18 +92,7 @@ const referralSteps = [
         </div>
       </header>
 
-      <!--
-        SCREENSHOT 1 — Homepage / product grid
-        Capture: https://shop.jvjselection.nl/ at 1440px width
-        Save as: /public/images/cases/jvj/homepage.png
-        Then replace the placeholder div below with:
-        <img src="/images/cases/jvj/homepage.png" alt="JVJ Selection homepage" class="case-screenshot" />
-      -->
-      <div class="screenshot-placeholder">
-        <span class="screenshot-icon">📸</span>
-        <p class="screenshot-label">Homepage — product grid</p>
-        <p class="screenshot-hint">Capture at 1440px · save as <code>/public/images/cases/jvj/homepage.png</code></p>
-      </div>
+      <img src="/images/cases/jvj/homepage.png" alt="JVJ Selection homepage — product grid" class="case-screenshot" />
 
       <div class="post-content case-content">
         <h2>The challenge</h2>
@@ -109,36 +112,14 @@ const referralSteps = [
 
       <div class="post-content case-content">
         <h2>Checkout control</h2>
-        <!--
-          SCREENSHOT 2 — Referral / activation page
-          Capture: https://shop.jvjselection.nl/nl/account/activation/start at 1440px
-          Save as: /public/images/cases/jvj/referral.png
-          Then replace the placeholder div below with:
-          <img src="/images/cases/jvj/referral.png" alt="JVJ Selection referral activation" class="case-screenshot" />
-        -->
-        <div class="screenshot-placeholder">
-          <span class="screenshot-icon">📸</span>
-          <p class="screenshot-label">Referral activation page</p>
-          <p class="screenshot-hint">Capture at 1440px · save as <code>/public/images/cases/jvj/referral.png</code></p>
-        </div>
+        <img src="/images/cases/jvj/referral.png" alt="JVJ Selection referral form" class="case-screenshot" />
 
         <p>The referral flow runs through Workflow Orchestrator. A case worker submits a referral for a client: their details, plus who is referring them and from which organisation. WFO creates a JVJ Customer subscription and sends a magic link to the young person. They click it. Their referral is verified. An approval token lands in their browser. From that point, they can check out. Without it, the cart blocks them.</p>
 
         <p>The token is single-use. Once they complete an order, it's consumed.</p>
 
         <h2>Live storefront</h2>
-        <!--
-          SCREENSHOT 3 — Product page or cart
-          Capture: a product page or the cart at 1440px
-          Save as: /public/images/cases/jvj/product.png
-          Then replace the placeholder div below with:
-          <img src="/images/cases/jvj/product.png" alt="JVJ Selection product or cart" class="case-screenshot" />
-        -->
-        <div class="screenshot-placeholder">
-          <span class="screenshot-icon">📸</span>
-          <p class="screenshot-label">Product page or cart</p>
-          <p class="screenshot-hint">Capture at 1440px · save as <code>/public/images/cases/jvj/product.png</code></p>
-        </div>
+        <img src="/images/cases/jvj/product.png" alt="JVJ Selection shopping cart" class="case-screenshot" />
 
         <p>ShopVirge handles the rest: a Dutch-language storefront, product catalog with clothing and shoes, Stripe for the shipping payment, and an admin interface the LEFteam team can use without touching code. The store runs in Dutch. The platform supports more languages, but JVJ's audience is Limburgian youth.</p>
 
@@ -434,6 +415,54 @@ const referralSteps = [
     padding: 0.1em 0.4em;
     border-radius: 4px;
     color: var(--accent2);
+  }
+
+  /* Partner logos */
+  .case-partner-logos {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+  }
+
+  .partner-logo-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 52px;
+    background: #fff;
+    border-radius: 8px;
+    padding: 0 0.9rem;
+    text-decoration: none;
+    transition: opacity 0.2s ease;
+  }
+
+  .partner-logo-wrap:hover {
+    opacity: 0.85;
+  }
+
+  .partner-logo {
+    height: 32px;
+    width: auto;
+    object-fit: contain;
+    display: block;
+  }
+
+  .partner-logo--square {
+    height: 36px;
+    width: 36px;
+    border-radius: 6px;
+  }
+
+  .partner-logo-wrap--dark {
+    background: transparent;
+    padding: 0;
+  }
+
+  .partner-logo-wrap--dark .partner-logo {
+    height: 52px;
+    width: 52px;
   }
 
   @media (max-width: 768px) {
