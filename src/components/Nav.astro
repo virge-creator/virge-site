@@ -1,6 +1,6 @@
 ---
 import type { Lang } from '../i18n';
-import { t, getOtherLang } from '../i18n';
+import { t, getOtherLang, languages } from '../i18n';
 import Icon from './Icon.astro';
 import { getAlternateSlug } from '../data/blog-slugs';
 
@@ -35,6 +35,12 @@ if (currentPath.startsWith(blogPrefix) && currentPath !== blogPrefix) {
 
 const jobsPath = lang === 'nl' ? `${base}vacatures/` : `${base}jobs/`;
 
+const langNames: Record<Lang, string> = { en: 'English', nl: 'Nederlands' };
+const flagSvg: Record<Lang, string> = {
+  en: `<svg viewBox="0 0 24 18" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect width="24" height="18" fill="#012169"/><path d="M0,0 L24,18 M24,0 L0,18" stroke="#fff" stroke-width="3.6"/><path d="M0,0 L24,18 M24,0 L0,18" stroke="#C8102E" stroke-width="1.6"/><path d="M12,0 V18 M0,9 H24" stroke="#fff" stroke-width="6"/><path d="M12,0 V18 M0,9 H24" stroke="#C8102E" stroke-width="3.4"/></svg>`,
+  nl: `<svg viewBox="0 0 24 18" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect width="24" height="6" fill="#AE1C28"/><rect y="6" width="24" height="6" fill="#fff"/><rect y="12" width="24" height="6" fill="#21468B"/></svg>`,
+};
+
 const serviceItems = [
   { href: `${base}sdn/`, label: i.nav.sdn },
   { href: `${base}ai/`, label: i.nav.ai },
@@ -68,7 +74,32 @@ const serviceItems = [
       <li><a href={jobsPath}>{i.nav.jobs}</a></li>
       <li><a href={`${base}contact/`}>{i.nav.contact}</a></li>
       <li class="lang-switch">
-        <a href={switchPath} class="lang-btn">{otherLang.toUpperCase()}</a>
+        <button type="button" class="lang-current" aria-haspopup="true" aria-expanded="false" aria-label={`Language: ${langNames[lang]}`}>
+          <span class="flag" set:html={flagSvg[lang]} />
+          <span class="lang-code">{lang.toUpperCase()}</span>
+          <svg class="chevron" width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+            <path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+        <ul class="lang-menu">
+          {languages.map(l => (
+            <li>
+              <a
+                href={l === lang ? currentPath : switchPath}
+                class:list={['lang-option', { active: l === lang }]}
+                aria-current={l === lang ? 'page' : undefined}
+              >
+                <span class="flag" set:html={flagSvg[l]} />
+                <span class="lang-name">{langNames[l]}</span>
+                {l === lang && (
+                  <svg class="check" width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                    <path d="M3 8.5l3.5 3.5L13 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                )}
+              </a>
+            </li>
+          ))}
+        </ul>
       </li>
     </ul>
   </div>
@@ -79,23 +110,112 @@ const serviceItems = [
     height: 40px;
     width: auto;
   }
+  /* Language switcher */
   .lang-switch {
     margin-left: 0.5rem;
+    position: relative;
   }
-  .lang-btn {
-    display: inline-block;
-    padding: 0.25rem 0.6rem;
+  .flag {
+    display: inline-flex;
+    width: 20px;
+    height: 15px;
+    border-radius: 3px;
+    overflow: hidden;
+    flex-shrink: 0;
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,0.15);
+  }
+  .flag :global(svg) {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+  .lang-current {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.3rem 0.6rem;
+    background: none;
     border: 1px solid rgba(139,92,246,0.5);
-    border-radius: 6px;
+    border-radius: 8px;
+    cursor: pointer;
+    color: #a78bfa;
+    transition: background 0.2s, color 0.2s, border-color 0.2s;
+  }
+  .lang-current .lang-code {
     font-size: 0.85rem;
     font-weight: 600;
-    color: #a78bfa;
-    text-decoration: none;
-    transition: background 0.2s, color 0.2s;
+    letter-spacing: 0.03em;
   }
-  .lang-btn:hover {
-    background: rgba(139,92,246,0.2);
+  .lang-current .chevron {
+    opacity: 0.6;
+    transition: transform 0.2s;
+  }
+  .lang-switch:hover .lang-current,
+  .lang-switch:focus-within .lang-current {
+    background: rgba(139,92,246,0.15);
+    border-color: rgba(139,92,246,0.8);
     color: #c4b5fd;
+  }
+  .lang-switch:hover .chevron,
+  .lang-switch:focus-within .chevron,
+  .lang-switch.open .chevron {
+    transform: rotate(180deg);
+  }
+  .lang-menu {
+    position: absolute;
+    top: calc(100% + 0.5rem);
+    right: 0;
+    min-width: 170px;
+    background: linear-gradient(160deg, #16143a 0%, #0d0c24 100%);
+    border-radius: var(--radius);
+    padding: 0.4rem;
+    list-style: none;
+    z-index: 200;
+    box-shadow:
+      inset 0 0 0 1px rgba(255,255,255,0.1),
+      0 12px 36px rgba(0,0,0,0.55),
+      0 0 22px 4px rgba(108,92,231,0.18);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-8px) scale(0.97);
+    transform-origin: top right;
+    transition: opacity 0.18s ease, transform 0.18s ease, visibility 0.18s;
+  }
+  .lang-switch:hover .lang-menu,
+  .lang-switch:focus-within .lang-menu,
+  .lang-switch.open .lang-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0) scale(1);
+  }
+  .lang-menu li {
+    display: block;
+    width: 100%;
+  }
+  .lang-option {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    width: 100%;
+    padding: 0.55rem 0.85rem;
+    white-space: nowrap;
+    color: rgba(255,255,255,0.6);
+    font-size: 0.95rem;
+    border-radius: 8px;
+    transition: color 0.2s, background 0.2s;
+    box-sizing: border-box;
+  }
+  .lang-option:hover {
+    color: #fff;
+    background: rgba(108,92,231,0.2);
+    text-decoration: none;
+  }
+  .lang-option.active {
+    color: #fff;
+  }
+  .lang-option .check {
+    margin-left: auto;
+    color: #a78bfa;
   }
 
   /* Uniform link size */
@@ -217,6 +337,41 @@ const serviceItems = [
       visibility: visible;
       max-height: 200px;
     }
+
+    /* Language switcher: two always-visible pills */
+    .lang-switch {
+      margin-left: 0;
+    }
+    .lang-current {
+      display: none;
+    }
+    .lang-menu {
+      position: static;
+      display: flex;
+      gap: 0.5rem;
+      min-width: 0;
+      padding: 0;
+      background: transparent;
+      box-shadow: none;
+      opacity: 1;
+      visibility: visible;
+      transform: none;
+      transition: none;
+    }
+    .lang-menu li {
+      width: auto;
+    }
+    .lang-option {
+      border: 1px solid rgba(139,92,246,0.35);
+      padding: 0.4rem 0.75rem;
+    }
+    .lang-option.active {
+      border-color: rgba(139,92,246,0.8);
+      background: rgba(139,92,246,0.15);
+    }
+    .lang-option .check {
+      display: none;
+    }
   }
 </style>
 
@@ -229,6 +384,20 @@ const serviceItems = [
       const open = item?.classList.toggle('open') ?? false;
       btn.setAttribute('aria-expanded', String(open));
     });
+  });
+
+  // Language switcher: click toggles (for touch devices), outside click closes
+  const langSwitch = document.querySelector('.lang-switch');
+  const langBtn = langSwitch?.querySelector('.lang-current');
+  langBtn?.addEventListener('click', () => {
+    const open = langSwitch?.classList.toggle('open') ?? false;
+    langBtn.setAttribute('aria-expanded', String(open));
+  });
+  document.addEventListener('click', (e) => {
+    if (langSwitch && !langSwitch.contains(e.target as Node)) {
+      langSwitch.classList.remove('open');
+      langBtn?.setAttribute('aria-expanded', 'false');
+    }
   });
 
   // Cursor spotlight on dropdown
