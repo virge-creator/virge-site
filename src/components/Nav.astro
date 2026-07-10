@@ -36,10 +36,10 @@ if (currentPath.startsWith(blogPrefix) && currentPath !== blogPrefix) {
 const jobsPath = lang === 'nl' ? `${base}vacatures/` : `${base}jobs/`;
 
 const serviceItems = [
-  { href: `${base}ai/`, label: i.nav.ai },
   { href: `${base}sdn/`, label: i.nav.sdn },
-  { href: `${base}ecommerce/`, label: i.nav.ecommerce },
+  { href: `${base}ai/`, label: i.nav.ai },
   { href: `${base}openclaw/`, label: i.nav.openclaw },
+  { href: `${base}ecommerce/`, label: i.nav.ecommerce },
 ];
 ---
 <nav>
@@ -51,12 +51,14 @@ const serviceItems = [
     <ul class="links">
       <li><a href={base}>{i.nav.home}</a></li>
       <li class="has-dropdown">
-        <a href={`${base}services/`} class="dropdown-parent">
-          {i.nav.services}
-          <svg class="chevron" width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
-            <path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </a>
+        <div class="dropdown-parent">
+          <a href={`${base}services/`}>{i.nav.services}</a>
+          <button class="chevron-btn" aria-label="Toggle services menu" aria-expanded="false">
+            <svg class="chevron" width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+              <path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+        </div>
         <ul class="dropdown">
           {serviceItems.map(s => <li><a href={s.href}>{s.label}</a></li>)}
         </ul>
@@ -109,14 +111,24 @@ const serviceItems = [
   .dropdown-parent {
     display: flex;
     align-items: center;
-    gap: 0.3rem;
-    font-size: 1.05rem;
+    gap: 0.2rem;
+  }
+  .chevron-btn {
+    display: flex;
+    align-items: center;
+    background: none;
+    border: none;
+    padding: 0.15rem 0.2rem;
+    cursor: pointer;
+    color: inherit;
+    border-radius: 4px;
   }
   .chevron {
     transition: transform 0.2s;
     opacity: 0.6;
   }
-  .has-dropdown:hover .chevron {
+  .has-dropdown:hover .chevron,
+  .has-dropdown.open .chevron {
     transform: rotate(180deg);
   }
   .dropdown {
@@ -209,14 +221,15 @@ const serviceItems = [
 </style>
 
 <script>
-  if (window.matchMedia('(max-width: 768px)').matches) {
-    document.querySelectorAll('.has-dropdown .dropdown-parent').forEach(el => {
-      el.addEventListener('click', (e) => {
-        e.preventDefault();
-        el.closest('.has-dropdown')?.classList.toggle('open');
-      });
+  // Chevron button toggles mobile dropdown; checked live so resize works
+  document.querySelectorAll('.chevron-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      if (!window.matchMedia('(max-width: 768px)').matches) return;
+      const item = btn.closest('.has-dropdown');
+      const open = item?.classList.toggle('open') ?? false;
+      btn.setAttribute('aria-expanded', String(open));
     });
-  }
+  });
 
   // Cursor spotlight on dropdown
   document.querySelectorAll('.dropdown').forEach(dropdown => {
