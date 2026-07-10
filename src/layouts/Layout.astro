@@ -10,9 +10,21 @@ interface Props {
   title: string;
   description?: string;
   lang?: Lang;
+  image?: string;
+  type?: 'website' | 'article';
+  publishedDate?: string;
+  author?: string;
 }
 
-const { title, description = 'Virge.io Software solutions in AI, SDN, and eCommerce that scale with your business.', lang = 'en' } = Astro.props;
+const {
+  title,
+  description = 'Virge.io Software solutions in AI, SDN, and eCommerce that scale with your business.',
+  lang = 'en',
+  image,
+  type = 'website',
+  publishedDate,
+  author,
+} = Astro.props;
 const otherLang = getOtherLang(lang);
 const currentPath = Astro.url.pathname;
 
@@ -34,7 +46,36 @@ if (lang === 'en') {
   alternatePath = alternatePath.replace(`/${otherLang}/vacatures/`, `/${otherLang}/jobs/`);
 }
 
-const canonicalURL = new URL(currentPath, 'https://virge.io').href;
+const site = 'https://virge.io';
+const canonicalURL = new URL(currentPath, site).href;
+// x-default points search engines to the English version for unmatched locales
+const xDefaultPath = lang === 'en' ? currentPath : alternatePath;
+const ogImage = new URL(image || '/logo.png', site).href;
+const publishedISO = publishedDate ? new Date(publishedDate).toISOString() : undefined;
+
+const jsonLd: Record<string, unknown>[] = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    name: 'Virge.io',
+    url: site,
+    logo: `${site}/logo.png`,
+  },
+];
+if (type === 'article') {
+  jsonLd.push({
+    '@context': 'https://schema.org',
+    '@type': 'BlogPosting',
+    headline: title,
+    description,
+    image: ogImage,
+    url: canonicalURL,
+    inLanguage: lang === 'nl' ? 'nl-NL' : 'en-US',
+    ...(publishedISO && { datePublished: publishedISO }),
+    ...(author && { author: { '@type': 'Organization', name: author } }),
+    publisher: { '@type': 'Organization', name: 'Virge.io', logo: { '@type': 'ImageObject', url: `${site}/logo.png` } },
+  });
+}
 ---
 <!DOCTYPE html>
 <html lang={lang}>
@@ -44,15 +85,26 @@ const canonicalURL = new URL(currentPath, 'https://virge.io').href;
   <meta name="description" content={description} />
   <meta property="og:title" content={`${title} | Virge.io`} />
   <meta property="og:description" content={description} />
-  <meta property="og:type" content="website" />
+  <meta property="og:type" content={type} />
+  <meta property="og:url" content={canonicalURL} />
+  <meta property="og:site_name" content="Virge.io" />
+  <meta property="og:image" content={ogImage} />
   <meta property="og:locale" content={lang === 'nl' ? 'nl_NL' : 'en_US'} />
+  {type === 'article' && publishedISO && <meta property="article:published_time" content={publishedISO} />}
+  <meta name="twitter:card" content={image ? 'summary_large_image' : 'summary'} />
+  <meta name="twitter:title" content={`${title} | Virge.io`} />
+  <meta name="twitter:description" content={description} />
+  <meta name="twitter:image" content={ogImage} />
   <link rel="canonical" href={canonicalURL} />
   <link rel="alternate" hreflang={lang} href={`https://virge.io${currentPath}`} />
   <link rel="alternate" hreflang={otherLang} href={`https://virge.io${alternatePath}`} />
+  <link rel="alternate" hreflang="x-default" href={`https://virge.io${xDefaultPath}`} />
+  <link rel="sitemap" href="/sitemap-index.xml" />
   <title>{title} | Virge.io</title>
   <link rel="icon" href="/favicon.ico" sizes="any" />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  {jsonLd.map(schema => <script type="application/ld+json" set:html={JSON.stringify(schema)} />)}
 </head>
 <body>
   <Nav lang={lang} />
