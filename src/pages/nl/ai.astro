@@ -1,12 +1,24 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import CTA from '../../components/CTA.astro';
+import FAQ from '../../components/FAQ.astro';
 import { t } from '../../i18n';
+import { breadcrumbSchema, faqSchema, serviceSchema } from '../../data/structured-data';
 
 const lang = 'nl';
 const i = t(lang);
+
+const jsonLd = [
+  serviceSchema({ name: 'AI Consulting', description: i.ai.metaDesc, path: `/${lang}/ai/` }),
+  breadcrumbSchema([
+    { name: i.nav.home, path: `/${lang}/` },
+    { name: i.nav.services, path: `/${lang}/services/` },
+    { name: i.nav.ai, path: `/${lang}/ai/` },
+  ]),
+  faqSchema(i.ai.faq),
+];
 ---
-<Layout title="AI Consulting" description={i.ai.metaDesc} lang={lang}>
+<Layout title={i.ai.metaTitle} description={i.ai.metaDesc} lang={lang} jsonLd={jsonLd}>
   <div class="page-back">
     <a href={`/${lang}/services/`} class="back-link">{i.nav.backToServices}</a>
   </div>
@@ -38,5 +50,6 @@ const i = t(lang);
     </div>
   </section>
 
+  <FAQ items={i.ai.faq} lang={lang} />
   <div class="container"><CTA lang={lang} /></div>
 </Layout>

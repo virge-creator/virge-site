@@ -3,22 +3,42 @@ import Layout from './Layout.astro';
 import CTA from '../components/CTA.astro';
 import type { Lang } from '../i18n';
 import { t } from '../i18n';
+import { blogPostingSchema, breadcrumbSchema } from '../data/structured-data';
 
 const { frontmatter, rawContent } = Astro.props;
 const lang: Lang = frontmatter.lang || 'en';
 const i = t(lang);
 const readingTime = rawContent ? Math.ceil(rawContent().split(/\s+/).length / 200) : 5;
 const dateLocale = lang === 'nl' ? 'nl-NL' : 'en-US';
+
+const postPath = Astro.url.pathname;
+const jsonLd = [
+  blogPostingSchema({
+    title: frontmatter.title,
+    description: frontmatter.description,
+    date: frontmatter.date,
+    author: frontmatter.author,
+    path: postPath,
+    image: frontmatter.image,
+    lang,
+  }),
+  breadcrumbSchema([
+    { name: i.nav.home, path: `/${lang}/` },
+    { name: i.nav.blog, path: `/${lang}/blog/` },
+    { name: frontmatter.title, path: postPath },
+  ]),
+];
 ---
 <Layout
   title={frontmatter.title}
   description={frontmatter.description}
   lang={lang}
+  jsonLd={jsonLd}
+  ogImage={frontmatter.image}
   type="article"
-  image={frontmatter.image}
   publishedDate={frontmatter.date}
-  author={frontmatter.author}
 >
+
   <aside class="header-overview" data-header-overview aria-label={lang === 'nl' ? 'Kopoverzicht' : 'Header overview'}>
     <span class="header-overview-title">{lang === 'nl' ? 'Overzicht' : 'Overview'}</span>
     <nav data-header-overview-list></nav>

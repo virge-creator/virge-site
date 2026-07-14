@@ -1,12 +1,24 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import CTA from '../../components/CTA.astro';
+import FAQ from '../../components/FAQ.astro';
 import { t } from '../../i18n';
+import { breadcrumbSchema, faqSchema, serviceSchema } from '../../data/structured-data';
 
 const lang = 'en';
 const i = t(lang);
+
+const jsonLd = [
+  serviceSchema({ name: 'eCommerce', description: i.ecommerce.metaDesc, path: `/${lang}/ecommerce/` }),
+  breadcrumbSchema([
+    { name: i.nav.home, path: `/${lang}/` },
+    { name: i.nav.services, path: `/${lang}/services/` },
+    { name: i.nav.ecommerce, path: `/${lang}/ecommerce/` },
+  ]),
+  faqSchema(i.ecommerce.faq),
+];
 ---
-<Layout title="eCommerce" description={i.ecommerce.metaDesc} lang={lang}>
+<Layout title={i.ecommerce.metaTitle} description={i.ecommerce.metaDesc} lang={lang} jsonLd={jsonLd}>
   <div class="page-back">
     <a href={`/${lang}/services/`} class="back-link">{i.nav.backToServices}</a>
   </div>
@@ -39,5 +51,6 @@ const i = t(lang);
     </div>
   </section>
 
+  <FAQ items={i.ecommerce.faq} lang={lang} />
   <div class="container"><CTA lang={lang} /></div>
 </Layout>

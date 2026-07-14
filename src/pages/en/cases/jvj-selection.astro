@@ -2,8 +2,15 @@
 import Layout from '../../../layouts/Layout.astro';
 import CTA from '../../../components/CTA.astro';
 import FlowDiagram from '../../../components/FlowDiagram.astro';
+import { breadcrumbSchema } from '../../../data/structured-data';
 
 const lang = 'en';
+
+const jsonLd = breadcrumbSchema([
+  { name: 'Home', path: `/${lang}/` },
+  { name: 'Cases', path: `/${lang}/cases/` },
+  { name: 'JVJ Selection Case Study', path: `/${lang}/cases/jvj-selection/` },
+]);
 
 const referralSteps = [
   {
@@ -38,6 +45,7 @@ const referralSteps = [
   title="JVJ Selection Case Study"
   description="How Virge built a referral-gated webshop for Jas voor Jeugd, a Maastricht foundation that redistributes donated clothing to disadvantaged youth."
   lang={lang}
+  jsonLd={jsonLd}
 >
   <aside class="header-overview" data-header-overview aria-label="Header overview">
     <span class="header-overview-title">Overview</span>
@@ -92,7 +100,7 @@ const referralSteps = [
         </div>
       </header>
 
-      <img src="/images/cases/jvj/homepage.png" alt="JVJ Selection homepage — product grid" class="case-screenshot" />
+      <img src="/images/cases/jvj/homepage.png" alt="JVJ Selection homepage, product grid" class="case-screenshot" />
 
       <div class="post-content case-content">
         <h2>The challenge</h2>

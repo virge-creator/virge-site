@@ -44,43 +44,100 @@
   "ai": {
     "title": "AI <span>Consulting</span>",
     "description": "We help you move beyond prototypes to production-ready AI systems that deliver measurable results.",
-    "metaDesc": "Practical, production-ready AI solutions. vector databases, RAG pipelines, and seamless integrations.",
+    "metaTitle": "AI Consulting: RAG, Vector Search & LLM Integration",
+    "metaDesc": "Practical, production-ready AI solutions: vector databases, RAG pipelines, and seamless LLM integrations.",
+    "faq": [
+      {
+        "question": "What's the difference between RAG and fine-tuning, and which do we need?",
+        "answer": "For most enterprise use-cases where you need answers grounded in your own documents, RAG (Retrieval-Augmented Generation) is the right starting point: it keeps your data outside the model and stays cheap to update. Fine-tuning only pays off when you need a specific tone or format at scale. We help you choose based on your data and budget, not hype."
+      },
+      {
+        "question": "How do you stop an LLM from hallucinating on our data?",
+        "answer": "We ground responses in your content using retrieval pipelines and citations, so the model answers from real sources instead of guessing. It's the same principle behind the hybrid search system we built for SURF's Orchestrator-Core."
+      },
+      {
+        "question": "Do you build on hosted models like OpenAI and Anthropic, or self-hosted ones?",
+        "answer": "Both. We integrate the leading hosted models when they're the best fit, and deploy self-hosted, open models when data sovereignty or cost matters. It's the same approach behind our OpenClaw work."
+      },
+      {
+        "question": "Can you add AI to our existing application without a rebuild?",
+        "answer": "Yes. We embed AI into your current stack through APIs and targeted automation, rather than starting from scratch."
+      },
+      {
+        "question": "What makes an AI system production-ready rather than a demo?",
+        "answer": "Proper evaluation, monitoring, and iteration, plus cost control and security. We focus on systems that keep working after launch, not one-off prototypes."
+      }
+    ],
     "searchTitle": "Search with vector databases",
-    "searchDesc": "Implement semantic search using state-of-the-art vector databases. Find meaning, not just keywords. enabling smarter retrieval across documents, products, and knowledge bases.",
+    "searchDesc": "Implement semantic search using state-of-the-art vector databases. Find meaning, not just keywords, enabling smarter retrieval across documents, products, and knowledge bases.",
     "ragTitle": "RAG pipeline design & implementation",
     "ragDesc": "Design and build Retrieval-Augmented Generation pipelines that ground LLM responses in your data. Reduce hallucinations and deliver accurate, context-aware answers.",
     "integrationTitle": "AI integration into existing applications",
-    "integrationDesc": "Seamlessly embed AI capabilities into your current stack. from intelligent APIs to smart automation. without rebuilding from scratch.",
+    "integrationDesc": "Seamlessly embed AI capabilities into your current stack, from intelligent APIs to smart automation, without rebuilding from scratch.",
     "productionTitle": "Production-ready solutions",
-    "productionDesc": "We focus on practical, scalable AI that works in the real world. Proper evaluation, monitoring, and iteration. not just demos."
+    "productionDesc": "We focus on practical, scalable AI that works in the real world: proper evaluation, monitoring, and iteration, not just demos."
   },
   "sdn": {
     "title": "Software Defined <span>Networking</span>",
     "description": "Automate and orchestrate your network infrastructure with battle-tested open-source tooling.",
-    "metaDesc": "Network automation and orchestration with the Workflow Orchestrator (WFO). proven in enterprise environments.",
+    "metaTitle": "Software Defined Networking & Network Automation (WFO)",
+    "metaDesc": "Network automation and orchestration with the Workflow Orchestrator (WFO), proven in enterprise environments.",
+    "faq": [
+      {
+        "question": "What is the Workflow Orchestrator (WFO)?",
+        "answer": "The Workflow Orchestrator (WFO) is an open-source platform for automating and orchestrating networks. It provides workflow and product modeling, standardised forms, and integrations with tools like Netbox and Ansible, giving you full control over your network lifecycle."
+      },
+      {
+        "question": "How does the WFO compare to general workflow engines like Temporal or Airflow?",
+        "answer": "Temporal and Airflow are general-purpose workflow engines; the Workflow Orchestrator is purpose-built for network and service orchestration, with product and subscription modeling and standardised forms built in. That domain focus means far less custom scaffolding to model your network products as code."
+      },
+      {
+        "question": "Is the Workflow Orchestrator production-ready, and who uses it?",
+        "answer": "Yes, it's an established open-source project used by large research and service-provider networks. Virge has delivered multiple WFO integration projects for large corporates and service providers, and contributed the hybrid search shipped in orchestrator-core."
+      },
+      {
+        "question": "Can you integrate the WFO with our existing network stack?",
+        "answer": "Yes. We connect it to Netbox for IPAM/DCIM, Ansible for device configuration via LSO, and your internal systems through custom APIs."
+      }
+    ],
     "wfoTitle": "Workflow Orchestrator (WFO)",
-    "wfoDesc": "The <a href=\"https://workfloworchestrator.org\" target=\"_blank\" rel=\"noopener\">Workflow Orchestrator</a> is an open-source platform for automating and orchestrating networks. It provides workflow and product modeling, standardised forms, and integrations with tools like Netbox and Ansible. giving you full control over your network lifecycle.",
+    "wfoDesc": "The <a href=\"https://workfloworchestrator.org\" target=\"_blank\" rel=\"noopener\">Workflow Orchestrator</a> is an open-source platform for automating and orchestrating networks. It provides workflow and product modeling, standardised forms, and integrations with tools like Netbox and Ansible, giving you full control over your network lifecycle.",
     "enterpriseTitle": "Enterprise integration experience",
-    "enterpriseDesc": "We've delivered multiple WFO integration projects for large corporates and service providers. From initial architecture to production rollout. we know how to embed the Workflow Orchestrator into complex, existing environments.",
+    "enterpriseDesc": "We've delivered multiple WFO integration projects for large corporates and service providers. From initial architecture to production rollout, we know how to embed the Workflow Orchestrator into complex, existing environments.",
     "modelingTitle": "Product & workflow modeling",
-    "modelingDesc": "Define your network products and services as code. We help you model subscriptions, product types, and automated workflows that map directly to your business processes. reducing manual work and eliminating errors.",
+    "modelingDesc": "Define your network products and services as code. We help you model subscriptions, product types, and automated workflows that map directly to your business processes, reducing manual work and eliminating errors.",
     "integrationsTitle": "Integrations & tooling",
     "integrationsDesc": "Connect the Workflow Orchestrator to your existing stack. Netbox for IPAM/DCIM, Ansible for device configuration via LSO, and custom APIs for your internal systems. We build the glue that makes it all work together.",
     "iacTitle": "Infrastructure as Code",
-    "iacDesc": "Treat your network like software. Version-controlled configurations, repeatable deployments, and automated provisioning. bringing DevOps practices to network engineering.",
+    "iacDesc": "Treat your network like software. Version-controlled configurations, repeatable deployments, and automated provisioning, bringing DevOps practices to network engineering.",
     "trainingTitle": "Training & workshops",
     "trainingDesc": "Get your team up to speed. We offer hands-on workshops covering WFO architecture, workflow development, and best practices for network automation at scale."
   },
   "ecommerce": {
     "title": "e<span>Commerce</span>",
-    "description": "Modern, flexible eCommerce solutions. from headless content to turnkey webshops.",
+    "description": "Modern, flexible eCommerce solutions, from headless content to turnkey webshops.",
+    "metaTitle": "eCommerce Development & Headless Consultancy",
     "metaDesc": "Headless content delivery, ShopVirge webshops, and eCommerce consultancy.",
+    "faq": [
+      {
+        "question": "What is ShopVirge?",
+        "answer": "ShopVirge is our webshop system for spinning up fully functional online stores fast, ideal for new brands, pop-up shops, or rapid market testing without months of development. Learn more at ShopVirge.com."
+      },
+      {
+        "question": "Can you enrich product content automatically?",
+        "answer": "Yes, our Content as a Service turns a product name into rich descriptions, images, and metadata, automating hours of manual work."
+      },
+      {
+        "question": "Which eCommerce platform should we build on?",
+        "answer": "That depends on your catalog, scale, and integrations. We give strategic, vendor-neutral advice on platform selection, architecture, and payments."
+      }
+    ],
     "contentTitle": "Content as a Service",
-    "contentDesc": "AI-powered product content generation for eCommerce. Just give us a product name. like \"Selmer Mark VI\". and we deliver rich, high-quality descriptions, images, and metadata. Fully automated content enrichment that saves hours of manual work.",
+    "contentDesc": "AI-powered product content generation for eCommerce. Just give us a product name (like \"Selmer Mark VI\") and we deliver rich, high-quality descriptions, images, and metadata. Fully automated content enrichment that saves hours of manual work.",
     "shopTitle": "ShopVirge",
-    "shopDesc": "Our ad hoc webshop system lets you spin up fully functional online stores fast. Perfect for new brands, pop-up shops, or rapid market testing. without months of development.",
+    "shopDesc": "Our ad hoc webshop system lets you spin up fully functional online stores fast. Perfect for new brands, pop-up shops, or rapid market testing, without months of development.",
     "consultancyTitle": "eCommerce consultancy",
-    "consultancyDesc": "Strategic advice on platform selection, architecture, payment integration, and scaling. helping you make the right technology choices for your business.",
+    "consultancyDesc": "Strategic advice on platform selection, architecture, payment integration, and scaling, helping you make the right technology choices for your business.",
     "integrationsTitle": "Integrations & APIs",
     "integrationsDesc": "Connect your eCommerce stack with ERP, CRM, fulfillment, and marketing tools through robust API integrations.",
     "contentLink": "Learn more about Content as a Service →"
@@ -88,22 +145,45 @@
   "openclaw": {
     "title": "OpenClaw <span>Consultancy</span>",
     "description": "Your own AI assistant that actually knows your business. We help you set it up, keep it running, and make it work for you.",
-    "metaDesc": "Run your own AI assistant. we help you deploy, host, secure, and automate with OpenClaw.",
+    "metaTitle": "OpenClaw: Self-Hosted AI Assistant Consultancy",
+    "metaDesc": "Run your own AI assistant. We help you deploy, host, secure, and automate with OpenClaw.",
+    "faq": [
+      {
+        "question": "What is OpenClaw?",
+        "answer": "OpenClaw is an open-source AI assistant framework that runs on your own infrastructure. It connects to your messaging platforms, tools, and data, giving you a personal AI that understands your business context."
+      },
+      {
+        "question": "Why self-host an AI assistant instead of using a SaaS tool?",
+        "answer": "Your data stays on your own hardware, a VPS or even a Mac Mini, which matters for privacy, compliance, and predictable cost. You're not sending sensitive business data to a third-party service."
+      },
+      {
+        "question": "How do you keep a self-hosted assistant secure?",
+        "answer": "We harden the full stack: firewall configuration, access controls, and encrypted communications, so an assistant handling sensitive data stays locked down."
+      },
+      {
+        "question": "Can you run and maintain it for us?",
+        "answer": "Yes. If you'd rather not manage infrastructure, we offer managed hosting: kept up, updated, and monitored, with zero hassle on your end."
+      },
+      {
+        "question": "What can OpenClaw actually automate?",
+        "answer": "We connect it to your email, calendar, CRM, messaging, and databases, then build workflows that save hours every week."
+      }
+    ],
     "deployTitle": "Deploy on your hardware",
-    "deployDesc": "Run OpenClaw on a VPS or Mac Mini. your data stays yours. We handle the full setup: installation, configuration, networking, and making sure everything talks to each other.",
+    "deployDesc": "Run OpenClaw on a VPS or Mac Mini. Your data stays yours. We handle the full setup: installation, configuration, networking, and making sure everything talks to each other.",
     "hostingTitle": "Managed hosting",
     "hostingDesc": "Don't want to manage infrastructure? We'll host your OpenClaw instance for you. Always up, always updated, zero hassle on your end.",
     "securityTitle": "Security & hardening",
-    "securityDesc": "AI assistants handle sensitive data. we make sure yours is locked down. From firewall configuration to access controls and encrypted communications, we cover the full security stack.",
+    "securityDesc": "AI assistants handle sensitive data, so we make sure yours is locked down. From firewall configuration to access controls and encrypted communications, we cover the full security stack.",
     "automationTitle": "Business automation",
-    "automationDesc": "The real power of OpenClaw is automation. We help you connect it to your tools. email, calendar, CRM, messaging, databases. and build workflows that save hours every week.",
+    "automationDesc": "The real power of OpenClaw is automation. We help you connect it to your tools (email, calendar, CRM, messaging, databases) and build workflows that save hours every week.",
     "whatIsTitle": "What is OpenClaw?",
-    "whatIsDesc": "OpenClaw is an open-source AI assistant framework that runs on your own infrastructure. It connects to your messaging platforms, tools, and data. giving you a personal AI that understands your business context. Think of it as your always-on team member that never forgets, never sleeps, and gets smarter over time."
+    "whatIsDesc": "OpenClaw is an open-source AI assistant framework that runs on your own infrastructure. It connects to your messaging platforms, tools, and data, giving you a personal AI that understands your business context. Think of it as your always-on team member that never forgets, never sleeps, and gets smarter over time."
   },
   "contact": {
     "title": "Get in <span>touch</span>",
     "description": "Have a project in mind? We'd love to hear about it.",
-    "metaDesc": "Get in touch with Virge.io. let's discuss your next project.",
+    "metaDesc": "Get in touch with Virge.io. Let's discuss your next project.",
     "nameLabel": "Name",
     "namePlaceholder": "Your name",
     "emailLabel": "Email",
@@ -115,7 +195,7 @@
   "blog": {
     "title": "Virge.io <span>Blog</span>",
     "description": "Insights on AI, automation, and scaling technology for business.",
-    "metaDesc": "Insights on AI automation, RAG pipelines, and scaling Dutch tech companies internationally. from the Virge.io team.",
+    "metaDesc": "Insights on AI automation, RAG pipelines, and scaling Dutch tech companies internationally, from the Virge.io team.",
     "readMore": "Read more →",
     "backToBlog": "← Back to Blog",
     "minRead": "min read"

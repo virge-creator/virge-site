@@ -1,13 +1,21 @@
 ---
 import Layout from '../../../layouts/Layout.astro';
 import CTA from '../../../components/CTA.astro';
+import { breadcrumbSchema } from '../../../data/structured-data';
 
 const lang = 'nl';
+
+const jsonLd = breadcrumbSchema([
+  { name: 'Home', path: `/${lang}/` },
+  { name: 'Cases', path: `/${lang}/cases/` },
+  { name: 'JVJ Selection Case Study', path: `/${lang}/cases/jvj-selection/` },
+]);
 ---
 <Layout
   title="JVJ Selection Case Study"
   description="Hoe Virge een webshop met referralsysteem bouwde voor Jas voor Jeugd, een Maastrichtse stichting die gedoneerde kleding herverdeelt aan jongeren in nood."
   lang={lang}
+  jsonLd={jsonLd}
 >
   <aside class="header-overview" data-header-overview aria-label="Kopoverzicht">
     <span class="header-overview-title">Overzicht</span>
@@ -62,7 +70,7 @@ const lang = 'nl';
         </div>
       </header>
 
-      <img src="/images/cases/jvj/homepage.png" alt="JVJ Selection homepage — productoverzicht" class="case-screenshot" />
+      <img src="/images/cases/jvj/homepage.png" alt="JVJ Selection homepage, productoverzicht" class="case-screenshot" />
 
       <div class="post-content case-content">
         <h2>De uitdaging</h2>
