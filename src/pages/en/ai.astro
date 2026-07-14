@@ -7,6 +7,9 @@ const lang = 'en';
 const i = t(lang);
 ---
 <Layout title="AI Consulting" description={i.ai.metaDesc} lang={lang}>
+  <div class="page-back">
+    <a href={`/${lang}/services/`} class="back-link">{i.nav.backToServices}</a>
+  </div>
   <div class="page-header">
     <h1><Fragment set:html={i.ai.title} /></h1>
     <p>{i.ai.description}</p>

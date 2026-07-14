@@ -9,7 +9,8 @@
     "openclaw": "OpenClaw",
     "cases": "Cases",
     "contact": "Contact",
-    "jobs": "Jobs"
+    "jobs": "Jobs",
+    "backToServices": "← Back to services"
   },
   "hero": {
     "title": "<span>Virge.</span><br/>Software solutions that scale.",

@@ -74,6 +74,12 @@ section { padding: 5rem 0; }
 section h2 { font-size: 2rem; font-weight: 700; margin-bottom: 1.5rem; }
 
 /* Page header */
+.page-back {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem 0;
+}
+.page-back .back-link { margin-bottom: 0; }
 .page-header {
   text-align: left; padding: 4rem 1.5rem 2rem;
   max-width: 1100px; margin: 0 auto;
@@ -204,6 +210,7 @@ footer {
   color: var(--accent2);
   text-decoration: none;
   border: 1px solid rgba(168,85,247,0.14);
+  white-space: nowrap;
 }
 a.tag:hover { background: rgba(108,92,231,0.3); }
 
@@ -259,7 +266,7 @@ a.tag:hover { background: rgba(108,92,231,0.3); }
 .post-meta { display: flex; gap: 0.5rem; color: var(--text-muted); font-size: 0.9rem; flex-wrap: wrap; }
 .post-content { font-size: 1.05rem; line-height: 1.8; max-width: var(--article-content-width); }
 .post-content h2 { font-size: 1.5rem; margin: 2.5rem 0 1rem; color: var(--text); scroll-margin-top: 6rem; }
-.post-content h3 { font-size: 1.2rem; margin: 2rem 0 0.75rem; color: var(--accent2); }
+.post-content h3 { font-size: 1.2rem; margin: 2rem 0 0.75rem; color: var(--accent2); scroll-margin-top: 6rem; }
 .post-hero-image { display: block; margin-left: auto; margin-right: auto; }
 .post-content > p:first-child img { width: 100%; max-width: 100%; height: auto; border-radius: 12px; margin: 0 auto 1.5rem; }
 .post-content img,
@@ -380,7 +387,7 @@ figure.article-illustration {
 .header-overview {
   position: fixed;
   top: 15vh;
-  left: max(1rem, calc((100vw - 1100px) / 2 - 14.25rem));
+  right: max(1rem, calc((100vw - 1100px) / 2 - 14.25rem));
   transform: translateX(var(--overview-shift, 0px));
   z-index: 20;
   width: 13rem;
@@ -403,9 +410,24 @@ figure.article-illustration {
   color: var(--accent2);
 }
 .header-overview nav {
+  position: relative;
   display: flex;
   flex-direction: column;
   gap: 0.3rem;
+}
+/* Rides the panel's left border to show the reader's current heading. */
+.header-overview-marker {
+  position: absolute;
+  left: calc(-1rem - 1px); /* escape the 1rem panel padding and sit on the border */
+  top: 0;
+  width: 3px;
+  height: 0;
+  opacity: 0;
+  border-radius: 3px;
+  background: var(--accent2);
+  box-shadow: 0 0 10px rgba(108,92,231,0.55);
+  transition: transform 0.25s ease, height 0.25s ease, opacity 0.25s ease;
+  will-change: transform, height;
 }
 .header-overview a {
   color: var(--text-muted);
@@ -418,6 +440,11 @@ figure.article-illustration {
 .header-overview a:hover {
   color: var(--text);
   background: rgba(108,92,231,0.12);
+}
+.header-overview a.is-active {
+  color: var(--text);
+  font-weight: 600;
+  background: rgba(108,92,231,0.14);
 }
 .header-overview a.is-subheading {
   padding-left: 1rem;
@@ -706,4 +733,124 @@ figure.article-illustration {
 
 @media (max-width: 1560px) {
   .header-overview { display: none; }
+}
+
+/* Mobile / tablet "On this page" overview: floating button + bottom sheet.
+   Shown wherever the fixed desktop panel above is hidden (<= 1560px). */
+.toc-fab { display: none; }
+.toc-sheet { display: none; }
+body.toc-lock { overflow: hidden; }
+
+@media (max-width: 1560px) {
+  .toc-fab {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    right: 1.15rem;
+    bottom: 1.15rem;
+    z-index: 90;
+    width: 3.25rem;
+    height: 3.25rem;
+    padding: 0;
+    border: 1px solid rgba(168,85,247,0.4);
+    border-radius: 50%;
+    background: linear-gradient(150deg, #6c5ce7, #a855f7);
+    color: #fff;
+    cursor: pointer;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.4), 0 0 20px rgba(108,92,231,0.35);
+    transition: transform 0.15s ease;
+  }
+  .toc-fab:hover { transform: translateY(-2px); }
+  .toc-fab[aria-expanded="true"] { transform: scale(0.94); }
+
+  .toc-sheet {
+    display: block;
+    position: fixed;
+    inset: 0;
+    z-index: 500;
+    visibility: hidden;
+  }
+  .toc-sheet.is-open { visibility: visible; }
+
+  .toc-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(6,6,18,0.6);
+    opacity: 0;
+    transition: opacity 0.2s ease;
+  }
+  .toc-sheet.is-open .toc-backdrop { opacity: 1; }
+
+  .toc-sheet-panel {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    max-height: 72vh;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+    padding: 1.1rem 1.25rem calc(1.5rem + env(safe-area-inset-bottom, 0px));
+    background: linear-gradient(180deg, #16143a 0%, #0d0c24 100%);
+    border-top: 1px solid rgba(108,92,231,0.3);
+    border-radius: 18px 18px 0 0;
+    box-shadow: 0 -18px 48px rgba(0,0,0,0.5);
+    transform: translateY(100%);
+    transition: transform 0.24s ease;
+  }
+  .toc-sheet.is-open .toc-sheet-panel { transform: translateY(0); }
+
+  .toc-sheet-title {
+    display: block;
+    margin-bottom: 0.6rem;
+    font-size: 0.75rem;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent2);
+  }
+  /* This nav inherits the global site-navbar background/position; reset it so
+     the list blends into the sheet panel instead of showing a dark box. */
+  .toc-sheet-list {
+    display: flex;
+    flex-direction: column;
+    position: static;
+    top: auto;
+    padding: 0.25rem;
+    background: transparent;
+    backdrop-filter: none;
+    border-radius: 14px;
+    overflow: hidden;
+  }
+  .toc-sheet-list a {
+    display: block;
+    padding: 0.7rem 0.6rem;
+    color: var(--text-muted);
+    font-size: 1rem;
+    line-height: 1.35;
+    text-decoration: none;
+    border-radius: 10px;
+  }
+  .toc-sheet-list a:hover,
+  .toc-sheet-list a:active {
+    color: var(--text);
+    background: rgba(108,92,231,0.14);
+  }
+  .toc-sheet-list a.is-active {
+    color: var(--text);
+    font-weight: 600;
+    background: rgba(108,92,231,0.14);
+    box-shadow: inset 3px 0 0 var(--accent2);
+    border-radius: 0;
+  }
+  .toc-sheet-list a.is-subheading {
+    padding-left: 1.4rem;
+    font-size: 0.92rem;
+    color: rgba(255,255,255,0.55);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .toc-backdrop,
+  .toc-sheet-panel { transition: none; }
 }

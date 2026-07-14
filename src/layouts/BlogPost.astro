@@ -56,47 +56,6 @@ const dateLocale = lang === 'nl' ? 'nl-NL' : 'en-US';
 </Layout>
 
 <script>
-  function slugifyHeading(text) {
-    return text
-      .toLowerCase()
-      .trim()
-      .replace(/[^a-z0-9]+/g, '-')
-      .replace(/^-+|-+$/g, '');
-  }
-
-  function initHeaderOverview() {
-    const overview = document.querySelector('[data-header-overview]');
-    const list = document.querySelector('[data-header-overview-list]');
-    const content = document.querySelector('.post-content');
-    if (!overview || !list || !content) return;
-
-    const headings = Array.from(content.querySelectorAll('h2, h3'));
-    if (!headings.length) {
-      overview.remove();
-      return;
-    }
-
-    const usedIds = new Set();
-    list.innerHTML = '';
-    headings.forEach((heading) => {
-      const base = heading.id || slugifyHeading(heading.textContent || 'section') || 'section';
-      let id = base;
-      let index = 2;
-      while (usedIds.has(id) || document.getElementById(id)) {
-        id = `${base}-${index}`;
-        index += 1;
-      }
-      usedIds.add(id);
-      heading.id = id;
-
-      const link = document.createElement('a');
-      link.href = `#${id}`;
-      link.textContent = heading.textContent || '';
-      link.className = heading.tagName.toLowerCase() === 'h3' ? 'is-subheading' : '';
-      list.appendChild(link);
-    });
-  }
-
   function initCodeCopy() {
     const labels = document.documentElement.lang === 'nl'
       ? { copy: 'Kopieer', copied: 'Gekopieerd', fallback: 'Code' }
@@ -173,54 +132,6 @@ const dateLocale = lang === 'nl' ? 'nl-NL' : 'en-US';
       .forEach((element) => element.classList.add('article-illustration'));
   }
 
-  function initOverviewCollisionGuard() {
-    const overview = document.querySelector('[data-header-overview]');
-    if (!overview) return;
-
-    const gap = 24;
-    let frame = 0;
-
-    function overlaps(a, b) {
-      return a.left < b.right + gap
-        && a.right > b.left - gap
-        && a.top < b.bottom
-        && a.bottom > b.top;
-    }
-
-    function updateOverviewPosition() {
-      frame = 0;
-      overview.style.setProperty('--overview-shift', '0px');
-
-      const overviewRect = overview.getBoundingClientRect();
-      if (!overviewRect.width || !overviewRect.height) return;
-
-      let targetLeft = overviewRect.left;
-      document.querySelectorAll('.article-illustration').forEach((element) => {
-        const rect = element.getBoundingClientRect();
-        if (!rect.width || !rect.height) return;
-        if (!overlaps(overviewRect, rect)) return;
-        targetLeft = Math.min(targetLeft, rect.left - gap - overviewRect.width);
-      });
-
-      overview.style.setProperty('--overview-shift', `${targetLeft - overviewRect.left}px`);
-    }
-
-    function scheduleUpdate() {
-      if (frame) return;
-      frame = window.requestAnimationFrame(updateOverviewPosition);
-    }
-
-    scheduleUpdate();
-    window.addEventListener('load', scheduleUpdate, { once: true });
-    window.addEventListener('resize', scheduleUpdate);
-    window.addEventListener('scroll', scheduleUpdate, { passive: true });
-    document.querySelectorAll('img').forEach((image) => {
-      image.addEventListener('load', scheduleUpdate, { once: true });
-    });
-  }
-
-  initHeaderOverview();
   initCodeCopy();
   initArticleIllustrations();
-  initOverviewCollisionGuard();
 </script>

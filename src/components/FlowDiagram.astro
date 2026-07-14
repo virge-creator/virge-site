@@ -133,6 +133,7 @@ const isNarrow = maxRowLen <= 3
     color: var(--accent2);
     margin: 0;
     line-height: 1;
+    scroll-margin-top: 7rem;
   }
 
   .diagram-note {
@@ -307,11 +308,27 @@ const isNarrow = maxRowLen <= 3
     }
 
     .flow-body { padding: 0.5rem 1.25rem; }
-    .flow-row { padding: 0.5rem 0; }
+    .flow-row { padding: 0; }
 
-    .flow-turn,
     .flow-step--ghost,
     .flow-arrow--ghost { display: none; }
+
+    /* Row-break turn becomes a vertical connector, matching the step arrows
+       so the flow stays continuous when the snake collapses to one column */
+    .flow-turn {
+      height: 1.5rem;
+      width: 1px;
+      margin: 0 0 0 1.1rem;
+    }
+    .flow-turn::after {
+      right: auto;
+      left: 0;
+    }
+    .flow-turn::before {
+      right: auto;
+      left: 50%;
+      transform: translateX(-50%);
+    }
 
     .flow-step {
       flex-direction: row;

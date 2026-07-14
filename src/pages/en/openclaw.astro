@@ -7,6 +7,9 @@ const lang = 'en';
 const i = t(lang);
 ---
 <Layout title="OpenClaw Consultancy" description={i.openclaw.metaDesc} lang={lang}>
+  <div class="page-back">
+    <a href={`/${lang}/services/`} class="back-link">{i.nav.backToServices}</a>
+  </div>
   <div class="page-header">
     <h1><Fragment set:html={i.openclaw.title} /></h1>
     <p>{i.openclaw.description}</p>

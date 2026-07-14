@@ -9,7 +9,8 @@
     "openclaw": "OpenClaw",
     "cases": "Cases",
     "contact": "Contact",
-    "jobs": "Vacatures"
+    "jobs": "Vacatures",
+    "backToServices": "← Terug naar diensten"
   },
   "hero": {
     "title": "<span>Virge.</span><br/>Software oplossingen die schalen.",

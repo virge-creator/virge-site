@@ -7,6 +7,9 @@ const lang = 'nl';
 const i = t(lang);
 ---
 <Layout title="Software Defined Networking" description={i.sdn.metaDesc} lang={lang}>
+  <div class="page-back">
+    <a href={`/${lang}/services/`} class="back-link">{i.nav.backToServices}</a>
+  </div>
   <div class="page-header">
     <h1><Fragment set:html={i.sdn.title} /></h1>
     <p>{i.sdn.description}</p>
