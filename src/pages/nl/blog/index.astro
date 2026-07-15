@@ -6,6 +6,20 @@ const lang = 'nl';
 const i = t(lang);
 const posts = await Astro.glob('./*.md');
 const sorted = posts.sort((a, b) => new Date(b.frontmatter.date).getTime() - new Date(a.frontmatter.date).getTime());
+// Only tags carried by 2+ posts go in the filter bar (one-off tags would
+// flood it); ?tag= links from post pages still work for any tag.
+const tagCounts = new Map();
+for (const post of sorted) {
+  for (const tag of post.frontmatter.tags || []) tagCounts.set(tag, (tagCounts.get(tag) || 0) + 1);
+}
+const allTags = [...tagCounts.entries()]
+  .filter(([, count]) => count >= 2)
+  .map(([tag]) => tag)
+  .sort((a, b) => a.localeCompare(b));
+// Split into two rows so pills read left-to-right across each row; the whole
+// block scrolls horizontally as a two-row carousel when it overflows.
+const half = Math.ceil(allTags.length / 2);
+const tagRows = [allTags.slice(0, half), allTags.slice(half)];
 ---
 <Layout title="Blog" description={i.blog.metaDesc} lang={lang}>
   <div class="page-header">
@@ -15,12 +29,30 @@ const sorted = posts.sort((a, b) => new Date(b.frontmatter.date).getTime() - new
 
   <section>
     <div class="container">
+      <div class="tag-carousel">
+        <button class="tag-carousel-btn tag-carousel-prev" type="button" aria-label="Tags naar links scrollen" hidden>‹</button>
+        <div class="tag-filter" id="tag-filter" role="group" aria-label="Filter berichten op tag">
+          <div class="tag-row">
+            <button class="tag is-active" data-tag="">Alle</button>
+            {tagRows[0].map(tag => (
+              <button class="tag" data-tag={tag}>{tag}</button>
+            ))}
+          </div>
+          <div class="tag-row">
+            {tagRows[1].map(tag => (
+              <button class="tag" data-tag={tag}>{tag}</button>
+            ))}
+          </div>
+        </div>
+        <button class="tag-carousel-btn tag-carousel-next" type="button" aria-label="Tags naar rechts scrollen" hidden>›</button>
+      </div>
+
       <div class="blog-grid" id="blog-grid">
         {sorted.map(post => {
           const slug = post.file.split('/').pop()?.replace('.md', '');
           const readingTime = post.rawContent ? Math.ceil(post.rawContent().split(/\s+/).length / 200) : 5;
           return (
-            <a href={`/${lang}/blog/${slug}/`} class="blog-card" data-post>
+            <a href={`/${lang}/blog/${slug}/`} class="blog-card" data-post data-tags={(post.frontmatter.tags || []).join('|')}>
               {post.frontmatter.image && (
                 <div class="blog-card-image">
                   <img src={post.frontmatter.image} alt={post.frontmatter.title} loading="lazy" />
@@ -46,7 +78,9 @@ const sorted = posts.sort((a, b) => new Date(b.frontmatter.date).getTime() - new
           );
         })}
       </div>
-      
+
+      <p class="tag-filter-empty" id="tag-filter-empty" hidden>Nog geen berichten met deze tag.</p>
+
       <div class="pagination" id="pagination">
         <button id="prev-btn" class="disabled">« Vorige</button>
         <span class="page-info" id="page-info">Pagina 1 van 1</span>
@@ -58,64 +92,206 @@ const sorted = posts.sort((a, b) => new Date(b.frontmatter.date).getTime() - new
 
 <script>
   const POSTS_PER_PAGE = 9;
-  
-  function initPagination() {
+
+  function initBlogGrid() {
     const posts = Array.from(document.querySelectorAll('[data-post]'));
-    const totalPages = Math.ceil(posts.length / POSTS_PER_PAGE);
-    
+    const tagButtons = Array.from(document.querySelectorAll('#tag-filter [data-tag]'));
+    const emptyNote = document.getElementById('tag-filter-empty');
+    const pagination = document.getElementById('pagination');
+    const pageInfoTemplate = (page, total) => `Pagina ${page} van ${total}`;
+
     const params = new URLSearchParams(window.location.search);
+    let activeTag = params.get('tag') || '';
+    // Any tag that exists on a post is valid (post pages link one-off tags
+    // that have no button); tags on no post at all are ignored.
+    if (activeTag && !posts.some((post) => (post.dataset.tags || '').split('|').includes(activeTag))) activeTag = '';
     let currentPage = parseInt(params.get('page') || '1', 10);
-    if (currentPage < 1) currentPage = 1;
-    if (currentPage > totalPages) currentPage = totalPages;
-    
+
+    let filtered = posts;
+
+    function applyFilter() {
+      filtered = activeTag
+        ? posts.filter((post) => (post.dataset.tags || '').split('|').includes(activeTag))
+        : posts;
+      tagButtons.forEach((btn) => btn.classList.toggle('is-active', btn.dataset.tag === activeTag));
+      if (emptyNote) emptyNote.hidden = filtered.length > 0;
+      if (pagination) pagination.style.display = filtered.length ? '' : 'none';
+    }
+
+    function totalPages() {
+      return Math.max(1, Math.ceil(filtered.length / POSTS_PER_PAGE));
+    }
+
     function showPage(page) {
-      posts.forEach((post, idx) => {
-        const startIdx = (page - 1) * POSTS_PER_PAGE;
-        const endIdx = startIdx + POSTS_PER_PAGE;
-        post.style.display = (idx >= startIdx && idx < endIdx) ? '' : 'none';
-      });
-      
+      posts.forEach((post) => { post.style.display = 'none'; });
+      const startIdx = (page - 1) * POSTS_PER_PAGE;
+      filtered.slice(startIdx, startIdx + POSTS_PER_PAGE).forEach((post) => { post.style.display = ''; });
+
       const prevBtn = document.getElementById('prev-btn');
       const nextBtn = document.getElementById('next-btn');
       const pageInfo = document.getElementById('page-info');
-      
+      const total = totalPages();
+
       if (prevBtn && nextBtn && pageInfo) {
         prevBtn.disabled = page <= 1;
         prevBtn.className = page <= 1 ? 'disabled' : '';
-        
-        nextBtn.disabled = page >= totalPages;
-        nextBtn.className = page >= totalPages ? 'disabled' : '';
-        
-        pageInfo.textContent = `Pagina ${page} van ${totalPages}`;
+
+        nextBtn.disabled = page >= total;
+        nextBtn.className = page >= total ? 'disabled' : '';
+
+        pageInfo.textContent = pageInfoTemplate(page, total);
       }
     }
-    
-    function goToPage(page) {
-      if (page < 1 || page > totalPages) return;
-      currentPage = page;
-      
+
+    function syncUrl() {
       const url = new URL(window.location.href);
-      if (page === 1) {
-        url.searchParams.delete('page');
-      } else {
-        url.searchParams.set('page', page.toString());
-      }
+      if (activeTag) url.searchParams.set('tag', activeTag);
+      else url.searchParams.delete('tag');
+      if (currentPage > 1) url.searchParams.set('page', currentPage.toString());
+      else url.searchParams.delete('page');
       window.history.pushState({}, '', url);
-      
-      showPage(page);
-      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
-    
-    document.getElementById('prev-btn')?.addEventListener('click', () => {
-      goToPage(currentPage - 1);
+
+    function goToPage(page, scroll = true) {
+      if (page < 1 || page > totalPages()) return;
+      currentPage = page;
+      syncUrl();
+      showPage(page);
+      if (scroll) window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    tagButtons.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        activeTag = activeTag === btn.dataset.tag ? '' : btn.dataset.tag || '';
+        currentPage = 1;
+        applyFilter();
+        syncUrl();
+        showPage(currentPage);
+      });
     });
-    
-    document.getElementById('next-btn')?.addEventListener('click', () => {
-      goToPage(currentPage + 1);
-    });
-    
+
+    document.getElementById('prev-btn')?.addEventListener('click', () => goToPage(currentPage - 1));
+    document.getElementById('next-btn')?.addEventListener('click', () => goToPage(currentPage + 1));
+
+    applyFilter();
+    if (currentPage < 1) currentPage = 1;
+    if (currentPage > totalPages()) currentPage = totalPages();
     showPage(currentPage);
   }
-  
-  initPagination();
+
+  function initTagCarousel() {
+    const viewport = document.getElementById('tag-filter');
+    const prevBtn = document.querySelector('.tag-carousel-prev');
+    const nextBtn = document.querySelector('.tag-carousel-next');
+    if (!viewport || !prevBtn || !nextBtn) return;
+
+    function update() {
+      const overflow = viewport.scrollWidth - viewport.clientWidth;
+      if (overflow <= 1) {
+        prevBtn.hidden = true;
+        nextBtn.hidden = true;
+        return;
+      }
+      prevBtn.hidden = viewport.scrollLeft <= 1;
+      nextBtn.hidden = viewport.scrollLeft >= overflow - 1;
+    }
+
+    function page(direction) {
+      viewport.scrollBy({ left: direction * viewport.clientWidth * 0.8, behavior: 'smooth' });
+    }
+
+    prevBtn.addEventListener('click', () => page(-1));
+    nextBtn.addEventListener('click', () => page(1));
+    viewport.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', update);
+    update();
+  }
+
+  initBlogGrid();
+  initTagCarousel();
 </script>
+
+<style>
+  .tag-carousel {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 2rem 0 0;
+  }
+
+  /* Two rows stacked vertically; each row is a horizontal strip so pills read
+     left-to-right and stay next to each other. The block never grows past two
+     rows — it scrolls horizontally as a carousel instead. */
+  .tag-filter {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    min-width: 0;
+    flex: 1;
+  }
+
+  .tag-filter::-webkit-scrollbar {
+    display: none;
+  }
+
+  .tag-row {
+    display: flex;
+    gap: 0.5rem;
+    width: max-content;
+  }
+
+  .tag-carousel-btn {
+    flex: 0 0 auto;
+    display: grid;
+    place-items: center;
+    width: 2rem;
+    height: 2rem;
+    padding: 0;
+    font-size: 1.25rem;
+    line-height: 1;
+    color: var(--text-muted);
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 999px;
+    cursor: pointer;
+    transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+  }
+
+  .tag-carousel-btn:hover {
+    color: #fff;
+    border-color: rgba(168,85,247,0.6);
+    background: rgba(108,92,231,0.25);
+  }
+
+  .tag-carousel-btn[hidden] {
+    display: none;
+  }
+
+  .tag-filter .tag {
+    cursor: pointer;
+    font: inherit;
+    font-size: 0.78rem;
+    transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+  }
+
+  .tag-filter .tag:hover {
+    border-color: rgba(168,85,247,0.45);
+  }
+
+  .tag-filter .tag.is-active {
+    background: rgba(108,92,231,0.35);
+    border-color: rgba(168,85,247,0.6);
+    color: #fff;
+  }
+
+  .tag-filter-empty {
+    color: var(--text-muted);
+    padding: 2rem 0;
+    text-align: center;
+  }
+</style>

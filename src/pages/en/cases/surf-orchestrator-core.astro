@@ -2,8 +2,15 @@
 import Layout from '../../../layouts/Layout.astro';
 import CTA from '../../../components/CTA.astro';
 import MermaidFlow from '../../../components/MermaidFlow.astro';
+import { breadcrumbSchema } from '../../../data/structured-data';
 
 const lang = 'en';
+
+const jsonLd = breadcrumbSchema([
+  { name: 'Home', path: `/${lang}/` },
+  { name: 'Cases', path: `/${lang}/cases/` },
+  { name: 'SURF: Hybrid Search for Orchestrator-Core', path: `/${lang}/cases/surf-orchestrator-core/` },
+]);
 
 const agentWorkflow = `
 %%label: Agent Workflow
@@ -19,6 +26,7 @@ graph LR
   title="SURF: Hybrid Search for Orchestrator-Core"
   description="How Virge collaborated with SURF and Tim Fröhlich to build a schema-agnostic hybrid search system for orchestrator-core, funded by GÉANT. Shipped in v5.0."
   lang={lang}
+  jsonLd={jsonLd}
 >
   <aside class="header-overview" data-header-overview aria-label="Header overview">
     <span class="header-overview-title">Overview</span>
@@ -355,7 +363,7 @@ graph LR
     font-weight: 700;
     letter-spacing: 0.1em;
     text-transform: uppercase;
-    color: var(--accent2);
+    color: var(--link);
   }
 
   .case-meta-item span:not(.case-meta-label),
@@ -379,7 +387,7 @@ graph LR
     background: rgba(108,92,231,0.12);
     padding: 0.1em 0.4em;
     border-radius: 4px;
-    color: var(--accent2);
+    color: var(--link);
   }
 
   .case-content ul {
@@ -418,7 +426,7 @@ graph LR
     font-weight: 700;
     letter-spacing: 0.09em;
     text-transform: uppercase;
-    color: var(--accent2);
+    color: var(--link);
     margin: 0;
     line-height: 1;
   }
@@ -479,7 +487,7 @@ graph LR
     background: linear-gradient(90deg, var(--accent), var(--accent2));
   }
   .arch-arr--final::before {
-    border-left-color: var(--accent2);
+    border-left-color: var(--link);
     border-top-width: 4px;
     border-bottom-width: 4px;
     border-left-width: 6px;
