@@ -79,8 +79,6 @@ const tagRows = [allTags.slice(0, half), allTags.slice(half)];
         })}
       </div>
 
-      <p class="tag-filter-empty" id="tag-filter-empty" hidden>Nog geen berichten met deze tag.</p>
-
       <div class="pagination" id="pagination">
         <button id="prev-btn" class="disabled">« Vorige</button>
         <span class="page-info" id="page-info">Pagina 1 van 1</span>
@@ -96,17 +94,10 @@ const tagRows = [allTags.slice(0, half), allTags.slice(half)];
   function initBlogGrid() {
     const posts = Array.from(document.querySelectorAll('[data-post]'));
     const tagButtons = Array.from(document.querySelectorAll('#tag-filter [data-tag]'));
-    const emptyNote = document.getElementById('tag-filter-empty');
-    const pagination = document.getElementById('pagination');
     const pageInfoTemplate = (page, total) => `Pagina ${page} van ${total}`;
 
-    const params = new URLSearchParams(window.location.search);
-    let activeTag = params.get('tag') || '';
-    // Any tag that exists on a post is valid (post pages link one-off tags
-    // that have no button); tags on no post at all are ignored.
-    if (activeTag && !posts.some((post) => (post.dataset.tags || '').split('|').includes(activeTag))) activeTag = '';
-    let currentPage = parseInt(params.get('page') || '1', 10);
-
+    let activeTag = '';
+    let currentPage = 1;
     let filtered = posts;
 
     function applyFilter() {
@@ -114,8 +105,6 @@ const tagRows = [allTags.slice(0, half), allTags.slice(half)];
         ? posts.filter((post) => (post.dataset.tags || '').split('|').includes(activeTag))
         : posts;
       tagButtons.forEach((btn) => btn.classList.toggle('is-active', btn.dataset.tag === activeTag));
-      if (emptyNote) emptyNote.hidden = filtered.length > 0;
-      if (pagination) pagination.style.display = filtered.length ? '' : 'none';
     }
 
     function totalPages() {
@@ -152,6 +141,21 @@ const tagRows = [allTags.slice(0, half), allTags.slice(half)];
       window.history.pushState({}, '', url);
     }
 
+    // Derive filter + page from the URL and render. Runs on load and on
+    // popstate so browser back/forward keeps the grid in sync with the address.
+    function syncFromUrl() {
+      const params = new URLSearchParams(window.location.search);
+      activeTag = params.get('tag') || '';
+      // Any tag that exists on a post is valid (post pages link one-off tags
+      // that have no button); tags on no post at all are ignored.
+      if (activeTag && !posts.some((post) => (post.dataset.tags || '').split('|').includes(activeTag))) activeTag = '';
+      currentPage = parseInt(params.get('page') || '1', 10);
+      applyFilter();
+      if (currentPage < 1) currentPage = 1;
+      if (currentPage > totalPages()) currentPage = totalPages();
+      showPage(currentPage);
+    }
+
     function goToPage(page, scroll = true) {
       if (page < 1 || page > totalPages()) return;
       currentPage = page;
@@ -172,11 +176,9 @@ const tagRows = [allTags.slice(0, half), allTags.slice(half)];
 
     document.getElementById('prev-btn')?.addEventListener('click', () => goToPage(currentPage - 1));
     document.getElementById('next-btn')?.addEventListener('click', () => goToPage(currentPage + 1));
+    window.addEventListener('popstate', syncFromUrl);
 
-    applyFilter();
-    if (currentPage < 1) currentPage = 1;
-    if (currentPage > totalPages()) currentPage = totalPages();
-    showPage(currentPage);
+    syncFromUrl();
   }
 
   function initTagCarousel() {
@@ -287,11 +289,5 @@ const tagRows = [allTags.slice(0, half), allTags.slice(half)];
     background: rgba(108,92,231,0.35);
     border-color: rgba(168,85,247,0.6);
     color: #fff;
-  }
-
-  .tag-filter-empty {
-    color: var(--text-muted);
-    padding: 2rem 0;
-    text-align: center;
   }
 </style>

@@ -62,7 +62,7 @@ export function blogPostingSchema({ title, description, date, author, path, imag
     headline: title,
     ...(description ? { description } : {}),
     datePublished: date,
-    inLanguage: lang,
+    inLanguage: lang === 'nl' ? 'nl-NL' : 'en-US',
     url: `${SITE_URL}${path}`,
     ...(image ? { image: image.startsWith('http') ? image : `${SITE_URL}${image}` } : {}),
     author: author
