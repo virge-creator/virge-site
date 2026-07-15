@@ -1,0 +1,24 @@
+---
+import type { Lang } from '../i18n';
+
+interface Props {
+  items: { question: string; answer: string }[];
+  lang?: Lang;
+}
+
+const { items, lang = 'en' } = Astro.props;
+const heading = lang === 'nl' ? 'Veelgestelde vragen' : 'Frequently asked questions';
+---
+<section class="faq" aria-labelledby="faq-heading">
+  <div class="container">
+    <h2 id="faq-heading">{heading}</h2>
+    <div class="faq-list">
+      {items.map((item) => (
+        <details class="faq-item">
+          <summary>{item.question}</summary>
+          <p>{item.answer}</p>
+        </details>
+      ))}
+    </div>
+  </div>
+</section>

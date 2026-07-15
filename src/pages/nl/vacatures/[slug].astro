@@ -79,7 +79,7 @@ const job = getJobBySlug(slug as string)!;
 <style>
   .back-link {
     display: inline-block;
-    color: var(--accent);
+    color: var(--link);
     text-decoration: none;
     font-size: 0.9rem;
     margin-bottom: 2rem;
@@ -108,8 +108,8 @@ const job = getJobBySlug(slug as string)!;
   .job-tag {
     display: inline-block;
     padding: 0.25rem 0.7rem;
-    background: rgba(139, 92, 246, 0.15);
-    color: var(--accent);
+    background: rgba(139, 92, 246, 0.22);
+    color: var(--link);
     font-size: 0.8rem;
     font-weight: 600;
     border-radius: 6px;
@@ -121,19 +121,20 @@ const job = getJobBySlug(slug as string)!;
     gap: 0.5rem;
     font-size: 1.3rem;
     font-weight: 700;
-    color: var(--accent2);
+    color: var(--link);
     margin-bottom: 0.75rem;
   }
   .job-section p {
-    color: var(--text-muted);
-    font-size: 0.95rem;
-    line-height: 1.7;
+    color: var(--text);
+    font-size: 1.05rem;
+    line-height: 1.75;
   }
   .job-section ul { list-style: none; padding: 0; }
   .job-section li {
-    color: var(--text-muted);
-    font-size: 0.95rem;
-    padding: 0.35rem 0;
+    color: var(--text);
+    font-size: 1.05rem;
+    line-height: 1.7;
+    padding: 0.4rem 0;
     padding-left: 1.5rem;
     position: relative;
   }
@@ -170,7 +171,7 @@ const job = getJobBySlug(slug as string)!;
     margin-bottom: 1.25rem;
   }
   .apply-email {
-    color: var(--accent);
+    color: var(--link);
     font-weight: 600;
     text-decoration: none;
   }

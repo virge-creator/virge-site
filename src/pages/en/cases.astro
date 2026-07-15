@@ -198,4 +198,14 @@ const lang = 'en';
     font-size: 0.8rem;
     color: var(--text-muted);
   }
+
+  @media (max-width: 768px) {
+    /* Stack the meta above the CTA so neither gets squeezed */
+    .case-card-footer {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.5rem;
+    }
+    .case-card-meta { flex-wrap: wrap; }
+  }
 </style>

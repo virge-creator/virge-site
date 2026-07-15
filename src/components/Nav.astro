@@ -47,6 +47,15 @@ const serviceItems = [
   { href: `${base}openclaw/`, label: i.nav.openclaw },
   { href: `${base}ecommerce/`, label: i.nav.ecommerce },
 ];
+
+// Highlight the nav item for the section the visitor is currently in.
+const cleanPath = currentPath.replace(/\/+$/, '');
+const isHomeActive = cleanPath === `/${lang}`;
+const sectionActive = (href: string) => {
+  const clean = href.replace(/\/+$/, '');
+  return cleanPath === clean || cleanPath.startsWith(`${clean}/`);
+};
+const servicesActive = sectionActive(`${base}services`) || serviceItems.some((s) => sectionActive(s.href));
 ---
 <nav>
   <div class="container">
@@ -55,10 +64,10 @@ const serviceItems = [
       <Icon name="menu" size={24} />
     </button>
     <ul class="links">
-      <li><a href={base}>{i.nav.home}</a></li>
-      <li class="has-dropdown">
+      <li><a href={base} class:list={{ active: isHomeActive }} aria-current={isHomeActive ? 'page' : undefined}>{i.nav.home}</a></li>
+      <li class:list={["has-dropdown", { active: servicesActive }]}>
         <div class="dropdown-parent">
-          <a href={`${base}services/`}>{i.nav.services}</a>
+          <a href={`${base}services/`} class:list={{ active: servicesActive }} aria-current={servicesActive ? 'page' : undefined}>{i.nav.services}</a>
           <button class="chevron-btn" aria-label="Toggle services menu" aria-expanded="false">
             <svg class="chevron" width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
               <path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -66,13 +75,13 @@ const serviceItems = [
           </button>
         </div>
         <ul class="dropdown">
-          {serviceItems.map(s => <li><a href={s.href}>{s.label}</a></li>)}
+          {serviceItems.map(s => <li><a href={s.href} class:list={{ active: sectionActive(s.href) }} aria-current={sectionActive(s.href) ? 'page' : undefined}>{s.label}</a></li>)}
         </ul>
       </li>
-      <li><a href={`${base}cases/`}>{i.nav.cases}</a></li>
-      <li><a href={`${base}blog/`}>{i.nav.blog}</a></li>
-      <li><a href={jobsPath}>{i.nav.jobs}</a></li>
-      <li><a href={`${base}contact/`}>{i.nav.contact}</a></li>
+      <li><a href={`${base}cases/`} class:list={{ active: sectionActive(`${base}cases`) }} aria-current={sectionActive(`${base}cases`) ? 'page' : undefined}>{i.nav.cases}</a></li>
+      <li><a href={`${base}blog/`} class:list={{ active: sectionActive(`${base}blog`) }} aria-current={sectionActive(`${base}blog`) ? 'page' : undefined}>{i.nav.blog}</a></li>
+      <li><a href={jobsPath} class:list={{ active: sectionActive(jobsPath) }} aria-current={sectionActive(jobsPath) ? 'page' : undefined}>{i.nav.jobs}</a></li>
+      <li><a href={`${base}contact/`} class:list={{ active: sectionActive(`${base}contact`) }} aria-current={sectionActive(`${base}contact`) ? 'page' : undefined}>{i.nav.contact}</a></li>
       <li class="lang-switch">
         <button type="button" class="lang-current" aria-haspopup="true" aria-expanded="false" aria-label={`Language: ${langNames[lang]}`}>
           <span class="flag" set:html={flagSvg[lang]} />
@@ -224,6 +233,31 @@ const serviceItems = [
     font-size: 1.05rem;
   }
 
+  /* Active section indicator */
+  .links > li > a.active,
+  .dropdown-parent > a.active {
+    color: var(--text);
+  }
+  .links > li > a.active::after,
+  .dropdown-parent > a.active::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -0.35rem;
+    height: 2px;
+    border-radius: 2px;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+  }
+  .links > li > a,
+  .dropdown-parent > a {
+    position: relative;
+  }
+  .dropdown li a.active {
+    color: #fff;
+    background: rgba(108,92,231,0.2);
+  }
+
   /* Dropdown */
   .has-dropdown {
     position: relative;
@@ -314,12 +348,39 @@ const serviceItems = [
 
   /* Mobile: dropdown becomes inline */
   @media (max-width: 768px) {
+    /* Stack the submenu beneath "Services" instead of beside it
+       (base rule makes each nav li a horizontal flex row) */
+    .has-dropdown {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    /* Larger tap targets for the top-level links */
+    .links > li > a {
+      padding: 0.5rem 0;
+    }
+    /* "Services" label + chevron span the full width so the chevron
+       sits at the right edge with a comfortable tap area */
+    .dropdown-parent {
+      width: 100%;
+      justify-content: space-between;
+      gap: 0.5rem;
+    }
+    .chevron-btn {
+      min-width: 44px;
+      min-height: 44px;
+      justify-content: center;
+    }
+    .chevron {
+      opacity: 0.9;
+      width: 16px;
+      height: 16px;
+    }
     .dropdown {
       position: static;
       border-radius: 0;
       background: transparent;
       box-shadow: none;
-      padding: 0 0 0 0.5rem;
+      padding: 0 0 0 1rem;
       margin-top: 0.25rem;
       transform: none;
       transition: none;
@@ -328,6 +389,10 @@ const serviceItems = [
       max-height: 0;
       overflow: hidden;
     }
+    .dropdown li a {
+      padding: 0.7rem 0.75rem;
+      font-size: 1rem;
+    }
     .has-dropdown:hover .dropdown {
       opacity: 0;
       visibility: hidden;
@@ -335,7 +400,12 @@ const serviceItems = [
     .has-dropdown.open .dropdown {
       opacity: 1;
       visibility: visible;
-      max-height: 200px;
+      max-height: 320px;
+    }
+    /* Underline indicator reads awkwardly in the stacked menu */
+    .links > li > a.active::after,
+    .dropdown-parent > a.active::after {
+      display: none;
     }
 
     /* Language switcher: two always-visible pills */

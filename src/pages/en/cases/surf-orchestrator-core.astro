@@ -2,8 +2,15 @@
 import Layout from '../../../layouts/Layout.astro';
 import CTA from '../../../components/CTA.astro';
 import MermaidFlow from '../../../components/MermaidFlow.astro';
+import { breadcrumbSchema } from '../../../data/structured-data';
 
 const lang = 'en';
+
+const jsonLd = breadcrumbSchema([
+  { name: 'Home', path: `/${lang}/` },
+  { name: 'Cases', path: `/${lang}/cases/` },
+  { name: 'SURF: Hybrid Search for Orchestrator-Core', path: `/${lang}/cases/surf-orchestrator-core/` },
+]);
 
 const agentWorkflow = `
 %%label: Agent Workflow
@@ -19,6 +26,7 @@ graph LR
   title="SURF: Hybrid Search for Orchestrator-Core"
   description="How Virge collaborated with SURF and Tim Fröhlich to build a schema-agnostic hybrid search system for orchestrator-core, funded by GÉANT. Shipped in v5.0."
   lang={lang}
+  jsonLd={jsonLd}
 >
   <aside class="header-overview" data-header-overview aria-label="Header overview">
     <span class="header-overview-title">Overview</span>
@@ -183,6 +191,13 @@ graph LR
         <p>Incremental indexing uses SHA-256 content hashing to skip re-embedding unchanged fields, so the index stays current without full rebuilds. Keyset pagination embeds a <code>(score, entity_id, query_id)</code> cursor so result sets stay stable even when the underlying data changes mid-session. The EAV approach scales to millions of indexed attributes across deeply nested schemas.</p>
 
         <p>For the full technical write-up (EAV implementation, retriever routing, keyset pagination, and agent architecture), see Tim Fröhlich's post: <a href="https://timfrohlich.com/blog/postgresql-hybrid-search" target="_blank" rel="noopener">Building a Schema-Agnostic Hybrid Search System in PostgreSQL ↗</a></p>
+
+        <h2>Since then</h2>
+        <p>At the <a href="https://workfloworchestrator.org/meetings/" target="_blank" rel="noopener">third Workflow Orchestrator user meeting</a> (TNC26 Helsinki, June 2026), the community reported on the first year of this system in the wild. It has a name now: AI Search. Version 5.0 made it the default and deprecated the old Postgres full-text search. Every organization upgrading to 5.0 runs it, whether they use the AI features or not; connecting an LLM for semantic search stays optional and off by default.</p>
+
+        <p>The retriever set grew to five: structured filters, fuzzy trigram matching, semantic embeddings, and two hybrid combinations, all on the same EAV index described above.</p>
+
+        <p>The search engine also became the foundation for <code>orchestrator-agent</code>, a natural-language agent that answers plain-language questions about subscriptions, products, workflows, and processes. It reuses this search engine directly and exposes it over MCP, A2A, and AG-UI. The WFO community now counts "AI &amp; agents" among the five core themes of its ecosystem.</p>
       </div>
 
       <CTA lang={lang} />
@@ -191,41 +206,8 @@ graph LR
 </Layout>
 
 <script>
-  function slugifyHeading(text) {
-    return text
-      .toLowerCase()
-      .trim()
-      .replace(/[^a-z0-9]+/g, '-')
-      .replace(/^-+|-+$/g, '');
-  }
-
-  const overview = document.querySelector('[data-header-overview]');
-  const list = document.querySelector('[data-header-overview-list]');
-  const headings = Array.from(document.querySelectorAll('.case-post h2, .case-post h3'))
-    .filter((h) => !h.closest('.cta'));
-  if (overview && list && headings.length) {
-    const usedIds = new Set();
-    headings.forEach((heading) => {
-      const base = heading.id || slugifyHeading(heading.textContent || 'section') || 'section';
-      let id = base;
-      let index = 2;
-      while (usedIds.has(id) || document.getElementById(id)) {
-        id = `${base}-${index}`;
-        index += 1;
-      }
-      usedIds.add(id);
-      heading.id = id;
-
-      const link = document.createElement('a');
-      link.href = `#${id}`;
-      link.textContent = heading.textContent || '';
-      link.className = heading.tagName.toLowerCase() === 'h3' ? 'is-subheading' : '';
-      list.appendChild(link);
-    });
-  } else {
-    overview?.remove();
-  }
-
+  // Heading overview (desktop panel + mobile sheet) and its collision guard are
+  // handled centrally in Layout.astro.
   function initCaseCodeCopy() {
     const labels = { copy: 'Copy', copied: 'Copied', fallback: 'Code' };
     const languageLabels = {
@@ -285,43 +267,6 @@ graph LR
 
   initCaseCodeCopy();
   initCaseIllustrations();
-
-  if (overview) {
-    const gap = 24;
-    let frame = 0;
-
-    function overlaps(a, b) {
-      return a.left < b.right + gap && a.right > b.left - gap
-        && a.top < b.bottom && a.bottom > b.top;
-    }
-
-    function updateOverviewPosition() {
-      frame = 0;
-      overview.style.setProperty('--overview-shift', '0px');
-      const overviewRect = overview.getBoundingClientRect();
-      if (!overviewRect.width || !overviewRect.height) return;
-      let targetLeft = overviewRect.left;
-      document
-        .querySelectorAll('.article-illustration, .search-arch-diagram')
-        .forEach((el) => {
-          const rect = el.getBoundingClientRect();
-          if (!rect.width || !rect.height) return;
-          if (!overlaps(overviewRect, rect)) return;
-          targetLeft = Math.min(targetLeft, rect.left - gap - overviewRect.width);
-        });
-      overview.style.setProperty('--overview-shift', `${targetLeft - overviewRect.left}px`);
-    }
-
-    function scheduleUpdate() {
-      if (frame) return;
-      frame = window.requestAnimationFrame(updateOverviewPosition);
-    }
-
-    scheduleUpdate();
-    window.addEventListener('load', scheduleUpdate, { once: true });
-    window.addEventListener('resize', scheduleUpdate);
-    window.addEventListener('scroll', scheduleUpdate, { passive: true });
-  }
 </script>
 
 <style>
@@ -418,7 +363,7 @@ graph LR
     font-weight: 700;
     letter-spacing: 0.1em;
     text-transform: uppercase;
-    color: var(--accent2);
+    color: var(--link);
   }
 
   .case-meta-item span:not(.case-meta-label),
@@ -442,7 +387,7 @@ graph LR
     background: rgba(108,92,231,0.12);
     padding: 0.1em 0.4em;
     border-radius: 4px;
-    color: var(--accent2);
+    color: var(--link);
   }
 
   .case-content ul {
@@ -481,7 +426,7 @@ graph LR
     font-weight: 700;
     letter-spacing: 0.09em;
     text-transform: uppercase;
-    color: var(--accent2);
+    color: var(--link);
     margin: 0;
     line-height: 1;
   }
@@ -542,7 +487,7 @@ graph LR
     background: linear-gradient(90deg, var(--accent), var(--accent2));
   }
   .arch-arr--final::before {
-    border-left-color: var(--accent2);
+    border-left-color: var(--link);
     border-top-width: 4px;
     border-bottom-width: 4px;
     border-left-width: 6px;

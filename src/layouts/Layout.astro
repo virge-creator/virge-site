@@ -5,26 +5,31 @@ import '../styles/global.css';
 import type { Lang } from '../i18n';
 import { getOtherLang } from '../i18n';
 import { getAlternateSlug } from '../data/blog-slugs';
+import { organizationSchema } from '../data/structured-data';
 
 interface Props {
   title: string;
   description?: string;
   lang?: Lang;
-  image?: string;
+  jsonLd?: object | object[];
+  ogImage?: string;
   type?: 'website' | 'article';
   publishedDate?: string;
-  author?: string;
 }
 
 const {
   title,
   description = 'Virge.io Software solutions in AI, SDN, and eCommerce that scale with your business.',
   lang = 'en',
-  image,
+  jsonLd,
+  ogImage = '/logo.png',
   type = 'website',
   publishedDate,
-  author,
 } = Astro.props;
+
+// Escape `<` so page content can never break out of the JSON-LD script tag.
+const toJsonLd = (schema: object) => JSON.stringify(schema).replace(/</g, '\\u003c');
+const jsonLdBlocks = [organizationSchema, ...(Array.isArray(jsonLd) ? jsonLd : jsonLd ? [jsonLd] : [])];
 const otherLang = getOtherLang(lang);
 const currentPath = Astro.url.pathname;
 
@@ -46,36 +51,12 @@ if (lang === 'en') {
   alternatePath = alternatePath.replace(`/${otherLang}/vacatures/`, `/${otherLang}/jobs/`);
 }
 
-const site = 'https://virge.io';
-const canonicalURL = new URL(currentPath, site).href;
-// x-default points search engines to the English version for unmatched locales
-const xDefaultPath = lang === 'en' ? currentPath : alternatePath;
-const ogImage = new URL(image || '/logo.png', site).href;
+const canonicalURL = new URL(currentPath, 'https://virge.io').href;
+const ogImageURL = new URL(ogImage, 'https://virge.io').href;
+const fullTitle = `${title} | Virge.io`;
+// x-default points at the default-locale (en) version of the page.
+const defaultPath = lang === 'en' ? currentPath : alternatePath;
 const publishedISO = publishedDate ? new Date(publishedDate).toISOString() : undefined;
-
-const jsonLd: Record<string, unknown>[] = [
-  {
-    '@context': 'https://schema.org',
-    '@type': 'Organization',
-    name: 'Virge.io',
-    url: site,
-    logo: `${site}/logo.png`,
-  },
-];
-if (type === 'article') {
-  jsonLd.push({
-    '@context': 'https://schema.org',
-    '@type': 'BlogPosting',
-    headline: title,
-    description,
-    image: ogImage,
-    url: canonicalURL,
-    inLanguage: lang === 'nl' ? 'nl-NL' : 'en-US',
-    ...(publishedISO && { datePublished: publishedISO }),
-    ...(author && { author: { '@type': 'Organization', name: author } }),
-    publisher: { '@type': 'Organization', name: 'Virge.io', logo: { '@type': 'ImageObject', url: `${site}/logo.png` } },
-  });
-}
 ---
 <!DOCTYPE html>
 <html lang={lang}>
@@ -83,32 +64,274 @@ if (type === 'article') {
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content={description} />
-  <meta property="og:title" content={`${title} | Virge.io`} />
+  <meta property="og:title" content={fullTitle} />
   <meta property="og:description" content={description} />
   <meta property="og:type" content={type} />
   <meta property="og:url" content={canonicalURL} />
   <meta property="og:site_name" content="Virge.io" />
-  <meta property="og:image" content={ogImage} />
+  <meta property="og:image" content={ogImageURL} />
   <meta property="og:locale" content={lang === 'nl' ? 'nl_NL' : 'en_US'} />
   {type === 'article' && publishedISO && <meta property="article:published_time" content={publishedISO} />}
-  <meta name="twitter:card" content={image ? 'summary_large_image' : 'summary'} />
-  <meta name="twitter:title" content={`${title} | Virge.io`} />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={fullTitle} />
   <meta name="twitter:description" content={description} />
-  <meta name="twitter:image" content={ogImage} />
+  <meta name="twitter:image" content={ogImageURL} />
   <link rel="canonical" href={canonicalURL} />
   <link rel="alternate" hreflang={lang} href={`https://virge.io${currentPath}`} />
   <link rel="alternate" hreflang={otherLang} href={`https://virge.io${alternatePath}`} />
-  <link rel="alternate" hreflang="x-default" href={`https://virge.io${xDefaultPath}`} />
+  <link rel="alternate" hreflang="x-default" href={`https://virge.io${defaultPath}`} />
   <link rel="sitemap" href="/sitemap-index.xml" />
-  <title>{title} | Virge.io</title>
+  <title>{fullTitle}</title>
   <link rel="icon" href="/favicon.ico" sizes="any" />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-  {jsonLd.map(schema => <script type="application/ld+json" set:html={JSON.stringify(schema)} />)}
+  {jsonLdBlocks.map((schema) => <script type="application/ld+json" set:html={toJsonLd(schema)} />)}
 </head>
 <body>
   <Nav lang={lang} />
   <main><slot /></main>
   <Footer lang={lang} />
+
+  <script>
+    // Builds the article "overview" (table of contents) for blog posts and case
+    // pages: the fixed desktop panel AND a floating button + bottom sheet on
+    // narrower screens. Centralised here so heading IDs are assigned exactly once.
+    function slugifyHeading(text) {
+      return text
+        .toLowerCase()
+        .trim()
+        .replace(/[^a-z0-9]+/g, '-')
+        .replace(/^-+|-+$/g, '');
+    }
+
+    function initHeaderOverview() {
+      const overview = document.querySelector('[data-header-overview]');
+      const list = document.querySelector('[data-header-overview-list]');
+      // Scope to the whole article: case pages split content across multiple
+      // `.post-content` blocks with a flow diagram heading in between.
+      const article = document.querySelector('.blog-post, .case-post');
+      const headings = article
+        ? Array.from(article.querySelectorAll('h2, h3')).filter((h) => !h.closest('.cta'))
+        : [];
+
+      if (!overview || !list || !headings.length) {
+        overview?.remove();
+        return;
+      }
+
+      const usedIds = new Set();
+      list.innerHTML = '';
+
+      // Moving marker that rides the rail to show the reader's current heading.
+      const marker = document.createElement('span');
+      marker.className = 'header-overview-marker';
+      marker.setAttribute('aria-hidden', 'true');
+      list.appendChild(marker);
+
+      const items = headings.map((heading) => {
+        const base = heading.id || slugifyHeading(heading.textContent || 'section') || 'section';
+        let id = base;
+        let index = 2;
+        // Exclude the heading itself so re-runs stay idempotent.
+        while (usedIds.has(id) || (document.getElementById(id) && document.getElementById(id) !== heading)) {
+          id = `${base}-${index}`;
+          index += 1;
+        }
+        usedIds.add(id);
+        heading.id = id;
+
+        const isSub = heading.tagName.toLowerCase() === 'h3';
+        const link = document.createElement('a');
+        link.href = `#${id}`;
+        link.textContent = heading.textContent || '';
+        if (isSub) link.className = 'is-subheading';
+        list.appendChild(link);
+
+        return { id, text: heading.textContent || '', isSub, heading, links: [link] };
+      });
+
+      const mobileLinks = buildMobileOverview(items);
+      // Merge the matching mobile-sheet link into each item so scrollspy can
+      // highlight both the desktop panel and the mobile sheet at once.
+      items.forEach((item, i) => {
+        if (mobileLinks[i]) item.links.push(mobileLinks[i]);
+      });
+
+      initScrollSpy(items, list, marker);
+    }
+
+    // Highlights the heading the reader is currently on and slides the rail
+    // marker to it, giving the overview a live "you are here" indicator.
+    function initScrollSpy(items, list, marker) {
+      if (!items.length) return;
+      const OFFSET = 245; // px below the viewport top counted as "current"
+      let activeId = null;
+      let ticking = false;
+
+      function update() {
+        ticking = false;
+        let current = items[0];
+        for (const item of items) {
+          if (item.heading.getBoundingClientRect().top - OFFSET <= 0) current = item;
+          else break;
+        }
+        // Snap to the last heading once the page is scrolled to the bottom.
+        if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 4) {
+          current = items[items.length - 1];
+        }
+        if (!current || current.id === activeId) return;
+        activeId = current.id;
+
+        items.forEach((item) => {
+          const on = item === current;
+          item.links.forEach((link) => link.classList.toggle('is-active', on));
+        });
+
+        const activeLink = current.links.find((link) => list.contains(link));
+        if (activeLink) {
+          marker.style.transform = `translateY(${activeLink.offsetTop}px)`;
+          marker.style.height = `${activeLink.offsetHeight}px`;
+          marker.style.opacity = '1';
+        }
+      }
+
+      function schedule() {
+        if (ticking) return;
+        ticking = true;
+        window.requestAnimationFrame(update);
+      }
+
+      schedule();
+      window.addEventListener('scroll', schedule, { passive: true });
+      window.addEventListener('resize', schedule);
+    }
+
+    function buildMobileOverview(items) {
+      const isNl = document.documentElement.lang === 'nl';
+      const labels = isNl
+        ? { title: 'Op deze pagina', open: 'Overzicht openen', close: 'Sluiten' }
+        : { title: 'On this page', open: 'Open overview', close: 'Close' };
+
+      const fab = document.createElement('button');
+      fab.type = 'button';
+      fab.className = 'toc-fab';
+      fab.setAttribute('aria-label', labels.open);
+      fab.setAttribute('aria-expanded', 'false');
+      fab.innerHTML = '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">'
+        + '<path d="M8 6h12M8 12h12M8 18h12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>'
+        + '<circle cx="3.5" cy="6" r="1.4" fill="currentColor"/>'
+        + '<circle cx="3.5" cy="12" r="1.4" fill="currentColor"/>'
+        + '<circle cx="3.5" cy="18" r="1.4" fill="currentColor"/></svg>';
+
+      const sheet = document.createElement('div');
+      sheet.className = 'toc-sheet';
+      sheet.setAttribute('role', 'dialog');
+      sheet.setAttribute('aria-modal', 'true');
+      sheet.setAttribute('aria-hidden', 'true');
+      sheet.setAttribute('aria-label', labels.title);
+
+      const backdrop = document.createElement('div');
+      backdrop.className = 'toc-backdrop';
+
+      const panel = document.createElement('div');
+      panel.className = 'toc-sheet-panel';
+
+      const title = document.createElement('span');
+      title.className = 'toc-sheet-title';
+      title.textContent = labels.title;
+
+      const nav = document.createElement('nav');
+      nav.className = 'toc-sheet-list';
+      const mobileLinks = items.map((item) => {
+        const link = document.createElement('a');
+        link.href = `#${item.id}`;
+        link.textContent = item.text;
+        if (item.isSub) link.className = 'is-subheading';
+        link.addEventListener('click', close);
+        nav.appendChild(link);
+        return link;
+      });
+
+      panel.append(title, nav);
+      sheet.append(backdrop, panel);
+      document.body.append(fab, sheet);
+
+      function open() {
+        sheet.classList.add('is-open');
+        sheet.setAttribute('aria-hidden', 'false');
+        fab.setAttribute('aria-expanded', 'true');
+        document.body.classList.add('toc-lock');
+      }
+      function close() {
+        sheet.classList.remove('is-open');
+        sheet.setAttribute('aria-hidden', 'true');
+        fab.setAttribute('aria-expanded', 'false');
+        document.body.classList.remove('toc-lock');
+      }
+
+      fab.addEventListener('click', () => (sheet.classList.contains('is-open') ? close() : open()));
+      backdrop.addEventListener('click', close);
+      document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape' && sheet.classList.contains('is-open')) close();
+      });
+
+      return mobileLinks;
+    }
+
+    // The desktop overview panel sits in the right margin. When wide media
+    // (hero images, screenshots, flow diagrams) reaches into that margin, nudge
+    // the panel further right so it never sits on top of the content.
+    function initOverviewCollisionGuard() {
+      const overview = document.querySelector('[data-header-overview]');
+      if (!overview) return;
+
+      const MEDIA = '.post-hero-image, .post-content img, .post-content svg, .post-content figure, .case-screenshot, .screenshot-placeholder, .search-arch-diagram, .flow-diagram';
+      const gap = 24;
+      let frame = 0;
+
+      function overlaps(a, b) {
+        return a.left < b.right + gap
+          && a.right > b.left - gap
+          && a.top < b.bottom
+          && a.bottom > b.top;
+      }
+
+      function updateOverviewPosition() {
+        frame = 0;
+        overview.style.setProperty('--overview-shift', '0px');
+
+        const rect = overview.getBoundingClientRect();
+        if (!rect.width || !rect.height) return;
+
+        let targetLeft = rect.left;
+        document.querySelectorAll(MEDIA).forEach((element) => {
+          const mediaRect = element.getBoundingClientRect();
+          if (!mediaRect.width || !mediaRect.height) return;
+          if (!overlaps(rect, mediaRect)) return;
+          targetLeft = Math.max(targetLeft, mediaRect.right + gap);
+        });
+
+        const maxShift = window.innerWidth - 8 - rect.right;
+        const shift = Math.max(0, Math.min(targetLeft - rect.left, maxShift));
+        overview.style.setProperty('--overview-shift', `${shift}px`);
+      }
+
+      function scheduleUpdate() {
+        if (frame) return;
+        frame = window.requestAnimationFrame(updateOverviewPosition);
+      }
+
+      scheduleUpdate();
+      window.addEventListener('load', scheduleUpdate, { once: true });
+      window.addEventListener('resize', scheduleUpdate);
+      window.addEventListener('scroll', scheduleUpdate, { passive: true });
+      document.querySelectorAll('img').forEach((image) => {
+        image.addEventListener('load', scheduleUpdate, { once: true });
+      });
+    }
+
+    initHeaderOverview();
+    initOverviewCollisionGuard();
+  </script>
 </body>
 </html>

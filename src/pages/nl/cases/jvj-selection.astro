@@ -1,13 +1,21 @@
 ---
 import Layout from '../../../layouts/Layout.astro';
 import CTA from '../../../components/CTA.astro';
+import { breadcrumbSchema } from '../../../data/structured-data';
 
 const lang = 'nl';
+
+const jsonLd = breadcrumbSchema([
+  { name: 'Home', path: `/${lang}/` },
+  { name: 'Cases', path: `/${lang}/cases/` },
+  { name: 'JVJ Selection Case Study', path: `/${lang}/cases/jvj-selection/` },
+]);
 ---
 <Layout
   title="JVJ Selection Case Study"
   description="Hoe Virge een webshop met referralsysteem bouwde voor Jas voor Jeugd, een Maastrichtse stichting die gedoneerde kleding herverdeelt aan jongeren in nood."
   lang={lang}
+  jsonLd={jsonLd}
 >
   <aside class="header-overview" data-header-overview aria-label="Kopoverzicht">
     <span class="header-overview-title">Overzicht</span>
@@ -62,7 +70,7 @@ const lang = 'nl';
         </div>
       </header>
 
-      <img src="/images/cases/jvj/homepage.png" alt="JVJ Selection homepage — productoverzicht" class="case-screenshot" />
+      <img src="/images/cases/jvj/homepage.png" alt="JVJ Selection homepage, productoverzicht" class="case-screenshot" />
 
       <div class="post-content case-content">
         <h2>De uitdaging</h2>
@@ -145,41 +153,8 @@ const lang = 'nl';
 </Layout>
 
 <script>
-  function slugifyHeading(text) {
-    return text
-      .toLowerCase()
-      .trim()
-      .replace(/[^a-z0-9]+/g, '-')
-      .replace(/^-+|-+$/g, '');
-  }
-
-  const overview = document.querySelector('[data-header-overview]');
-  const list = document.querySelector('[data-header-overview-list]');
-  const headings = Array.from(document.querySelectorAll('.case-post h2, .case-post h3'))
-    .filter((h) => !h.closest('.cta'));
-  if (overview && list && headings.length) {
-    const usedIds = new Set();
-    headings.forEach((heading) => {
-      const base = heading.id || slugifyHeading(heading.textContent || 'section') || 'section';
-      let id = base;
-      let index = 2;
-      while (usedIds.has(id) || document.getElementById(id)) {
-        id = `${base}-${index}`;
-        index += 1;
-      }
-      usedIds.add(id);
-      heading.id = id;
-
-      const link = document.createElement('a');
-      link.href = `#${id}`;
-      link.textContent = heading.textContent || '';
-      link.className = heading.tagName.toLowerCase() === 'h3' ? 'is-subheading' : '';
-      list.appendChild(link);
-    });
-  } else {
-    overview?.remove();
-  }
-
+  // Heading overview (desktop panel + mobile sheet) and its collision guard are
+  // handled centrally in Layout.astro.
   function initCaseCodeCopy() {
     const labels = { copy: 'Kopieer', copied: 'Gekopieerd', fallback: 'Code' };
     const languageLabels = {
@@ -255,51 +230,6 @@ const lang = 'nl';
 
   initCaseCodeCopy();
   initCaseIllustrations();
-
-  if (overview) {
-    const gap = 24;
-    let frame = 0;
-
-    function overlaps(a, b) {
-      return a.left < b.right + gap
-        && a.right > b.left - gap
-        && a.top < b.bottom
-        && a.bottom > b.top;
-    }
-
-    function updateOverviewPosition() {
-      frame = 0;
-      overview.style.setProperty('--overview-shift', '0px');
-
-      const overviewRect = overview.getBoundingClientRect();
-      if (!overviewRect.width || !overviewRect.height) return;
-
-      let targetLeft = overviewRect.left;
-      document
-        .querySelectorAll('.article-illustration, .case-screenshot, .screenshot-placeholder, .referral-flow')
-        .forEach((element) => {
-          const rect = element.getBoundingClientRect();
-          if (!rect.width || !rect.height) return;
-          if (!overlaps(overviewRect, rect)) return;
-          targetLeft = Math.min(targetLeft, rect.left - gap - overviewRect.width);
-        });
-
-      overview.style.setProperty('--overview-shift', `${targetLeft - overviewRect.left}px`);
-    }
-
-    function scheduleUpdate() {
-      if (frame) return;
-      frame = window.requestAnimationFrame(updateOverviewPosition);
-    }
-
-    scheduleUpdate();
-    window.addEventListener('load', scheduleUpdate, { once: true });
-    window.addEventListener('resize', scheduleUpdate);
-    window.addEventListener('scroll', scheduleUpdate, { passive: true });
-    document.querySelectorAll('img').forEach((image) => {
-      image.addEventListener('load', scheduleUpdate, { once: true });
-    });
-  }
 </script>
 
 <style>
@@ -353,7 +283,7 @@ const lang = 'nl';
     font-weight: 700;
     letter-spacing: 0.1em;
     text-transform: uppercase;
-    color: var(--accent2);
+    color: var(--link);
   }
 
   .case-meta-item span:not(.case-meta-label),
@@ -377,7 +307,7 @@ const lang = 'nl';
     background: rgba(108,92,231,0.12);
     padding: 0.1em 0.4em;
     border-radius: 4px;
-    color: var(--accent2);
+    color: var(--link);
   }
 
   .case-screenshot {
@@ -427,7 +357,7 @@ const lang = 'nl';
     background: rgba(108,92,231,0.12);
     padding: 0.1em 0.4em;
     border-radius: 4px;
-    color: var(--accent2);
+    color: var(--link);
   }
 
   /* Referral flow diagram */
@@ -482,7 +412,7 @@ const lang = 'nl';
     font-weight: 700;
     letter-spacing: 0.1em;
     text-transform: uppercase;
-    color: var(--accent2);
+    color: var(--link);
   }
 
   .flow-title {
