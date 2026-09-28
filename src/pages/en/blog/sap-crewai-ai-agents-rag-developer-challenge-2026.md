@@ -11,7 +11,7 @@ tags: ["ai","agents","rag","sap"]
 
 ![](/images/blog/sap-crewai-rag-agents.jpg)
 
-# SAP Embraces CrewAI: Building Enterprise AI Agents with RAG
+## SAP Embraces CrewAI: Building Enterprise AI Agents with RAG
 
 SAP just launched its [April 2026 AI Developer Challenge](https://community.sap.com/t5/artificial-intelligence-blogs-posts/ai-developer-challenge-april-2026-build-ai-agents-with-generative-ai-hub/ba-p/14327218), and the tech stack is telling: **CrewAI for multi-agent orchestration, combined with SAP's Generative AI Hub for RAG-powered document grounding**. This isn't a toy demo—it's a signal that enterprise AI is moving decisively toward agentic architectures.
 
@@ -127,4 +127,4 @@ The combination of agentic AI and retrieval-augmented generation isn't just tech
 
 ---
 
-*Virge.io specializes in enterprise AI architectures combining RAG, multi-agent systems, and secure orchestration. [Contact us](/contact/) to discuss your implementation.*
+*Virge.io specializes in enterprise AI architectures combining RAG, multi-agent systems, and secure orchestration. [Contact us](/en/contact/) to discuss your implementation.*

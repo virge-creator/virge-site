@@ -85,7 +85,7 @@ A few options worth understanding before you run into them:
 
 - `mcpSettings.allowedAddresses`: LibreChat blocks private IPs by default. You have to explicitly list every host:port your backends are on; without this, connections fail silently and you'll spend time wondering why.
 - `requiresOAuth: false`: without this, LibreChat's MCP client sees a 401 from your backend and tries to start its own OAuth flow, which produces a broken redirect loop. Your backend is doing the token validation; LibreChat just needs to forward the header.
-- `{{LIBRECHAT_OPENID_ACCESS_TOKEN}}`: this only works in `librechat.yaml`-defined servers, not ones created through the UI (that's intentional, see [CVE GHSA-pmw7-gqwj-f954](https://github.com/advisories/GHSA-pmw7-gqwj-f954)).
+- `{{LIBRECHAT_OPENID_ACCESS_TOKEN}}`: this only works in `librechat.yaml`-defined servers, not ones created through the UI (that's intentional, see [CVE GHSA-pmw7-gqwj-f954](https://github.com/danny-avila/LibreChat/security/advisories/GHSA-pmw7-gqwj-f954)).
 - `timeout: 120000`: the default is too short for anything that triggers a real backend workflow. Set this.
 
 ### Step 2: `.env`: authentication and token reuse
@@ -221,4 +221,4 @@ The answer to all of these is a service mesh, an agent gateway (agentgateway / k
 
 ---
 
-*Want to explore how AI agents can automate your operations? [Contact Virge.io](/en/contact) — we help teams implement agentic AI solutions on infrastructure they already own.*
+*Want to explore how AI agents can automate your operations? [Contact Virge.io](/en/contact/) — we help teams implement agentic AI solutions on infrastructure they already own.*

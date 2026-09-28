@@ -1,4 +1,4 @@
----
+﻿---
 layout: ../../../layouts/BlogPost.astro
 lang: nl
 title: "Gartner's RAG Revolutie: Waarom Domain-Specific AI Generieke LLM Wrappers Verslaat"
@@ -145,4 +145,5 @@ De verschuiving van model-centrische naar data-centrische AI is een van de bepal
 
 ---
 
-*Bij Virge helpen we organisaties bij het bouwen van productie-ready RAG-systemen die hun unieke data-voordelen benutten. Of je RAG voor het eerst evalueert of een bestaande implementatie wilt optimaliseren, [laten we praten](/nl/contact).*
+*Bij Virge helpen we organisaties bij het bouwen van productie-ready RAG-systemen die hun unieke data-voordelen benutten. Of je RAG voor het eerst evalueert of een bestaande implementatie wilt optimaliseren, [laten we praten](/nl/contact/).*
+

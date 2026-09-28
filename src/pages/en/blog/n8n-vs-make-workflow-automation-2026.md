@@ -136,4 +136,4 @@ The workflow automation market is evolving. The tools that win will be those tha
 
 ---
 
-*Building AI-powered workflows and need guidance on platform selection? [Contact Virge.io](/contact) for a workflow automation assessment.*
+*Building AI-powered workflows and need guidance on platform selection? [Contact Virge.io](/en/contact/) for a workflow automation assessment.*

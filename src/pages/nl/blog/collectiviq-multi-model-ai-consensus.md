@@ -1,4 +1,4 @@
----
+﻿---
 layout: ../../../layouts/BlogPost.astro
 lang: nl
 title: "CollectivIQ: waarom 10 AI-modellen bevragen beter werkt dan op één vertrouwen"
@@ -99,8 +99,9 @@ Maar het is één stukje van de puzzel. Echte enterprise AI-betrouwbaarheid vere
 4. **Audit trails** voor compliance
 5. **Graceful degradation** wanneer modellen falen
 
-We bouwen orchestratie-systemen die dit allemaal incorporeren bij [Virge.io](https://virge.io). Als je enterprise AI-platforms evalueert en wilt begrijpen hoe de puzzelstukjes passen, [laten we praten](/nl/contact).
+We bouwen orchestratie-systemen die dit allemaal incorporeren bij [Virge.io](https://virge.io). Als je enterprise AI-platforms evalueert en wilt begrijpen hoe de puzzelstukjes passen, [laten we praten](/nl/contact/).
 
 ---
 
-*Enterprise AI-systemen bouwen die betrouwbaar moeten zijn? We doen AI-orchestratie en RAG-implementaties sinds voordat het trendy was. [Neem contact op](/nl/contact) — we delen graag wat werkt.*
+*Enterprise AI-systemen bouwen die betrouwbaar moeten zijn? We doen AI-orchestratie en RAG-implementaties sinds voordat het trendy was. [Neem contact op](/nl/contact/) — we delen graag wat werkt.*
+

@@ -1,4 +1,4 @@
----
+﻿---
 layout: ../../../layouts/BlogPost.astro
 lang: nl
 title: "Google Nano-Banana 2: sub-second 4K beeldgeneratie die op je telefoon draait"
@@ -96,4 +96,5 @@ Voor iedereen: je telefoon kan nu betere afbeeldingen sneller genereren dan de m
 
 ---
 
-*AI-beeldgeneratie verkennen voor je product of workflow? Van on-device generatie tot cloud-gebaseerde content pipelines — [we kunnen helpen](/nl/contact).*
+*AI-beeldgeneratie verkennen voor je product of workflow? Van on-device generatie tot cloud-gebaseerde content pipelines — [we kunnen helpen](/nl/contact/).*
+

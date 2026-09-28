@@ -136,4 +136,4 @@ De workflow automation markt evolueert. De tools die winnen zullen degenen zijn 
 
 ---
 
-*Bezig met AI-powered workflows en hulp nodig bij platformselectie? [Neem contact op met Virge.io](/contact) voor een workflow automation assessment.*
+*Bezig met AI-powered workflows en hulp nodig bij platformselectie? [Neem contact op met Virge.io](/nl/contact/) voor een workflow automation assessment.*

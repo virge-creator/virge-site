@@ -1,4 +1,4 @@
----
+﻿---
 layout: ../../../layouts/BlogPost.astro
 lang: en
 title: "The best AI coding agents for Claude in 2026: from CLI to production"
@@ -170,8 +170,9 @@ The shift from "AI that suggests code" to "AI that writes and ships code" is rea
 
 The winners will be tools that combine autonomy with reliability. Fast code is table stakes. Shippable code is the bar.
 
-We've been building AI-powered development workflows at [Virge.io](https://virge.io) and evaluating these tools as part of our own stack. If you're figuring out how to integrate agentic coding into your team's workflow, [let's talk](/en/contact).
+We've been building AI-powered development workflows at [Virge.io](https://virge.io) and evaluating these tools as part of our own stack. If you're figuring out how to integrate agentic coding into your team's workflow, [let's talk](/en/contact/).
 
 ---
 
-*Evaluating AI coding tools for your team? We've tested these in production. [Reach out](/en/contact) — happy to share what actually works.*
+*Evaluating AI coding tools for your team? We've tested these in production. [Reach out](/en/contact/) — happy to share what actually works.*
+

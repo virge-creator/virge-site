@@ -1,4 +1,4 @@
----
+﻿---
 layout: ../../../layouts/BlogPost.astro
 lang: en
 title: "exo: run 671B parameter models on a cluster of Mac Studios"
@@ -128,4 +128,5 @@ For enterprises evaluating local LLM deployment, this stack deserves serious con
 
 ---
 
-*Building local AI infrastructure? We've been evaluating distributed inference setups and can help you architect the right solution. [Let's talk](/en/contact).*
+*Building local AI infrastructure? We've been evaluating distributed inference setups and can help you architect the right solution. [Let's talk](/en/contact/).*
+

@@ -1,4 +1,4 @@
----
+﻿---
 layout: ../../../layouts/BlogPost.astro
 lang: nl
 title: "Agentic AI in de enterprise: orchestratie-frameworks en beveiliging die écht werkt"
@@ -130,8 +130,9 @@ Agentic AI representeert een fundamentele verschuiving in hoe enterprises automa
 
 De organisaties die dit goed doen krijgen enorme concurrentievoordelen. Degenen die erin duiken zonder goede orchestratie en security eindigen in incident reports.
 
-We bouwen al lang genoeg agent-gebaseerde systemen bij [Virge.io](https://virge.io) om te weten wat werkt en wat niet. Als je een agentic AI-deployment plant en de veelvoorkomende valkuilen wilt vermijden, [laten we praten](/nl/contact).
+We bouwen al lang genoeg agent-gebaseerde systemen bij [Virge.io](https://virge.io) om te weten wat werkt en wat niet. Als je een agentic AI-deployment plant en de veelvoorkomende valkuilen wilt vermijden, [laten we praten](/nl/contact/).
 
 ---
 
-*Enterprise AI-agents bouwen? We hebben orchestratie- en security-patronen geïmplementeerd die echt schalen. [Neem contact op](/nl/contact) — we delen graag wat we geleerd hebben.*
+*Enterprise AI-agents bouwen? We hebben orchestratie- en security-patronen geïmplementeerd die echt schalen. [Neem contact op](/nl/contact/) — we delen graag wat we geleerd hebben.*
+

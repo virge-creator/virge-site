@@ -214,6 +214,7 @@ footer {
   flex-direction: column;
   flex: 1;
 }
+.blog-card h2,
 .blog-card h3 {
   font-size: 1.15rem;
   margin-bottom: 0.65rem;

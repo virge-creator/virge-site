@@ -1,4 +1,4 @@
----
+﻿---
 layout: ../../../layouts/BlogPost.astro
 lang: nl
 title: "IEEE Bombshell: LLM Inference Is Fundamenteel Kapot op Hardware-Niveau"
@@ -124,6 +124,7 @@ De bedrijven die deze verschuiving vroeg herkennen en hun infrastructuur dienove
 
 ---
 
-*Bij Virge helpen we organisaties het evoluerende AI-infrastructuurlandschap te navigeren. Begrip van hardwarebeperkingen is essentieel voor geïnformeerde beslissingen over modeldeployment en schaling. [Neem contact op](/nl/contact) om je AI-infrastructuurstrategie te bespreken.*
+*Bij Virge helpen we organisaties het evoluerende AI-infrastructuurlandschap te navigeren. Begrip van hardwarebeperkingen is essentieel voor geïnformeerde beslissingen over modeldeployment en schaling. [Neem contact op](/nl/contact/) om je AI-infrastructuurstrategie te bespreken.*
 
 **Bron:** Ma, X., & Patterson, D. (2026). [Challenges and Opportunities for LLM Inference](https://arxiv.org/abs/2601.05047). Geaccepteerd voor publicatie in IEEE Computer magazine.
+

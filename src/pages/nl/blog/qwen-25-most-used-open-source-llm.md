@@ -1,4 +1,4 @@
----
+﻿---
 layout: ../../../layouts/BlogPost.astro
 lang: nl
 title: "Qwen 2.5: hoe Alibaba's open-source model stilletjes 's werelds meest gebruikte LLM werd"
@@ -117,4 +117,5 @@ De vraag voor 2026 is niet of open-source AI zal domineren — het is of westers
 
 ---
 
-*AI-producten bouwen? Wij helpen teams de juiste modellen kiezen, deployen en optimaliseren — open-source of propriëtair — voor hun specifieke behoeften. [Laten we praten.](/nl/contact)*
+*AI-producten bouwen? Wij helpen teams de juiste modellen kiezen, deployen en optimaliseren — open-source of propriëtair — voor hun specifieke behoeften. [Laten we praten.](/nl/contact/)*
+

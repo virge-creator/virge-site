@@ -11,7 +11,7 @@ tags: ["ai","agents","security","enterprise"]
 
 ![](/images/blog/agentic-ai-docker-security.jpg)
 
-# Agentic AI Conference 2026: Docker Sandboxes en Enterprise Security in de Spotlight
+## Agentic AI Conference 2026: Docker Sandboxes en Enterprise Security in de Spotlight
 
 De [Future of Data & AI: Agentic AI Conference](https://datasciencedojo.com/agentic-ai-conference/) gaat deze week van start (6-10 april 2026) en brengt leiders van Docker, Google, Microsoft en AI-startups samen om het grote vraagstuk aan te pakken: **hoe beveiligen we AI-agents die code kunnen uitvoeren, API's benaderen en autonome beslissingen nemen?**
 
@@ -88,4 +88,4 @@ Het tijdperk van "move fast and break things" is voorbij voor AI-agents. De vraa
 
 ---
 
-*Virge.io helpt enterprises met het implementeren van veilige AI-architecturen. [Neem contact op](/contact/) om je agentic AI security-strategie te bespreken.*
+*Virge.io helpt enterprises met het implementeren van veilige AI-architecturen. [Neem contact op](/nl/contact/) om je agentic AI security-strategie te bespreken.*

@@ -1,4 +1,4 @@
----
+﻿---
 layout: ../../../layouts/BlogPost.astro
 lang: en
 title: "Yann LeCun Leaves Meta to Build 'World Models': What AMI Labs' $1B Raise Means for Enterprise AI"
@@ -134,4 +134,5 @@ AMI Labs just became the company to watch.
 
 ---
 
-*At Virge, we help organizations navigate the evolving AI landscape. Understanding paradigm shifts—whether they succeed or fail—is essential for building robust AI strategy. [Contact us](/en/contact) to discuss how these developments affect your enterprise AI roadmap.*
+*At Virge, we help organizations navigate the evolving AI landscape. Understanding paradigm shifts—whether they succeed or fail—is essential for building robust AI strategy. [Contact us](/en/contact/) to discuss how these developments affect your enterprise AI roadmap.*
+

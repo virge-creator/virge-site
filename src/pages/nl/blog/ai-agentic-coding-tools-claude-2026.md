@@ -1,4 +1,4 @@
----
+﻿---
 layout: ../../../layouts/BlogPost.astro
 lang: nl
 title: "De beste AI coding agents voor Claude in 2026: van CLI tot productie"
@@ -170,8 +170,9 @@ De shift van "AI die code suggereert" naar "AI die code schrijft en shipt" is ec
 
 De winnaars worden tools die autonomie combineren met betrouwbaarheid. Snelle code is table stakes. Shippable code is de lat.
 
-We bouwen AI-powered development workflows bij [Virge.io](https://virge.io) en evalueren deze tools als onderdeel van onze eigen stack. Als je uitzoekt hoe je agentic coding integreert in je team's workflow, [laten we praten](/nl/contact).
+We bouwen AI-powered development workflows bij [Virge.io](https://virge.io) en evalueren deze tools als onderdeel van onze eigen stack. Als je uitzoekt hoe je agentic coding integreert in je team's workflow, [laten we praten](/nl/contact/).
 
 ---
 
-*AI coding tools evalueren voor je team? We hebben deze in productie getest. [Neem contact op](/nl/contact) — delen graag wat echt werkt.*
+*AI coding tools evalueren voor je team? We hebben deze in productie getest. [Neem contact op](/nl/contact/) — delen graag wat echt werkt.*
+

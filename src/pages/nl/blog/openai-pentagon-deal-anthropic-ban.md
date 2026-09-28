@@ -1,4 +1,4 @@
----
+﻿---
 layout: ../../../layouts/BlogPost.astro
 lang: nl
 title: "OpenAI krijgt de Pentagon-deal. Anthropic wordt op de zwarte lijst gezet. Dit is wat er gebeurde."
@@ -89,4 +89,5 @@ Voor bedrijven die bouwen met AI: de les is helder. Hang niet af van één provi
 
 ---
 
-*Hulp nodig bij het bouwen van AI-architecturen die provider-onafhankelijk en toekomstbestendig zijn? [Dat is wat we doen.](/nl/contact)*
+*Hulp nodig bij het bouwen van AI-architecturen die provider-onafhankelijk en toekomstbestendig zijn? [Dat is wat we doen.](/nl/contact/)*
+

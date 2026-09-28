@@ -1,4 +1,4 @@
----
+﻿---
 layout: ../../../layouts/BlogPost.astro
 lang: en
 title: "Google Nano-Banana 2: sub-second 4K image generation that runs on your phone"
@@ -96,4 +96,5 @@ For everyone else: your phone can now generate better images faster than most la
 
 ---
 
-*Exploring AI image generation for your product or workflow? From on-device generation to cloud-based content pipelines — [we can help](/en/contact).*
+*Exploring AI image generation for your product or workflow? From on-device generation to cloud-based content pipelines — [we can help](/en/contact/).*
+

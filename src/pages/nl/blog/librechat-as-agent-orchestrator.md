@@ -80,7 +80,7 @@ Een paar opties die het waard zijn te begrijpen voordat je er tegenaan loopt:
 
 - `mcpSettings.allowedAddresses`: LibreChat blokkeert standaard privé-IP's. Je moet expliciet elke host:poort vermelden waarop je backends draaien; zonder dit mislukken verbindingen stil en zul je tijd besteden aan uitzoeken waarom.
 - `requiresOAuth: false`: zonder dit ziet de MCP-client van LibreChat een 401 van je backend en probeert hij zijn eigen OAuth-flow te starten, wat een kapotte omleidingslus oplevert. Je backend doet de tokenvalidatie; LibreChat hoeft de header alleen door te sturen.
-- `{{LIBRECHAT_OPENID_ACCESS_TOKEN}}`: dit werkt alleen in via `librechat.yaml` gedefinieerde servers, niet in servers die via de UI zijn aangemaakt (dat is opzettelijk, zie [CVE GHSA-pmw7-gqwj-f954](https://github.com/advisories/GHSA-pmw7-gqwj-f954)).
+- `{{LIBRECHAT_OPENID_ACCESS_TOKEN}}`: dit werkt alleen in via `librechat.yaml` gedefinieerde servers, niet in servers die via de UI zijn aangemaakt (dat is opzettelijk, zie [CVE GHSA-pmw7-gqwj-f954](https://github.com/danny-avila/LibreChat/security/advisories/GHSA-pmw7-gqwj-f954)).
 - `timeout: 120000`: de standaard is te kort voor alles wat een echte backend-workflow activeert. Stel dit in.
 
 ### Stap 2: `.env`: authenticatie en hergebruik van tokens
@@ -213,4 +213,4 @@ Het antwoord op dit alles is een service mesh, een agent-gateway (agentgateway /
 
 ---
 
-*Wil je verkennen hoe AI-agents je operaties kunnen automatiseren? [Neem contact op met Virge.io](/nl/contact) - we helpen teams agentic AI-oplossingen te implementeren op infrastructuur die ze al bezitten.*
+*Wil je verkennen hoe AI-agents je operaties kunnen automatiseren? [Neem contact op met Virge.io](/nl/contact/) - we helpen teams agentic AI-oplossingen te implementeren op infrastructuur die ze al bezitten.*

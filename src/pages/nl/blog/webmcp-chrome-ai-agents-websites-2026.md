@@ -1,4 +1,4 @@
----
+﻿---
 layout: ../../../layouts/BlogPost.astro
 lang: nl
 title: "WebMCP: Chrome's Nieuwe Standaard voor AI-Agent-Ready Websites"
@@ -104,4 +104,5 @@ Het agentic web arriveert sneller dan de meeste bedrijven beseffen. WebMCP is de
 
 ---
 
-*Wil je jouw website AI-agent ready maken? [Neem contact op met Virge](/nl/contact) om WebMCP-implementatie voor jouw platform te bespreken.*
+*Wil je jouw website AI-agent ready maken? [Neem contact op met Virge](/nl/contact/) om WebMCP-implementatie voor jouw platform te bespreken.*
+

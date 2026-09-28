@@ -1,4 +1,4 @@
----
+﻿---
 layout: ../../../layouts/BlogPost.astro
 lang: en
 title: "Agentic AI in the enterprise: orchestration frameworks and security that actually works"
@@ -130,8 +130,9 @@ Agentic AI represents a fundamental shift in how enterprises use automation. The
 
 The organizations that get this right will have massive competitive advantages. The ones that rush in without proper orchestration and security will end up in incident reports.
 
-We've been building agent-based systems at [Virge.io](https://virge.io) long enough to know what works and what doesn't. If you're planning an agentic AI deployment and want to avoid the common pitfalls, [let's talk](/en/contact).
+We've been building agent-based systems at [Virge.io](https://virge.io) long enough to know what works and what doesn't. If you're planning an agentic AI deployment and want to avoid the common pitfalls, [let's talk](/en/contact/).
 
 ---
 
-*Building enterprise AI agents? We've implemented orchestration and security patterns that actually scale. [Reach out](/en/contact) — we're happy to share what we've learned.*
+*Building enterprise AI agents? We've implemented orchestration and security patterns that actually scale. [Reach out](/en/contact/) — we're happy to share what we've learned.*
+

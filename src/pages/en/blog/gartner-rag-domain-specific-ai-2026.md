@@ -145,4 +145,4 @@ The shift from model-centric to data-centric AI is one of the defining transform
 
 ---
 
-*At Virge, we help organizations build production-ready RAG systems that leverage their unique data advantages. Whether you're evaluating RAG for the first time or looking to optimize an existing implementation, [let's talk](/contact).*
+*At Virge, we help organizations build production-ready RAG systems that leverage their unique data advantages. Whether you're evaluating RAG for the first time or looking to optimize an existing implementation, [let's talk](/en/contact/).*

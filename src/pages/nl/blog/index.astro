@@ -48,14 +48,21 @@ const tagRows = [allTags.slice(0, half), allTags.slice(half)];
       </div>
 
       <div class="blog-grid" id="blog-grid">
-        {sorted.map(post => {
+        {sorted.map((post, index) => {
           const slug = post.file.split('/').pop()?.replace('.md', '');
           const readingTime = post.rawContent ? Math.ceil(post.rawContent().split(/\s+/).length / 200) : 5;
           return (
             <a href={`/${lang}/blog/${slug}/`} class="blog-card" data-post data-tags={(post.frontmatter.tags || []).join('|')}>
               {post.frontmatter.image && (
                 <div class="blog-card-image">
-                  <img src={post.frontmatter.image} alt={post.frontmatter.title} loading="lazy" />
+                  <img
+                    src={post.frontmatter.image}
+                    alt={post.frontmatter.title}
+                    loading={index === 0 ? "eager" : "lazy"}
+                    fetchpriority={index === 0 ? "high" : undefined}
+                    width="800"
+                    height="450"
+                  />
                 </div>
               )}
               <div class="blog-card-body">
@@ -64,7 +71,7 @@ const tagRows = [allTags.slice(0, half), allTags.slice(half)];
                   <span>·</span>
                   <span>{readingTime} {i.blog.minRead}</span>
                 </div>
-                <h3>{post.frontmatter.title}</h3>
+                <h2>{post.frontmatter.title}</h2>
                 <p>{post.frontmatter.description}</p>
                 {post.frontmatter.tags && post.frontmatter.tags.length > 0 && (
                   <div class="blog-tags">

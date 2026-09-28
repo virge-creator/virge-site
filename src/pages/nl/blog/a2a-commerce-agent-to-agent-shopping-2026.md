@@ -152,4 +152,4 @@ De agents komen eraan. Is jouw merk klaar om met ze te praten?
 
 ---
 
-*Wil je Brand Twin ontwikkeling of A2A commerce integratie verkennen? [Neem contact op met Virge.io](/contact) voor een strategische assessment.*
+*Wil je Brand Twin ontwikkeling of A2A commerce integratie verkennen? [Neem contact op met Virge.io](/nl/contact/) voor een strategische assessment.*

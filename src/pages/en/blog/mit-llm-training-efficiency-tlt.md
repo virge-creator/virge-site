@@ -1,4 +1,4 @@
----
+﻿---
 layout: ../../../layouts/BlogPost.astro
 lang: en
 title: "MIT just doubled LLM training speed — by making idle GPUs do useful work"
@@ -91,4 +91,5 @@ For any business investing in AI development or fine-tuning: keep an eye on trai
 
 ---
 
-*Building or fine-tuning AI models for your business? We help teams navigate the landscape of training, deployment, and optimization. [Get in touch.](/en/contact)*
+*Building or fine-tuning AI models for your business? We help teams navigate the landscape of training, deployment, and optimization. [Get in touch.](/en/contact/)*
+

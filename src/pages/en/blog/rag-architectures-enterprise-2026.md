@@ -1,4 +1,4 @@
----
+﻿---
 layout: ../../../layouts/BlogPost.astro
 lang: en
 title: "RAG in 2026: from experiment to enterprise infrastructure"
@@ -131,8 +131,9 @@ RAG in 2026 isn't a technique — it's a strategic layer that determines AI reli
 
 Hybrid RAG is the production baseline. Graph and Agentic patterns unlock complex use cases. The key is matching architecture to workload, not reaching for the most sophisticated pattern by default.
 
-If you're evaluating RAG architectures for enterprise deployment, we've done this across multiple industries. [Let's talk](/en/contact) about what fits your use case.
+If you're evaluating RAG architectures for enterprise deployment, we've done this across multiple industries. [Let's talk](/en/contact/) about what fits your use case.
 
 ---
 
-*Building enterprise RAG systems? We've implemented hybrid search, GraphRAG, and agentic patterns in production. [Reach out](/en/contact) — we're happy to share what actually works.*
+*Building enterprise RAG systems? We've implemented hybrid search, GraphRAG, and agentic patterns in production. [Reach out](/en/contact/) — we're happy to share what actually works.*
+

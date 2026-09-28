@@ -1,4 +1,4 @@
----
+﻿---
 layout: ../../../layouts/BlogPost.astro
 lang: nl
 title: "MIT verdubbelt LLM-trainingssnelheid — door onbenutte GPU's nuttig werk te laten doen"
@@ -91,4 +91,5 @@ Voor elk bedrijf dat investeert in AI-ontwikkeling of fine-tuning: houd training
 
 ---
 
-*AI-modellen bouwen of fine-tunen voor je bedrijf? Wij helpen teams navigeren door het landschap van training, deployment en optimalisatie. [Neem contact op.](/nl/contact)*
+*AI-modellen bouwen of fine-tunen voor je bedrijf? Wij helpen teams navigeren door het landschap van training, deployment en optimalisatie. [Neem contact op.](/nl/contact/)*
+

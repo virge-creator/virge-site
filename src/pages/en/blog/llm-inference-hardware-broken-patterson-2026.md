@@ -124,6 +124,6 @@ The companies that recognize this shift early and adapt their infrastructure acc
 
 ---
 
-*At Virge, we help organizations navigate the evolving AI infrastructure landscape. Understanding hardware constraints is essential for making informed decisions about model deployment and scaling. [Contact us](/contact) to discuss your AI infrastructure strategy.*
+*At Virge, we help organizations navigate the evolving AI infrastructure landscape. Understanding hardware constraints is essential for making informed decisions about model deployment and scaling. [Contact us](/en/contact/) to discuss your AI infrastructure strategy.*
 
 **Source:** Ma, X., & Patterson, D. (2026). [Challenges and Opportunities for LLM Inference](https://arxiv.org/abs/2601.05047). Accepted for publication in IEEE Computer magazine.
