@@ -1,4 +1,4 @@
----
+﻿---
 layout: ../../../layouts/BlogPost.astro
 lang: en
 title: "CollectivIQ: why querying 10 AI models beats trusting one"
@@ -99,8 +99,9 @@ But it's one piece of the puzzle. Real enterprise AI reliability requires:
 4. **Audit trails** for compliance
 5. **Graceful degradation** when models fail
 
-We're building orchestration systems that incorporate all of these at [Virge.io](https://virge.io). If you're evaluating enterprise AI platforms and want to understand how the pieces fit together, [let's talk](/en/contact).
+We're building orchestration systems that incorporate all of these at [Virge.io](https://virge.io). If you're evaluating enterprise AI platforms and want to understand how the pieces fit together, [let's talk](/en/contact/).
 
 ---
 
-*Building enterprise AI systems that need to be reliable? We've been doing AI orchestration and RAG implementations since before it was trendy. [Reach out](/en/contact) — we're happy to share what works.*
+*Building enterprise AI systems that need to be reliable? We've been doing AI orchestration and RAG implementations since before it was trendy. [Reach out](/en/contact/) — we're happy to share what works.*
+

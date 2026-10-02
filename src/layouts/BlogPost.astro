@@ -65,7 +65,16 @@ const jsonLd = [
         )}
       </header>
       {frontmatter.image && (
-        <img src={frontmatter.image} alt={frontmatter.title} class="post-hero-image article-illustration" style={frontmatter.imagePosition ? `object-position: ${frontmatter.imagePosition}` : undefined} />
+        <img
+          src={frontmatter.image}
+          alt={frontmatter.title}
+          width="800"
+          height="450"
+          loading="eager"
+          fetchpriority="high"
+          class="post-hero-image article-illustration"
+          style={frontmatter.imagePosition ? `object-position: ${frontmatter.imagePosition}` : undefined}
+        />
       )}
       <div class="post-content">
         <slot />

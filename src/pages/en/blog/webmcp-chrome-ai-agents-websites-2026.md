@@ -1,4 +1,4 @@
----
+﻿---
 layout: ../../../layouts/BlogPost.astro
 lang: en
 title: "WebMCP: Chrome's New Standard for AI Agent-Ready Websites"
@@ -104,4 +104,5 @@ The agentic web is arriving faster than most businesses realize. WebMCP is the b
 
 ---
 
-*Want to make your website AI-agent ready? [Contact Virge](/en/contact) to discuss WebMCP implementation for your platform.*
+*Want to make your website AI-agent ready? [Contact Virge](/en/contact/) to discuss WebMCP implementation for your platform.*
+

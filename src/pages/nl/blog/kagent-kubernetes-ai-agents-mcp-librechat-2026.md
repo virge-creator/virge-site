@@ -1,4 +1,4 @@
----
+﻿---
 layout: ../../../layouts/BlogPost.astro
 lang: nl
 title: "Kagent + MCP + LibreChat: AI-Gestuurde Kubernetes Operaties met een Chat Interface"
@@ -181,4 +181,5 @@ Kagent is nog een CNCF sandbox-project, maar met Solo.io als backing en een groe
 
 ---
 
-*Benieuwd hoe AI-agents je Kubernetes-operaties kunnen automatiseren? [Neem contact op met Virge.io](/nl/contact) — wij helpen teams bij het implementeren van cloud-native AI-oplossingen.*
+*Benieuwd hoe AI-agents je Kubernetes-operaties kunnen automatiseren? [Neem contact op met Virge.io](/nl/contact/) — wij helpen teams bij het implementeren van cloud-native AI-oplossingen.*
+

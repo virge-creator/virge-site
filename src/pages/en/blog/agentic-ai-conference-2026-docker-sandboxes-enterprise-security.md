@@ -11,7 +11,7 @@ tags: ["ai","agents","security","enterprise"]
 
 ![](/images/blog/agentic-ai-docker-security.jpg)
 
-# Agentic AI Conference 2026: Docker Sandboxes and Enterprise Security Take Center Stage
+## Agentic AI Conference 2026: Docker Sandboxes and Enterprise Security Take Center Stage
 
 The [Future of Data & AI: Agentic AI Conference](https://datasciencedojo.com/agentic-ai-conference/) kicks off this week (April 6-10, 2026), bringing together industry leaders from Docker, Google, Microsoft, and AI startups to address the elephant in the room: **how do we secure AI agents that can execute code, access APIs, and make autonomous decisions?**
 
@@ -88,4 +88,4 @@ The era of "move fast and break things" is over for AI agents. The question isn'
 
 ---
 
-*Virge.io helps enterprises implement secure AI architectures. [Contact us](/contact/) to discuss your agentic AI security strategy.*
+*Virge.io helps enterprises implement secure AI architectures. [Contact us](/en/contact/) to discuss your agentic AI security strategy.*

@@ -1,4 +1,4 @@
----
+﻿---
 layout: ../../../layouts/BlogPost.astro
 lang: en
 title: "OpenAI gets the Pentagon deal. Anthropic gets blacklisted. Here's what actually happened."
@@ -89,4 +89,5 @@ For businesses building with AI: the lesson is clear. Don't depend on any single
 
 ---
 
-*Need help building AI architectures that are provider-agnostic and future-proof? [That's what we do.](/en/contact)*
+*Need help building AI architectures that are provider-agnostic and future-proof? [That's what we do.](/en/contact/)*
+

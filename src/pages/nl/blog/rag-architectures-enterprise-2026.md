@@ -1,4 +1,4 @@
----
+﻿---
 layout: ../../../layouts/BlogPost.astro
 lang: nl
 title: "RAG in 2026: van experiment naar enterprise-infrastructuur"
@@ -131,8 +131,9 @@ RAG in 2026 is geen techniek — het is een strategische laag die AI-betrouwbaar
 
 Hybrid RAG is de productie-baseline. Graph en Agentic patronen ontgrendelen complexe use cases. De sleutel is architectuur matchen met workload, niet standaard voor het meest geavanceerde patroon grijpen.
 
-Als je RAG-architecturen evalueert voor enterprise-deployment, hebben we dit gedaan over meerdere industrieën. [Laten we praten](/nl/contact) over wat past bij jouw use case.
+Als je RAG-architecturen evalueert voor enterprise-deployment, hebben we dit gedaan over meerdere industrieën. [Laten we praten](/nl/contact/) over wat past bij jouw use case.
 
 ---
 
-*Enterprise RAG-systemen bouwen? We hebben hybrid search, GraphRAG en agentic patronen in productie geïmplementeerd. [Neem contact op](/nl/contact) — we delen graag wat echt werkt.*
+*Enterprise RAG-systemen bouwen? We hebben hybrid search, GraphRAG en agentic patronen in productie geïmplementeerd. [Neem contact op](/nl/contact/) — we delen graag wat echt werkt.*
+

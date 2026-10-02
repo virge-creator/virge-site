@@ -1,4 +1,4 @@
----
+﻿---
 layout: ../../../layouts/BlogPost.astro
 lang: nl
 title: "Yann LeCun Verlaat Meta om 'World Models' te Bouwen: Wat de €920M Funding van AMI Labs Betekent voor Enterprise AI"
@@ -139,4 +139,5 @@ AMI Labs is zojuist het bedrijf geworden om in de gaten te houden.
 
 ---
 
-*Bij Virge helpen we organisaties navigeren in het evoluerende AI-landschap. Het begrijpen van paradigmaverschuivingen—of ze nu slagen of falen—is essentieel voor het bouwen van robuuste AI-strategie. [Neem contact op](/nl/contact) om te bespreken hoe deze ontwikkelingen uw enterprise AI-roadmap beïnvloeden.*
+*Bij Virge helpen we organisaties navigeren in het evoluerende AI-landschap. Het begrijpen van paradigmaverschuivingen—of ze nu slagen of falen—is essentieel voor het bouwen van robuuste AI-strategie. [Neem contact op](/nl/contact/) om te bespreken hoe deze ontwikkelingen uw enterprise AI-roadmap beïnvloeden.*
+

@@ -1,4 +1,4 @@
----
+﻿---
 layout: ../../../layouts/BlogPost.astro
 lang: en
 title: "Enterprise SSO done right: how we integrated OAuth 2.0 with AWS Cognito for ShopVirge"
@@ -128,4 +128,5 @@ The upfront investment in proper OAuth 2.0 architecture pays for itself the mome
 
 ---
 
-*Need SSO integration for your platform? Whether it's AWS Cognito, Keycloak, or a custom OAuth 2.0 implementation — [we've done it](/en/contact). Let's talk.*
+*Need SSO integration for your platform? Whether it's AWS Cognito, Keycloak, or a custom OAuth 2.0 implementation — [we've done it](/en/contact/). Let's talk.*
+

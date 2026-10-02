@@ -48,7 +48,7 @@ We bouwden precies deze pipeline voor [ShopVirge](https://virge.io), waar agents
 
 ### Code-intelligentie
 
-AI-codeerassistenten gingen van "autocomplete op steroïden" naar echt architecturaal inzicht. Tools zoals [GitNexus](/nl/blog/gitnexus-code-knowledge-graph) indexeren hele codebases in knowledge graphs, waardoor AI-agents diep begrip krijgen van dependencies, call chains en execution flows. Het resultaat: minder broken builds, veiligere refactors en snellere onboarding.
+AI-codeerassistenten gingen van "autocomplete op steroïden" naar echt architecturaal inzicht. Tools zoals [GitNexus](/nl/blog/gitnexus-code-knowledge-graph/) indexeren hele codebases in knowledge graphs, waardoor AI-agents diep begrip krijgen van dependencies, call chains en execution flows. Het resultaat: minder broken builds, veiligere refactors en snellere onboarding.
 
 ### Klantenservice
 
@@ -56,7 +56,7 @@ Niet het frustrerende chatbot-type — het type waarbij een agent daadwerkelijk 
 
 ### Zoeken en retrieval
 
-Hybride zoeken — traditioneel tekstzoeken combineren met semantisch (vector) zoeken — wordt de standaard. We bouwden een [hybride zoeksysteem voor SURF's Orchestrator-Core](/nl/blog/hybrid-search-surf-orchestrator-core) dat dynamische schema's volledig binnen PostgreSQL afhandelt. Agents die slim kunnen zoeken zijn dramatisch nuttiger dan agents die gokken.
+Hybride zoeken — traditioneel tekstzoeken combineren met semantisch (vector) zoeken — wordt de standaard. We bouwden een [hybride zoeksysteem voor SURF's Orchestrator-Core](/nl/blog/hybrid-search-surf-orchestrator-core/) dat dynamische schema's volledig binnen PostgreSQL afhandelt. Agents die slim kunnen zoeken zijn dramatisch nuttiger dan agents die gokken.
 
 ## De patronen die werken
 
@@ -93,4 +93,4 @@ Als je AI-agents voor je bedrijf overweegt, begin met het saaie werk. De spannen
 
 ---
 
-*Wil je ontdekken hoe AI-agents jouw workflows kunnen verbeteren? [Neem contact op](/nl/contact) — we helpen bedrijven van experiment naar productie.*
+*Wil je ontdekken hoe AI-agents jouw workflows kunnen verbeteren? [Neem contact op](/nl/contact/) — we helpen bedrijven van experiment naar productie.*

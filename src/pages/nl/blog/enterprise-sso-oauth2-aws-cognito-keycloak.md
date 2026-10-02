@@ -1,4 +1,4 @@
----
+﻿---
 layout: ../../../layouts/BlogPost.astro
 lang: nl
 title: "Enterprise SSO goed aanpakken: hoe we OAuth 2.0 met AWS Cognito integreerden voor ShopVirge"
@@ -128,4 +128,5 @@ De initiële investering in een goede OAuth 2.0-architectuur verdient zichzelf t
 
 ---
 
-*SSO-integratie nodig voor je platform? Of het nu AWS Cognito, Keycloak of een custom OAuth 2.0-implementatie is — [we hebben het gedaan](/nl/contact). Laten we praten.*
+*SSO-integratie nodig voor je platform? Of het nu AWS Cognito, Keycloak of een custom OAuth 2.0-implementatie is — [we hebben het gedaan](/nl/contact/). Laten we praten.*
+

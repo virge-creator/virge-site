@@ -152,4 +152,4 @@ The agents are coming. Is your brand ready to talk to them?
 
 ---
 
-*Want to explore Brand Twin development or A2A commerce integration? [Contact Virge.io](/contact) for a strategic assessment.*
+*Want to explore Brand Twin development or A2A commerce integration? [Contact Virge.io](/en/contact/) for a strategic assessment.*

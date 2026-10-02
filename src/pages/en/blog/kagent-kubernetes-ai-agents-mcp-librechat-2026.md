@@ -1,4 +1,4 @@
----
+﻿---
 layout: ../../../layouts/BlogPost.astro
 lang: en
 title: "Kagent + MCP + LibreChat: Building AI-Powered Kubernetes Operations with a Chat GUI"
@@ -180,4 +180,5 @@ Kagent is still a CNCF sandbox project, but with Solo.io backing and a growing c
 
 ---
 
-*Want to explore how AI agents can automate your Kubernetes operations? [Contact Virge.io](/en/contact) — we help teams implement cloud-native AI solutions.*
+*Want to explore how AI agents can automate your Kubernetes operations? [Contact Virge.io](/en/contact/) — we help teams implement cloud-native AI solutions.*
+

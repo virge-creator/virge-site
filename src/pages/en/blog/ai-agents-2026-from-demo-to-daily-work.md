@@ -48,7 +48,7 @@ We built this exact pipeline for [ShopVirge](https://virge.io), where agents tur
 
 ### Code intelligence
 
-AI coding assistants went from "autocomplete on steroids" to genuine architectural awareness. Tools like [GitNexus](/en/blog/gitnexus-code-knowledge-graph) index entire codebases into knowledge graphs, giving AI agents deep understanding of dependencies, call chains, and execution flows. The result: fewer broken builds, safer refactors, and faster onboarding.
+AI coding assistants went from "autocomplete on steroids" to genuine architectural awareness. Tools like [GitNexus](/en/blog/gitnexus-code-knowledge-graph/) index entire codebases into knowledge graphs, giving AI agents deep understanding of dependencies, call chains, and execution flows. The result: fewer broken builds, safer refactors, and faster onboarding.
 
 ### Customer service
 
@@ -56,7 +56,7 @@ Not the frustrating chatbot kind — the kind where an agent actually resolves t
 
 ### Search and retrieval
 
-Hybrid search — combining traditional text search with semantic (vector) search — is becoming standard. We built a [hybrid search system for SURF's Orchestrator-Core](/en/blog/hybrid-search-surf-orchestrator-core) that handles dynamic schemas entirely within PostgreSQL. Agents that can search intelligently are dramatically more useful than agents that guess.
+Hybrid search — combining traditional text search with semantic (vector) search — is becoming standard. We built a [hybrid search system for SURF's Orchestrator-Core](/en/blog/hybrid-search-surf-orchestrator-core/) that handles dynamic schemas entirely within PostgreSQL. Agents that can search intelligently are dramatically more useful than agents that guess.
 
 ## The patterns that work
 
@@ -93,4 +93,4 @@ If you're considering AI agents for your business, start with the boring stuff. 
 
 ---
 
-*Want to explore how AI agents can improve your workflows? [Get in touch](/en/contact) — we help businesses move from experimentation to production.*
+*Want to explore how AI agents can improve your workflows? [Get in touch](/en/contact/) — we help businesses move from experimentation to production.*

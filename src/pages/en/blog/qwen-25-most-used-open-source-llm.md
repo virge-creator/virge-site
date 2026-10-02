@@ -1,4 +1,4 @@
----
+﻿---
 layout: ../../../layouts/BlogPost.astro
 lang: en
 title: "Qwen 2.5: how Alibaba's open-source model quietly became the world's most-used LLM"
@@ -118,4 +118,5 @@ The question for 2026 isn't whether open-source AI will dominate — it's whethe
 
 ---
 
-*Building AI-powered products? We help teams choose, deploy, and optimize the right models — open-source or proprietary — for their specific needs. [Let's talk.](/en/contact)*
+*Building AI-powered products? We help teams choose, deploy, and optimize the right models — open-source or proprietary — for their specific needs. [Let's talk.](/en/contact/)*
+

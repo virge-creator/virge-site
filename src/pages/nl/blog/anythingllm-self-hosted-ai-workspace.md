@@ -1,4 +1,4 @@
----
+﻿---
 layout: ../../../layouts/BlogPost.astro
 lang: nl
 title: "AnythingLLM: de alles-in-één AI workspace die je hele stack vervangt"
@@ -182,4 +182,5 @@ Als je nog steeds Ollama + LangChain + custom UIs aan elkaar duct-tapet, probeer
 
 ---
 
-*Private AI-infrastructuur bouwen? We hebben RAG systemen geïmplementeerd over meerdere industrieën en kunnen je helpen de juiste aanpak te kiezen. [Laten we praten](/nl/contact).*
+*Private AI-infrastructuur bouwen? We hebben RAG systemen geïmplementeerd over meerdere industrieën en kunnen je helpen de juiste aanpak te kiezen. [Laten we praten](/nl/contact/).*
+
