@@ -1,3 +1,20 @@
----
-return Astro.redirect('/en/');
----
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Virge</title>
+    <meta name="robots" content="noindex" />
+    <link rel="canonical" href="https://virge.io/en/" />
+    <noscript><meta http-equiv="refresh" content="0; url=/en/" /></noscript>
+    <script is:inline>
+      // Send Dutch browsers to /nl/, everyone else to /en/
+      var langs = navigator.languages && navigator.languages.length ? navigator.languages : [navigator.language || ''];
+      var first = String(langs[0] || '').toLowerCase();
+      var target = first.indexOf('nl') === 0 ? '/nl/' : '/en/';
+      window.location.replace(target + window.location.search + window.location.hash);
+    </script>
+  </head>
+  <body>
+    <p><a href="/en/">English</a> · <a href="/nl/">Nederlands</a></p>
+  </body>
+</html>
