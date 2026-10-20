@@ -70,7 +70,7 @@ Below is our list of requirements. In part 2 we use it to compare the existing g
 | **Setup and maintenance effort** | Few moving parts, config in git, an active project, upgrades we can follow | Time spent keeping the gateway running is money too. If it takes more effort than the problems it solves, we could just as well have built our own |
 
 
-`## Next time: Comparing gateways`
+## Next time: Comparing gateways
 
 Your setup isn't ours, so part 2 doesn't only name a winner. It goes through the gateways one by one, row by row. For each cell it notes what the official documentation says and whether the feature is open source or behind a paid licence. Then we say which one fits us best, and why.
 
