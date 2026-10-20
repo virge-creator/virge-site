@@ -70,8 +70,9 @@ Below is our list of requirements. In part 2 we use it to compare the existing g
 | **Setup and maintenance effort** | Few moving parts, config in git, an active project, upgrades we can follow | Time spent keeping the gateway running is money too. If it takes more effort than the problems it solves, we could just as well have built our own |
 
 
-## Comparing gateways
-In part 2 we compare the existing gateways and see which one fits our problems best, and pick the one that works for us. We will also keep mind that a hyper specifics wont do you any good , so we will also compare the gateways on level of abstraction where you can still quickly get a feeling of what could work for you.
+`## Next time: Comparing gateways`
+
+Your setup isn't ours, so part 2 doesn't only name a winner. It goes through the gateways one by one, row by row. For each cell it notes what the official documentation says and whether the feature is open source or behind a paid licence. Then we say which one fits us best, and why.
 
 [^librechat-headers]: LibreChat, custom endpoint `headers`: supports `{{LIBRECHAT_OPENID_*}}` placeholders, among others. https://www.librechat.ai/docs/configuration/librechat_yaml/object_structure/custom_endpoint
 [^embedauth-service-account]: embedauth, "OAuth token exchange explained": with a static service account, "Every authorization decision downstream collapses to 'is this service allowed,' which means the orders service must correctly enforce every user-level rule for every downstream system." https://embedauth.com/blog/oauth/oauth-token-exchange-explained

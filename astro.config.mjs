@@ -7,7 +7,7 @@ export default defineConfig({
   trailingSlash: 'always',
   integrations: [
     sitemap({
-      // Root / is a meta-refresh redirect to /en/ — keep it out of the sitemap
+      // Root / is a language-detecting redirect to /en/ or /nl/ — keep it out of the sitemap
       filter: (page) => page !== 'https://virge.io/',
       i18n: {
         defaultLocale: 'en',
