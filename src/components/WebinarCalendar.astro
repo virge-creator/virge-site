@@ -2,7 +2,7 @@
 import type { Lang } from '../i18n';
 import { t } from '../i18n';
 import Icon from './Icon.astro';
-import { webinars, firstWednesday, getWebinarSlots, getUpcoming, endIso, formatWebinarDate, webinarPath, icsPath } from '../data/webinars';
+import { webinars, secondWednesday, getWebinarSlots, getUpcoming, endIso, formatWebinarDate, webinarPath, icsPath } from '../data/webinars';
 
 interface Props {
   lang: Lang;
@@ -15,7 +15,7 @@ const locale = lang === 'nl' ? 'nl-NL' : 'en-GB';
 // Months from the build month until two months after the last planned topic.
 // Skip the current month once its webinar slot has passed.
 const now = new Date();
-const thisSlot = firstWednesday(now.getFullYear(), now.getMonth());
+const thisSlot = secondWednesday(now.getFullYear(), now.getMonth());
 const start = new Date(Date.UTC(now.getFullYear(), now.getMonth() + (new Date(endIso(thisSlot)) <= now ? 1 : 0), 1));
 const last = webinars.map(w => w.date).sort().at(-1)!;
 const [ly, lm] = last.split('-').map(Number);

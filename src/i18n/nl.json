@@ -220,8 +220,8 @@
   },
   "webinars": {
     "title": "Maandelijkse <span>Webinars</span>",
-    "description": "Gratis live sessies over AI-agents, netwerkautomatisering en eCommerce. Elke eerste woensdag van de maand, 15:00 tot 16:00 uur.",
-    "metaDesc": "Gratis maandelijkse webinars van Virge.io over AI-agents, SDN met de Workflow Orchestrator en ShopVirge eCommerce. Elke eerste woensdag, 15:00 uur.",
+    "description": "Gratis live sessies over AI-agents, netwerkautomatisering en eCommerce. Elke tweede woensdag van de maand, 15:00 tot 16:00 uur.",
+    "metaDesc": "Gratis maandelijkse webinars van Virge.io over AI-agents, SDN met de Workflow Orchestrator en ShopVirge eCommerce. Elke tweede woensdag, 15:00 uur.",
     "metaTitle": "Webinars: AI-agents, SDN & eCommerce",
     "howItWorks": [
       "Gratis en vrijblijvend",
@@ -231,7 +231,7 @@
       "Deelnamelink per e-mail"
     ],
     "calendarTitle": "Webinarkalender",
-    "calendarRule": "Elke eerste woensdag van de maand · 15:00 tot 16:00 uur (CET)",
+    "calendarRule": "Elke tweede woensdag van de maand · 15:00 tot 16:00 uur (CET)",
     "legendWfo": "Workflow Orchestrator / SDN",
     "legendShopVirge": "ShopVirge / eCommerce",
     "legendTba": "Onderwerp volgt",
@@ -270,7 +270,7 @@
     "submit": "Meld me aan →",
     "homeLabel": "Webinars",
     "homeTitle": "Doe mee met onze volgende live sessies",
-    "homeDesc": "Elke eerste woensdag van de maand duiken we diep in één onderwerp. Gratis, online en met volop ruimte voor vragen."
+    "homeDesc": "Elke tweede woensdag van de maand duiken we diep in één onderwerp. Gratis, online en met volop ruimte voor vragen."
   },
   "privacy": {
     "title": "Wij volgen <span>je niet.</span>",

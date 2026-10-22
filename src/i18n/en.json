@@ -220,8 +220,8 @@
   },
   "webinars": {
     "title": "Monthly <span>Webinars</span>",
-    "description": "Free live sessions on AI agents, network automation and eCommerce. Every first Wednesday of the month, 15:00 to 16:00 CET.",
-    "metaDesc": "Free monthly webinars by Virge.io on AI agents, SDN with the Workflow Orchestrator and ShopVirge eCommerce. Every first Wednesday, 15:00 CET.",
+    "description": "Free live sessions on AI agents, network automation and eCommerce. Every second Wednesday of the month, 15:00 to 16:00 CET.",
+    "metaDesc": "Free monthly webinars by Virge.io on AI agents, SDN with the Workflow Orchestrator and ShopVirge eCommerce. Every second Wednesday, 15:00 CET.",
     "metaTitle": "Webinars: AI Agents, SDN & eCommerce",
     "howItWorks": [
       "Free, no strings attached",
@@ -231,7 +231,7 @@
       "Join link sent by email"
     ],
     "calendarTitle": "Webinar calendar",
-    "calendarRule": "Every first Wednesday of the month · 15:00 to 16:00 CET",
+    "calendarRule": "Every second Wednesday of the month · 15:00 to 16:00 CET",
     "legendWfo": "Workflow Orchestrator / SDN",
     "legendShopVirge": "ShopVirge / eCommerce",
     "legendTba": "Topic to be announced",
@@ -270,7 +270,7 @@
     "submit": "Sign me up →",
     "homeLabel": "Webinars",
     "homeTitle": "Join our next live sessions",
-    "homeDesc": "Every first Wednesday of the month we go deep on one topic. Free, online and with plenty of room for questions."
+    "homeDesc": "Every second Wednesday of the month we go deep on one topic. Free, online and with plenty of room for questions."
   },
   "privacy": {
     "title": "We don't <span>track you.</span>",
