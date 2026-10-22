@@ -12,7 +12,7 @@ export interface Speaker {
 
 export interface Webinar {
   slug: string;
-  /** Local date in Europe/Amsterdam, always the first Wednesday of a month. */
+  /** Local date in Europe/Amsterdam, always the second Wednesday of a month. */
   date: string;
   product: WebinarProduct;
   title: Localized;
@@ -26,7 +26,7 @@ export interface Webinar {
   resources: { label: Localized; href: string }[];
 }
 
-// All webinars run on the first Wednesday of the month, 15:00-16:00 Amsterdam time.
+// All webinars run on the second Wednesday of the month, 15:00-16:00 Amsterdam time.
 export const WEBINAR_START = '15:00';
 export const WEBINAR_END = '16:00';
 export const WEBINAR_TZ = 'Europe/Amsterdam';
@@ -45,7 +45,7 @@ const WFO_DECK =
 export const webinars: Webinar[] = [
   {
     slug: 'agent-based-network-troubleshooting-wfo',
-    date: '2026-11-04',
+    date: '2026-11-11',
     product: 'wfo',
     title: {
       en: 'Agent based network troubleshooting with the WFO',
@@ -103,7 +103,7 @@ export const webinars: Webinar[] = [
   },
   {
     slug: 'webshop-content-generation-at-scale-shopvirge',
-    date: '2026-12-02',
+    date: '2026-12-09',
     product: 'shopvirge',
     title: {
       en: 'Automatic webshop content generation at scale with ShopVirge',
@@ -161,7 +161,7 @@ export const webinars: Webinar[] = [
   },
   {
     slug: 'modern-sdn-wfo-open-source',
-    date: '2027-01-06',
+    date: '2027-01-13',
     product: 'wfo',
     title: {
       en: 'Modern SDN with the WFO and other open source tooling',
@@ -220,7 +220,7 @@ export const webinars: Webinar[] = [
   },
   {
     slug: 'optimize-your-shopvirge-shop',
-    date: '2027-02-03',
+    date: '2027-02-10',
     product: 'shopvirge',
     title: {
       en: 'How to optimize your ShopVirge shop',
@@ -284,10 +284,10 @@ export function getWebinarBySlug(slug: string) {
   return webinars.find(w => w.slug === slug);
 }
 
-/** First Wednesday of a month (month is 0-based), as YYYY-MM-DD. */
-export function firstWednesday(year: number, month: number): string {
+/** Second Wednesday of a month (month is 0-based), as YYYY-MM-DD. */
+export function secondWednesday(year: number, month: number): string {
   const firstDay = new Date(Date.UTC(year, month, 1)).getUTCDay();
-  const day = 1 + ((3 - firstDay + 7) % 7);
+  const day = 8 + ((3 - firstDay + 7) % 7);
   return `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
 }
 
@@ -306,7 +306,7 @@ export function amsterdamOffset(date: string): string {
   return t >= start && t < end ? '+02:00' : '+01:00';
 }
 
-/** ISO 8601 timestamps with offset, e.g. 2026-11-04T15:00:00+01:00. */
+/** ISO 8601 timestamps with offset, e.g. 2026-11-11T15:00:00+01:00. */
 export function startIso(date: string) {
   return `${date}T${WEBINAR_START}:00${amsterdamOffset(date)}`;
 }
@@ -319,12 +319,12 @@ export interface WebinarSlot {
   webinar?: Webinar;
 }
 
-/** Every first-Wednesday slot from `from` (inclusive) for `count` months, with its topic if one is planned. */
+/** Every second-Wednesday slot from `from` (inclusive) for `count` months, with its topic if one is planned. */
 export function getWebinarSlots(from: Date, count: number): WebinarSlot[] {
   const slots: WebinarSlot[] = [];
   for (let n = 0; n < count; n++) {
     const month = new Date(Date.UTC(from.getFullYear(), from.getMonth() + n, 1));
-    const date = firstWednesday(month.getUTCFullYear(), month.getUTCMonth());
+    const date = secondWednesday(month.getUTCFullYear(), month.getUTCMonth());
     slots.push({ date, webinar: webinars.find(w => w.date === date) });
   }
   return slots;
