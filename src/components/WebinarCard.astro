@@ -1,0 +1,86 @@
+---
+import type { Lang } from '../i18n';
+import { t } from '../i18n';
+import Icon from './Icon.astro';
+import type { Webinar } from '../data/webinars';
+import { endIso, formatWebinarDate, webinarPath, icsPath } from '../data/webinars';
+
+interface Props {
+  lang: Lang;
+  webinar: Webinar;
+  /** Anchor or URL of the registration form. */
+  registerHref?: string;
+}
+
+const { lang, webinar: w, registerHref = '#register' } = Astro.props;
+const i = t(lang);
+const day = formatWebinarDate(w.date, lang, { day: 'numeric' });
+const month = formatWebinarDate(w.date, lang, { month: 'short' }).replace('.', '');
+const weekday = formatWebinarDate(w.date, lang, { weekday: 'short' }).replace('.', '');
+---
+<article class:list={['webinar-card', `webinar-card--${w.product}`]} data-webinar-card data-end={endIso(w.date)} data-slug={w.slug}>
+  <div class="webinar-card-date" aria-hidden="true">
+    <span class="wc-weekday">{weekday}</span>
+    <span class="wc-day">{day}</span>
+    <span class="wc-month">{month}</span>
+  </div>
+  <div class="webinar-card-body">
+    <span class="webinar-badge">{w.product === 'wfo' ? 'Workflow Orchestrator' : 'ShopVirge'}</span>
+    <h3><a href={webinarPath(lang, w.slug)}>{w.title[lang]}</a></h3>
+    <p class="webinar-card-meta">
+      <Icon name="calendar" size={15} /> <time datetime={w.date}>{formatWebinarDate(w.date, lang)}</time>
+      <span class="wc-sep">·</span>
+      <Icon name="clock" size={15} /> {i.webinars.timeLabel}
+    </p>
+    <p class="webinar-card-summary">{w.summary[lang]}</p>
+    <div class="webinar-card-actions">
+      <a href={registerHref} class="btn webinar-register" data-register={w.slug}>{i.webinars.register}</a>
+      <a href={webinarPath(lang, w.slug)} class="btn-ghost-sm">{i.webinars.details} →</a>
+      <a href={icsPath(w.slug)} class="btn-ghost-sm" download><Icon name="calendar-plus" size={15} /> {i.webinars.addToCalendar}</a>
+    </div>
+  </div>
+</article>
+
+<style>
+  .webinar-card {
+    --product: #5cb8ff;
+    display: grid; grid-template-columns: auto 1fr; gap: 1.5rem;
+    padding: 1.75rem; border-radius: var(--radius);
+    background: linear-gradient(160deg, rgba(108,92,231,0.10), rgba(18,18,42,0.6) 55%);
+    border: 1px solid rgba(108,92,231,0.18);
+    transition: border-color 0.25s, transform 0.25s, box-shadow 0.25s;
+  }
+  .webinar-card--shopvirge { --product: #e879f9; }
+  .webinar-card:hover {
+    border-color: color-mix(in srgb, var(--product) 55%, transparent);
+    transform: translateY(-2px);
+    box-shadow: 0 12px 40px -18px color-mix(in srgb, var(--product) 60%, transparent);
+  }
+  .webinar-card-date {
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    min-width: 5rem; padding: 0.9rem 0.6rem; border-radius: 10px; align-self: start;
+    background: rgba(10,10,26,0.7);
+    border: 1px solid color-mix(in srgb, var(--product) 45%, transparent);
+    box-shadow: inset 0 0 24px -10px var(--product);
+    text-transform: uppercase; line-height: 1.1;
+  }
+  .wc-weekday, .wc-month { font-size: 0.75rem; letter-spacing: 0.12em; color: var(--text-muted); }
+  .wc-day { font-size: 2.2rem; font-weight: 800; color: #fff; margin: 0.15rem 0; }
+  .webinar-badge {
+    display: inline-block; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--product); margin-bottom: 0.4rem;
+  }
+  .webinar-card h3 { font-size: 1.3rem; line-height: 1.3; margin-bottom: 0.5rem; }
+  .webinar-card h3 a { color: #fff; }
+  .webinar-card-meta { color: var(--text-muted); font-size: 0.88rem; margin-bottom: 0.75rem; display: flex; flex-wrap: wrap; align-items: center; gap: 0.35rem; }
+  .wc-sep { opacity: 0.5; margin: 0 0.25rem; }
+  .webinar-card-summary { color: var(--text-muted); font-size: 0.98rem; margin-bottom: 1.25rem; }
+  .webinar-card-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem 1.25rem; }
+  .webinar-card-actions .btn { padding: 0.55rem 1.5rem; font-size: 0.95rem; }
+  .btn-ghost-sm { color: var(--link); font-size: 0.92rem; display: inline-flex; align-items: center; gap: 0.35rem; }
+  @media (max-width: 600px) {
+    .webinar-card { grid-template-columns: 1fr; padding: 1.25rem; gap: 1rem; }
+    .webinar-card-date { flex-direction: row; gap: 0.5rem; min-width: 0; justify-self: start; padding: 0.4rem 0.9rem; }
+    .wc-day { font-size: 1.2rem; margin: 0; }
+  }
+</style>

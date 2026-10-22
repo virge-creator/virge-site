@@ -8,6 +8,7 @@
     "blog": "Blog",
     "openclaw": "OpenClaw",
     "cases": "Cases",
+    "webinars": "Webinars",
     "contact": "Contact",
     "jobs": "Vacatures",
     "backToServices": "← Terug naar diensten"
@@ -216,5 +217,138 @@
     "requirements": "Vereisten",
     "niceToHave": "Pré",
     "aboutRole": "Over deze functie"
+  },
+  "webinars": {
+    "title": "Maandelijkse <span>Webinars</span>",
+    "description": "Gratis live sessies over AI-agents, netwerkautomatisering en eCommerce. Elke eerste woensdag van de maand, 15:00 tot 16:00 uur.",
+    "metaDesc": "Gratis maandelijkse webinars van Virge.io over AI-agents, SDN met de Workflow Orchestrator en ShopVirge eCommerce. Elke eerste woensdag, 15:00 uur.",
+    "metaTitle": "Webinars: AI-agents, SDN & eCommerce",
+    "howItWorks": [
+      "Gratis en vrijblijvend",
+      "Online, alleen een browser nodig",
+      "60 minuten, inclusief Q&A",
+      "Voertaal Engels",
+      "Deelnamelink per e-mail"
+    ],
+    "calendarTitle": "Webinarkalender",
+    "calendarRule": "Elke eerste woensdag van de maand · 15:00 tot 16:00 uur (CET)",
+    "legendWfo": "Workflow Orchestrator / SDN",
+    "legendShopVirge": "ShopVirge / eCommerce",
+    "legendTba": "Onderwerp volgt",
+    "today": "Vandaag",
+    "prevMonth": "Vorige maand",
+    "nextMonth": "Volgende maand",
+    "tba": "Onderwerp volgt",
+    "upcoming": "Komende webinars",
+    "next": "Volgende webinar",
+    "past": "Dit webinar heeft plaatsgevonden",
+    "register": "Aanmelden",
+    "registerFree": "Gratis aanmelden",
+    "details": "Details",
+    "addToCalendar": "Zet in agenda",
+    "backToWebinars": "← Terug naar webinars",
+    "allWebinars": "Alle webinars & kalender →",
+    "timeLabel": "15:00 tot 16:00 uur (CET)",
+    "aboutSession": "Over deze sessie",
+    "agenda": "Programma",
+    "takeaways": "Wat je meeneemt",
+    "audience": "Voor wie",
+    "speaker": "Spreker",
+    "speakers": "Sprekers",
+    "resources": "Meer lezen",
+    "formTitle": "Reserveer je plek",
+    "formDesc": "Gratis. We mailen je de deelnamelink voor de sessie.",
+    "nameLabel": "Naam",
+    "namePlaceholder": "Je naam",
+    "emailLabel": "E-mail",
+    "emailPlaceholder": "jij@voorbeeld.nl",
+    "companyLabel": "Bedrijf (optioneel)",
+    "companyPlaceholder": "Je bedrijf",
+    "webinarLabel": "Webinar",
+    "questionLabel": "Vraag vooraf (optioneel)",
+    "questionPlaceholder": "Iets dat we zeker moeten behandelen?",
+    "submit": "Meld me aan →",
+    "homeLabel": "Webinars",
+    "homeTitle": "Doe mee met onze volgende live sessies",
+    "homeDesc": "Elke eerste woensdag van de maand duiken we diep in één onderwerp. Gratis, online en met volop ruimte voor vragen."
+  },
+  "privacy": {
+    "title": "Wij volgen <span>je niet.</span>",
+    "description": "Bewust. Geen analytics, geen cookies, geen trackingpixels, geen scripts van derden. De enige gegevens die we hebben, zijn wat je zelf naar ons stuurt.",
+    "metaDesc": "Virge.io volgt je bewust niet: geen analytics, geen cookies, geen trackingpixels. We hebben alleen wat je zelf met ons deelt.",
+    "metaTitle": "Privacy",
+    "updated": "Laatst bijgewerkt: 22 oktober 2026",
+    "promisesTitle": "Privacy in het kort",
+    "promises": [
+      {
+        "icon": "cookie",
+        "title": "Geen cookies",
+        "text": "Geen cookiebanner, want er valt niets toe te stemmen."
+      },
+      {
+        "icon": "chart-no-axes-column",
+        "title": "Geen analytics",
+        "text": "Geen Google Analytics of andere statistiektools. We tellen je niet."
+      },
+      {
+        "icon": "eye-off",
+        "title": "Geen tracking",
+        "text": "Geen trackingpixels, fingerprinting, advertentienetwerken of social media-widgets."
+      },
+      {
+        "icon": "code",
+        "title": "Geen scripts van derden",
+        "text": "Alles op virge.io komt van onze eigen site. Niets stuurt stiekem data door."
+      },
+      {
+        "icon": "hand-heart",
+        "title": "Nooit verkocht",
+        "text": "Wat je met ons deelt, blijft bij ons. We verkopen of verhuren het nooit."
+      }
+    ],
+    "sections": [
+      {
+        "title": "Waarom we je niet volgen",
+        "body": [
+          "We bouwen software voor de kost, en we weten hoeveel een gemiddelde website ongemerkt verzamelt. We vinden niet dat je voor het lezen van een blogpost met je gegevens moet betalen. Dus hebben we een keuze gemaakt: virge.io werkt zonder te weten wie je bent. Wil je praten, dan vertel je het ons. Alleen zo leren we iets over jou."
+        ]
+      },
+      {
+        "title": "Wat je met ons deelt",
+        "body": [
+          "We ontvangen alleen wat je zelf invult en verstuurt:",
+          "<ul><li><strong>Contactformulier:</strong> je naam, e-mailadres en bericht.</li><li><strong>Webinar-aanmelding:</strong> je naam, e-mailadres, het gekozen webinar en, als je die invult, je bedrijf en een vraag vooraf.</li><li><strong>Sollicitaties:</strong> wat je ons per e-mail stuurt, zoals je cv en motivatie.</li></ul>",
+          "We gebruiken het alleen voor het doel waarvoor je het stuurde: om je te antwoorden, om je de deelnamelink voor je webinar te sturen of om je sollicitatie af te handelen. Geen nieuwsbrief, tenzij je erom vraagt."
+        ]
+      },
+      {
+        "title": "Wie ons helpt",
+        "body": [
+          "<strong>Formspree</strong> levert formulierinzendingen af in onze inbox. Het verwerkt ze namens ons en alleen om ze bij ons te bezorgen. Zie het <a href=\"https://formspree.io/legal/privacy-policy\" target=\"_blank\" rel=\"noopener\">privacybeleid van Formspree</a>.",
+          "<strong>GitHub Pages</strong> host deze website. Zoals elke webserver legt het kortstondig technische gegevens vast, zoals je IP-adres, om pagina's te leveren en de dienst veilig te houden. Wij hebben geen toegang tot deze logs en gebruiken ze niet. Zie de <a href=\"https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement\" target=\"_blank\" rel=\"noopener\">privacyverklaring van GitHub</a>."
+        ]
+      },
+      {
+        "title": "Hoe lang we het bewaren",
+        "body": [
+          "Niet langer dan nodig. Webinar-aanmeldingen verwijderen we zodra het webinar voorbij is en eventuele follow-up is verstuurd, tenzij je vraagt om op de hoogte te blijven. Berichten en sollicitaties verwijderen we als het gesprek is afgerond, tenzij het uitmondt in een samenwerking."
+        ]
+      },
+      {
+        "title": "Jouw rechten",
+        "body": [
+          "Onder de AVG kun je ons altijd vragen welke gegevens we van je hebben, en die laten corrigeren of verwijderen. Stuur een bericht via onze <a href=\"/nl/contact/\">contactpagina</a>; we reageren binnen een maand. Niet tevreden over hoe we ermee omgaan? Dan kun je een klacht indienen bij de <a href=\"https://autoriteitpersoonsgegevens.nl/\" target=\"_blank\" rel=\"noopener\">Autoriteit Persoonsgegevens</a>."
+        ]
+      },
+      {
+        "title": "Wijzigingen",
+        "body": [
+          "Als we ooit iets veranderen in hoe we met je gegevens omgaan, passen we eerst deze pagina aan. Mochten we ooit analytics of cookies toevoegen, dan staat dat hier, en vragen we je toestemming waar de wet dat vereist."
+        ]
+      }
+    ],
+    "formNotice": "We gebruiken je gegevens alleen voor deze aanmelding. Nooit tracking. Zie ons <a href=\"/nl/privacy/\">privacybeleid</a>.",
+    "contactNotice": "We gebruiken je gegevens alleen om je te antwoorden. Nooit tracking. Zie ons <a href=\"/nl/privacy/\">privacybeleid</a>.",
+    "footerLink": "Privacy"
   }
 }

@@ -1,0 +1,102 @@
+---
+import type { Lang } from '../i18n';
+import { t } from '../i18n';
+import Layout from '../layouts/Layout.astro';
+import CTA from './CTA.astro';
+import Icon from './Icon.astro';
+import WebinarCalendar from './WebinarCalendar.astro';
+import WebinarCard from './WebinarCard.astro';
+import WebinarForm from './WebinarForm.astro';
+import { getUpcoming, startIso, endIso, webinarPath } from '../data/webinars';
+import { eventSchema } from '../data/structured-data';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const i = t(lang);
+const upcoming = getUpcoming();
+const howIcons = ['gift', 'globe', 'timer', 'languages', 'mail'];
+const jsonLd = upcoming.map(w => eventSchema({
+  name: w.title[lang],
+  description: w.summary[lang],
+  startDate: startIso(w.date),
+  endDate: endIso(w.date),
+  path: webinarPath(lang, w.slug),
+}));
+---
+<Layout title={i.webinars.metaTitle} description={i.webinars.metaDesc} lang={lang} jsonLd={jsonLd}>
+  <div class="page-header">
+    <h1><Fragment set:html={i.webinars.title} /></h1>
+    <p>{i.webinars.description}</p>
+  </div>
+
+  <div class="container">
+    <ul class="webinar-how">
+      {i.webinars.howItWorks.map((item, idx) => (
+        <li><Icon name={howIcons[idx]} size={18} /> {item}</li>
+      ))}
+    </ul>
+  </div>
+
+  <section class="webinars-calendar-section">
+    <div class="container">
+      <WebinarCalendar lang={lang} />
+    </div>
+  </section>
+
+  <section class="webinars-list-section">
+    <div class="container webinars-split">
+      <div>
+        <h2>{i.webinars.upcoming}</h2>
+        <div class="webinars-list">
+          {upcoming.map(w => <WebinarCard lang={lang} webinar={w} />)}
+        </div>
+      </div>
+      <aside class="webinars-register" id="register">
+        <h2>{i.webinars.formTitle}</h2>
+        <p class="webinars-register-desc">{i.webinars.formDesc}</p>
+        <WebinarForm lang={lang} />
+      </aside>
+    </div>
+  </section>
+
+  <div class="container">
+    <CTA lang={lang} />
+  </div>
+</Layout>
+
+<script>
+  // Hide cards for webinars that ended after the last build.
+  document.querySelectorAll<HTMLElement>('[data-webinar-card]').forEach((card) => {
+    if (new Date(card.dataset.end || '').getTime() <= Date.now()) card.remove();
+  });
+</script>
+
+<style>
+  .webinar-how {
+    list-style: none; display: flex; flex-wrap: wrap; gap: 0.6rem; padding: 0.5rem 0 0;
+  }
+  .webinar-how li {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    padding: 0.45rem 0.95rem; border-radius: 999px; font-size: 0.9rem; color: var(--text);
+    background: rgba(108,92,231,0.1); border: 1px solid rgba(108,92,231,0.22);
+  }
+  .webinar-how li :global(svg) { color: var(--link); }
+  .webinars-calendar-section { padding: 3rem 0 2rem; }
+  .webinars-list-section { padding-top: 3rem; }
+  .webinars-split { display: grid; grid-template-columns: minmax(0, 1fr) 380px; gap: 2.5rem; align-items: start; }
+  .webinars-list { display: flex; flex-direction: column; gap: 1.25rem; }
+  .webinars-register {
+    position: sticky; top: 6rem; scroll-margin-top: 6rem;
+    padding: 1.75rem; border-radius: var(--radius);
+    background: rgba(18,18,42,0.7); border: 1px solid rgba(108,92,231,0.25);
+  }
+  .webinars-register h2 { font-size: 1.5rem; margin-bottom: 0.35rem; }
+  .webinars-register-desc { color: var(--text-muted); font-size: 0.92rem; margin-bottom: 1.25rem; }
+  @media (max-width: 960px) {
+    .webinars-split { grid-template-columns: 1fr; }
+    .webinars-register { position: static; }
+  }
+</style>

@@ -1,0 +1,214 @@
+---
+import type { Lang } from '../i18n';
+import { t } from '../i18n';
+import Layout from '../layouts/Layout.astro';
+import CTA from './CTA.astro';
+import Icon from './Icon.astro';
+import WebinarForm from './WebinarForm.astro';
+import type { Webinar } from '../data/webinars';
+import { startIso, endIso, formatWebinarDate, webinarPath, icsPath } from '../data/webinars';
+import { eventSchema, breadcrumbSchema } from '../data/structured-data';
+
+interface Props {
+  lang: Lang;
+  webinar: Webinar;
+}
+
+const { lang, webinar: w } = Astro.props;
+const i = t(lang);
+const path = webinarPath(lang, w.slug);
+// Internal resources are stored without the language prefix.
+const resourceHref = (href: string) => (href.startsWith('/') ? `/${lang}${href}` : href);
+const jsonLd = [
+  eventSchema({ name: w.title[lang], description: w.summary[lang], startDate: startIso(w.date), endDate: endIso(w.date), path, performers: w.speakers }),
+  breadcrumbSchema([
+    { name: 'Virge.io', path: `/${lang}/` },
+    { name: 'Webinars', path: `/${lang}/webinars/` },
+    { name: w.title[lang], path },
+  ]),
+];
+---
+<Layout title={w.title[lang]} description={w.summary[lang]} lang={lang} jsonLd={jsonLd}>
+  <div class="page-back">
+    <a href={`/${lang}/webinars/`} class="back-link">{i.webinars.backToWebinars}</a>
+  </div>
+  <div class:list={['page-header', 'webinar-header', `is-${w.product}`]}>
+    <span class="webinar-eyebrow">{w.product === 'wfo' ? 'Workflow Orchestrator' : 'ShopVirge'} · Webinar</span>
+    <h1>{w.title[lang]}</h1>
+    <p>{w.summary[lang]}</p>
+    <div class="webinar-when">
+      <span><Icon name="calendar" size={17} /> <time datetime={startIso(w.date)}>{formatWebinarDate(w.date, lang)}</time></span>
+      <span><Icon name="clock" size={17} /> {i.webinars.timeLabel}</span>
+      <span><Icon name="video" size={17} /> {lang === 'nl' ? 'Online · Engels' : 'Online · English'}</span>
+    </div>
+    <p class="webinar-past-note" data-past-note hidden>{i.webinars.past}</p>
+  </div>
+
+  <section class="webinar-detail-section">
+    <div class="container webinar-detail">
+      <article class="webinar-content">
+        <div class="webinar-block">
+          <h2><Icon name="book-open" size={20} /> {i.webinars.aboutSession}</h2>
+          <p>{w.intro[lang]}</p>
+        </div>
+
+        <div class="webinar-block">
+          <h2><Icon name="list-checks" size={20} /> {i.webinars.agenda}</h2>
+          <ol class="webinar-agenda">
+            {w.agenda[lang].map(item => <li>{item}</li>)}
+          </ol>
+        </div>
+
+        <div class="webinar-block">
+          <h2><Icon name="target" size={20} /> {i.webinars.takeaways}</h2>
+          <ul>
+            {w.takeaways[lang].map(item => <li>{item}</li>)}
+          </ul>
+        </div>
+
+        <div class="webinar-block">
+          <h2><Icon name="users" size={20} /> {i.webinars.audience}</h2>
+          <ul>
+            {w.audience[lang].map(item => <li>{item}</li>)}
+          </ul>
+        </div>
+
+        <div class="webinar-block">
+          <h2><Icon name="mic" size={20} /> {w.speakers.length > 1 ? i.webinars.speakers : i.webinars.speaker}</h2>
+          <div class="webinar-speakers">
+            {w.speakers.map(s => (
+              <a class="webinar-speaker" href={s.linkedin} target="_blank" rel="noopener" aria-label={`${s.name}, ${s.role} (LinkedIn)`}>
+                <span class="webinar-avatar" aria-hidden="true">{s.name.split(' ').map(p => p[0]).join('')}</span>
+                <span class="webinar-speaker-text">
+                  <strong>{s.name}</strong>
+                  <span>{s.role}</span>
+                </span>
+                <svg class="webinar-linkedin" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg>
+              </a>
+            ))}
+          </div>
+        </div>
+
+        <div class="webinar-block">
+          <h2><Icon name="book-open" size={20} /> {i.webinars.resources}</h2>
+          <ul class="webinar-resources">
+            {w.resources.map(r => {
+              const external = !r.href.startsWith('/');
+              return (
+                <li><a href={resourceHref(r.href)} target={external ? '_blank' : undefined} rel={external ? 'noopener' : undefined}>{r.label[lang]}{external ? ' ↗' : ' →'}</a></li>
+              );
+            })}
+          </ul>
+        </div>
+
+        <div class="webinar-tags">
+          {w.tags.map(tag => <span class="webinar-tag">{tag}</span>)}
+        </div>
+      </article>
+
+      <aside class="webinar-aside" id="register" data-register-aside>
+        <div class="webinar-aside-date">
+          <span class="wa-day">{formatWebinarDate(w.date, lang, { day: 'numeric' })}</span>
+          <span class="wa-month">{formatWebinarDate(w.date, lang, { month: 'long', year: 'numeric' })}</span>
+          <span class="wa-time">{i.webinars.timeLabel}</span>
+          <a href={icsPath(w.slug)} class="wa-ics" download><Icon name="calendar-plus" size={15} /> {i.webinars.addToCalendar}</a>
+        </div>
+        <h2>{i.webinars.formTitle}</h2>
+        <p class="webinar-aside-desc">{i.webinars.formDesc}</p>
+        <WebinarForm lang={lang} selected={w.slug} compact />
+      </aside>
+    </div>
+  </section>
+
+  <div class="container">
+    <CTA lang={lang} />
+  </div>
+</Layout>
+
+<script define:vars={{ end: endIso(w.date) }}>
+  if (new Date(end).getTime() <= Date.now()) {
+    document.querySelector('[data-past-note]')?.removeAttribute('hidden');
+    document.querySelector('[data-register-aside]')?.setAttribute('hidden', '');
+  }
+</script>
+
+<style>
+  .webinar-header { --c: #5cb8ff; }
+  .webinar-header.is-shopvirge { --c: #e879f9; }
+  .webinar-header h1 { font-size: clamp(2rem, 4.2vw, 3.4rem); line-height: 1.05; }
+  .webinar-eyebrow {
+    display: inline-block; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--c); margin-bottom: 0.9rem;
+  }
+  .webinar-when { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 1.5rem; }
+  .webinar-when span {
+    display: inline-flex; align-items: center; gap: 0.45rem; font-size: 0.92rem;
+    padding: 0.45rem 0.9rem; border-radius: 999px;
+    background: color-mix(in srgb, var(--c) 12%, transparent);
+    border: 1px solid color-mix(in srgb, var(--c) 35%, transparent);
+  }
+  .webinar-when :global(svg) { color: var(--c); }
+  .webinar-past-note { margin-top: 1rem !important; color: var(--link) !important; font-weight: 600; }
+
+  .webinar-detail-section { padding-top: 2rem; }
+  .webinar-detail { display: grid; grid-template-columns: minmax(0, 1fr) 360px; gap: 3rem; align-items: start; }
+  .webinar-block { margin-bottom: 2.5rem; }
+  .webinar-block h2 { font-size: 1.35rem; display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.9rem; }
+  .webinar-block h2 :global(svg) { color: var(--accent2); }
+  .webinar-block p { color: var(--text); line-height: 1.75; }
+  .webinar-block ul, .webinar-block ol { padding-left: 1.25rem; display: flex; flex-direction: column; gap: 0.5rem; }
+  .webinar-block li { color: var(--text); }
+  .webinar-agenda { counter-reset: agenda; list-style: none; padding-left: 0 !important; }
+  .webinar-agenda li {
+    counter-increment: agenda; position: relative; padding: 0.75rem 1rem 0.75rem 3.25rem;
+    background: rgba(18,18,42,0.55); border-radius: 10px; border: 1px solid rgba(108,92,231,0.12);
+  }
+  .webinar-agenda li::before {
+    content: counter(agenda, decimal-leading-zero); position: absolute; left: 1rem; top: 0.75rem;
+    font-weight: 800; color: var(--link); font-variant-numeric: tabular-nums;
+  }
+  .webinar-speakers { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 0.75rem; }
+  .webinar-speaker {
+    display: flex; align-items: center; gap: 0.8rem; padding: 0.85rem 1rem; border-radius: 12px;
+    background: rgba(18,18,42,0.55); border: 1px solid rgba(108,92,231,0.12);
+    transition: border-color 0.2s, background 0.2s;
+  }
+  .webinar-speaker:hover { text-decoration: none; border-color: rgba(108,92,231,0.45); background: rgba(108,92,231,0.1); }
+  .webinar-speaker-text { display: flex; flex-direction: column; min-width: 0; flex: 1; }
+  .webinar-speaker strong { color: #fff; }
+  .webinar-speaker-text span { color: var(--text-muted); font-size: 0.88rem; line-height: 1.35; }
+  .webinar-linkedin { color: var(--text-muted); flex-shrink: 0; transition: color 0.2s; }
+  .webinar-speaker:hover .webinar-linkedin { color: #0a66c2; }
+  .webinar-avatar {
+    width: 3rem; height: 3rem; border-radius: 50%; display: grid; place-items: center;
+    background: var(--gradient); color: #fff; font-weight: 800; font-size: 0.95rem;
+  }
+  .webinar-resources { list-style: none; padding-left: 0 !important; }
+  .webinar-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .webinar-tag {
+    font-size: 0.8rem; padding: 0.3rem 0.75rem; border-radius: 999px;
+    background: rgba(108,92,231,0.12); color: var(--link); border: 1px solid rgba(108,92,231,0.25);
+  }
+
+  .webinar-aside {
+    position: sticky; top: 6rem; scroll-margin-top: 6rem;
+    padding: 1.75rem; border-radius: var(--radius);
+    background: rgba(18,18,42,0.75); border: 1px solid rgba(108,92,231,0.25);
+  }
+  .webinar-aside[hidden] { display: none; }
+  .webinar-aside h2 { font-size: 1.35rem; margin-bottom: 0.3rem; }
+  .webinar-aside-desc { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1.25rem; }
+  .webinar-aside-date {
+    display: flex; flex-direction: column; padding: 1rem 1.25rem; margin-bottom: 1.5rem; border-radius: 10px;
+    background: linear-gradient(140deg, rgba(108,92,231,0.25), rgba(168,85,247,0.08));
+  }
+  .wa-day { font-size: 2.6rem; font-weight: 850; line-height: 1; color: #fff; }
+  .wa-month { font-weight: 700; color: #fff; text-transform: capitalize; }
+  .wa-time { color: var(--text-muted); font-size: 0.88rem; }
+  .wa-ics { margin-top: 0.6rem; font-size: 0.88rem; display: inline-flex; align-items: center; gap: 0.35rem; }
+
+  @media (max-width: 960px) {
+    .webinar-detail { grid-template-columns: 1fr; }
+    .webinar-aside { position: static; }
+  }
+</style>

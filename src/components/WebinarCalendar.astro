@@ -1,0 +1,330 @@
+---
+import type { Lang } from '../i18n';
+import { t } from '../i18n';
+import Icon from './Icon.astro';
+import { webinars, firstWednesday, getWebinarSlots, getUpcoming, endIso, formatWebinarDate, webinarPath, icsPath } from '../data/webinars';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const i = t(lang);
+const locale = lang === 'nl' ? 'nl-NL' : 'en-GB';
+
+// Months from the build month until two months after the last planned topic.
+// Skip the current month once its webinar slot has passed.
+const now = new Date();
+const thisSlot = firstWednesday(now.getFullYear(), now.getMonth());
+const start = new Date(Date.UTC(now.getFullYear(), now.getMonth() + (new Date(endIso(thisSlot)) <= now ? 1 : 0), 1));
+const last = webinars.map(w => w.date).sort().at(-1)!;
+const [ly, lm] = last.split('-').map(Number);
+const monthCount = Math.max(3, (ly - start.getUTCFullYear()) * 12 + (lm - 1 - start.getUTCMonth()) + 3);
+const slots = getWebinarSlots(start, monthCount);
+
+// Monday-first weekday labels; 2024-01-01 was a Monday.
+const weekdays = Array.from({ length: 7 }, (_, d) =>
+  new Intl.DateTimeFormat(locale, { weekday: 'short', timeZone: 'UTC' }).format(new Date(Date.UTC(2024, 0, 1 + d))).replace('.', '')
+);
+
+const months = slots.map(slot => {
+  const [y, m] = slot.date.split('-').map(Number);
+  const first = new Date(Date.UTC(y, m - 1, 1));
+  const daysInMonth = new Date(Date.UTC(y, m, 0)).getUTCDate();
+  const lead = (first.getUTCDay() + 6) % 7;
+  const days = Array.from({ length: daysInMonth }, (_, d) => {
+    const date = `${y}-${String(m).padStart(2, '0')}-${String(d + 1).padStart(2, '0')}`;
+    return { day: d + 1, date, slot: date === slot.date ? slot : undefined };
+  });
+  return {
+    key: `${y}-${String(m).padStart(2, '0')}`,
+    name: new Intl.DateTimeFormat(locale, { month: 'long', timeZone: 'UTC' }).format(first),
+    year: y,
+    lead,
+    days,
+    slot,
+  };
+});
+
+const next = getUpcoming(now, 1)[0];
+---
+<div class="wcal" data-wcal>
+  <div class="wcal-head">
+    <div>
+      <h2 class="wcal-title"><Icon name="calendar" size={26} /> {i.webinars.calendarTitle}</h2>
+      <p class="wcal-rule">{i.webinars.calendarRule}</p>
+    </div>
+    <div class="wcal-nav">
+      <button type="button" class="wcal-btn" data-wcal-prev aria-label={i.webinars.prevMonth}><Icon name="chevron-left" size={20} /></button>
+      <button type="button" class="wcal-btn" data-wcal-next aria-label={i.webinars.nextMonth}><Icon name="chevron-right" size={20} /></button>
+    </div>
+  </div>
+
+  <div class="wcal-layout">
+    <div class="wcal-track" data-wcal-track>
+      {months.map(month => (
+        <div class="wcal-month" data-month={month.key}>
+          <div class="wcal-month-head">
+            <span class="wcal-month-name">{month.name}</span>
+            <span class="wcal-month-year">{month.year}</span>
+          </div>
+          <div class="wcal-grid" role="grid">
+            {weekdays.map((wd, idx) => <span class:list={['wcal-wd', { 'wcal-wd--wed': idx === 2 }]}>{wd}</span>)}
+            {Array.from({ length: month.lead }, () => <span class="wcal-pad" aria-hidden="true"></span>)}
+            {month.days.map(d => {
+              if (!d.slot) return <span class="wcal-day" data-date={d.date}>{d.day}</span>;
+              const w = d.slot.webinar;
+              if (!w) {
+                return (
+                  <span class="wcal-day is-webinar is-tba" data-date={d.date} data-end={endIso(d.date)} tabindex="0"
+                    data-spot-date={formatWebinarDate(d.date, lang)} data-spot-title={i.webinars.tba}
+                    title={`${formatWebinarDate(d.date, lang)} · ${i.webinars.tba}`}>
+                    <span class="wcal-num">{d.day}</span>
+                  </span>
+                );
+              }
+              return (
+                <a href={webinarPath(lang, w.slug)}
+                  class:list={['wcal-day', 'is-webinar', `is-${w.product}`, { 'is-next': next?.slug === w.slug }]}
+                  data-date={d.date} data-end={endIso(d.date)} data-slug={w.slug}
+                  data-spot-date={formatWebinarDate(d.date, lang)} data-spot-title={w.title[lang]}
+                  data-spot-product={w.product} data-spot-summary={w.summary[lang]}
+                  data-spot-ics={icsPath(w.slug)}
+                  title={`${formatWebinarDate(d.date, lang)} · ${w.title[lang]}`}>
+                  <span class="wcal-num">{d.day}</span>
+                  <span class="wcal-dot" aria-hidden="true"></span>
+                </a>
+              );
+            })}
+          </div>
+          <p class="wcal-month-topic">
+            {month.slot.webinar
+              ? <a href={webinarPath(lang, month.slot.webinar.slug)} class={`is-${month.slot.webinar.product}`}>{month.slot.webinar.title[lang]}</a>
+              : <span class="is-tba">{i.webinars.tba}</span>}
+          </p>
+        </div>
+      ))}
+    </div>
+
+    <aside class:list={['wcal-spot', next && `is-${next.product}`]} data-wcal-spot aria-live="polite">
+      <span class="wcal-spot-label">{i.webinars.next}</span>
+      <span class="wcal-spot-date" data-spot="date">{next ? formatWebinarDate(next.date, lang) : ''}</span>
+      <span class="wcal-spot-time"><Icon name="clock" size={15} /> {i.webinars.timeLabel}</span>
+      <h3 class="wcal-spot-title" data-spot="title">{next?.title[lang] ?? i.webinars.tba}</h3>
+      <p class="wcal-spot-summary" data-spot="summary">{next?.summary[lang] ?? ''}</p>
+      <div class="wcal-spot-actions" data-spot="actions" hidden={!next}>
+        <a href="#register" class="btn" data-spot="register" data-register={next?.slug}>{i.webinars.register}</a>
+        <a href={next ? webinarPath(lang, next.slug) : '#'} class="wcal-spot-link" data-spot="details">{i.webinars.details} →</a>
+        <a href={next ? icsPath(next.slug) : '#'} class="wcal-spot-link" data-spot="ics" download><Icon name="calendar-plus" size={15} /> {i.webinars.addToCalendar}</a>
+      </div>
+    </aside>
+  </div>
+
+  <ul class="wcal-legend">
+    <li><span class="wcal-swatch is-wfo"></span>{i.webinars.legendWfo}</li>
+    <li><span class="wcal-swatch is-shopvirge"></span>{i.webinars.legendShopVirge}</li>
+    <li><span class="wcal-swatch is-tba"></span>{i.webinars.legendTba}</li>
+    <li><span class="wcal-swatch is-today"></span>{i.webinars.today}</li>
+  </ul>
+</div>
+
+<script>
+  function initWebinarCalendars() {
+    document.querySelectorAll<HTMLElement>('[data-wcal]').forEach((cal) => {
+      const track = cal.querySelector<HTMLElement>('[data-wcal-track]');
+      const spot = cal.querySelector<HTMLElement>('[data-wcal-spot]');
+      if (!track || !spot) return;
+
+      // Local "today" as YYYY-MM-DD.
+      const d = new Date();
+      const today = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+      const now = d.getTime();
+
+      track.querySelectorAll<HTMLElement>('[data-date]').forEach((cell) => {
+        const date = cell.dataset.date!;
+        if (date === today) cell.classList.add('is-today');
+        const ended = cell.dataset.end ? new Date(cell.dataset.end).getTime() <= now : date < today;
+        if (ended) cell.classList.add('is-past');
+      });
+
+      // Re-evaluate the "next" webinar in case the build is older than today.
+      const upcoming = Array.from(track.querySelectorAll<HTMLElement>('.is-webinar[data-slug]:not(.is-past)'));
+      track.querySelectorAll('.is-next').forEach((el) => el.classList.remove('is-next'));
+      upcoming[0]?.classList.add('is-next');
+
+      // Open on the month of the next webinar slot (the build may be older than today).
+      const nextSlot = track.querySelector<HTMLElement>('.is-webinar:not(.is-past)');
+      const monthEl = nextSlot?.closest<HTMLElement>('.wcal-month');
+      if (monthEl) track.scrollLeft = monthEl.offsetLeft - track.offsetLeft;
+
+      const step = () => (track.querySelector<HTMLElement>('.wcal-month')?.offsetWidth ?? 300) + 16;
+      cal.querySelector('[data-wcal-prev]')?.addEventListener('click', () => track.scrollBy({ left: -step(), behavior: 'smooth' }));
+      cal.querySelector('[data-wcal-next]')?.addEventListener('click', () => track.scrollBy({ left: step(), behavior: 'smooth' }));
+
+      const q = (k: string) => spot.querySelector<HTMLElement>(`[data-spot="${k}"]`)!;
+      function show(cell: HTMLElement) {
+        const ds = cell.dataset;
+        spot.classList.remove('is-wfo', 'is-shopvirge', 'is-tba');
+        spot.classList.add(ds.spotProduct ? `is-${ds.spotProduct}` : 'is-tba');
+        q('date').textContent = ds.spotDate || '';
+        q('title').textContent = ds.spotTitle || '';
+        q('summary').textContent = ds.spotSummary || '';
+        const past = cell.classList.contains('is-past');
+        q('actions').hidden = !ds.slug || past;
+        if (ds.slug) {
+          q('register').dataset.register = ds.slug;
+          (q('details') as HTMLAnchorElement).href = (cell as HTMLAnchorElement).href;
+          (q('ics') as HTMLAnchorElement).href = ds.spotIcs || '#';
+        }
+      }
+      track.querySelectorAll<HTMLElement>('.is-webinar').forEach((cell) => {
+        cell.addEventListener('mouseenter', () => show(cell));
+        cell.addEventListener('focus', () => show(cell));
+      });
+      if (upcoming[0]) show(upcoming[0]);
+    });
+
+  }
+
+  initWebinarCalendars();
+</script>
+
+<style>
+  .wcal {
+    --wfo: #5cb8ff;
+    --shopvirge: #e879f9;
+    position: relative;
+    padding: 2rem;
+    border-radius: 20px;
+    background:
+      radial-gradient(120% 80% at 0% 0%, rgba(108,92,231,0.18), transparent 60%),
+      radial-gradient(90% 70% at 100% 100%, rgba(37,147,229,0.12), transparent 60%),
+      rgba(18,18,42,0.7);
+    border: 1px solid rgba(108,92,231,0.22);
+    box-shadow: 0 30px 80px -40px rgba(108,92,231,0.6);
+  }
+  .wcal-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 1rem; margin-bottom: 1.5rem; }
+  .wcal-head > div:first-child { min-width: 0; }
+  .wcal-title { font-size: 1.6rem; margin: 0 0 0.25rem; display: flex; align-items: center; gap: 0.6rem; color: #fff; }
+  .wcal-title :global(svg) { color: var(--accent2); flex-shrink: 0; }
+  .wcal-rule { color: var(--text-muted); margin: 0; font-size: 0.95rem; }
+  .wcal-nav { display: flex; gap: 0.5rem; }
+  .wcal-btn {
+    width: 2.6rem; height: 2.6rem; border-radius: 50%; display: grid; place-items: center; cursor: pointer;
+    background: rgba(108,92,231,0.12); border: 1px solid rgba(108,92,231,0.35); color: var(--text);
+    transition: background 0.2s, border-color 0.2s;
+  }
+  .wcal-btn:hover { background: rgba(108,92,231,0.3); border-color: var(--accent2); }
+  .wcal-btn :global(svg) { display: block !important; }
+
+  .wcal-layout { display: grid; grid-template-columns: minmax(0, 1fr) 300px; gap: 1.5rem; align-items: stretch; }
+
+  .wcal-track {
+    display: grid; grid-auto-flow: column; grid-auto-columns: calc((100% - 1rem) / 2); gap: 1rem;
+    overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; overscroll-behavior-x: contain;
+  }
+  .wcal-track::-webkit-scrollbar { display: none; }
+  .wcal-month {
+    scroll-snap-align: start; padding: 1.25rem; border-radius: 14px;
+    background: rgba(10,10,26,0.55); border: 1px solid rgba(108,92,231,0.12);
+    display: flex; flex-direction: column;
+  }
+  .wcal-month-head { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 0.9rem; }
+  .wcal-month-name { font-size: 1.2rem; font-weight: 750; color: #fff; text-transform: capitalize; }
+  .wcal-month-year { color: var(--text-muted); font-size: 0.9rem; font-variant-numeric: tabular-nums; }
+
+  .wcal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; }
+  .wcal-wd { text-align: center; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); padding-bottom: 0.35rem; }
+  .wcal-wd--wed { color: var(--link); font-weight: 700; }
+  .wcal-day {
+    position: relative; aspect-ratio: 1; display: grid; place-items: center;
+    border-radius: 9px; font-size: 0.88rem; color: rgba(224,224,240,0.7); font-variant-numeric: tabular-nums;
+  }
+  .wcal-day.is-past:not(.is-webinar) { color: rgba(161,161,196,0.35); }
+  .wcal-day.is-today { box-shadow: inset 0 0 0 1.5px rgba(255,255,255,0.65); color: #fff; font-weight: 700; }
+
+  .wcal-day.is-webinar { --c: var(--accent2); color: #fff; font-weight: 800; text-decoration: none; cursor: pointer; isolation: isolate; }
+  .wcal-day.is-wfo { --c: var(--wfo); }
+  .wcal-day.is-shopvirge { --c: var(--shopvirge); }
+  .wcal-day.is-webinar::before {
+    content: ''; position: absolute; inset: 0; border-radius: inherit; z-index: -1;
+    background: linear-gradient(140deg, color-mix(in srgb, var(--c) 85%, #fff 0%), color-mix(in srgb, var(--c) 45%, var(--accent)));
+    box-shadow: 0 0 18px -2px color-mix(in srgb, var(--c) 70%, transparent);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .wcal-day.is-webinar:hover::before, .wcal-day.is-webinar:focus-visible::before {
+    transform: scale(1.12); box-shadow: 0 0 28px 2px color-mix(in srgb, var(--c) 80%, transparent);
+  }
+  .wcal-day.is-webinar:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
+  .wcal-day.is-tba { color: var(--text); font-weight: 700; }
+  .wcal-day.is-tba::before {
+    background: transparent; box-shadow: none;
+    border: 1.5px dashed rgba(196,165,255,0.55);
+  }
+  .wcal-day.is-webinar.is-past { opacity: 0.4; }
+  .wcal-day.is-webinar.is-past::before { box-shadow: none; }
+  .wcal-dot { position: absolute; bottom: 4px; width: 4px; height: 4px; border-radius: 50%; background: #fff; opacity: 0.85; }
+  .wcal-num { position: relative; }
+
+  .wcal-day.is-next::after {
+    content: ''; position: absolute; inset: -4px; border-radius: 12px; pointer-events: none;
+    border: 2px solid var(--c);
+    animation: wcal-pulse 2.2s ease-out infinite;
+  }
+  @keyframes wcal-pulse {
+    0% { opacity: 0.9; transform: scale(0.92); }
+    70%, 100% { opacity: 0; transform: scale(1.35); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .wcal-day.is-next::after { animation: none; opacity: 0.7; }
+  }
+
+  .wcal-month-topic { margin: auto 0 0; padding-top: 0.9rem; font-size: 0.88rem; line-height: 1.4; min-height: 3.3em; }
+  .wcal-month-topic a { font-weight: 600; }
+  .wcal-month-topic a.is-wfo { color: var(--wfo); }
+  .wcal-month-topic a.is-shopvirge { color: var(--shopvirge); }
+  .wcal-month-topic .is-tba { color: var(--text-muted); font-style: italic; }
+
+  .wcal-spot {
+    --c: var(--accent2);
+    display: flex; flex-direction: column; gap: 0.35rem;
+    padding: 1.5rem; border-radius: 14px; position: relative; overflow: hidden;
+    background: linear-gradient(170deg, color-mix(in srgb, var(--c) 22%, transparent), rgba(10,10,26,0.6) 70%);
+    border: 1px solid color-mix(in srgb, var(--c) 40%, transparent);
+    transition: border-color 0.3s, background 0.3s;
+  }
+  .wcal-spot.is-wfo { --c: var(--wfo); }
+  .wcal-spot.is-shopvirge { --c: var(--shopvirge); }
+  .wcal-spot.is-tba { --c: #8b7fd6; }
+  .wcal-spot-label { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--c); }
+  .wcal-spot-date { font-size: 1.05rem; font-weight: 700; color: #fff; text-transform: capitalize; }
+  .wcal-spot-time { font-size: 0.85rem; color: var(--text-muted); display: flex; align-items: center; gap: 0.35rem; }
+  .wcal-spot-title { font-size: 1.25rem; line-height: 1.3; margin: 0.6rem 0 0.2rem; color: #fff; }
+  .wcal-spot-summary { color: var(--text-muted); font-size: 0.92rem; margin: 0 0 0.75rem; }
+  .wcal-spot-actions { margin-top: auto; display: flex; flex-direction: column; gap: 0.6rem; align-items: flex-start; }
+  .wcal-spot-actions[hidden] { display: none; }
+  .wcal-spot-actions .btn { padding: 0.55rem 1.6rem; font-size: 0.95rem; }
+  .wcal-spot-link { font-size: 0.9rem; display: inline-flex; align-items: center; gap: 0.35rem; }
+
+  .wcal-legend { list-style: none; display: flex; flex-wrap: wrap; gap: 0.6rem 1.5rem; margin-top: 1.5rem; font-size: 0.85rem; color: var(--text-muted); }
+  .wcal-legend li { display: flex; align-items: center; gap: 0.5rem; }
+  .wcal-swatch { width: 14px; height: 14px; border-radius: 4px; }
+  .wcal-swatch.is-wfo { background: var(--wfo); box-shadow: 0 0 10px var(--wfo); }
+  .wcal-swatch.is-shopvirge { background: var(--shopvirge); box-shadow: 0 0 10px var(--shopvirge); }
+  .wcal-swatch.is-tba { border: 1.5px dashed rgba(196,165,255,0.7); }
+  .wcal-swatch.is-today { box-shadow: inset 0 0 0 1.5px rgba(255,255,255,0.65); }
+
+  @media (max-width: 960px) {
+    .wcal-layout { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 640px) {
+    .wcal { padding: 1.1rem; border-radius: 16px; }
+    .wcal-head { align-items: center; }
+    .wcal-title { font-size: 1.25rem; }
+    .wcal-rule { font-size: 0.85rem; }
+    .wcal-nav { flex-shrink: 0; gap: 0.35rem; }
+    .wcal-btn { width: 2.2rem; height: 2.2rem; }
+    .wcal-track { grid-auto-columns: 100%; }
+    .wcal-month { padding: 1rem; }
+  }
+</style>
