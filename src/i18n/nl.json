@@ -268,9 +268,7 @@
     "questionLabel": "Vraag vooraf (optioneel)",
     "questionPlaceholder": "Iets dat we zeker moeten behandelen?",
     "submit": "Meld me aan →",
-    "homeLabel": "Webinars",
-    "homeTitle": "Doe mee met onze volgende live sessies",
-    "homeDesc": "Elke tweede woensdag van de maand duiken we diep in één onderwerp. Gratis, online en met volop ruimte voor vragen."
+    "heroRule": "Gratis · elke tweede woensdag · 15:00 uur"
   },
   "privacy": {
     "title": "Wij volgen <span>je niet.</span>",

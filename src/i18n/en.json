@@ -268,9 +268,7 @@
     "questionLabel": "Question in advance (optional)",
     "questionPlaceholder": "Anything you'd like us to cover?",
     "submit": "Sign me up →",
-    "homeLabel": "Webinars",
-    "homeTitle": "Join our next live sessions",
-    "homeDesc": "Every second Wednesday of the month we go deep on one topic. Free, online and with plenty of room for questions."
+    "heroRule": "Free · every second Wednesday · 15:00 CET"
   },
   "privacy": {
     "title": "We don't <span>track you.</span>",
