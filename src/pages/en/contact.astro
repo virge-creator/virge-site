@@ -22,6 +22,7 @@ const i = t(lang);
           <label for="message">{i.contact.messageLabel}</label>
           <textarea id="message" name="message" required placeholder={i.contact.messagePlaceholder}></textarea>
           <button type="submit" class="btn" style="width:100%">{i.contact.submit}</button>
+          <p class="form-privacy" set:html={i.privacy.contactNotice} />
         </form>
       </div>
     </div>

@@ -86,3 +86,40 @@ export function faqSchema(items: { question: string; answer: string }[]) {
     })),
   };
 }
+
+interface EventInput {
+  name: string;
+  description: string;
+  startDate: string;
+  endDate: string;
+  path: string;
+  performers?: { name: string; role: string; linkedin: string }[];
+}
+
+export function eventSchema({ name, description, startDate, endDate, path, performers }: EventInput) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Event',
+    name,
+    description,
+    startDate,
+    endDate,
+    eventStatus: 'https://schema.org/EventScheduled',
+    eventAttendanceMode: 'https://schema.org/OnlineEventAttendanceMode',
+    location: { '@type': 'VirtualLocation', url: `${SITE_URL}${path}` },
+    url: `${SITE_URL}${path}`,
+    inLanguage: 'en',
+    isAccessibleForFree: true,
+    offers: { '@type': 'Offer', price: '0', priceCurrency: 'EUR', availability: 'https://schema.org/InStock', url: `${SITE_URL}${path}` },
+    organizer: { '@id': `${SITE_URL}/#organization` },
+    ...(performers?.length && {
+      performer: performers.map(p => ({
+        '@type': 'Person',
+        name: p.name,
+        jobTitle: p.role,
+        sameAs: p.linkedin,
+        worksFor: { '@id': `${SITE_URL}/#organization` },
+      })),
+    }),
+  };
+}

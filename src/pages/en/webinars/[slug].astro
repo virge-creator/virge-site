@@ -1,0 +1,15 @@
+---
+import WebinarDetail from '../../../components/WebinarDetail.astro';
+import { webinars, getWebinarBySlug } from '../../../data/webinars';
+import type { GetStaticPaths } from 'astro';
+
+export const getStaticPaths: GetStaticPaths = () => {
+  return webinars.map(w => ({
+    params: { slug: w.slug },
+  }));
+};
+
+const { slug } = Astro.params;
+const webinar = getWebinarBySlug(slug as string)!;
+---
+<WebinarDetail lang="en" webinar={webinar} />

@@ -10,7 +10,11 @@ const { lang = 'en' } = Astro.props;
 const i = t(lang);
 ---
 <footer>
-  <div class="container">
+  <div class="container footer-inner">
     <p>&copy; {new Date().getFullYear()} {i.footer.text}</p>
+    <div class="footer-links">
+      <a href={`/${lang}/webinars/`}>{i.nav.webinars}</a>
+      <a href={`/${lang}/privacy/`}>{i.privacy.footerLink}</a>
+    </div>
   </div>
 </footer>

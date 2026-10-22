@@ -1,0 +1,81 @@
+---
+import type { Lang } from '../i18n';
+import { t } from '../i18n';
+import Layout from '../layouts/Layout.astro';
+import Icon from './Icon.astro';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const i = t(lang);
+---
+<Layout title={i.privacy.metaTitle} description={i.privacy.metaDesc} lang={lang}>
+  <div class="page-header">
+    <span class="privacy-eyebrow"><Icon name="shield-check" size={16} /> Privacy</span>
+    <h1><Fragment set:html={i.privacy.title} /></h1>
+    <p>{i.privacy.description}</p>
+  </div>
+
+  <section class="privacy-promises-section">
+    <div class="container">
+      <h2 class="visually-hidden">{i.privacy.promisesTitle}</h2>
+      <ul class="privacy-promises">
+        {i.privacy.promises.map(p => (
+          <li>
+            <span class="privacy-promise-icon"><Icon name={p.icon} size={22} /></span>
+            <strong>{p.title}</strong>
+            <span>{p.text}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <section class="privacy-section">
+    <div class="container">
+      <div class="privacy">
+        {i.privacy.sections.map(s => (
+          <div class="privacy-block">
+            <h2>{s.title}</h2>
+            {s.body.map(part => (part.startsWith('<ul>') ? <Fragment set:html={part} /> : <p set:html={part} />))}
+          </div>
+        ))}
+        <p class="privacy-updated">{i.privacy.updated}</p>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .privacy-eyebrow {
+    display: inline-flex; align-items: center; gap: 0.4rem; margin-bottom: 1rem;
+    font-size: 0.78rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--link);
+  }
+  .page-header :global(h1 span) { color: var(--accent2) !important; }
+  .visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+  .privacy-promises-section { padding: 1.5rem 0 1rem; }
+  .privacy-promises {
+    list-style: none; display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 1rem;
+  }
+  .privacy-promises li {
+    display: flex; flex-direction: column; gap: 0.35rem; padding: 1.4rem;
+    border-radius: var(--radius); background: rgba(18,18,42,0.6); border: 1px solid rgba(108,92,231,0.18);
+  }
+  .privacy-promise-icon {
+    width: 2.6rem; height: 2.6rem; border-radius: 10px; display: grid; place-items: center; margin-bottom: 0.5rem;
+    background: rgba(108,92,231,0.15); color: var(--link);
+  }
+  .privacy-promises strong { color: #fff; font-size: 1.05rem; }
+  .privacy-promises li > span:last-child { color: var(--text-muted); font-size: 0.9rem; line-height: 1.5; }
+
+  .privacy-section { padding-top: 2.5rem; }
+  .privacy { max-width: 760px; }
+  .privacy-block { margin-bottom: 2.25rem; }
+  .privacy-block h2 { font-size: 1.35rem; margin-bottom: 0.75rem; }
+  .privacy-block p { line-height: 1.75; margin-bottom: 0.75rem; }
+  .privacy-block :global(ul) { padding-left: 1.25rem; margin-bottom: 0.75rem; display: flex; flex-direction: column; gap: 0.4rem; }
+  .privacy-updated { color: var(--text-muted); font-size: 0.85rem; border-top: 1px solid rgba(108,92,231,0.15); padding-top: 1.25rem; }
+</style>

@@ -1,0 +1,123 @@
+---
+import type { Lang } from '../i18n';
+import { t } from '../i18n';
+import { getUpcoming, endIso, formatWebinarDate, FORMSPREE_WEBINAR } from '../data/webinars';
+
+interface Props {
+  lang: Lang;
+  /** Slug of the webinar to preselect. */
+  selected?: string;
+  /** Show only the first N webinars that have not ended yet (checked again in the browser). */
+  limit?: number;
+  compact?: boolean;
+}
+
+const { lang, selected, limit, compact = false } = Astro.props;
+const i = t(lang);
+// Render a few extra options so the browser script can drop past ones and still fill `limit`.
+const options = getUpcoming(new Date(), limit ? limit + 2 : undefined);
+---
+<div class:list={['form-wrap', 'webinar-form', { 'webinar-form--compact': compact }]} data-webinar-form data-limit={limit}>
+  <form method="POST" action={FORMSPREE_WEBINAR}>
+    <input type="hidden" name="_subject" value="Webinar registration" />
+    <input type="hidden" name="form" value="webinar" />
+    <input type="hidden" name="language" value={lang} />
+
+    <label for="wf-webinar">{i.webinars.webinarLabel}</label>
+    <select id="wf-webinar" name="webinar" required>
+      {options.map((w, idx) => (
+        <option
+          value={`${w.date} · ${w.title.en}`}
+          data-slug={w.slug}
+          data-end={endIso(w.date)}
+          selected={selected ? w.slug === selected : idx === 0}
+          hidden={limit !== undefined && idx >= limit}
+        >
+          {formatWebinarDate(w.date, lang, { day: 'numeric', month: 'short' })} · {w.title[lang]}
+        </option>
+      ))}
+    </select>
+
+    <div class="webinar-form-row">
+      <div>
+        <label for="wf-name">{i.webinars.nameLabel}</label>
+        <input type="text" id="wf-name" name="name" required placeholder={i.webinars.namePlaceholder} />
+      </div>
+      <div>
+        <label for="wf-email">{i.webinars.emailLabel}</label>
+        <input type="email" id="wf-email" name="email" required placeholder={i.webinars.emailPlaceholder} />
+      </div>
+    </div>
+
+    <label for="wf-company">{i.webinars.companyLabel}</label>
+    <input type="text" id="wf-company" name="company" placeholder={i.webinars.companyPlaceholder} />
+
+    {!compact && (
+      <>
+        <label for="wf-question">{i.webinars.questionLabel}</label>
+        <textarea id="wf-question" name="question" placeholder={i.webinars.questionPlaceholder}></textarea>
+      </>
+    )}
+
+    <button type="submit" class="btn" style="width:100%">{i.webinars.submit}</button>
+    <p class="form-privacy" set:html={i.privacy.formNotice} />
+  </form>
+</div>
+
+<script>
+  // Drop webinars that already ended (the site is static, so the build-time list can be stale),
+  // keep at most `data-limit`, and honour ?webinar=<slug> or calendar clicks for preselection.
+  function initWebinarForms() {
+    const now = Date.now();
+    const wanted = new URLSearchParams(location.search).get('webinar');
+    document.querySelectorAll<HTMLElement>('[data-webinar-form]').forEach((wrap) => {
+      const select = wrap.querySelector('select');
+      if (!select) return;
+      const limit = Number(wrap.dataset.limit) || Infinity;
+      let shown = 0;
+      Array.from(select.options).forEach((opt) => {
+        const past = new Date(opt.dataset.end || '').getTime() <= now;
+        if (past) opt.remove();
+        else opt.hidden = ++shown > limit;
+      });
+      const match = wanted && Array.from(select.options).find((o) => o.dataset.slug === wanted && !o.hidden);
+      if (match) match.selected = true;
+      else if (select.selectedOptions[0]?.hidden || !select.selectedOptions.length) {
+        const first = Array.from(select.options).find((o) => !o.hidden);
+        if (first) first.selected = true;
+      }
+    });
+  }
+
+  // Any "Register" button tagged with a slug (cards, calendar) preselects that webinar.
+  document.addEventListener('click', (e) => {
+    const btn = (e.target as HTMLElement).closest<HTMLElement>('[data-register]');
+    if (btn?.dataset.register) document.dispatchEvent(new CustomEvent('webinar:select', { detail: btn.dataset.register }));
+  });
+
+  document.addEventListener('webinar:select', (e) => {
+    const slug = (e as CustomEvent<string>).detail;
+    document.querySelectorAll<HTMLSelectElement>('[data-webinar-form] select').forEach((select) => {
+      const opt = Array.from(select.options).find((o) => o.dataset.slug === slug);
+      if (opt) opt.selected = true;
+    });
+  });
+
+  initWebinarForms();
+</script>
+
+<style>
+  .webinar-form { padding: 0; max-width: none; }
+  .webinar-form select {
+    width: 100%; padding: 0.75rem 1rem; margin-bottom: 1.25rem;
+    background: var(--bg); border: 1px solid rgba(108,92,231,0.2); border-radius: 8px;
+    color: var(--text); font-size: 1rem; font-family: inherit;
+  }
+  .webinar-form select:focus { outline: none; border-color: var(--accent); }
+  .webinar-form textarea { min-height: 100px; }
+  .webinar-form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0 1rem; }
+  .webinar-form--compact .webinar-form-row { grid-template-columns: 1fr; }
+  @media (max-width: 600px) {
+    .webinar-form-row { grid-template-columns: 1fr; }
+  }
+</style>

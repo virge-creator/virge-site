@@ -81,6 +81,7 @@ const servicesActive = sectionActive(`${base}services`) || serviceItems.some((s)
       <li><a href={`${base}cases/`} class:list={{ active: sectionActive(`${base}cases`) }} aria-current={sectionActive(`${base}cases`) ? 'page' : undefined}>{i.nav.cases}</a></li>
       <li><a href={`${base}blog/`} class:list={{ active: sectionActive(`${base}blog`) }} aria-current={sectionActive(`${base}blog`) ? 'page' : undefined}>{i.nav.blog}</a></li>
       <li><a href={jobsPath} class:list={{ active: sectionActive(jobsPath) }} aria-current={sectionActive(jobsPath) ? 'page' : undefined}>{i.nav.jobs}</a></li>
+      <li><a href={`${base}webinars/`} class:list={{ active: sectionActive(`${base}webinars`) }} aria-current={sectionActive(`${base}webinars`) ? 'page' : undefined}>{i.nav.webinars}</a></li>
       <li><a href={`${base}contact/`} class:list={{ active: sectionActive(`${base}contact`) }} aria-current={sectionActive(`${base}contact`) ? 'page' : undefined}>{i.nav.contact}</a></li>
       <li class="lang-switch">
         <button type="button" class="lang-current" aria-haspopup="true" aria-expanded="false" aria-label={`Language: ${langNames[lang]}`}>

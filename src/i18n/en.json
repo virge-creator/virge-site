@@ -8,6 +8,7 @@
     "blog": "Blog",
     "openclaw": "OpenClaw",
     "cases": "Cases",
+    "webinars": "Webinars",
     "contact": "Contact",
     "jobs": "Jobs",
     "backToServices": "← Back to services"
@@ -216,5 +217,138 @@
     "requirements": "Requirements",
     "niceToHave": "Nice to have",
     "aboutRole": "About this role"
+  },
+  "webinars": {
+    "title": "Monthly <span>Webinars</span>",
+    "description": "Free live sessions on AI agents, network automation and eCommerce. Every first Wednesday of the month, 15:00 to 16:00 CET.",
+    "metaDesc": "Free monthly webinars by Virge.io on AI agents, SDN with the Workflow Orchestrator and ShopVirge eCommerce. Every first Wednesday, 15:00 CET.",
+    "metaTitle": "Webinars: AI Agents, SDN & eCommerce",
+    "howItWorks": [
+      "Free, no strings attached",
+      "Online, just a browser",
+      "60 minutes, including Q&A",
+      "In English",
+      "Join link sent by email"
+    ],
+    "calendarTitle": "Webinar calendar",
+    "calendarRule": "Every first Wednesday of the month · 15:00 to 16:00 CET",
+    "legendWfo": "Workflow Orchestrator / SDN",
+    "legendShopVirge": "ShopVirge / eCommerce",
+    "legendTba": "Topic to be announced",
+    "today": "Today",
+    "prevMonth": "Previous month",
+    "nextMonth": "Next month",
+    "tba": "Topic to be announced",
+    "upcoming": "Upcoming webinars",
+    "next": "Next webinar",
+    "past": "This webinar has taken place",
+    "register": "Register",
+    "registerFree": "Register for free",
+    "details": "Details",
+    "addToCalendar": "Add to calendar",
+    "backToWebinars": "← Back to webinars",
+    "allWebinars": "All webinars & calendar →",
+    "timeLabel": "15:00 to 16:00 CET",
+    "aboutSession": "About this session",
+    "agenda": "Agenda",
+    "takeaways": "What you'll take away",
+    "audience": "Who should attend",
+    "speaker": "Speaker",
+    "speakers": "Speakers",
+    "resources": "Resources",
+    "formTitle": "Save your seat",
+    "formDesc": "Free. We email you the join link before the session.",
+    "nameLabel": "Name",
+    "namePlaceholder": "Your name",
+    "emailLabel": "Email",
+    "emailPlaceholder": "you@example.com",
+    "companyLabel": "Company (optional)",
+    "companyPlaceholder": "Your company",
+    "webinarLabel": "Webinar",
+    "questionLabel": "Question in advance (optional)",
+    "questionPlaceholder": "Anything you'd like us to cover?",
+    "submit": "Sign me up →",
+    "homeLabel": "Webinars",
+    "homeTitle": "Join our next live sessions",
+    "homeDesc": "Every first Wednesday of the month we go deep on one topic. Free, online and with plenty of room for questions."
+  },
+  "privacy": {
+    "title": "We don't <span>track you.</span>",
+    "description": "Deliberately. No analytics, no cookies, no tracking pixels, no third-party scripts. The only data we have is what you choose to send us.",
+    "metaDesc": "Virge.io deliberately doesn't track you: no analytics, no cookies, no tracking pixels. We only have what you choose to share with us.",
+    "metaTitle": "Privacy",
+    "updated": "Last updated: 22 October 2026",
+    "promisesTitle": "Privacy at a glance",
+    "promises": [
+      {
+        "icon": "cookie",
+        "title": "No cookies",
+        "text": "No cookie banner, because there is nothing to consent to."
+      },
+      {
+        "icon": "chart-no-axes-column",
+        "title": "No analytics",
+        "text": "No Google Analytics or any other statistics tool. We don't count you."
+      },
+      {
+        "icon": "eye-off",
+        "title": "No tracking",
+        "text": "No tracking pixels, fingerprinting, ad networks or social media widgets."
+      },
+      {
+        "icon": "code",
+        "title": "No third-party scripts",
+        "text": "Everything on virge.io is served from our own site. Nothing phones home."
+      },
+      {
+        "icon": "hand-heart",
+        "title": "Never sold",
+        "text": "What you share with us stays with us. We never sell or rent it."
+      }
+    ],
+    "sections": [
+      {
+        "title": "Why we don't track",
+        "body": [
+          "We build software for a living, and we know how much a typical website quietly collects. We don't think you should pay for reading a blog post with your data. So we made a choice: virge.io works without knowing who you are. If you want to talk, you tell us. That is the only way we learn anything about you."
+        ]
+      },
+      {
+        "title": "What you share with us",
+        "body": [
+          "We only receive what you type in and send yourself:",
+          "<ul><li><strong>Contact form:</strong> your name, email address and message.</li><li><strong>Webinar registration:</strong> your name, email address, the webinar you choose and, if you fill them in, your company and a question in advance.</li><li><strong>Job applications:</strong> whatever you email us, such as your CV and motivation.</li></ul>",
+          "We use it only for the reason you sent it: to answer you, to send you the join link for your webinar or to handle your application. No newsletter unless you ask for one."
+        ]
+      },
+      {
+        "title": "Who helps us",
+        "body": [
+          "<strong>Formspree</strong> delivers form submissions to our inbox. It processes them on our behalf and only to deliver them to us. See the <a href=\"https://formspree.io/legal/privacy-policy\" target=\"_blank\" rel=\"noopener\">Formspree privacy policy</a>.",
+          "<strong>GitHub Pages</strong> hosts this website. Like any web server, it briefly records technical data such as your IP address to deliver pages and keep the service secure. We don't get access to these logs and don't use them. See the <a href=\"https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement\" target=\"_blank\" rel=\"noopener\">GitHub privacy statement</a>."
+        ]
+      },
+      {
+        "title": "How long we keep it",
+        "body": [
+          "No longer than needed. Webinar registrations are deleted once the webinar is over and any follow-up has been sent, unless you ask us to keep you posted. Messages and applications are deleted when the conversation is finished, unless it turns into a collaboration."
+        ]
+      },
+      {
+        "title": "Your rights",
+        "body": [
+          "Under the GDPR you can ask us at any time what we have about you, and have it corrected or deleted. Send a message via our <a href=\"/en/contact/\">contact page</a> and we will respond within a month. Not happy with how we handle it? You can file a complaint with the Dutch Data Protection Authority (<a href=\"https://autoriteitpersoonsgegevens.nl/\" target=\"_blank\" rel=\"noopener\">Autoriteit Persoonsgegevens</a>)."
+        ]
+      },
+      {
+        "title": "Changes",
+        "body": [
+          "If we ever change how we handle your data, we update this page first. If we were ever to add analytics or cookies, we would say so here, and ask for your consent where the law requires it."
+        ]
+      }
+    ],
+    "formNotice": "We only use your details for this registration. No tracking, ever. See our <a href=\"/en/privacy/\">privacy policy</a>.",
+    "contactNotice": "We only use your details to reply to you. No tracking, ever. See our <a href=\"/en/privacy/\">privacy policy</a>.",
+    "footerLink": "Privacy"
   }
 }
