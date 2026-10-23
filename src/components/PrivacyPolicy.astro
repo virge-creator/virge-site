@@ -13,7 +13,6 @@ const i = t(lang);
 ---
 <Layout title={i.privacy.metaTitle} description={i.privacy.metaDesc} lang={lang}>
   <div class="page-header">
-    <span class="privacy-eyebrow"><Icon name="shield-check" size={16} /> Privacy</span>
     <h1><Fragment set:html={i.privacy.title} /></h1>
     <p>{i.privacy.description}</p>
   </div>
@@ -49,10 +48,6 @@ const i = t(lang);
 </Layout>
 
 <style>
-  .privacy-eyebrow {
-    display: inline-flex; align-items: center; gap: 0.4rem; margin-bottom: 1rem;
-    font-size: 0.78rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--link);
-  }
   .page-header :global(h1 span) { color: var(--accent2) !important; }
   .visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 

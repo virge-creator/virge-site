@@ -15,7 +15,7 @@
   },
   "hero": {
     "title": "<span>Virge.</span><br/>Software solutions that scale.",
-    "description": "Virge.io delivers expert consulting and products across AI, Software Defined Networking, and eCommerce. helping businesses build resilient, future-proof technology.",
+    "description": "Virge delivers expert consulting and products across AI, Software Defined Networking, and eCommerce. helping businesses build resilient, future-proof technology.",
     "cta": "Let's Talk"
   },
   "home": {
@@ -31,11 +31,11 @@
   },
   "cta": {
     "title": "Ready to build something great?",
-    "description": "Let's discuss how Virge.io can help you scale your software solutions.",
+    "description": "Tell us what you're working on. We'll think along and tell you honestly where we can help.",
     "button": "Get in touch"
   },
   "footer": {
-    "text": "Virge.io. Software solutions that scale",
+    "text": "Virge. Software solutions that scale",
     "company": "Virge · Remote",
     "services": "Services",
     "blog": "Blog",
@@ -184,7 +184,7 @@
   "contact": {
     "title": "Get in <span>touch</span>",
     "description": "Have a project in mind? We'd love to hear about it.",
-    "metaDesc": "Get in touch with Virge.io. Let's discuss your next project.",
+    "metaDesc": "Get in touch with Virge. Let's discuss your next project.",
     "nameLabel": "Name",
     "namePlaceholder": "Your name",
     "emailLabel": "Email",
@@ -194,9 +194,9 @@
     "submit": "Send Message"
   },
   "blog": {
-    "title": "Virge.io <span>Blog</span>",
+    "title": "Virge <span>Blog</span>",
     "description": "Insights on AI, automation, and scaling technology for business.",
-    "metaDesc": "Insights on AI automation, RAG pipelines, and scaling Dutch tech companies internationally, from the Virge.io team.",
+    "metaDesc": "Insights on AI automation, RAG pipelines, and scaling Dutch tech companies internationally, from the Virge team.",
     "readMore": "Read more →",
     "backToBlog": "← Back to Blog",
     "minRead": "min read"
@@ -204,7 +204,7 @@
   "jobs": {
     "title": "Join our <span>Team</span>",
     "description": "We are looking for talented people who want to build the future of AI and software.",
-    "metaDesc": "Career opportunities at Virge.io. AI consulting, full-stack development, and more.",
+    "metaDesc": "Career opportunities at Virge. AI consulting, full-stack development, and more.",
     "openPositions": "Open Positions",
     "noJobs": "No open positions at the moment. Check back later!",
     "location": "Location",
@@ -221,17 +221,18 @@
   "webinars": {
     "title": "Monthly <span>Webinars</span>",
     "description": "Free live sessions on AI agents, network automation and eCommerce. Every second Wednesday of the month, 15:00 to 16:00 CET.",
-    "metaDesc": "Free monthly webinars by Virge.io on AI agents, SDN with the Workflow Orchestrator and ShopVirge eCommerce. Every second Wednesday, 15:00 CET.",
+    "metaDesc": "Free monthly webinars by Virge on AI agents, SDN with the Workflow Orchestrator and ShopVirge eCommerce. Every second Wednesday, 15:00 CET.",
     "metaTitle": "Webinars: AI Agents, SDN & eCommerce",
     "howItWorks": [
       "Free, no strings attached",
-      "Online, just a browser",
+      "Online",
       "60 minutes, including Q&A",
       "In English",
       "Join link sent by email"
     ],
     "calendarTitle": "Webinar calendar",
     "calendarRule": "Every second Wednesday of the month · 15:00 to 16:00 CET",
+    "calendarHint": "Click a highlighted date to see what's on.",
     "legendWfo": "Workflow Orchestrator / SDN",
     "legendShopVirge": "ShopVirge / eCommerce",
     "legendTba": "Topic to be announced",
@@ -247,7 +248,7 @@
     "details": "Details",
     "addToCalendar": "Add to calendar",
     "backToWebinars": "← Back to webinars",
-    "allWebinars": "All webinars & calendar →",
+    "allWebinars": "All webinars & calendar",
     "timeLabel": "15:00 to 16:00 CET",
     "aboutSession": "About this session",
     "agenda": "Agenda",
@@ -267,13 +268,13 @@
     "webinarLabel": "Webinar",
     "questionLabel": "Question in advance (optional)",
     "questionPlaceholder": "Anything you'd like us to cover?",
-    "submit": "Sign me up →",
+    "submit": "Sign me up",
     "heroRule": "Free · every second Wednesday · 15:00 CET"
   },
   "privacy": {
-    "title": "We don't <span>track you.</span>",
+    "title": "We do <span>not</span> track you.",
     "description": "Deliberately. No analytics, no cookies, no tracking pixels, no third-party scripts. The only data we have is what you choose to send us.",
-    "metaDesc": "Virge.io deliberately doesn't track you: no analytics, no cookies, no tracking pixels. We only have what you choose to share with us.",
+    "metaDesc": "Virge deliberately does not track you: no analytics, no cookies, no tracking pixels. We only have what you choose to share with us.",
     "metaTitle": "Privacy",
     "updated": "Last updated: 22 October 2026",
     "promisesTitle": "Privacy at a glance",
@@ -286,7 +287,7 @@
       {
         "icon": "chart-no-axes-column",
         "title": "No analytics",
-        "text": "No Google Analytics or any other statistics tool. We don't count you."
+        "text": "No Google Analytics or any other statistics tool. Not even a visitor counter."
       },
       {
         "icon": "eye-off",
@@ -296,7 +297,7 @@
       {
         "icon": "code",
         "title": "No third-party scripts",
-        "text": "Everything on virge.io is served from our own site. Nothing phones home."
+        "text": "Everything on this site comes from our own domain. Nothing phones home."
       },
       {
         "icon": "hand-heart",
@@ -308,14 +309,14 @@
       {
         "title": "Why we don't track",
         "body": [
-          "We build software for a living, and we know how much a typical website quietly collects. We don't think you should pay for reading a blog post with your data. So we made a choice: virge.io works without knowing who you are. If you want to talk, you tell us. That is the only way we learn anything about you."
+          "We build software for a living, and we know how much a typical website quietly collects. We don't think you should pay for reading a blog post with your data. So we made a choice: Virge works without knowing who you are. If you want to talk, you tell us. That is the only way we learn anything about you."
         ]
       },
       {
         "title": "What you share with us",
         "body": [
           "We only receive what you type in and send yourself:",
-          "<ul><li><strong>Contact form:</strong> your name, email address and message.</li><li><strong>Webinar registration:</strong> your name, email address, the webinar you choose and, if you fill them in, your company and a question in advance.</li><li><strong>Job applications:</strong> whatever you email us, such as your CV and motivation.</li></ul>",
+          "<ul><li><strong>Contact form:</strong> your name, email address and message.</li><li><strong>Webinar registration:</strong> your name, email address, the webinar you choose and, if you fill them in, your company and a question in advance.</li><li><strong>Job applications:</strong> whatever you email us, such as your CV.</li></ul>",
           "We use it only for the reason you sent it: to answer you, to send you the join link for your webinar or to handle your application. No newsletter unless you ask for one."
         ]
       },
@@ -329,13 +330,13 @@
       {
         "title": "How long we keep it",
         "body": [
-          "No longer than needed. Webinar registrations are deleted once the webinar is over and any follow-up has been sent, unless you ask us to keep you posted. Messages and applications are deleted when the conversation is finished, unless it turns into a collaboration."
+          "No longer than needed. Messages and applications are deleted when the conversation is finished, unless it turns into a collaboration."
         ]
       },
       {
         "title": "Your rights",
         "body": [
-          "Under the GDPR you can ask us at any time what we have about you, and have it corrected or deleted. Send a message via our <a href=\"/en/contact/\">contact page</a> and we will respond within a month. Not happy with how we handle it? You can file a complaint with the Dutch Data Protection Authority (<a href=\"https://autoriteitpersoonsgegevens.nl/\" target=\"_blank\" rel=\"noopener\">Autoriteit Persoonsgegevens</a>)."
+          "The GDPR gives you the right to ask us at any time what we have about you, and to have it corrected or deleted. Send a message via our <a href=\"/en/contact/\">contact page</a> and we will respond within a month. Not happy with how we handle it? You can file a complaint with the <a href=\"https://autoriteitpersoonsgegevens.nl/\" target=\"_blank\" rel=\"noopener\" title=\"Autoriteit Persoonsgegevens\">Dutch Data Protection Authority</a>."
         ]
       },
       {

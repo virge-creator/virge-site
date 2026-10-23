@@ -2,7 +2,7 @@
 import type { Lang } from '../i18n';
 import { t } from '../i18n';
 import Icon from './Icon.astro';
-import { webinars, secondWednesday, getWebinarSlots, getUpcoming, endIso, formatWebinarDate, webinarPath, icsPath } from '../data/webinars';
+import { webinars, secondWednesday, getWebinarSlots, getUpcoming, endIso, formatWebinarDate, webinarPath } from '../data/webinars';
 
 interface Props {
   lang: Lang;
@@ -53,6 +53,7 @@ const next = getUpcoming(now, 1)[0];
     <div>
       <h2 class="wcal-title"><Icon name="calendar" size={26} /> {i.webinars.calendarTitle}</h2>
       <p class="wcal-rule">{i.webinars.calendarRule}</p>
+      <p class="wcal-hint">{i.webinars.calendarHint}</p>
     </div>
     <div class="wcal-nav">
       <button type="button" class="wcal-btn" data-wcal-prev aria-label={i.webinars.prevMonth}><Icon name="chevron-left" size={20} /></button>
@@ -89,7 +90,6 @@ const next = getUpcoming(now, 1)[0];
                   data-date={d.date} data-end={endIso(d.date)} data-slug={w.slug}
                   data-spot-date={formatWebinarDate(d.date, lang)} data-spot-title={w.title[lang]}
                   data-spot-product={w.product} data-spot-summary={w.summary[lang]}
-                  data-spot-ics={icsPath(w.slug)}
                   title={`${formatWebinarDate(d.date, lang)} · ${w.title[lang]}`}>
                   <span class="wcal-num">{d.day}</span>
                   <span class="wcal-dot" aria-hidden="true"></span>
@@ -114,8 +114,7 @@ const next = getUpcoming(now, 1)[0];
       <p class="wcal-spot-summary" data-spot="summary">{next?.summary[lang] ?? ''}</p>
       <div class="wcal-spot-actions" data-spot="actions" hidden={!next}>
         <a href="#register" class="btn" data-spot="register" data-register={next?.slug}>{i.webinars.register}</a>
-        <a href={next ? webinarPath(lang, next.slug) : '#'} class="wcal-spot-link" data-spot="details">{i.webinars.details} →</a>
-        <a href={next ? icsPath(next.slug) : '#'} class="wcal-spot-link" data-spot="ics" download><Icon name="calendar-plus" size={15} /> {i.webinars.addToCalendar}</a>
+        <a href={next ? webinarPath(lang, next.slug) : '#'} class="wcal-spot-link" data-spot="details">{i.webinars.details}</a>
       </div>
     </aside>
   </div>
@@ -162,6 +161,8 @@ const next = getUpcoming(now, 1)[0];
       cal.querySelector('[data-wcal-next]')?.addEventListener('click', () => track.scrollBy({ left: step(), behavior: 'smooth' }));
 
       const q = (k: string) => spot.querySelector<HTMLElement>(`[data-spot="${k}"]`)!;
+      // Hover previews a date; a click (or Enter) pins it. The "Details" link in the panel opens the page.
+      let pinned: HTMLElement | undefined;
       function show(cell: HTMLElement) {
         const ds = cell.dataset;
         spot.classList.remove('is-wfo', 'is-shopvirge', 'is-tba');
@@ -174,14 +175,24 @@ const next = getUpcoming(now, 1)[0];
         if (ds.slug) {
           q('register').dataset.register = ds.slug;
           (q('details') as HTMLAnchorElement).href = (cell as HTMLAnchorElement).href;
-          (q('ics') as HTMLAnchorElement).href = ds.spotIcs || '#';
         }
+      }
+      function pin(cell: HTMLElement) {
+        pinned?.classList.remove('is-selected');
+        pinned = cell;
+        cell.classList.add('is-selected');
+        show(cell);
       }
       track.querySelectorAll<HTMLElement>('.is-webinar').forEach((cell) => {
         cell.addEventListener('mouseenter', () => show(cell));
+        cell.addEventListener('mouseleave', () => pinned && show(pinned));
         cell.addEventListener('focus', () => show(cell));
+        cell.addEventListener('click', (e) => {
+          e.preventDefault();
+          pin(cell);
+        });
       });
-      if (upcoming[0]) show(upcoming[0]);
+      if (upcoming[0]) pin(upcoming[0]);
     });
 
   }
@@ -208,6 +219,7 @@ const next = getUpcoming(now, 1)[0];
   .wcal-title { font-size: 1.6rem; margin: 0 0 0.25rem; display: flex; align-items: center; gap: 0.6rem; color: #fff; }
   .wcal-title :global(svg) { color: var(--accent2); flex-shrink: 0; }
   .wcal-rule { color: var(--text-muted); margin: 0; font-size: 0.95rem; }
+  .wcal-hint { color: var(--link); margin: 0.35rem 0 0; font-size: 0.88rem; }
   .wcal-nav { display: flex; gap: 0.5rem; }
   .wcal-btn {
     width: 2.6rem; height: 2.6rem; border-radius: 50%; display: grid; place-items: center; cursor: pointer;
@@ -256,6 +268,7 @@ const next = getUpcoming(now, 1)[0];
     transform: scale(1.12); box-shadow: 0 0 28px 2px color-mix(in srgb, var(--c) 80%, transparent);
   }
   .wcal-day.is-webinar:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
+  .wcal-day.is-selected { box-shadow: 0 0 0 2px #fff; }
   .wcal-day.is-tba { color: var(--text); font-weight: 700; }
   .wcal-day.is-tba::before {
     background: transparent; box-shadow: none;
@@ -280,7 +293,7 @@ const next = getUpcoming(now, 1)[0];
   }
 
   .wcal-month-topic { margin: auto 0 0; padding-top: 0.9rem; font-size: 0.88rem; line-height: 1.4; min-height: 3.3em; }
-  .wcal-month-topic a { font-weight: 600; }
+  .wcal-month-topic a { font-weight: 600; text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1px; }
   .wcal-month-topic a.is-wfo { color: var(--wfo); }
   .wcal-month-topic a.is-shopvirge { color: var(--shopvirge); }
   .wcal-month-topic .is-tba { color: var(--text-muted); font-style: italic; }

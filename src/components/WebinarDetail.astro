@@ -39,7 +39,7 @@ const jsonLd = [
     <div class="webinar-when">
       <span><Icon name="calendar" size={17} /> <time datetime={startIso(w.date)}>{formatWebinarDate(w.date, lang)}</time></span>
       <span><Icon name="clock" size={17} /> {i.webinars.timeLabel}</span>
-      <span><Icon name="video" size={17} /> {lang === 'nl' ? 'Online · Engels' : 'Online · English'}</span>
+      <span><Icon name="video" size={17} /> {lang === 'nl' ? 'Online · In het Engels' : 'Online · In English'}</span>
     </div>
     <p class="webinar-past-note" data-past-note hidden>{i.webinars.past}</p>
   </div>
@@ -99,10 +99,6 @@ const jsonLd = [
               );
             })}
           </ul>
-        </div>
-
-        <div class="webinar-tags">
-          {w.tags.map(tag => <span class="webinar-tag">{tag}</span>)}
         </div>
       </article>
 
@@ -184,11 +180,6 @@ const jsonLd = [
     background: var(--gradient); color: #fff; font-weight: 800; font-size: 0.95rem;
   }
   .webinar-resources { list-style: none; padding-left: 0 !important; }
-  .webinar-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
-  .webinar-tag {
-    font-size: 0.8rem; padding: 0.3rem 0.75rem; border-radius: 999px;
-    background: rgba(108,92,231,0.12); color: var(--link); border: 1px solid rgba(108,92,231,0.25);
-  }
 
   .webinar-aside {
     position: sticky; top: 6rem; scroll-margin-top: 6rem;

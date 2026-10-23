@@ -3,7 +3,6 @@ import type { Lang } from '../i18n';
 import { t } from '../i18n';
 import Layout from '../layouts/Layout.astro';
 import CTA from './CTA.astro';
-import Icon from './Icon.astro';
 import WebinarCalendar from './WebinarCalendar.astro';
 import WebinarCard from './WebinarCard.astro';
 import WebinarForm from './WebinarForm.astro';
@@ -17,7 +16,6 @@ interface Props {
 const { lang } = Astro.props;
 const i = t(lang);
 const upcoming = getUpcoming();
-const howIcons = ['gift', 'globe', 'timer', 'languages', 'mail'];
 const jsonLd = upcoming.map(w => eventSchema({
   name: w.title[lang],
   description: w.summary[lang],
@@ -33,11 +31,7 @@ const jsonLd = upcoming.map(w => eventSchema({
   </div>
 
   <div class="container">
-    <ul class="webinar-how">
-      {i.webinars.howItWorks.map((item, idx) => (
-        <li><Icon name={howIcons[idx]} size={18} /> {item}</li>
-      ))}
-    </ul>
+    <p class="webinar-how">{i.webinars.howItWorks.join(' · ')}</p>
   </div>
 
   <section class="webinars-calendar-section">
@@ -57,7 +51,7 @@ const jsonLd = upcoming.map(w => eventSchema({
       <aside class="webinars-register" id="register">
         <h2>{i.webinars.formTitle}</h2>
         <p class="webinars-register-desc">{i.webinars.formDesc}</p>
-        <WebinarForm lang={lang} />
+        <WebinarForm lang={lang} showIcs />
       </aside>
     </div>
   </section>
@@ -75,15 +69,7 @@ const jsonLd = upcoming.map(w => eventSchema({
 </script>
 
 <style>
-  .webinar-how {
-    list-style: none; display: flex; flex-wrap: wrap; gap: 0.6rem; padding: 0.5rem 0 0;
-  }
-  .webinar-how li {
-    display: inline-flex; align-items: center; gap: 0.5rem;
-    padding: 0.45rem 0.95rem; border-radius: 999px; font-size: 0.9rem; color: var(--text);
-    background: rgba(108,92,231,0.1); border: 1px solid rgba(108,92,231,0.22);
-  }
-  .webinar-how li :global(svg) { color: var(--link); }
+  .webinar-how { color: var(--text); font-size: 0.95rem; margin: 0; }
   .webinars-calendar-section { padding: 3rem 0 2rem; }
   .webinars-list-section { padding-top: 3rem; }
   .webinars-split { display: grid; grid-template-columns: minmax(0, 1fr) 380px; gap: 2.5rem; align-items: start; }
