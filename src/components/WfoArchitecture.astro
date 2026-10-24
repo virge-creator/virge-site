@@ -1,0 +1,130 @@
+---
+import type { Lang } from '../i18n';
+import { t } from '../i18n';
+import Icon from './Icon.astro';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const i = t(lang);
+const a = i.sdn.arch;
+const clientIcons = ['users', 'code-xml', 'bot'];
+const systemIcons = ['server', 'terminal', 'plug'];
+---
+<figure class="wfo-arch" aria-labelledby="wfo-arch-title">
+  <div class="wa-grid">
+    <div class="wa-col">
+      <span class="wa-label">{a.clientsLabel}</span>
+      {a.clients.map((c, idx) => (
+        <div class="wa-node">
+          <Icon name={clientIcons[idx]} size={18} />
+          <span><strong>{c.title}</strong><small>{c.sub}</small></span>
+        </div>
+      ))}
+    </div>
+
+    <div class="wa-arrow" aria-hidden="true"></div>
+
+    <div class="wa-col wa-col--app">
+      <span class="wa-label">{a.appLabel} <small>· {a.appSub}</small></span>
+      <div class="wa-app">
+        <ul class="wa-parts">
+          {a.parts.map(p => <li>{p}</li>)}
+        </ul>
+        <div class="wa-core">
+          <strong>{a.core}</strong>
+          <small>{a.coreSub}</small>
+        </div>
+      </div>
+      <div class="wa-down" aria-hidden="true"></div>
+      <div class="wa-node wa-node--db">
+        <Icon name="database" size={18} />
+        <span><strong>{a.db}</strong><small>{a.dbSub}</small></span>
+      </div>
+    </div>
+
+    <div class="wa-arrow" aria-hidden="true"></div>
+
+    <div class="wa-col">
+      <span class="wa-label">{a.systemsLabel}</span>
+      {a.systems.map((s, idx) => (
+        <div class="wa-node">
+          <Icon name={systemIcons[idx]} size={18} />
+          <span><strong>{s.title}</strong><small>{s.sub}</small></span>
+        </div>
+      ))}
+      <div class="wa-down" aria-hidden="true"></div>
+      <div class="wa-node wa-node--network">
+        <Icon name="network" size={18} />
+        <span><strong>{a.network}</strong></span>
+      </div>
+    </div>
+  </div>
+  <figcaption id="wfo-arch-title">
+    <a href="https://workfloworchestrator.org/architecture/framework/" target="_blank" rel="noopener">{a.source}</a>
+  </figcaption>
+</figure>
+
+<style>
+  .wfo-arch {
+    --wfo: #5cb8ff;
+    margin: 0; padding: 2rem; border-radius: 20px;
+    background:
+      radial-gradient(90% 70% at 50% 0%, rgba(92,184,255,0.12), transparent 60%),
+      rgba(18,18,42,0.7);
+    border: 1px solid rgba(108,92,231,0.22);
+  }
+  .wa-grid { display: grid; grid-template-columns: 1fr 2.5rem 1.5fr 2.5rem 1fr; align-items: center; }
+  .wa-col { display: flex; flex-direction: column; gap: 0.6rem; }
+  .wa-label { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--link); margin-bottom: 0.2rem; }
+  .wa-label small { font-weight: 500; letter-spacing: 0.04em; text-transform: none; color: var(--text-muted); font-size: 0.78rem; }
+
+  .wa-node {
+    display: flex; align-items: center; gap: 0.7rem; padding: 0.7rem 0.9rem; border-radius: 12px;
+    background: rgba(10,10,26,0.6); border: 1px solid rgba(108,92,231,0.22);
+  }
+  .wa-node :global(svg) { color: var(--link); flex-shrink: 0; }
+  .wa-node span { display: flex; flex-direction: column; min-width: 0; }
+  .wa-node strong { color: #fff; font-size: 0.92rem; }
+  .wa-node small { color: var(--text-muted); font-size: 0.78rem; }
+  .wa-node--network { border-style: dashed; }
+
+  .wa-app {
+    padding: 1rem; border-radius: 14px;
+    background: color-mix(in srgb, var(--wfo) 8%, rgba(10,10,26,0.6));
+    border: 1px solid color-mix(in srgb, var(--wfo) 45%, transparent);
+    box-shadow: 0 0 40px -18px var(--wfo);
+  }
+  .wa-parts { list-style: none; display: flex; flex-wrap: wrap; gap: 0.45rem; margin-bottom: 0.8rem; }
+  .wa-parts li {
+    font-size: 0.82rem; padding: 0.4rem 0.7rem; border-radius: 8px; color: var(--text);
+    background: rgba(108,92,231,0.14); border: 1px solid rgba(108,92,231,0.25);
+  }
+  .wa-core {
+    display: flex; align-items: baseline; justify-content: space-between; gap: 0.5rem; flex-wrap: wrap;
+    padding: 0.7rem 0.9rem; border-radius: 10px;
+    background: linear-gradient(120deg, color-mix(in srgb, var(--wfo) 55%, transparent), color-mix(in srgb, var(--wfo) 20%, var(--accent)));
+  }
+  .wa-core strong { color: #fff; font-family: ui-monospace, monospace; font-size: 0.95rem; }
+  .wa-core small { color: rgba(255,255,255,0.85); font-size: 0.8rem; }
+
+  /* Connectors: horizontal arrows between columns, short vertical ones inside a column. */
+  .wa-arrow { position: relative; height: 2px; margin: 0 0.4rem; background: rgba(168,85,247,0.55); }
+  .wa-arrow::after {
+    content: ''; position: absolute; right: -2px; top: -4px;
+    border: 5px solid transparent; border-left: 7px solid rgba(168,85,247,0.8); border-right: 0;
+  }
+  .wa-down { width: 2px; height: 1rem; margin: -0.2rem auto; background: rgba(168,85,247,0.55); }
+
+  .wfo-arch figcaption { margin-top: 1.25rem; font-size: 0.82rem; text-align: right; }
+
+  @media (max-width: 860px) {
+    .wfo-arch { padding: 1.25rem; }
+    .wa-grid { grid-template-columns: 1fr; gap: 0.4rem; }
+    .wa-arrow { width: 2px; height: 1.6rem; margin: 0.2rem auto; }
+    .wa-arrow::after { right: -4px; top: auto; bottom: -2px; border: 5px solid transparent; border-top: 7px solid rgba(168,85,247,0.8); border-bottom: 0; }
+    .wfo-arch figcaption { text-align: left; }
+  }
+</style>

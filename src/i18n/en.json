@@ -112,7 +112,117 @@
     "iacTitle": "Infrastructure as Code",
     "iacDesc": "Treat your network like software. Version-controlled configurations, repeatable deployments, and automated provisioning, bringing DevOps practices to network engineering.",
     "trainingTitle": "Training & workshops",
-    "trainingDesc": "Get your team up to speed. We offer hands-on workshops covering WFO architecture, workflow development, and best practices for network automation at scale."
+    "trainingDesc": "Get your team up to speed. We offer hands-on workshops covering WFO architecture, workflow development, and best practices for network automation at scale.",
+    "originTitle": "Started at SURF, built by a community",
+    "originText": [
+      "The Workflow Orchestrator was started by <a href=\"https://www.surf.nl/en\" target=\"_blank\" rel=\"noopener\">SURF</a>, the Dutch research and education network, to automate its own network. SURF released it as open source, and ESnet soon joined as a major contributor.",
+      "Today it is an independent programme under The Commons Conservancy, used and developed by <a href=\"https://workfloworchestrator.org/members/\" target=\"_blank\" rel=\"noopener\">networks around the world</a> such as ESnet, GÉANT, Internet2, CANARIE, GARR and REANNZ. Virge is part of that community: we contributed the AI search in orchestrator-core and build on the WFO for our clients."
+    ],
+    "originCta": "Visit workfloworchestrator.org",
+    "archTitle": "How it fits together",
+    "archIntro": "You write a Python application on top of orchestrator-core. It holds your products, workflows and forms; the core gives you the API, the UI, state and an audit log. The steps in your workflows talk to the systems that touch the network.",
+    "arch": {
+      "clientsLabel": "Who uses it",
+      "clients": [
+        {
+          "title": "Operators",
+          "sub": "Orchestrator UI"
+        },
+        {
+          "title": "OSS/BSS & scripts",
+          "sub": "REST & GraphQL API"
+        },
+        {
+          "title": "AI agents",
+          "sub": "MCP server"
+        }
+      ],
+      "appLabel": "Your orchestrator",
+      "appSub": "Python application",
+      "parts": [
+        "Products & subscriptions",
+        "Workflows: create · modify · terminate · validate",
+        "Pydantic Forms",
+        "Tasks & schedules",
+        "AI search"
+      ],
+      "core": "orchestrator-core",
+      "coreSub": "FastAPI framework",
+      "db": "PostgreSQL",
+      "dbSub": "Subscriptions, processes, audit log",
+      "systemsLabel": "What it talks to",
+      "systems": [
+        {
+          "title": "Netbox",
+          "sub": "Inventory & IPAM"
+        },
+        {
+          "title": "LSO + Ansible",
+          "sub": "Device configuration"
+        },
+        {
+          "title": "NSO, NSI & your APIs",
+          "sub": "Any system with an API"
+        }
+      ],
+      "network": "Your network",
+      "source": "Based on the architecture in the WFO documentation"
+    },
+    "docsTitle": "Dive into the docs",
+    "docsIntro": "The official documentation on workfloworchestrator.org is the best place to start. These are the pages we send new teams to first.",
+    "docs": [
+      {
+        "icon": "layers",
+        "href": "https://workfloworchestrator.org/architecture/at-a-glance/",
+        "title": "Architecture at a glance",
+        "desc": "How the backend, the UI and the forms fit together."
+      },
+      {
+        "icon": "rocket",
+        "href": "https://workfloworchestrator.org/orchestrator-core/getting-started/base/",
+        "title": "Getting started",
+        "desc": "Build the base application step by step."
+      },
+      {
+        "icon": "graduation-cap",
+        "href": "https://workfloworchestrator.org/workshops/example-orchestrator/overview/",
+        "title": "Example Orchestrator workshop",
+        "desc": "Hands-on: model a network node and write its workflows."
+      },
+      {
+        "icon": "boxes",
+        "href": "https://workfloworchestrator.org/orchestrator-core/architecture/product-modeling/introduction/",
+        "title": "Product modeling",
+        "desc": "Model your network services as products and product blocks."
+      },
+      {
+        "icon": "workflow",
+        "href": "https://workfloworchestrator.org/orchestrator-core/reference-docs/workflows/workflows/",
+        "title": "Workflows",
+        "desc": "Steps, forms, callbacks and the full subscription lifecycle."
+      },
+      {
+        "icon": "terminal",
+        "href": "https://workfloworchestrator.org/lightweight-service-orchestrator/",
+        "title": "LSO",
+        "desc": "Run Ansible playbooks from your workflows."
+      },
+      {
+        "icon": "sparkles",
+        "href": "https://workfloworchestrator.org/orchestrator-core/reference-docs/ai-search/",
+        "title": "AI search & MCP",
+        "desc": "Search across subscriptions and let agents work with your orchestrator."
+      },
+      {
+        "icon": "git-branch",
+        "href": "https://github.com/workfloworchestrator",
+        "title": "GitHub",
+        "desc": "orchestrator-core, the UI library, LSO and the Example Orchestrator."
+      }
+    ],
+    "relatedTitle": "From Virge",
+    "relatedCase": "Case: hybrid search for SURF orchestrator-core",
+    "relatedWebinar": "Free webinar: Modern SDN with the WFO"
   },
   "ecommerce": {
     "title": "e<span>Commerce</span>",

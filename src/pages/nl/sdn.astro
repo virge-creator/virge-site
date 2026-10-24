@@ -2,11 +2,21 @@
 import Layout from '../../layouts/Layout.astro';
 import CTA from '../../components/CTA.astro';
 import FAQ from '../../components/FAQ.astro';
+import Callout from '../../components/Callout.astro';
+import ResourceLinks from '../../components/ResourceLinks.astro';
+import WfoArchitecture from '../../components/WfoArchitecture.astro';
 import { t } from '../../i18n';
 import { breadcrumbSchema, faqSchema, serviceSchema } from '../../data/structured-data';
+import { getUpcoming, webinarPath } from '../../data/webinars';
 
 const lang = 'nl';
 const i = t(lang);
+// Point at the next WFO webinar, if one is planned.
+const wfoWebinar = getUpcoming().find(w => w.product === 'wfo');
+const related = [
+  { label: i.sdn.relatedCase, href: `/${lang}/cases/surf-orchestrator-core/` },
+  ...(wfoWebinar ? [{ label: i.sdn.relatedWebinar, href: webinarPath(lang, wfoWebinar.slug) }] : []),
+];
 
 const jsonLd = [
   serviceSchema({ name: 'Software Defined Networking', description: i.sdn.metaDesc, path: `/${lang}/sdn/` }),
@@ -58,6 +68,43 @@ const jsonLd = [
     </div>
   </section>
 
+  <section class="sdn-origin">
+    <div class="container">
+      <Callout
+        title={i.sdn.originTitle}
+        paragraphs={i.sdn.originText}
+        icon="git-branch"
+        cta={{ label: i.sdn.originCta, href: 'https://workfloworchestrator.org/' }}
+      />
+    </div>
+  </section>
+
+  <section class="sdn-arch">
+    <div class="container">
+      <h2>{i.sdn.archTitle}</h2>
+      <p class="sdn-intro">{i.sdn.archIntro}</p>
+      <WfoArchitecture lang={lang} />
+    </div>
+  </section>
+
+  <section class="sdn-docs">
+    <div class="container">
+      <ResourceLinks
+        title={i.sdn.docsTitle}
+        intro={i.sdn.docsIntro}
+        links={i.sdn.docs}
+        related={related}
+        relatedTitle={i.sdn.relatedTitle}
+      />
+    </div>
+  </section>
+
   <FAQ items={i.sdn.faq} lang={lang} />
   <div class="container"><CTA lang={lang} /></div>
 </Layout>
+
+<style>
+  .sdn-origin { padding: 2rem 0; }
+  .sdn-arch, .sdn-docs { padding: 3rem 0; }
+  .sdn-intro { color: var(--text-muted); max-width: 680px; margin: -0.75rem 0 1.75rem; }
+</style>
