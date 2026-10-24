@@ -76,7 +76,130 @@
     "integrationTitle": "AI integration into existing applications",
     "integrationDesc": "Seamlessly embed AI capabilities into your current stack, from intelligent APIs to smart automation, without rebuilding from scratch.",
     "productionTitle": "Production-ready solutions",
-    "productionDesc": "We focus on practical, scalable AI that works in the real world: proper evaluation, monitoring, and iteration, not just demos."
+    "productionDesc": "We focus on practical, scalable AI that works in the real world: proper evaluation, monitoring, and iteration, not just demos.",
+    "originTitle": "Proven in production: AI search for SURF",
+    "originText": [
+      "Together with SURF and Tim Fröhlich, funded by the GÉANT GN5-2 Incubator, we built hybrid search for orchestrator-core: semantic, fuzzy and structured search on plain PostgreSQL, with a type-safe agent layer on top so the language model never writes raw SQL. It shipped as open source in orchestrator-core v5.0, and every organisation that upgrades runs it.",
+      "We use the same building blocks in our own products. Specialist agents for ShopVirge and the Workflow Orchestrator sit behind one chat interface, reach the backends through MCP and carry the user's own login on every call, so the backends check what that person may do."
+    ],
+    "originCta": "Read the SURF case",
+    "archTitle": "How we build an AI system",
+    "archIntro": "Most of our projects share the same shape: agents with a clear job, grounded in your own data through hybrid search, reaching your systems through MCP, on the model that fits the task. It is the setup we run ourselves.",
+    "arch": {
+      "clientsLabel": "Who uses it",
+      "clients": [
+        {
+          "title": "Your team",
+          "sub": "Chat in LibreChat or Slack",
+          "icon": "users"
+        },
+        {
+          "title": "Your applications",
+          "sub": "OpenAI-compatible API",
+          "icon": "code-xml"
+        },
+        {
+          "title": "Other agents",
+          "sub": "A2A",
+          "icon": "bot"
+        }
+      ],
+      "appLabel": "Your agents",
+      "appSub": "Python",
+      "parts": [
+        "A specialist agent per domain",
+        "Hybrid search & RAG",
+        "Tools through MCP",
+        "User identity on every call",
+        "Evals"
+      ],
+      "core": "Pydantic AI",
+      "coreSub": "any model",
+      "db": "PostgreSQL + pgvector",
+      "dbSub": "Embeddings, text search and filters in one database",
+      "systemsLabel": "What it talks to",
+      "systems": [
+        {
+          "title": "Your systems",
+          "sub": "WFO, ShopVirge or your own APIs via MCP",
+          "icon": "plug"
+        },
+        {
+          "title": "Your documents & data",
+          "sub": "Indexed for retrieval",
+          "icon": "file-text"
+        },
+        {
+          "title": "Hosted models",
+          "sub": "Anthropic, OpenAI and others",
+          "icon": "cloud"
+        },
+        {
+          "title": "Self-hosted models",
+          "sub": "Open models on your own hardware",
+          "icon": "server"
+        }
+      ],
+      "source": "Based on our own agent setup"
+    },
+    "servicesTitle": "What we do in AI",
+    "docsTitle": "The tools we build with",
+    "docsIntro": "Open source and open standards, so you are not locked in to us or to a single vendor. These are the docs we keep open while we work.",
+    "docs": [
+      {
+        "icon": "bot",
+        "href": "https://ai.pydantic.dev/",
+        "title": "Pydantic AI",
+        "desc": "Type-safe agents in Python, with the model of your choice."
+      },
+      {
+        "icon": "database",
+        "href": "https://github.com/pgvector/pgvector",
+        "title": "pgvector",
+        "desc": "Vector similarity search inside PostgreSQL."
+      },
+      {
+        "icon": "search",
+        "href": "https://www.postgresql.org/docs/current/pgtrgm.html",
+        "title": "pg_trgm",
+        "desc": "Fuzzy text matching for typos and partial IDs."
+      },
+      {
+        "icon": "plug",
+        "href": "https://modelcontextprotocol.io/",
+        "title": "Model Context Protocol",
+        "desc": "The open standard for giving agents tools and data."
+      },
+      {
+        "icon": "network",
+        "href": "https://a2a-protocol.org/",
+        "title": "A2A protocol",
+        "desc": "Lets agents built by different teams work together."
+      },
+      {
+        "icon": "message-square",
+        "href": "https://www.librechat.ai/docs",
+        "title": "LibreChat",
+        "desc": "Open-source chat interface in front of your agents."
+      },
+      {
+        "icon": "container",
+        "href": "https://kagent.dev/",
+        "title": "kagent",
+        "desc": "Run and manage agents on Kubernetes."
+      },
+      {
+        "icon": "sparkles",
+        "href": "https://workfloworchestrator.org/orchestrator-core/reference-docs/ai-search/",
+        "title": "WFO AI search",
+        "desc": "The hybrid search we built, in the orchestrator-core docs."
+      }
+    ],
+    "relatedTitle": "From Virge",
+    "relatedCase": "Case: hybrid search for SURF orchestrator-core",
+    "relatedRag": "RAG in 2026: which architecture fits",
+    "relatedAgents": "Our agent setup with LibreChat",
+    "relatedWebinar": "Free webinar"
   },
   "sdn": {
     "title": "Software Defined <span>Networking</span>",
@@ -222,7 +345,7 @@
     ],
     "relatedTitle": "From Virge",
     "relatedCase": "Case: hybrid search for SURF orchestrator-core",
-    "relatedWebinar": "Free webinar: Modern SDN with the WFO",
+    "relatedWebinar": "Free webinar",
     "servicesTitle": "What we do with the WFO"
   },
   "ecommerce": {
@@ -378,8 +501,9 @@
     "relatedTitle": "From Virge",
     "relatedCase": "Case: a referral-gated shop for Jas voor Jeugd",
     "relatedContent": "Content as a Service",
-    "relatedWebinar": "Free webinar on ShopVirge",
-    "servicesTitle": "What we do in eCommerce"
+    "servicesTitle": "What we do in eCommerce",
+    "webinarsTitle": "Free eCommerce webinars",
+    "webinarsIntro": "Live sessions on ShopVirge and AI-generated shop content, every second Wednesday of the month from 15:00 to 16:00 CET. Pick a date, leave your name and email, and we send you the join link."
   },
   "openclaw": {
     "title": "OpenClaw <span>Consultancy</span>",

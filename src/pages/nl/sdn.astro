@@ -15,7 +15,7 @@ const i = t(lang);
 const wfoWebinar = getUpcoming().find(w => w.product === 'wfo');
 const related = [
   { label: i.sdn.relatedCase, href: `/${lang}/cases/surf-orchestrator-core/` },
-  ...(wfoWebinar ? [{ label: i.sdn.relatedWebinar, href: webinarPath(lang, wfoWebinar.slug) }] : []),
+  ...(wfoWebinar ? [{ label: `${i.sdn.relatedWebinar}: ${wfoWebinar.title[lang]}`, href: webinarPath(lang, wfoWebinar.slug) }] : []),
 ];
 
 const jsonLd = [

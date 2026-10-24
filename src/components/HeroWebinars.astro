@@ -1,17 +1,22 @@
 ---
 import type { Lang } from '../i18n';
 import { t } from '../i18n';
+import type { WebinarProduct } from '../data/webinars';
 import { getUpcoming, endIso, formatWebinarDate, FORMSPREE_WEBINAR } from '../data/webinars';
 
 interface Props {
   lang: Lang;
+  /** Only show webinars about this product. */
+  product?: WebinarProduct;
+  title?: string;
 }
 
-const { lang } = Astro.props;
+const { lang, product } = Astro.props;
 const i = t(lang);
 const SHOWN = 2;
 // Render a couple of spares so the browser script can drop past webinars and still show two.
-const upcoming = getUpcoming(new Date(), SHOWN + 2);
+const upcoming = getUpcoming().filter(w => !product || w.product === product).slice(0, SHOWN + 2);
+const title = Astro.props.title ?? i.webinars.upcoming;
 // Dutch weekday names are lowercase; capitalise since it starts the line.
 const weekday = (date: string) => {
   const name = formatWebinarDate(date, lang, { weekday: 'long' });
@@ -21,7 +26,7 @@ const weekday = (date: string) => {
 {upcoming.length > 0 && (
   <aside class="hero-webinars" aria-labelledby="hero-webinars-title" data-hero-webinars data-shown={SHOWN}>
     <div class="hw-head">
-      <h2 id="hero-webinars-title"><span class="hw-pulse" aria-hidden="true"></span>{i.webinars.upcoming}</h2>
+      <h2 id="hero-webinars-title"><span class="hw-pulse" aria-hidden="true"></span>{title}</h2>
       <p>{i.webinars.heroRule}</p>
     </div>
 
