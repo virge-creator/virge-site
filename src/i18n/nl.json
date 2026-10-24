@@ -222,7 +222,8 @@
     ],
     "relatedTitle": "Van Virge",
     "relatedCase": "Case: hybrid search voor SURF orchestrator-core",
-    "relatedWebinar": "Gratis webinar: Modern SDN met de WFO"
+    "relatedWebinar": "Gratis webinar: Modern SDN met de WFO",
+    "servicesTitle": "Wat wij met de WFO doen"
   },
   "ecommerce": {
     "title": "e<span>Commerce</span>",
@@ -377,7 +378,8 @@
     "relatedTitle": "Van Virge",
     "relatedCase": "Case: een webshop op doorverwijzing voor Jas voor Jeugd",
     "relatedContent": "Content as a Service",
-    "relatedWebinar": "Gratis webinar over ShopVirge"
+    "relatedWebinar": "Gratis webinar over ShopVirge",
+    "servicesTitle": "Wat wij doen in eCommerce"
   },
   "openclaw": {
     "title": "OpenClaw <span>Consultancy</span>",

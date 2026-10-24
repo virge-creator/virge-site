@@ -5,7 +5,7 @@ description: Upgrade a Virge services page (AI, OpenClaw, SDN, eCommerce, Conten
 
 # Services page upgrade
 
-The SDN page (`src/pages/{en,nl}/sdn.astro`) is the reference build: feature grid → origin callout → architecture diagram → docs block → FAQ → CTA. Bring other services pages to the same depth, adapted to their product.
+The SDN page (`src/pages/{en,nl}/sdn.astro`) is the reference build: origin callout → architecture diagram → feature grid → docs block → FAQ → CTA. The product's story and shape come first, so the services in the feature grid read as what we do with it. Bring other services pages to the same depth, adapted to their product.
 
 ## Steps
 
