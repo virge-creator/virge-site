@@ -251,7 +251,133 @@
     "consultancyDesc": "Strategisch advies over platformkeuze, architectuur, betaalintegratie en opschaling, zodat je de juiste technologiekeuzes maakt voor je bedrijf.",
     "integrationsTitle": "Integraties & API's",
     "integrationsDesc": "Verbind je eCommerce-stack met ERP, CRM, fulfilment en marketingtools via robuuste API-integraties.",
-    "contentLink": "Meer over Content as a Service →"
+    "contentLink": "Meer over Content as a Service",
+    "originTitle": "Gebouwd door Virge, open source in de kern",
+    "originText": [
+      "ShopVirge is het webshopplatform dat we zelf bouwen en beheren. Je beschrijft je producten één keer; ShopVirge vertaalt ze, publiceert ze in elke taal die je kiest en regelt de checkout via Stripe.",
+      "De backend is open source onder de Apache 2.0-licentie en staat <a href=\"https://github.com/virge-io/shopvirge-backend\" target=\"_blank\" rel=\"noopener\">op GitHub</a>. Hij draait al in productie voor een kleine groep shops, waaronder de webshop op doorverwijzing die we bouwden voor <a href=\"/nl/cases/jvj-selection/\">Jas voor Jeugd</a>."
+    ],
+    "originCta": "Naar shopvirge.com",
+    "archTitle": "Hoe ShopVirge in elkaar zit",
+    "archIntro": "Eén multi-tenant backend bedient alle shops: producten, vertalingen, prijslijsten en bestellingen horen steeds bij een shop. Klanten gebruiken onze storefront of je eigen frontend, AI-agents werken via de MCP-server, en beproefde diensten regelen betalingen, inloggen, afbeeldingen en e-mail.",
+    "arch": {
+      "clientsLabel": "Wie het gebruikt",
+      "clients": [
+        {
+          "title": "Klanten",
+          "sub": "Onze storefront of je eigen frontend",
+          "icon": "shopping-cart"
+        },
+        {
+          "title": "Shopeigenaren",
+          "sub": "Beheer en Excel/CSV-import",
+          "icon": "store"
+        },
+        {
+          "title": "AI-agents",
+          "sub": "MCP-server",
+          "icon": "bot"
+        },
+        {
+          "title": "Developers",
+          "sub": "REST-API en OpenAPI-clients",
+          "icon": "code-xml"
+        }
+      ],
+      "appLabel": "ShopVirge-backend",
+      "appSub": "multi-tenant",
+      "parts": [
+        "Producten & categorieën",
+        "Vertalingen per taal",
+        "Prijslijsten & attributen",
+        "Bestellingen & checkout",
+        "MCP-tools"
+      ],
+      "core": "FastAPI",
+      "coreSub": "SQLAlchemy 2 · Pydantic 2",
+      "db": "PostgreSQL",
+      "dbSub": "Alle gegevens per shop gescheiden",
+      "systemsLabel": "Waar het mee praat",
+      "systems": [
+        {
+          "title": "Stripe",
+          "sub": "iDEAL, Bancontact, creditcards, PayPal",
+          "icon": "credit-card"
+        },
+        {
+          "title": "AWS Cognito",
+          "sub": "Inloggen en API-keys",
+          "icon": "key-round"
+        },
+        {
+          "title": "AWS S3",
+          "sub": "Afbeeldingen en downloads",
+          "icon": "image"
+        },
+        {
+          "title": "SMTP",
+          "sub": "Bestelmails",
+          "icon": "mail"
+        }
+      ],
+      "source": "Gebaseerd op de architectuurdocumentatie van ShopVirge"
+    },
+    "docsTitle": "Duik in ShopVirge",
+    "docsIntro": "Productinformatie op shopvirge.com, technische documentatie op ReadTheDocs (in het Engels). Begin hier.",
+    "docs": [
+      {
+        "icon": "sparkles",
+        "href": "https://shopvirge.com/nl/functies/",
+        "title": "Functies",
+        "desc": "Vertalingen, Stripe-checkout, templates, analytics en MCP in één overzicht."
+      },
+      {
+        "icon": "shopping-bag",
+        "href": "https://shopvirge.com/nl/cases/",
+        "title": "Live demo's",
+        "desc": "Voorbeeldshops: productfoto's, LEGO-sets, een WooCommerce-migratie en kortingsprijzen."
+      },
+      {
+        "icon": "rocket",
+        "href": "https://shopvirge.readthedocs.io/en/latest/quickstart/",
+        "title": "Quickstart",
+        "desc": "Zet de backend op en doe je eerste API-calls."
+      },
+      {
+        "icon": "layers",
+        "href": "https://shopvirge.readthedocs.io/en/latest/architecture/overview/",
+        "title": "Architectuur",
+        "desc": "FastAPI, PostgreSQL, multi-tenancy en de integraties."
+      },
+      {
+        "icon": "code-xml",
+        "href": "https://shopvirge.readthedocs.io/en/latest/api/overview/",
+        "title": "REST-API",
+        "desc": "Routers, shop-scoping en authenticatie."
+      },
+      {
+        "icon": "bot",
+        "href": "https://shopvirge.readthedocs.io/en/latest/api/mcp/",
+        "title": "MCP-server",
+        "desc": "Koppel Claude Code of een andere agent aan je shop."
+      },
+      {
+        "icon": "credit-card",
+        "href": "https://shopvirge.readthedocs.io/en/latest/architecture/checkout/",
+        "title": "Checkout & Stripe",
+        "desc": "De volledige bestelflow van winkelwagen tot betaling."
+      },
+      {
+        "icon": "git-branch",
+        "href": "https://github.com/virge-io/shopvirge-backend",
+        "title": "GitHub",
+        "desc": "De open-source backend, Apache 2.0."
+      }
+    ],
+    "relatedTitle": "Van Virge",
+    "relatedCase": "Case: een webshop op doorverwijzing voor Jas voor Jeugd",
+    "relatedContent": "Content as a Service",
+    "relatedWebinar": "Gratis webinar over ShopVirge"
   },
   "openclaw": {
     "title": "OpenClaw <span>Consultancy</span>",

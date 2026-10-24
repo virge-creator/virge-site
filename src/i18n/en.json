@@ -251,7 +251,133 @@
     "consultancyDesc": "Strategic advice on platform selection, architecture, payment integration, and scaling, helping you make the right technology choices for your business.",
     "integrationsTitle": "Integrations & APIs",
     "integrationsDesc": "Connect your eCommerce stack with ERP, CRM, fulfillment, and marketing tools through robust API integrations.",
-    "contentLink": "Learn more about Content as a Service →"
+    "contentLink": "Learn more about Content as a Service",
+    "originTitle": "Built by Virge, open source at its core",
+    "originText": [
+      "ShopVirge is the webshop platform we build and run ourselves. You describe your products once; ShopVirge translates them, publishes them in every language you choose and handles checkout through Stripe.",
+      "The backend is open source under the Apache 2.0 licence, <a href=\"https://github.com/virge-io/shopvirge-backend\" target=\"_blank\" rel=\"noopener\">on GitHub</a>. It already runs in production for a small group of shops, including the referral-gated shop we built for <a href=\"/en/cases/jvj-selection/\">Jas voor Jeugd</a>."
+    ],
+    "originCta": "Visit shopvirge.com",
+    "archTitle": "How ShopVirge fits together",
+    "archIntro": "One multi-tenant backend serves every shop: products, translations, pricelists and orders all belong to a shop. Shoppers use our storefront or your own frontend, AI agents work through the MCP server, and proven services handle payments, logins, images and email.",
+    "arch": {
+      "clientsLabel": "Who uses it",
+      "clients": [
+        {
+          "title": "Shoppers",
+          "sub": "Our storefront or your own frontend",
+          "icon": "shopping-cart"
+        },
+        {
+          "title": "Shop owners",
+          "sub": "Admin and Excel/CSV import",
+          "icon": "store"
+        },
+        {
+          "title": "AI agents",
+          "sub": "MCP server",
+          "icon": "bot"
+        },
+        {
+          "title": "Developers",
+          "sub": "REST API and OpenAPI clients",
+          "icon": "code-xml"
+        }
+      ],
+      "appLabel": "ShopVirge backend",
+      "appSub": "multi-tenant",
+      "parts": [
+        "Products & categories",
+        "Translations per language",
+        "Pricelists & attributes",
+        "Orders & checkout",
+        "MCP tools"
+      ],
+      "core": "FastAPI",
+      "coreSub": "SQLAlchemy 2 · Pydantic 2",
+      "db": "PostgreSQL",
+      "dbSub": "Every record scoped to a shop",
+      "systemsLabel": "What it talks to",
+      "systems": [
+        {
+          "title": "Stripe",
+          "sub": "iDEAL, Bancontact, cards, PayPal",
+          "icon": "credit-card"
+        },
+        {
+          "title": "AWS Cognito",
+          "sub": "Logins and API keys",
+          "icon": "key-round"
+        },
+        {
+          "title": "AWS S3",
+          "sub": "Images and downloads",
+          "icon": "image"
+        },
+        {
+          "title": "SMTP",
+          "sub": "Order emails",
+          "icon": "mail"
+        }
+      ],
+      "source": "Based on the ShopVirge architecture docs"
+    },
+    "docsTitle": "Dive into ShopVirge",
+    "docsIntro": "Product pages on shopvirge.com, technical documentation on ReadTheDocs. Start here.",
+    "docs": [
+      {
+        "icon": "sparkles",
+        "href": "https://shopvirge.com/en/features/",
+        "title": "Features",
+        "desc": "Translations, Stripe checkout, templates, analytics and MCP at a glance."
+      },
+      {
+        "icon": "shopping-bag",
+        "href": "https://shopvirge.com/en/cases/",
+        "title": "Live demos",
+        "desc": "Example shops: product photos, LEGO sets, a WooCommerce migration and sale pricing."
+      },
+      {
+        "icon": "rocket",
+        "href": "https://shopvirge.readthedocs.io/en/latest/quickstart/",
+        "title": "Quickstart",
+        "desc": "Get the backend running and make your first API calls."
+      },
+      {
+        "icon": "layers",
+        "href": "https://shopvirge.readthedocs.io/en/latest/architecture/overview/",
+        "title": "Architecture",
+        "desc": "FastAPI, PostgreSQL, multi-tenancy and the integrations."
+      },
+      {
+        "icon": "code-xml",
+        "href": "https://shopvirge.readthedocs.io/en/latest/api/overview/",
+        "title": "REST API",
+        "desc": "Routers, shop scoping and authentication."
+      },
+      {
+        "icon": "bot",
+        "href": "https://shopvirge.readthedocs.io/en/latest/api/mcp/",
+        "title": "MCP server",
+        "desc": "Connect Claude Code or another agent to your shop."
+      },
+      {
+        "icon": "credit-card",
+        "href": "https://shopvirge.readthedocs.io/en/latest/architecture/checkout/",
+        "title": "Checkout & Stripe",
+        "desc": "The full order flow from cart to payment."
+      },
+      {
+        "icon": "git-branch",
+        "href": "https://github.com/virge-io/shopvirge-backend",
+        "title": "GitHub",
+        "desc": "The open-source backend, Apache 2.0."
+      }
+    ],
+    "relatedTitle": "From Virge",
+    "relatedCase": "Case: a referral-gated shop for Jas voor Jeugd",
+    "relatedContent": "Content as a Service",
+    "relatedWebinar": "Free webinar on ShopVirge"
   },
   "openclaw": {
     "title": "OpenClaw <span>Consultancy</span>",
