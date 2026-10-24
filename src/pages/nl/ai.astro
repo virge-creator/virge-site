@@ -2,11 +2,24 @@
 import Layout from '../../layouts/Layout.astro';
 import CTA from '../../components/CTA.astro';
 import FAQ from '../../components/FAQ.astro';
+import ArchDiagram from '../../components/ArchDiagram.astro';
+import Callout from '../../components/Callout.astro';
+import ResourceLinks from '../../components/ResourceLinks.astro';
 import { t } from '../../i18n';
 import { breadcrumbSchema, faqSchema, serviceSchema } from '../../data/structured-data';
+import { getUpcoming, webinarPath } from '../../data/webinars';
 
 const lang = 'nl';
 const i = t(lang);
+const a = i.ai.arch;
+// Point at the agents webinar while it is still upcoming.
+const agentWebinar = getUpcoming().find(w => w.slug === 'agent-based-network-troubleshooting-wfo');
+const related = [
+  { label: i.ai.relatedCase, href: `/${lang}/cases/surf-orchestrator-core/` },
+  { label: i.ai.relatedRag, href: `/${lang}/blog/rag-architectures-enterprise-2026/` },
+  { label: i.ai.relatedAgents, href: `/${lang}/blog/librechat-as-agent-orchestrator/` },
+  ...(agentWebinar ? [{ label: `${i.ai.relatedWebinar}: ${agentWebinar.title[lang]}`, href: webinarPath(lang, agentWebinar.slug) }] : []),
+];
 
 const jsonLd = [
   serviceSchema({ name: 'AI Consulting', description: i.ai.metaDesc, path: `/${lang}/ai/` }),
@@ -27,9 +40,42 @@ const jsonLd = [
     <p>{i.ai.description}</p>
   </div>
 
-  <section>
+  <section class="ai-origin">
     <div class="container">
-      <div class="features">
+      <Callout
+        title={i.ai.originTitle}
+        paragraphs={i.ai.originText}
+        icon="badge-check"
+        cta={{ label: i.ai.originCta, href: `/${lang}/cases/surf-orchestrator-core/` }}
+      />
+    </div>
+  </section>
+
+  <section class="ai-arch">
+    <div class="container">
+      <h2>{i.ai.archTitle}</h2>
+      <p class="ai-intro">{i.ai.archIntro}</p>
+      <ArchDiagram
+        clientsLabel={a.clientsLabel}
+        clients={a.clients}
+        appLabel={a.appLabel}
+        appSub={a.appSub}
+        parts={a.parts}
+        core={a.core}
+        coreSub={a.coreSub}
+        store={{ title: a.db, sub: a.dbSub, icon: 'database' }}
+        systemsLabel={a.systemsLabel}
+        systems={a.systems}
+        source={{ label: a.source, href: `/${lang}/blog/librechat-as-agent-orchestrator/` }}
+        accent="#a855f7"
+      />
+    </div>
+  </section>
+
+  <section class="ai-services">
+    <div class="container">
+      <h2>{i.ai.servicesTitle}</h2>
+      <div class="features ai-features">
         <div class="feature">
           <h3>{i.ai.searchTitle}</h3>
           <p>{i.ai.searchDesc}</p>
@@ -50,6 +96,29 @@ const jsonLd = [
     </div>
   </section>
 
+  <section class="ai-docs">
+    <div class="container">
+      <ResourceLinks
+        title={i.ai.docsTitle}
+        intro={i.ai.docsIntro}
+        links={i.ai.docs}
+        related={related}
+        relatedTitle={i.ai.relatedTitle}
+      />
+    </div>
+  </section>
+
   <FAQ items={i.ai.faq} lang={lang} />
   <div class="container"><CTA lang={lang} /></div>
 </Layout>
+
+<style>
+  .ai-origin { padding: 2rem 0; }
+  .ai-arch, .ai-services, .ai-docs { padding: 3rem 0; }
+  .ai-intro { color: var(--text-muted); max-width: 680px; margin: -0.75rem 0 1.75rem; }
+  /* Four cards: two rows of two instead of three plus an orphan. */
+  .ai-services .ai-features { padding-top: 0; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  @media (max-width: 700px) {
+    .ai-services .ai-features { grid-template-columns: 1fr; }
+  }
+</style>

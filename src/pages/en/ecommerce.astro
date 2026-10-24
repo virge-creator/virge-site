@@ -5,19 +5,18 @@ import FAQ from '../../components/FAQ.astro';
 import ArchDiagram from '../../components/ArchDiagram.astro';
 import Callout from '../../components/Callout.astro';
 import ResourceLinks from '../../components/ResourceLinks.astro';
+import HeroWebinars from '../../components/HeroWebinars.astro';
 import { t } from '../../i18n';
 import { breadcrumbSchema, faqSchema, serviceSchema } from '../../data/structured-data';
-import { getUpcoming, webinarPath } from '../../data/webinars';
+import { getUpcoming } from '../../data/webinars';
 
 const lang = 'en';
 const i = t(lang);
 const a = i.ecommerce.arch;
-// Point at the next ShopVirge webinar, if one is planned.
-const shopWebinar = getUpcoming().find(w => w.product === 'shopvirge');
+const hasShopWebinars = getUpcoming().some(w => w.product === 'shopvirge');
 const related = [
   { label: i.ecommerce.relatedCase, href: `/${lang}/cases/jvj-selection/` },
   { label: i.ecommerce.relatedContent, href: `/${lang}/ecommerce/content/` },
-  ...(shopWebinar ? [{ label: i.ecommerce.relatedWebinar, href: webinarPath(lang, shopWebinar.slug) }] : []),
 ];
 
 const jsonLd = [
@@ -96,6 +95,18 @@ const jsonLd = [
     </div>
   </section>
 
+  {hasShopWebinars && (
+    <section class="ecom-webinars">
+      <div class="container ecom-webinars-grid">
+        <div>
+          <h2>{i.ecommerce.webinarsTitle}</h2>
+          <p class="ecom-intro">{i.ecommerce.webinarsIntro}</p>
+        </div>
+        <HeroWebinars lang={lang} product="shopvirge" />
+      </div>
+    </section>
+  )}
+
   <section class="ecom-docs">
     <div class="container">
       <ResourceLinks
@@ -119,7 +130,11 @@ const jsonLd = [
     .ecom-features { grid-template-columns: 1fr; }
   }
   .ecom-origin { padding: 2rem 0; }
-  .ecom-arch, .ecom-services, .ecom-docs { padding: 3rem 0; }
+  .ecom-arch, .ecom-services, .ecom-webinars, .ecom-docs { padding: 3rem 0; }
+  .ecom-webinars-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 460px); gap: 2.5rem; align-items: center; }
+  @media (max-width: 860px) {
+    .ecom-webinars-grid { grid-template-columns: 1fr; }
+  }
   .ecom-services .features { padding-top: 0; }
   .ecom-intro { color: var(--text-muted); max-width: 680px; margin: -0.75rem 0 1.75rem; }
 </style>

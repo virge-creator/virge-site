@@ -30,6 +30,7 @@ interface Props {
 }
 
 const { clientsLabel, clients, appLabel, appSub, parts, core, coreSub, store, systemsLabel, systems, target, source, accent = '#5cb8ff' } = Astro.props;
+const external = /^https?:/.test(source.href);
 ---
 <figure class="arch" style={`--arch-c: ${accent}`}>
   <div class="arch-grid">
@@ -89,7 +90,7 @@ const { clientsLabel, clients, appLabel, appSub, parts, core, coreSub, store, sy
     </div>
   </div>
   <figcaption>
-    <a href={source.href} target="_blank" rel="noopener">{source.label}</a>
+    <a href={source.href} target={external ? '_blank' : undefined} rel={external ? 'noopener' : undefined}>{source.label}</a>
   </figcaption>
 </figure>
 

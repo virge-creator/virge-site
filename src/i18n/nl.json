@@ -76,7 +76,130 @@
     "integrationTitle": "AI-integratie in bestaande applicaties",
     "integrationDesc": "Integreer AI-mogelijkheden naadloos in je huidige stack, van intelligente API's tot slimme automatisering, zonder alles opnieuw te bouwen.",
     "productionTitle": "Productie-klare oplossingen",
-    "productionDesc": "Wij richten ons op praktische, schaalbare AI die werkt in de echte wereld: goede evaluatie, monitoring en iteratie, niet alleen demo's."
+    "productionDesc": "Wij richten ons op praktische, schaalbare AI die werkt in de echte wereld: goede evaluatie, monitoring en iteratie, niet alleen demo's.",
+    "originTitle": "Bewezen in productie: AI-zoekfunctie voor SURF",
+    "originText": [
+      "Samen met SURF en Tim Fröhlich, gefinancierd door de GÉANT GN5-2 Incubator, bouwden we hybrid search voor orchestrator-core: semantisch, fuzzy en gestructureerd zoeken op gewone PostgreSQL, met een type-veilige agentlaag erbovenop, zodat het taalmodel nooit zelf SQL schrijft. Het is als open source uitgebracht in orchestrator-core v5.0, en elke organisatie die upgradet draait het.",
+      "Dezelfde bouwstenen gebruiken we in onze eigen producten. Gespecialiseerde agents voor ShopVirge en de Workflow Orchestrator zitten achter één chatinterface, bereiken de backends via MCP en sturen bij elke aanroep de login van de gebruiker mee, zodat de backends controleren wat die persoon mag."
+    ],
+    "originCta": "Lees de SURF-case",
+    "archTitle": "Zo bouwen we een AI-systeem",
+    "archIntro": "De meeste projecten hebben dezelfde vorm: agents met een duidelijke taak, gevoed met je eigen data via hybrid search, die je systemen bereiken via MCP, op het model dat bij de taak past. Het is de opzet die we zelf ook draaien.",
+    "arch": {
+      "clientsLabel": "Wie het gebruikt",
+      "clients": [
+        {
+          "title": "Je team",
+          "sub": "Chatten in LibreChat of Slack",
+          "icon": "users"
+        },
+        {
+          "title": "Je applicaties",
+          "sub": "OpenAI-compatibele API",
+          "icon": "code-xml"
+        },
+        {
+          "title": "Andere agents",
+          "sub": "A2A",
+          "icon": "bot"
+        }
+      ],
+      "appLabel": "Jouw agents",
+      "appSub": "Python",
+      "parts": [
+        "Een gespecialiseerde agent per domein",
+        "Hybrid search & RAG",
+        "Tools via MCP",
+        "Gebruikersidentiteit bij elke aanroep",
+        "Evals"
+      ],
+      "core": "Pydantic AI",
+      "coreSub": "elk model",
+      "db": "PostgreSQL + pgvector",
+      "dbSub": "Embeddings, tekstzoeken en filters in één database",
+      "systemsLabel": "Waar het mee praat",
+      "systems": [
+        {
+          "title": "Je systemen",
+          "sub": "WFO, ShopVirge of je eigen API's via MCP",
+          "icon": "plug"
+        },
+        {
+          "title": "Je documenten & data",
+          "sub": "Geïndexeerd om op te zoeken",
+          "icon": "file-text"
+        },
+        {
+          "title": "Gehoste modellen",
+          "sub": "Anthropic, OpenAI en anderen",
+          "icon": "cloud"
+        },
+        {
+          "title": "Zelf gehoste modellen",
+          "sub": "Open modellen op je eigen hardware",
+          "icon": "server"
+        }
+      ],
+      "source": "Gebaseerd op onze eigen agent-opzet"
+    },
+    "servicesTitle": "Wat wij doen met AI",
+    "docsTitle": "De tools waarmee we bouwen",
+    "docsIntro": "Open source en open standaarden, zodat je niet vastzit aan ons of aan één leverancier. Dit is de documentatie die we openhebben terwijl we werken (in het Engels).",
+    "docs": [
+      {
+        "icon": "bot",
+        "href": "https://ai.pydantic.dev/",
+        "title": "Pydantic AI",
+        "desc": "Type-veilige agents in Python, met het model van je keuze."
+      },
+      {
+        "icon": "database",
+        "href": "https://github.com/pgvector/pgvector",
+        "title": "pgvector",
+        "desc": "Zoeken op vectorgelijkenis binnen PostgreSQL."
+      },
+      {
+        "icon": "search",
+        "href": "https://www.postgresql.org/docs/current/pgtrgm.html",
+        "title": "pg_trgm",
+        "desc": "Fuzzy tekstmatching voor typefouten en halve ID's."
+      },
+      {
+        "icon": "plug",
+        "href": "https://modelcontextprotocol.io/",
+        "title": "Model Context Protocol",
+        "desc": "De open standaard om agents tools en data te geven."
+      },
+      {
+        "icon": "network",
+        "href": "https://a2a-protocol.org/",
+        "title": "A2A-protocol",
+        "desc": "Laat agents van verschillende teams samenwerken."
+      },
+      {
+        "icon": "message-square",
+        "href": "https://www.librechat.ai/docs",
+        "title": "LibreChat",
+        "desc": "Open-source chatinterface voor je agents."
+      },
+      {
+        "icon": "container",
+        "href": "https://kagent.dev/",
+        "title": "kagent",
+        "desc": "Agents draaien en beheren op Kubernetes."
+      },
+      {
+        "icon": "sparkles",
+        "href": "https://workfloworchestrator.org/orchestrator-core/reference-docs/ai-search/",
+        "title": "WFO AI-zoekfunctie",
+        "desc": "De hybrid search die we bouwden, in de orchestrator-core-documentatie."
+      }
+    ],
+    "relatedTitle": "Van Virge",
+    "relatedCase": "Case: hybrid search voor SURF orchestrator-core",
+    "relatedRag": "RAG in 2026: welke architectuur past",
+    "relatedAgents": "Onze agent-opzet met LibreChat",
+    "relatedWebinar": "Gratis webinar"
   },
   "sdn": {
     "title": "Software Defined <span>Networking</span>",
@@ -222,7 +345,7 @@
     ],
     "relatedTitle": "Van Virge",
     "relatedCase": "Case: hybrid search voor SURF orchestrator-core",
-    "relatedWebinar": "Gratis webinar: Modern SDN met de WFO",
+    "relatedWebinar": "Gratis webinar",
     "servicesTitle": "Wat wij met de WFO doen"
   },
   "ecommerce": {
@@ -378,8 +501,9 @@
     "relatedTitle": "Van Virge",
     "relatedCase": "Case: een webshop op doorverwijzing voor Jas voor Jeugd",
     "relatedContent": "Content as a Service",
-    "relatedWebinar": "Gratis webinar over ShopVirge",
-    "servicesTitle": "Wat wij doen in eCommerce"
+    "servicesTitle": "Wat wij doen in eCommerce",
+    "webinarsTitle": "Gratis eCommerce-webinars",
+    "webinarsIntro": "Live sessies over ShopVirge en AI-gegenereerde shopcontent, elke tweede woensdag van de maand van 15:00 tot 16:00 uur. Kies een datum, laat je naam en e-mailadres achter en we sturen je de deelnamelink."
   },
   "openclaw": {
     "title": "OpenClaw <span>Consultancy</span>",
