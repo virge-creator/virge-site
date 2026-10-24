@@ -1,0 +1,45 @@
+---
+import Icon from './Icon.astro';
+
+interface Props {
+  title: string;
+  /** Paragraphs; may contain inline HTML such as links. */
+  paragraphs: string[];
+  /** lucide-static icon name */
+  icon?: string;
+  cta?: { label: string; href: string };
+}
+
+const { title, paragraphs, icon, cta } = Astro.props;
+const external = cta && /^https?:/.test(cta.href);
+---
+<div class="callout">
+  {icon && <span class="callout-icon"><Icon name={icon} size={26} /></span>}
+  <div>
+    <h2>{title}</h2>
+    {paragraphs.map(p => <p set:html={p} />)}
+    {cta && (
+      <a href={cta.href} class="btn callout-btn" target={external ? '_blank' : undefined} rel={external ? 'noopener' : undefined}>{cta.label}</a>
+    )}
+  </div>
+</div>
+
+<style>
+  .callout {
+    display: grid; grid-template-columns: auto 1fr; gap: 1.5rem; padding: 2rem; border-radius: 20px;
+    background:
+      radial-gradient(100% 80% at 0% 0%, rgba(108,92,231,0.2), transparent 60%),
+      rgba(18,18,42,0.7);
+    border: 1px solid rgba(108,92,231,0.25);
+  }
+  .callout-icon {
+    width: 3.2rem; height: 3.2rem; border-radius: 14px; display: grid; place-items: center;
+    background: rgba(108,92,231,0.18); color: var(--accent2);
+  }
+  .callout h2 { font-size: 1.6rem; margin-bottom: 0.9rem; }
+  .callout p { color: var(--text); line-height: 1.75; max-width: 720px; margin-bottom: 0.9rem; }
+  .callout-btn { margin-top: 0.5rem; padding: 0.6rem 1.6rem; font-size: 0.95rem; }
+  @media (max-width: 640px) {
+    .callout { grid-template-columns: 1fr; padding: 1.4rem; gap: 1rem; }
+  }
+</style>

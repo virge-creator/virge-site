@@ -112,7 +112,117 @@
     "iacTitle": "Infrastructure as Code",
     "iacDesc": "Behandel je netwerk als software. Versiebeheerde configuraties, herhaalbare deployments en geautomatiseerde provisioning, met DevOps-praktijken voor netwerk-engineering.",
     "trainingTitle": "Training & workshops",
-    "trainingDesc": "Breng je team op snelheid. We bieden hands-on workshops over WFO-architectuur, workflowontwikkeling en best practices voor netwerkautomatisering op schaal."
+    "trainingDesc": "Breng je team op snelheid. We bieden hands-on workshops over WFO-architectuur, workflowontwikkeling en best practices voor netwerkautomatisering op schaal.",
+    "originTitle": "Begonnen bij SURF, gebouwd door een community",
+    "originText": [
+      "De Workflow Orchestrator is begonnen bij <a href=\"https://www.surf.nl\" target=\"_blank\" rel=\"noopener\">SURF</a>, het Nederlandse netwerk voor onderwijs en onderzoek, om het eigen netwerk te automatiseren. SURF bracht het uit als open source, en ESnet sloot zich al snel aan als grote bijdrager.",
+      "Inmiddels is het een onafhankelijk programma onder The Commons Conservancy, gebruikt en doorontwikkeld door <a href=\"https://workfloworchestrator.org/members/\" target=\"_blank\" rel=\"noopener\">netwerken over de hele wereld</a>, zoals ESnet, GÉANT, Internet2, CANARIE, GARR en REANNZ. Virge is onderdeel van die community: we hebben de AI-zoekfunctie in orchestrator-core bijgedragen en bouwen voor onze klanten op de WFO."
+    ],
+    "originCta": "Naar workfloworchestrator.org",
+    "archTitle": "Hoe het in elkaar zit",
+    "archIntro": "Je schrijft een Python-applicatie bovenop orchestrator-core. Daarin staan je producten, workflows en formulieren; de core levert de API, de UI, de state en een audit log. De stappen in je workflows praten met de systemen die het netwerk aansturen.",
+    "arch": {
+      "clientsLabel": "Wie het gebruikt",
+      "clients": [
+        {
+          "title": "Operators",
+          "sub": "Orchestrator UI"
+        },
+        {
+          "title": "OSS/BSS & scripts",
+          "sub": "REST- & GraphQL-API"
+        },
+        {
+          "title": "AI-agents",
+          "sub": "MCP-server"
+        }
+      ],
+      "appLabel": "Jouw orchestrator",
+      "appSub": "Python-applicatie",
+      "parts": [
+        "Producten & subscriptions",
+        "Workflows: create · modify · terminate · validate",
+        "Pydantic Forms",
+        "Taken & planning",
+        "AI-zoekfunctie"
+      ],
+      "core": "orchestrator-core",
+      "coreSub": "FastAPI-framework",
+      "db": "PostgreSQL",
+      "dbSub": "Subscriptions, processen, audit log",
+      "systemsLabel": "Waar het mee praat",
+      "systems": [
+        {
+          "title": "Netbox",
+          "sub": "Inventory & IPAM"
+        },
+        {
+          "title": "LSO + Ansible",
+          "sub": "Apparaatconfiguratie"
+        },
+        {
+          "title": "NSO, NSI & jouw API's",
+          "sub": "Elk systeem met een API"
+        }
+      ],
+      "network": "Jouw netwerk",
+      "source": "Gebaseerd op de architectuur in de WFO-documentatie"
+    },
+    "docsTitle": "Duik in de documentatie",
+    "docsIntro": "De officiële documentatie op workfloworchestrator.org is de beste plek om te beginnen. Dit zijn de pagina's waar we nieuwe teams als eerste naartoe sturen.",
+    "docs": [
+      {
+        "icon": "layers",
+        "href": "https://workfloworchestrator.org/architecture/at-a-glance/",
+        "title": "Architectuur in het kort",
+        "desc": "Hoe de backend, de UI en de formulieren samenwerken."
+      },
+      {
+        "icon": "rocket",
+        "href": "https://workfloworchestrator.org/orchestrator-core/getting-started/base/",
+        "title": "Aan de slag",
+        "desc": "Bouw stap voor stap de basisapplicatie."
+      },
+      {
+        "icon": "graduation-cap",
+        "href": "https://workfloworchestrator.org/workshops/example-orchestrator/overview/",
+        "title": "Example Orchestrator-workshop",
+        "desc": "Hands-on: modelleer een netwerknode en schrijf de workflows."
+      },
+      {
+        "icon": "boxes",
+        "href": "https://workfloworchestrator.org/orchestrator-core/architecture/product-modeling/introduction/",
+        "title": "Productmodellering",
+        "desc": "Modelleer je netwerkdiensten als producten en product blocks."
+      },
+      {
+        "icon": "workflow",
+        "href": "https://workfloworchestrator.org/orchestrator-core/reference-docs/workflows/workflows/",
+        "title": "Workflows",
+        "desc": "Stappen, formulieren, callbacks en de volledige subscription-lifecycle."
+      },
+      {
+        "icon": "terminal",
+        "href": "https://workfloworchestrator.org/lightweight-service-orchestrator/",
+        "title": "LSO",
+        "desc": "Draai Ansible-playbooks vanuit je workflows."
+      },
+      {
+        "icon": "sparkles",
+        "href": "https://workfloworchestrator.org/orchestrator-core/reference-docs/ai-search/",
+        "title": "AI-zoekfunctie & MCP",
+        "desc": "Zoek door subscriptions en laat agents met je orchestrator werken."
+      },
+      {
+        "icon": "git-branch",
+        "href": "https://github.com/workfloworchestrator",
+        "title": "GitHub",
+        "desc": "orchestrator-core, de UI-library, LSO en de Example Orchestrator."
+      }
+    ],
+    "relatedTitle": "Van Virge",
+    "relatedCase": "Case: hybrid search voor SURF orchestrator-core",
+    "relatedWebinar": "Gratis webinar: Modern SDN met de WFO"
   },
   "ecommerce": {
     "title": "e<span>Commerce</span>",
