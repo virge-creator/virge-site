@@ -18,7 +18,7 @@ The SDN page (`src/pages/{en,nl}/sdn.astro`) is the reference build: feature gri
 
 - `Callout.astro`: titled block with icon, HTML paragraphs and an optional button. Use for origin stories ("Started at SURF…") or a key partnership.
 - `ResourceLinks.astro`: grid of deep-link cards (icon, title, one-line description, host shown automatically for external links), plus an optional "From Virge" row for our own case studies and webinars. Pick 6–8 pages a new team should read first, not the docs' table of contents.
-- Architecture diagrams are HTML/CSS components, not images, so they follow the theme and stack on mobile. `WfoArchitecture.astro` is the pattern: columns of nodes joined by CSS arrows, one highlighted box for the product itself, labels from i18n. Base the content on the product's own architecture docs and link that page in the caption.
+- `ArchDiagram.astro`: architecture diagram in HTML/CSS, so it follows the theme and stacks on mobile. Three columns (who uses it → the product with its parts and framework, plus optional storage → what it talks to, plus optional end target), labels from i18n, `accent` in the product's colour (WFO `#5cb8ff`, ShopVirge `#e879f9`). Base the content on the product's own architecture docs and link that page as `source`. The eCommerce page passes the props directly; `WfoArchitecture.astro` wraps it for the SDN page.
 - Related links: our cases live in `src/pages/{lang}/cases/`; pick the next relevant webinar with `getUpcoming()` from `src/data/webinars.ts` so the link never points at a past session.
 - Icons are `lucide-static` names (`node_modules/lucide-static/icons/<name>.svg`); brand icons such as `github` do not exist there, use `git-branch`.
 

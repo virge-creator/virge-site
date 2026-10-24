@@ -2,11 +2,23 @@
 import Layout from '../../layouts/Layout.astro';
 import CTA from '../../components/CTA.astro';
 import FAQ from '../../components/FAQ.astro';
+import ArchDiagram from '../../components/ArchDiagram.astro';
+import Callout from '../../components/Callout.astro';
+import ResourceLinks from '../../components/ResourceLinks.astro';
 import { t } from '../../i18n';
 import { breadcrumbSchema, faqSchema, serviceSchema } from '../../data/structured-data';
+import { getUpcoming, webinarPath } from '../../data/webinars';
 
 const lang = 'nl';
 const i = t(lang);
+const a = i.ecommerce.arch;
+// Point at the next ShopVirge webinar, if one is planned.
+const shopWebinar = getUpcoming().find(w => w.product === 'shopvirge');
+const related = [
+  { label: i.ecommerce.relatedCase, href: `/${lang}/cases/jvj-selection/` },
+  { label: i.ecommerce.relatedContent, href: `/${lang}/ecommerce/content/` },
+  ...(shopWebinar ? [{ label: i.ecommerce.relatedWebinar, href: webinarPath(lang, shopWebinar.slug) }] : []),
+];
 
 const jsonLd = [
   serviceSchema({ name: 'eCommerce', description: i.ecommerce.metaDesc, path: `/${lang}/ecommerce/` }),
@@ -29,7 +41,7 @@ const jsonLd = [
 
   <section>
     <div class="container">
-      <div class="features">
+      <div class="features ecom-features">
         <div class="feature highlight">
           <h3>{i.ecommerce.contentTitle}</h3>
           <p>{i.ecommerce.contentDesc}</p>
@@ -51,6 +63,61 @@ const jsonLd = [
     </div>
   </section>
 
+  <section class="ecom-origin">
+    <div class="container">
+      <Callout
+        title={i.ecommerce.originTitle}
+        paragraphs={i.ecommerce.originText}
+        icon="store"
+        cta={{ label: i.ecommerce.originCta, href: `https://shopvirge.com/${lang}/` }}
+      />
+    </div>
+  </section>
+
+  <section class="ecom-arch">
+    <div class="container">
+      <h2>{i.ecommerce.archTitle}</h2>
+      <p class="ecom-intro">{i.ecommerce.archIntro}</p>
+      <ArchDiagram
+        clientsLabel={a.clientsLabel}
+        clients={a.clients}
+        appLabel={a.appLabel}
+        appSub={a.appSub}
+        parts={a.parts}
+        core={a.core}
+        coreSub={a.coreSub}
+        store={{ title: a.db, sub: a.dbSub, icon: 'database' }}
+        systemsLabel={a.systemsLabel}
+        systems={a.systems}
+        source={{ label: a.source, href: 'https://shopvirge.readthedocs.io/en/latest/architecture/overview/' }}
+        accent="#e879f9"
+      />
+    </div>
+  </section>
+
+  <section class="ecom-docs">
+    <div class="container">
+      <ResourceLinks
+        title={i.ecommerce.docsTitle}
+        intro={i.ecommerce.docsIntro}
+        links={i.ecommerce.docs}
+        related={related}
+        relatedTitle={i.ecommerce.relatedTitle}
+      />
+    </div>
+  </section>
+
   <FAQ items={i.ecommerce.faq} lang={lang} />
   <div class="container"><CTA lang={lang} /></div>
 </Layout>
+
+<style>
+  /* Four cards: two rows of two instead of three plus an orphan. */
+  .ecom-features { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  @media (max-width: 700px) {
+    .ecom-features { grid-template-columns: 1fr; }
+  }
+  .ecom-origin { padding: 2rem 0; }
+  .ecom-arch, .ecom-docs { padding: 3rem 0; }
+  .ecom-intro { color: var(--text-muted); max-width: 680px; margin: -0.75rem 0 1.75rem; }
+</style>

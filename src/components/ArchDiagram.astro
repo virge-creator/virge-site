@@ -1,0 +1,155 @@
+---
+import Icon from './Icon.astro';
+
+interface Node {
+  title: string;
+  sub?: string;
+  /** lucide-static icon name */
+  icon: string;
+}
+
+interface Props {
+  /** Left column: who or what uses the product. */
+  clientsLabel: string;
+  clients: Node[];
+  /** Centre: the product, its main parts and the framework it runs on. */
+  appLabel: string;
+  appSub?: string;
+  parts: string[];
+  core: string;
+  coreSub?: string;
+  /** Storage under the product box. */
+  store?: Node;
+  /** Right column: systems the product talks to, with an optional end target under them. */
+  systemsLabel: string;
+  systems: Node[];
+  target?: Node;
+  source: { label: string; href: string };
+  /** Highlight colour of the product box. */
+  accent?: string;
+}
+
+const { clientsLabel, clients, appLabel, appSub, parts, core, coreSub, store, systemsLabel, systems, target, source, accent = '#5cb8ff' } = Astro.props;
+---
+<figure class="arch" style={`--arch-c: ${accent}`}>
+  <div class="arch-grid">
+    <div class="arch-col">
+      <span class="arch-label">{clientsLabel}</span>
+      {clients.map(n => (
+        <div class="arch-node">
+          <Icon name={n.icon} size={18} />
+          <span><strong>{n.title}</strong>{n.sub && <small>{n.sub}</small>}</span>
+        </div>
+      ))}
+    </div>
+
+    <div class="arch-arrow" aria-hidden="true"></div>
+
+    <div class="arch-col">
+      <span class="arch-label">{appLabel} {appSub && <small>· {appSub}</small>}</span>
+      <div class="arch-app">
+        <ul class="arch-parts">
+          {parts.map(p => <li>{p}</li>)}
+        </ul>
+        <div class="arch-core">
+          <strong>{core}</strong>
+          {coreSub && <small>{coreSub}</small>}
+        </div>
+      </div>
+      {store && (
+        <>
+          <div class="arch-down" aria-hidden="true"></div>
+          <div class="arch-node">
+            <Icon name={store.icon} size={18} />
+            <span><strong>{store.title}</strong>{store.sub && <small>{store.sub}</small>}</span>
+          </div>
+        </>
+      )}
+    </div>
+
+    <div class="arch-arrow" aria-hidden="true"></div>
+
+    <div class="arch-col">
+      <span class="arch-label">{systemsLabel}</span>
+      {systems.map(n => (
+        <div class="arch-node">
+          <Icon name={n.icon} size={18} />
+          <span><strong>{n.title}</strong>{n.sub && <small>{n.sub}</small>}</span>
+        </div>
+      ))}
+      {target && (
+        <>
+          <div class="arch-down" aria-hidden="true"></div>
+          <div class="arch-node arch-node--target">
+            <Icon name={target.icon} size={18} />
+            <span><strong>{target.title}</strong>{target.sub && <small>{target.sub}</small>}</span>
+          </div>
+        </>
+      )}
+    </div>
+  </div>
+  <figcaption>
+    <a href={source.href} target="_blank" rel="noopener">{source.label}</a>
+  </figcaption>
+</figure>
+
+<style>
+  .arch {
+    margin: 0; padding: 2rem; border-radius: 20px;
+    background:
+      radial-gradient(90% 70% at 50% 0%, color-mix(in srgb, var(--arch-c) 12%, transparent), transparent 60%),
+      rgba(18,18,42,0.7);
+    border: 1px solid rgba(108,92,231,0.22);
+  }
+  .arch-grid { display: grid; grid-template-columns: 1fr 2.5rem 1.5fr 2.5rem 1fr; align-items: center; }
+  .arch-col { display: flex; flex-direction: column; gap: 0.6rem; }
+  .arch-label { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--link); margin-bottom: 0.2rem; }
+  .arch-label small { font-weight: 500; letter-spacing: 0.04em; text-transform: none; color: var(--text-muted); font-size: 0.78rem; }
+
+  .arch-node {
+    display: flex; align-items: center; gap: 0.7rem; padding: 0.7rem 0.9rem; border-radius: 12px;
+    background: rgba(10,10,26,0.6); border: 1px solid rgba(108,92,231,0.22);
+  }
+  .arch-node :global(svg) { color: var(--link); flex-shrink: 0; }
+  .arch-node span { display: flex; flex-direction: column; min-width: 0; }
+  .arch-node strong { color: #fff; font-size: 0.92rem; }
+  .arch-node small { color: var(--text-muted); font-size: 0.78rem; }
+  .arch-node--target { border-style: dashed; }
+
+  .arch-app {
+    padding: 1rem; border-radius: 14px;
+    background: color-mix(in srgb, var(--arch-c) 8%, rgba(10,10,26,0.6));
+    border: 1px solid color-mix(in srgb, var(--arch-c) 45%, transparent);
+    box-shadow: 0 0 40px -18px var(--arch-c);
+  }
+  .arch-parts { list-style: none; display: flex; flex-wrap: wrap; gap: 0.45rem; margin-bottom: 0.8rem; }
+  .arch-parts li {
+    font-size: 0.82rem; padding: 0.4rem 0.7rem; border-radius: 8px; color: var(--text);
+    background: rgba(108,92,231,0.14); border: 1px solid rgba(108,92,231,0.25);
+  }
+  .arch-core {
+    display: flex; align-items: baseline; justify-content: space-between; gap: 0.5rem; flex-wrap: wrap;
+    padding: 0.7rem 0.9rem; border-radius: 10px;
+    background: linear-gradient(120deg, color-mix(in srgb, var(--arch-c) 55%, transparent), color-mix(in srgb, var(--arch-c) 20%, var(--accent)));
+  }
+  .arch-core strong { color: #fff; font-family: ui-monospace, monospace; font-size: 0.95rem; }
+  .arch-core small { color: rgba(255,255,255,0.85); font-size: 0.8rem; }
+
+  /* Connectors: horizontal arrows between columns, short vertical ones inside a column. */
+  .arch-arrow { position: relative; height: 2px; margin: 0 0.4rem; background: rgba(168,85,247,0.55); }
+  .arch-arrow::after {
+    content: ''; position: absolute; right: -2px; top: -4px;
+    border: 5px solid transparent; border-left: 7px solid rgba(168,85,247,0.8); border-right: 0;
+  }
+  .arch-down { width: 2px; height: 1rem; margin: -0.2rem auto; background: rgba(168,85,247,0.55); }
+
+  .arch figcaption { margin-top: 1.25rem; font-size: 0.82rem; text-align: right; }
+
+  @media (max-width: 860px) {
+    .arch { padding: 1.25rem; }
+    .arch-grid { grid-template-columns: 1fr; gap: 0.4rem; }
+    .arch-arrow { width: 2px; height: 1.6rem; margin: 0.2rem auto; }
+    .arch-arrow::after { right: -4px; top: auto; bottom: -2px; border: 5px solid transparent; border-top: 7px solid rgba(168,85,247,0.8); border-bottom: 0; }
+    .arch figcaption { text-align: left; }
+  }
+</style>
