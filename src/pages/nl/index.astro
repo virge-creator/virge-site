@@ -1,7 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import CTA from '../../components/CTA.astro';
-import HomeWebinars from '../../components/HomeWebinars.astro';
+import HeroWebinars from '../../components/HeroWebinars.astro';
 import { t } from '../../i18n';
 
 const lang = 'nl';
@@ -16,6 +16,7 @@ const i = t(lang);
       <div class="orb orb-2"></div>
       <div class="dot-grid"></div>
     </div>
+    <div class="hero-layout">
     <div class="hero-inner">
       <span class="hero-eyebrow">AI · SDN · eCommerce</span>
       <h1><Fragment set:html={i.hero.title} /></h1>
@@ -23,6 +24,8 @@ const i = t(lang);
       <div class="hero-actions">
         <a href={`/${lang}/contact/`} class="btn">{i.hero.cta}</a>
       </div>
+    </div>
+    <HeroWebinars lang={lang} />
     </div>
   </div>
 
@@ -252,9 +255,6 @@ const i = t(lang);
     </div>
   </section>
 
-  <!-- Webinars -->
-  <HomeWebinars lang={lang} />
-
   <!-- CTA -->
   <div class="container reveal">
     <CTA lang={lang} />
@@ -464,11 +464,37 @@ const i = t(lang);
     background-size: 32px 32px;
     mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 40%, transparent 100%);
   }
+  .hero-layout {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 1100px;
+    display: grid;
+    grid-template-columns: 1fr;
+    justify-items: center;
+    gap: 3rem;
+  }
   .hero-inner {
     position: relative;
     text-align: center;
     max-width: 720px;
     z-index: 1;
+  }
+  /* Desktop: hero copy left, webinar sign-up right. Stacked (copy, then panel) below 960px. */
+  @media (min-width: 961px) {
+    :global(.hero-layout:has(.hero-webinars)) {
+      grid-template-columns: minmax(0, 1fr) 410px;
+      align-items: center;
+      justify-items: stretch;
+      gap: 4rem;
+    }
+    :global(.hero-layout:has(.hero-webinars) .hero-inner) { text-align: left; }
+    /* html prefix: outrank the scoped `.hero-inner p` centring rule */
+    :global(html .hero-layout:has(.hero-webinars) .hero-inner p) { margin-left: 0; }
+    :global(.hero-layout:has(.hero-webinars) .hero-actions) { justify-content: flex-start; }
+  }
+  @media (max-width: 960px) {
+    .hero-layout :global(.hero-webinars) { max-width: 520px; }
   }
   .hero-eyebrow {
     display: inline-block;

@@ -3,7 +3,7 @@ import type { Lang } from '../i18n';
 import { t } from '../i18n';
 import Icon from './Icon.astro';
 import type { Webinar } from '../data/webinars';
-import { endIso, formatWebinarDate, webinarPath, icsPath } from '../data/webinars';
+import { endIso, formatWebinarDate, webinarPath } from '../data/webinars';
 
 interface Props {
   lang: Lang;
@@ -35,8 +35,7 @@ const weekday = formatWebinarDate(w.date, lang, { weekday: 'short' }).replace('.
     <p class="webinar-card-summary">{w.summary[lang]}</p>
     <div class="webinar-card-actions">
       <a href={registerHref} class="btn webinar-register" data-register={w.slug}>{i.webinars.register}</a>
-      <a href={webinarPath(lang, w.slug)} class="btn-ghost-sm">{i.webinars.details} →</a>
-      <a href={icsPath(w.slug)} class="btn-ghost-sm" download><Icon name="calendar-plus" size={15} /> {i.webinars.addToCalendar}</a>
+      <a href={webinarPath(lang, w.slug)} class="btn-ghost-sm">{i.webinars.details}</a>
     </div>
   </div>
 </article>

@@ -712,10 +712,14 @@ figure.article-illustration {
 }
 
 /* Mobile */
-@media (max-width: 768px) {
+/* Collapse the nav earlier than other mobile rules: the Dutch labels run into the logo below ~850px */
+@media (max-width: 900px) {
   .menu-toggle { display: block; }
   nav .links { display: none; flex-direction: column; position: absolute; top: 100%; left: 0; right: 0; background: var(--bg); padding: 1rem 1.5rem; gap: 1rem; border-bottom: 1px solid rgba(108,92,231,0.15); }
   nav .links.open { display: flex; }
+}
+
+@media (max-width: 768px) {
   .cta { flex-direction: column; text-align: center; }
   .footer-inner { flex-direction: column; }
 

@@ -15,7 +15,7 @@
   },
   "hero": {
     "title": "<span>Virge.</span><br/>Software oplossingen die schalen.",
-    "description": "Virge.io levert deskundige consultancy en producten op het gebied van AI, Software Defined Networking en eCommerce. waarmee bedrijven veerkrachtige, toekomstbestendige technologie bouwen.",
+    "description": "Virge levert deskundige consultancy en producten op het gebied van AI, Software Defined Networking en eCommerce. waarmee bedrijven veerkrachtige, toekomstbestendige technologie bouwen.",
     "cta": "Neem Contact Op"
   },
   "home": {
@@ -31,11 +31,11 @@
   },
   "cta": {
     "title": "Klaar om iets geweldigs te bouwen?",
-    "description": "Laten we bespreken hoe Virge.io je kan helpen je software-oplossingen te schalen.",
+    "description": "Vertel ons waar je mee bezig bent. We denken mee en zeggen eerlijk waar we kunnen helpen.",
     "button": "Neem contact op"
   },
   "footer": {
-    "text": "Virge.io. Software oplossingen die schalen",
+    "text": "Virge. Software oplossingen die schalen",
     "company": "Virge · Remote",
     "services": "Diensten",
     "blog": "Blog",
@@ -184,7 +184,7 @@
   "contact": {
     "title": "Neem <span>contact op</span>",
     "description": "Heb je een project in gedachten? We horen er graag over.",
-    "metaDesc": "Neem contact op met Virge.io. Laten we je volgende project bespreken.",
+    "metaDesc": "Neem contact op met Virge. Laten we je volgende project bespreken.",
     "nameLabel": "Naam",
     "namePlaceholder": "Je naam",
     "emailLabel": "E-mail",
@@ -194,17 +194,17 @@
     "submit": "Verstuur bericht"
   },
   "blog": {
-    "title": "Virge.io <span>Blog</span>",
+    "title": "Virge <span>Blog</span>",
     "description": "Inzichten over AI, automatisering en het opschalen van technologie voor bedrijven.",
-    "metaDesc": "Inzichten over AI-automatisering, RAG-pipelines en het internationaal opschalen van Nederlandse techbedrijven, van het Virge.io team.",
+    "metaDesc": "Inzichten over AI-automatisering, RAG-pipelines en het internationaal opschalen van Nederlandse techbedrijven, van het Virge team.",
     "readMore": "Lees meer →",
     "backToBlog": "← Terug naar Blog",
     "minRead": "min leestijd"
   },
   "jobs": {
-    "title": "Werk bij <span>Virge.io</span>",
+    "title": "Werk bij <span>Virge</span>",
     "description": "Wij zoeken getalenteerde mensen die de toekomst van AI en software willen bouwen.",
-    "metaDesc": "Vacatures bij Virge.io. AI consulting, full-stack development en meer.",
+    "metaDesc": "Vacatures bij Virge. AI consulting, full-stack development en meer.",
     "openPositions": "Openstaande vacatures",
     "noJobs": "Momenteel geen openstaande vacatures. Kom later terug!",
     "location": "Locatie",
@@ -221,17 +221,18 @@
   "webinars": {
     "title": "Maandelijkse <span>Webinars</span>",
     "description": "Gratis live sessies over AI-agents, netwerkautomatisering en eCommerce. Elke tweede woensdag van de maand, 15:00 tot 16:00 uur.",
-    "metaDesc": "Gratis maandelijkse webinars van Virge.io over AI-agents, SDN met de Workflow Orchestrator en ShopVirge eCommerce. Elke tweede woensdag, 15:00 uur.",
+    "metaDesc": "Gratis maandelijkse webinars van Virge over AI-agents, SDN met de Workflow Orchestrator en ShopVirge eCommerce. Elke tweede woensdag, 15:00 uur.",
     "metaTitle": "Webinars: AI-agents, SDN & eCommerce",
     "howItWorks": [
       "Gratis en vrijblijvend",
-      "Online, alleen een browser nodig",
+      "Online",
       "60 minuten, inclusief Q&A",
-      "Voertaal Engels",
+      "In het Engels",
       "Deelnamelink per e-mail"
     ],
     "calendarTitle": "Webinarkalender",
     "calendarRule": "Elke tweede woensdag van de maand · 15:00 tot 16:00 uur (CET)",
+    "calendarHint": "Klik op een gemarkeerde datum om te zien wat er op het programma staat.",
     "legendWfo": "Workflow Orchestrator / SDN",
     "legendShopVirge": "ShopVirge / eCommerce",
     "legendTba": "Onderwerp volgt",
@@ -247,7 +248,7 @@
     "details": "Details",
     "addToCalendar": "Zet in agenda",
     "backToWebinars": "← Terug naar webinars",
-    "allWebinars": "Alle webinars & kalender →",
+    "allWebinars": "Alle webinars & kalender",
     "timeLabel": "15:00 tot 16:00 uur (CET)",
     "aboutSession": "Over deze sessie",
     "agenda": "Programma",
@@ -267,15 +268,13 @@
     "webinarLabel": "Webinar",
     "questionLabel": "Vraag vooraf (optioneel)",
     "questionPlaceholder": "Iets dat we zeker moeten behandelen?",
-    "submit": "Meld me aan →",
-    "homeLabel": "Webinars",
-    "homeTitle": "Doe mee met onze volgende live sessies",
-    "homeDesc": "Elke tweede woensdag van de maand duiken we diep in één onderwerp. Gratis, online en met volop ruimte voor vragen."
+    "submit": "Meld me aan",
+    "heroRule": "Gratis · elke tweede woensdag · 15:00 uur"
   },
   "privacy": {
-    "title": "Wij volgen <span>je niet.</span>",
+    "title": "Wij volgen je <span>niet</span>.",
     "description": "Bewust. Geen analytics, geen cookies, geen trackingpixels, geen scripts van derden. De enige gegevens die we hebben, zijn wat je zelf naar ons stuurt.",
-    "metaDesc": "Virge.io volgt je bewust niet: geen analytics, geen cookies, geen trackingpixels. We hebben alleen wat je zelf met ons deelt.",
+    "metaDesc": "Virge volgt je bewust niet: geen analytics, geen cookies, geen trackingpixels. We hebben alleen wat je zelf met ons deelt.",
     "metaTitle": "Privacy",
     "updated": "Laatst bijgewerkt: 22 oktober 2026",
     "promisesTitle": "Privacy in het kort",
@@ -288,7 +287,7 @@
       {
         "icon": "chart-no-axes-column",
         "title": "Geen analytics",
-        "text": "Geen Google Analytics of andere statistiektools. We tellen je niet."
+        "text": "Geen Google Analytics of andere statistiektools. Zelfs geen bezoekersteller."
       },
       {
         "icon": "eye-off",
@@ -298,7 +297,7 @@
       {
         "icon": "code",
         "title": "Geen scripts van derden",
-        "text": "Alles op virge.io komt van onze eigen site. Niets stuurt stiekem data door."
+        "text": "Alles op deze site komt van ons eigen domein. Niets stuurt stiekem data door."
       },
       {
         "icon": "hand-heart",
@@ -310,14 +309,14 @@
       {
         "title": "Waarom we je niet volgen",
         "body": [
-          "We bouwen software voor de kost, en we weten hoeveel een gemiddelde website ongemerkt verzamelt. We vinden niet dat je voor het lezen van een blogpost met je gegevens moet betalen. Dus hebben we een keuze gemaakt: virge.io werkt zonder te weten wie je bent. Wil je praten, dan vertel je het ons. Alleen zo leren we iets over jou."
+          "We bouwen software voor de kost, en we weten hoeveel een gemiddelde website ongemerkt verzamelt. We vinden niet dat je voor het lezen van een blogpost met je gegevens moet betalen. Dus hebben we een keuze gemaakt: Virge werkt zonder te weten wie je bent. Wil je praten, dan vertel je het ons. Alleen zo leren we iets over jou."
         ]
       },
       {
         "title": "Wat je met ons deelt",
         "body": [
           "We ontvangen alleen wat je zelf invult en verstuurt:",
-          "<ul><li><strong>Contactformulier:</strong> je naam, e-mailadres en bericht.</li><li><strong>Webinar-aanmelding:</strong> je naam, e-mailadres, het gekozen webinar en, als je die invult, je bedrijf en een vraag vooraf.</li><li><strong>Sollicitaties:</strong> wat je ons per e-mail stuurt, zoals je cv en motivatie.</li></ul>",
+          "<ul><li><strong>Contactformulier:</strong> je naam, e-mailadres en bericht.</li><li><strong>Webinar-aanmelding:</strong> je naam, e-mailadres, het gekozen webinar en, als je die invult, je bedrijf en een vraag vooraf.</li><li><strong>Sollicitaties:</strong> wat je ons per e-mail stuurt, zoals je cv.</li></ul>",
           "We gebruiken het alleen voor het doel waarvoor je het stuurde: om je te antwoorden, om je de deelnamelink voor je webinar te sturen of om je sollicitatie af te handelen. Geen nieuwsbrief, tenzij je erom vraagt."
         ]
       },
@@ -331,13 +330,13 @@
       {
         "title": "Hoe lang we het bewaren",
         "body": [
-          "Niet langer dan nodig. Webinar-aanmeldingen verwijderen we zodra het webinar voorbij is en eventuele follow-up is verstuurd, tenzij je vraagt om op de hoogte te blijven. Berichten en sollicitaties verwijderen we als het gesprek is afgerond, tenzij het uitmondt in een samenwerking."
+          "Niet langer dan nodig. Berichten en sollicitaties verwijderen we als het gesprek is afgerond, tenzij het uitmondt in een samenwerking."
         ]
       },
       {
         "title": "Jouw rechten",
         "body": [
-          "Onder de AVG kun je ons altijd vragen welke gegevens we van je hebben, en die laten corrigeren of verwijderen. Stuur een bericht via onze <a href=\"/nl/contact/\">contactpagina</a>; we reageren binnen een maand. Niet tevreden over hoe we ermee omgaan? Dan kun je een klacht indienen bij de <a href=\"https://autoriteitpersoonsgegevens.nl/\" target=\"_blank\" rel=\"noopener\">Autoriteit Persoonsgegevens</a>."
+          "Volgens de AVG kun je ons altijd vragen welke gegevens we van je hebben, en die laten corrigeren of verwijderen. Stuur een bericht via onze <a href=\"/nl/contact/\">contactpagina</a>; we reageren binnen een maand. Niet tevreden over hoe we ermee omgaan? Dan kun je een klacht indienen bij de <a href=\"https://autoriteitpersoonsgegevens.nl/\" target=\"_blank\" rel=\"noopener\">Autoriteit Persoonsgegevens</a>."
         ]
       },
       {
