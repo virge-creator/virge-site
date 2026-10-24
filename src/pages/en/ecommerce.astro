@@ -39,30 +39,6 @@ const jsonLd = [
     <p>{i.ecommerce.description}</p>
   </div>
 
-  <section>
-    <div class="container">
-      <div class="features ecom-features">
-        <div class="feature highlight">
-          <h3>{i.ecommerce.contentTitle}</h3>
-          <p>{i.ecommerce.contentDesc}</p>
-          <a href={`/${lang}/ecommerce/content/`} class="feature-link">{i.ecommerce.contentLink}</a>
-        </div>
-        <div class="feature">
-          <h3>{i.ecommerce.shopTitle}</h3>
-          <p>{i.ecommerce.shopDesc}</p>
-        </div>
-        <div class="feature">
-          <h3>{i.ecommerce.consultancyTitle}</h3>
-          <p>{i.ecommerce.consultancyDesc}</p>
-        </div>
-        <div class="feature">
-          <h3>{i.ecommerce.integrationsTitle}</h3>
-          <p>{i.ecommerce.integrationsDesc}</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
   <section class="ecom-origin">
     <div class="container">
       <Callout
@@ -95,6 +71,31 @@ const jsonLd = [
     </div>
   </section>
 
+  <section class="ecom-services">
+    <div class="container">
+      <h2>{i.ecommerce.servicesTitle}</h2>
+      <div class="features ecom-features">
+        <div class="feature highlight">
+          <h3>{i.ecommerce.contentTitle}</h3>
+          <p>{i.ecommerce.contentDesc}</p>
+          <a href={`/${lang}/ecommerce/content/`} class="feature-link">{i.ecommerce.contentLink}</a>
+        </div>
+        <div class="feature">
+          <h3>{i.ecommerce.shopTitle}</h3>
+          <p>{i.ecommerce.shopDesc}</p>
+        </div>
+        <div class="feature">
+          <h3>{i.ecommerce.consultancyTitle}</h3>
+          <p>{i.ecommerce.consultancyDesc}</p>
+        </div>
+        <div class="feature">
+          <h3>{i.ecommerce.integrationsTitle}</h3>
+          <p>{i.ecommerce.integrationsDesc}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <section class="ecom-docs">
     <div class="container">
       <ResourceLinks
@@ -118,6 +119,7 @@ const jsonLd = [
     .ecom-features { grid-template-columns: 1fr; }
   }
   .ecom-origin { padding: 2rem 0; }
-  .ecom-arch, .ecom-docs { padding: 3rem 0; }
+  .ecom-arch, .ecom-services, .ecom-docs { padding: 3rem 0; }
+  .ecom-services .features { padding-top: 0; }
   .ecom-intro { color: var(--text-muted); max-width: 680px; margin: -0.75rem 0 1.75rem; }
 </style>

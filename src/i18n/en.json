@@ -222,7 +222,8 @@
     ],
     "relatedTitle": "From Virge",
     "relatedCase": "Case: hybrid search for SURF orchestrator-core",
-    "relatedWebinar": "Free webinar: Modern SDN with the WFO"
+    "relatedWebinar": "Free webinar: Modern SDN with the WFO",
+    "servicesTitle": "What we do with the WFO"
   },
   "ecommerce": {
     "title": "e<span>Commerce</span>",
@@ -377,7 +378,8 @@
     "relatedTitle": "From Virge",
     "relatedCase": "Case: a referral-gated shop for Jas voor Jeugd",
     "relatedContent": "Content as a Service",
-    "relatedWebinar": "Free webinar on ShopVirge"
+    "relatedWebinar": "Free webinar on ShopVirge",
+    "servicesTitle": "What we do in eCommerce"
   },
   "openclaw": {
     "title": "OpenClaw <span>Consultancy</span>",
