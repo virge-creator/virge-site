@@ -56,6 +56,7 @@ export const jobs: Job[] = [
     requirements: {
       en: [
         'You must be based in the European Union (EU)',
+        'If you’re based outside the Netherlands, you must have a registered business and be able to invoice us for your services',
         '3+ years experience in AI/ML or software engineering',
         'Strong Python skills',
         'Hands-on experience with Pydantic AI, LangChain, or similar agent frameworks',
@@ -66,6 +67,7 @@ export const jobs: Job[] = [
       ],
       nl: [
         'Je moet gevestigd zijn in de Europese Unie (EU)',
+        'Als je buiten Nederland woont, moet je een geregistreerde onderneming hebben en ons kunnen factureren voor je diensten',
         '3+ jaar ervaring in AI/ML of software engineering',
         'Sterke Python-vaardigheden',
         'Hands-on ervaring met Pydantic AI, LangChain, of vergelijkbare agent-frameworks',
@@ -134,6 +136,7 @@ export const jobs: Job[] = [
     requirements: {
       en: [
         'You must be based in the European Union (EU)',
+        'If you’re based outside the Netherlands, you must have a registered business and be able to invoice us for your services',
         '3+ years experience in full-stack web development',
         'Strong Python skills: FastAPI, SQLAlchemy/SQLModel, Pydantic',
         'Solid frontend skills: React with TypeScript',
@@ -145,6 +148,7 @@ export const jobs: Job[] = [
       ],
       nl: [
         'Je moet gevestigd zijn in de Europese Unie (EU)',
+        'Als je buiten Nederland woont, moet je een geregistreerde onderneming hebben en ons kunnen factureren voor je diensten',
         '3+ jaar ervaring in full-stack webontwikkeling',
         'Sterke Python-vaardigheden: FastAPI, SQLAlchemy/SQLModel, Pydantic',
         'Solide frontend-vaardigheden: React met TypeScript',
