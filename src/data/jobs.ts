@@ -40,7 +40,7 @@ export const jobs: Job[] = [
       en: 'Senior AI Consultant',
       nl: 'Senior AI Consultant',
     },
-    location: 'Remote',
+    location: 'Remote within EU',
     type: {
       en: 'Full-time / Freelance',
       nl: 'Fulltime / Freelance',
@@ -55,6 +55,8 @@ export const jobs: Job[] = [
     },
     requirements: {
       en: [
+        'You must be based in the European Union (EU)',
+        'If you’re based outside the Netherlands, you must have a registered business and be able to invoice us for your services',
         '3+ years experience in AI/ML or software engineering',
         'Strong Python skills',
         'Hands-on experience with Pydantic AI, LangChain, or similar agent frameworks',
@@ -64,6 +66,8 @@ export const jobs: Job[] = [
         'Excellent communication skills (English required, Dutch is a plus)',
       ],
       nl: [
+        'Je moet gevestigd zijn in de Europese Unie (EU)',
+        'Als je buiten Nederland woont, moet je een geregistreerde onderneming hebben en ons kunnen factureren voor je diensten',
         '3+ jaar ervaring in AI/ML of software engineering',
         'Sterke Python-vaardigheden',
         'Hands-on ervaring met Pydantic AI, LangChain, of vergelijkbare agent-frameworks',
@@ -92,7 +96,7 @@ export const jobs: Job[] = [
     offer: {
       en: [
         'Work on cutting-edge AI projects for enterprise clients',
-        'Flexible work arrangements. Remote-first, async-friendly',
+        'Flexible work arrangements. Remote-first within the EU, async-friendly',
         'Direct impact on product and architecture decisions',
         'Competitive compensation (freelance or employment)',
         'Small, senior team. No bureaucracy',
@@ -100,7 +104,7 @@ export const jobs: Job[] = [
       ],
       nl: [
         'Werk aan cutting-edge AI-projecten voor enterprise klanten',
-        'Flexibele werkafspraken. Remote-first, async-friendly',
+        'Flexibele werkafspraken. Remote-first binnen de EU, async-friendly',
         'Directe impact op product- en architectuurbeslissingen',
         'Competitieve vergoeding (freelance of dienstverband)',
         'Klein, senior team. Geen bureaucratie',
@@ -116,7 +120,7 @@ export const jobs: Job[] = [
       en: 'Fullstack Python Engineer',
       nl: 'Fullstack Python Engineer',
     },
-    location: 'Remote',
+    location: 'Remote within EU',
     type: {
       en: 'Full-time / Freelance',
       nl: 'Fulltime / Freelance',
@@ -131,6 +135,8 @@ export const jobs: Job[] = [
     },
     requirements: {
       en: [
+        'You must be based in the European Union (EU)',
+        'If you’re based outside the Netherlands, you must have a registered business and be able to invoice us for your services',
         '3+ years experience in full-stack web development',
         'Strong Python skills: FastAPI, SQLAlchemy/SQLModel, Pydantic',
         'Solid frontend skills: React with TypeScript',
@@ -141,6 +147,8 @@ export const jobs: Job[] = [
         'Comfortable working in a small, autonomous team',
       ],
       nl: [
+        'Je moet gevestigd zijn in de Europese Unie (EU)',
+        'Als je buiten Nederland woont, moet je een geregistreerde onderneming hebben en ons kunnen factureren voor je diensten',
         '3+ jaar ervaring in full-stack webontwikkeling',
         'Sterke Python-vaardigheden: FastAPI, SQLAlchemy/SQLModel, Pydantic',
         'Solide frontend-vaardigheden: React met TypeScript',
@@ -173,7 +181,7 @@ export const jobs: Job[] = [
       en: [
         'Build products used by real businesses',
         'Modern stack. No legacy code maintenance',
-        'Flexible work. Remote-first, results over hours',
+        'Flexible work. Remote-first within the EU, results over hours',
         'Competitive compensation (freelance or employment)',
         'Small team, big ownership',
         'Opportunity to work with AI tooling daily',
@@ -181,7 +189,7 @@ export const jobs: Job[] = [
       nl: [
         'Bouw producten die door echte bedrijven worden gebruikt',
         'Moderne stack. Geen legacy code onderhoud',
-        'Flexibel werken. Remote-first, resultaat boven uren',
+        'Flexibel werken. Remote-first binnen de EU, resultaat boven uren',
         'Competitieve vergoeding (freelance of dienstverband)',
         'Klein team, veel eigenaarschap',
         'Mogelijkheid om dagelijks met AI-tooling te werken',
