@@ -10,7 +10,8 @@ interface Props {
   webinar: Webinar;
 }
 
-// Fixed 1200x627 (LinkedIn / X link-image ratio) so a screenshot is ready to post.
+// Fixed-size cards so a screenshot is ready to post: 1200x627 (LinkedIn / X link
+// image) and 1080x1080 (Instagram / square feed post).
 // Only shown when the detail page is opened with ?banner.
 const { lang, webinar: w } = Astro.props;
 const i = t(lang);
@@ -18,50 +19,58 @@ const day = formatWebinarDate(w.date, lang, { day: 'numeric' });
 const month = formatWebinarDate(w.date, lang, { month: 'long', year: 'numeric' });
 const weekday = formatWebinarDate(w.date, lang, { weekday: 'long' });
 const initials = (name: string) => name.split(' ').map(p => p[0]).join('');
+const formats = [
+  { key: 'wide', size: '1200×627', use: { en: 'LinkedIn, X or Mastodon', nl: 'LinkedIn, X of Mastodon' } },
+  { key: 'square', size: '1080×1080', use: { en: 'Instagram or a square feed post', nl: 'Instagram of een vierkante feedpost' } },
+];
 ---
 <section class="social-banner-section" data-social-banner hidden>
-  <div class="container">
-    <p class="social-banner-hint">
-      {lang === 'nl'
-        ? 'Social banner (1200×627). Maak een screenshot van de kaart hieronder voor LinkedIn, X of Mastodon.'
-        : 'Social banner (1200×627). Screenshot the card below for LinkedIn, X or Mastodon.'}
-    </p>
-  </div>
-  <div class="social-banner-frame">
-    <div class:list={['social-banner', `is-${w.product}`]}>
-      <div class="sb-glow" aria-hidden="true"></div>
-      <div class="sb-top">
-        <img src="/logo.png" alt="Virge.io" class="sb-logo" width="642" height="475" />
-        <span class="sb-pill">{lang === 'nl' ? 'Gratis webinar' : 'Free webinar'}</span>
+  {formats.map(f => (
+    <>
+      <div class="container">
+        <p class="social-banner-hint">
+          {lang === 'nl'
+            ? `Social banner (${f.size}). Maak een screenshot van de kaart hieronder voor ${f.use.nl}.`
+            : `Social banner (${f.size}). Screenshot the card below for ${f.use.en}.`}
+        </p>
       </div>
+      <div class="social-banner-frame">
+        <div class:list={['social-banner', `social-banner--${f.key}`, `is-${w.product}`]}>
+          <div class="sb-glow" aria-hidden="true"></div>
+          <div class="sb-top">
+            <img src="/logo.png" alt="Virge.io" class="sb-logo" width="642" height="475" />
+            <span class="sb-pill">{lang === 'nl' ? 'Gratis webinar' : 'Free webinar'}</span>
+          </div>
 
-      <div class="sb-main">
-        <span class="sb-eyebrow">{w.product === 'wfo' ? 'Workflow Orchestrator' : 'ShopVirge'} · Webinar</span>
-        <h2 class="sb-title">{w.title[lang]}</h2>
-        <p class="sb-summary">{w.summary[lang]}</p>
-        <div class="sb-speakers">
-          {w.speakers.map(s => (
-            <span class="sb-speaker">
-              <span class="sb-avatar">{initials(s.name)}</span>
-              <span class="sb-speaker-text"><strong>{s.name}</strong><span>{s.role}</span></span>
-            </span>
-          ))}
+          <div class="sb-main">
+            <span class="sb-eyebrow">{w.product === 'wfo' ? 'Workflow Orchestrator' : 'ShopVirge'} · Webinar</span>
+            <h2 class="sb-title">{w.title[lang]}</h2>
+            <p class="sb-summary">{w.summary[lang]}</p>
+            <div class="sb-speakers">
+              {w.speakers.map(s => (
+                <span class="sb-speaker">
+                  <span class="sb-avatar">{initials(s.name)}</span>
+                  <span class="sb-speaker-text"><strong>{s.name}</strong><span>{s.role}</span></span>
+                </span>
+              ))}
+            </div>
+          </div>
+
+          <div class="sb-bottom">
+            <div class="sb-date">
+              <span class="sb-day">{day}</span>
+              <span class="sb-date-text">
+                <strong>{weekday} · {month}</strong>
+                <span><Icon name="clock" size={18} /> {i.webinars.timeLabel}</span>
+                <span><Icon name="video" size={18} /> {lang === 'nl' ? 'Online · In het Engels' : 'Online · In English'}</span>
+              </span>
+            </div>
+            <span class="sb-cta">{lang === 'nl' ? 'Meld je aan op' : 'Register at'} <strong>virge.io</strong></span>
+          </div>
         </div>
       </div>
-
-      <div class="sb-bottom">
-        <div class="sb-date">
-          <span class="sb-day">{day}</span>
-          <span class="sb-date-text">
-            <strong>{weekday} · {month}</strong>
-            <span><Icon name="clock" size={18} /> {i.webinars.timeLabel}</span>
-            <span><Icon name="video" size={18} /> {lang === 'nl' ? 'Online · In het Engels' : 'Online · In English'}</span>
-          </span>
-        </div>
-        <span class="sb-cta">{lang === 'nl' ? 'Meld je aan op' : 'Register at'} <strong>virge.io</strong></span>
-      </div>
-    </div>
-  </div>
+    </>
+  ))}
 </section>
 
 <script>
@@ -78,7 +87,7 @@ const initials = (name: string) => name.split(' ').map(p => p[0]).join('');
   .social-banner-section { padding: 2rem 0 3rem; }
   .social-banner-section[hidden] { display: none; }
   .social-banner-hint { color: var(--text-muted); font-size: 0.92rem; margin-bottom: 1rem; }
-  .social-banner-frame { overflow-x: auto; padding: 0 1.5rem; }
+  .social-banner-frame { overflow-x: auto; padding: 0 1.5rem; margin-bottom: 3rem; }
 
   .social-banner {
     --c: #5cb8ff;
@@ -152,4 +161,21 @@ const initials = (name: string) => name.split(' ').map(p => p[0]).join('');
     margin-left: auto; flex-shrink: 0; font-size: 19px; color: #fff; padding: 14px 26px; border-radius: 999px;
     background: #9d4edd; box-shadow: 0 10px 30px -12px #a855f7;
   }
+
+  /* Square: same content, bigger type, speakers stacked. */
+  .social-banner--square { width: 1080px; height: 1080px; padding: 72px; }
+  .social-banner--square .sb-logo { height: 64px; }
+  .social-banner--square .sb-pill { font-size: 18px; padding: 12px 24px; }
+  .social-banner--square .sb-eyebrow { font-size: 22px; margin-bottom: 22px; }
+  .social-banner--square .sb-title { font-size: 76px; -webkit-line-clamp: 4; }
+  .social-banner--square .sb-summary { margin-top: 24px; font-size: 28px; -webkit-line-clamp: 3; }
+  .social-banner--square .sb-speakers { flex-direction: column; gap: 16px; margin-top: 40px; }
+  .social-banner--square .sb-avatar { width: 56px; height: 56px; font-size: 19px; }
+  .social-banner--square .sb-speaker-text { font-size: 17px; }
+  .social-banner--square .sb-speaker-text strong { font-size: 21px; }
+  .social-banner--square .sb-bottom { padding-top: 32px; gap: 28px; }
+  .social-banner--square .sb-day { width: 100px; height: 100px; font-size: 52px; }
+  .social-banner--square .sb-date-text { font-size: 20px; }
+  .social-banner--square .sb-date-text strong { font-size: 26px; }
+  .social-banner--square .sb-cta { font-size: 22px; padding: 18px 30px; }
 </style>
