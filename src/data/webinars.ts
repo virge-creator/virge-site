@@ -94,7 +94,7 @@ export const webinars: Webinar[] = [
       en: ['Network engineers and NOC teams', 'WFO users and developers', 'Platform and automation engineers'],
       nl: ['Netwerkengineers en NOC-teams', 'WFO-gebruikers en -ontwikkelaars', 'Platform- en automatiseringsengineers'],
     },
-    speakers: [SPEAKERS.tim, SPEAKERS.peter, SPEAKERS.rene],
+    speakers: [SPEAKERS.tim, SPEAKERS.rene],
     tags: ['WFO', 'MCP', 'A2A', 'Netbox', 'kagent'],
     resources: [
       { label: { en: 'Slide deck: WFO Developer Days Dublin (PDF)', nl: 'Slides: WFO Developer Days Dublin (PDF)' }, href: WFO_DECK },
