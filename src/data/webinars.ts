@@ -37,6 +37,7 @@ const SPEAKERS = {
   luc: { name: 'Luc Tielen', role: 'CTO', linkedin: 'https://www.linkedin.com/in/luctielen/' },
   eloi: { name: 'Eloi Bastien', role: 'Fullstack AI developer', linkedin: 'https://www.linkedin.com/in/eloinl/' },
   tim: { name: 'Tim Frohlich', role: 'ML/AI specialist', linkedin: 'https://www.linkedin.com/in/tim-frohlich-403332169/' },
+  peter: { name: 'Peter Boers', role: 'Workflow Orchestrator core maintainer', linkedin: 'https://www.linkedin.com/in/boerspeter/' },
 } satisfies Record<string, Speaker>;
 
 const WFO_DECK =
@@ -93,7 +94,7 @@ export const webinars: Webinar[] = [
       en: ['Network engineers and NOC teams', 'WFO users and developers', 'Platform and automation engineers'],
       nl: ['Netwerkengineers en NOC-teams', 'WFO-gebruikers en -ontwikkelaars', 'Platform- en automatiseringsengineers'],
     },
-    speakers: [SPEAKERS.rene, SPEAKERS.tim],
+    speakers: [SPEAKERS.rene, SPEAKERS.tim, SPEAKERS.peter],
     tags: ['WFO', 'MCP', 'A2A', 'Netbox', 'kagent'],
     resources: [
       { label: { en: 'Slide deck: WFO Developer Days Dublin (PDF)', nl: 'Slides: WFO Developer Days Dublin (PDF)' }, href: WFO_DECK },
