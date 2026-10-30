@@ -1,0 +1,155 @@
+---
+import type { Lang } from '../i18n';
+import { t } from '../i18n';
+import Icon from './Icon.astro';
+import type { Webinar } from '../data/webinars';
+import { formatWebinarDate } from '../data/webinars';
+
+interface Props {
+  lang: Lang;
+  webinar: Webinar;
+}
+
+// Fixed 1200x627 (LinkedIn / X link-image ratio) so a screenshot is ready to post.
+// Only shown when the detail page is opened with ?banner.
+const { lang, webinar: w } = Astro.props;
+const i = t(lang);
+const day = formatWebinarDate(w.date, lang, { day: 'numeric' });
+const month = formatWebinarDate(w.date, lang, { month: 'long', year: 'numeric' });
+const weekday = formatWebinarDate(w.date, lang, { weekday: 'long' });
+const initials = (name: string) => name.split(' ').map(p => p[0]).join('');
+---
+<section class="social-banner-section" data-social-banner hidden>
+  <div class="container">
+    <p class="social-banner-hint">
+      {lang === 'nl'
+        ? 'Social banner (1200×627). Maak een screenshot van de kaart hieronder voor LinkedIn, X of Mastodon.'
+        : 'Social banner (1200×627). Screenshot the card below for LinkedIn, X or Mastodon.'}
+    </p>
+  </div>
+  <div class="social-banner-frame">
+    <div class:list={['social-banner', `is-${w.product}`]}>
+      <div class="sb-glow" aria-hidden="true"></div>
+      <div class="sb-top">
+        <img src="/logo.png" alt="Virge.io" class="sb-logo" width="642" height="475" />
+        <span class="sb-pill">{lang === 'nl' ? 'Gratis webinar' : 'Free webinar'}</span>
+      </div>
+
+      <div class="sb-main">
+        <span class="sb-eyebrow">{w.product === 'wfo' ? 'Workflow Orchestrator' : 'ShopVirge'} · Webinar</span>
+        <h2 class="sb-title">{w.title[lang]}</h2>
+        <p class="sb-summary">{w.summary[lang]}</p>
+        <div class="sb-speakers">
+          {w.speakers.map(s => (
+            <span class="sb-speaker">
+              <span class="sb-avatar">{initials(s.name)}</span>
+              <span class="sb-speaker-text"><strong>{s.name}</strong><span>{s.role}</span></span>
+            </span>
+          ))}
+        </div>
+      </div>
+
+      <div class="sb-bottom">
+        <div class="sb-date">
+          <span class="sb-day">{day}</span>
+          <span class="sb-date-text">
+            <strong>{weekday} · {month}</strong>
+            <span><Icon name="clock" size={18} /> {i.webinars.timeLabel}</span>
+            <span><Icon name="video" size={18} /> {lang === 'nl' ? 'Online · In het Engels' : 'Online · In English'}</span>
+          </span>
+        </div>
+        <span class="sb-cta">{lang === 'nl' ? 'Meld je aan op' : 'Register at'} <strong>virge.io</strong></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  if (new URLSearchParams(location.search).has('banner')) {
+    const section = document.querySelector<HTMLElement>('[data-social-banner]');
+    if (section) {
+      section.removeAttribute('hidden');
+      section.scrollIntoView();
+    }
+  }
+</script>
+
+<style>
+  .social-banner-section { padding: 2rem 0 3rem; }
+  .social-banner-section[hidden] { display: none; }
+  .social-banner-hint { color: var(--text-muted); font-size: 0.92rem; margin-bottom: 1rem; }
+  .social-banner-frame { overflow-x: auto; padding: 0 1.5rem; }
+
+  .social-banner {
+    --c: #5cb8ff;
+    position: relative; overflow: hidden; isolation: isolate;
+    width: 1200px; height: 627px; margin: 0 auto; flex-shrink: 0;
+    display: flex; flex-direction: column; padding: 48px 60px;
+    background: #0a0a1a; color: #fff;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    line-height: 1.2;
+  }
+  .social-banner.is-shopvirge { --c: #e879f9; }
+  .sb-glow {
+    position: absolute; inset: 0; z-index: -1;
+    background:
+      radial-gradient(600px 420px at 100% 0%, color-mix(in srgb, var(--c) 32%, transparent), transparent 70%),
+      radial-gradient(700px 480px at 0% 100%, rgba(108,92,231,0.38), transparent 70%),
+      linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px) 0 0 / 40px 40px,
+      linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px) 0 0 / 40px 40px;
+  }
+
+  .sb-top { display: flex; justify-content: space-between; align-items: center; }
+  .sb-logo { height: 52px; width: auto; }
+  .sb-pill {
+    font-size: 16px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase;
+    padding: 10px 20px; border-radius: 999px; color: #fff;
+    background: color-mix(in srgb, var(--c) 18%, transparent);
+    border: 1.5px solid color-mix(in srgb, var(--c) 60%, transparent);
+  }
+
+  .sb-main { flex: 1; display: flex; flex-direction: column; justify-content: center; max-width: 980px; }
+  .sb-eyebrow {
+    font-size: 18px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--c); margin-bottom: 16px;
+  }
+  .sb-title {
+    margin: 0; font-size: 56px; font-weight: 850; line-height: 1.05; letter-spacing: -0.015em; color: #fff;
+    display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;
+  }
+  .sb-summary {
+    margin: 16px 0 0; font-size: 22px; line-height: 1.4; color: #c8c8e4;
+    display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+  }
+
+  .sb-bottom {
+    display: flex; align-items: center; gap: 36px;
+    padding-top: 22px; border-top: 1px solid rgba(255,255,255,0.12);
+  }
+  .sb-date { display: flex; align-items: center; gap: 16px; }
+  .sb-day {
+    display: grid; place-items: center; width: 84px; height: 84px; border-radius: 16px;
+    font-size: 44px; font-weight: 850; color: #fff;
+    background: rgba(10,10,26,0.7);
+    border: 1.5px solid color-mix(in srgb, var(--c) 60%, transparent);
+    box-shadow: inset 0 0 30px -10px var(--c);
+  }
+  .sb-date-text { display: flex; flex-direction: column; gap: 4px; font-size: 17px; color: #c8c8e4; }
+  .sb-date-text strong { font-size: 22px; color: #fff; text-transform: capitalize; }
+  .sb-date-text span { display: inline-flex; align-items: center; gap: 8px; }
+  .sb-date-text :global(svg) { color: var(--c); }
+
+  .sb-speakers { display: flex; flex-wrap: wrap; gap: 14px 32px; margin-top: 26px; }
+  .sb-speaker { display: flex; align-items: center; gap: 10px; min-width: 0; }
+  .sb-avatar {
+    width: 48px; height: 48px; border-radius: 50%; display: grid; place-items: center; flex-shrink: 0;
+    background: linear-gradient(135deg, #6c5ce7, #a855f7); color: #fff; font-weight: 800; font-size: 17px;
+  }
+  .sb-speaker-text { display: flex; flex-direction: column; min-width: 0; font-size: 14px; color: #a1a1c4; }
+  .sb-speaker-text strong { font-size: 17px; color: #fff; white-space: nowrap; }
+
+  .sb-cta {
+    margin-left: auto; flex-shrink: 0; font-size: 19px; color: #fff; padding: 14px 26px; border-radius: 999px;
+    background: #9d4edd; box-shadow: 0 10px 30px -12px #a855f7;
+  }
+</style>
