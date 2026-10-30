@@ -33,7 +33,7 @@ export const WEBINAR_TZ = 'Europe/Amsterdam';
 export const FORMSPREE_WEBINAR = 'https://formspree.io/f/mpqjjpnb';
 
 const SPEAKERS = {
-  rene: { name: 'René Dohmen', role: 'CEO & Fullstack Python engineer', linkedin: 'https://www.linkedin.com/in/renedohmen/' },
+  rene: { name: 'René Dohmen', role: 'Fullstack Python Engineer', linkedin: 'https://www.linkedin.com/in/renedohmen/' },
   luc: { name: 'Luc Tielen', role: 'CTO', linkedin: 'https://www.linkedin.com/in/luctielen/' },
   eloi: { name: 'Eloi Bastien', role: 'Fullstack AI developer', linkedin: 'https://www.linkedin.com/in/eloinl/' },
   tim: { name: 'Tim Frohlich', role: 'ML/AI specialist', linkedin: 'https://www.linkedin.com/in/tim-frohlich-403332169/' },
