@@ -5,6 +5,7 @@ import Layout from '../layouts/Layout.astro';
 import CTA from './CTA.astro';
 import Icon from './Icon.astro';
 import WebinarForm from './WebinarForm.astro';
+import WebinarSocialCard from './WebinarSocialCard.astro';
 import type { Webinar } from '../data/webinars';
 import { startIso, endIso, formatWebinarDate, webinarPath, icsPath } from '../data/webinars';
 import { eventSchema, breadcrumbSchema } from '../data/structured-data';
@@ -29,6 +30,8 @@ const jsonLd = [
 ];
 ---
 <Layout title={w.title[lang]} description={w.summary[lang]} lang={lang} jsonLd={jsonLd}>
+  <WebinarSocialCard lang={lang} webinar={w} />
+
   <div class="page-back">
     <a href={`/${lang}/webinars/`} class="back-link">{i.webinars.backToWebinars}</a>
   </div>
