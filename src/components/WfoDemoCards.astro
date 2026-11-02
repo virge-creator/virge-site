@@ -1,21 +1,35 @@
 ---
 import { wfoDemos } from '../data/wfo-demos';
 import type { Lang } from '../i18n';
+import Icon from './Icon.astro';
 interface Props { lang: Lang }
 const { lang } = Astro.props;
 ---
 {wfoDemos.map(d => <a class="wfo-card" href={`/${lang}/cases/${d.slug}/`}>
-  <div class="card-art" aria-hidden="true"><span>{d[lang].source}</span><strong>WFO ↔ {lang === 'en' ? 'Live network' : 'Netwerkstatus'}</strong><small>{d.ticket} · Amsterdam — Paris — London</small></div>
-  <div class="card-label"><span class="demo-pill">Demo</span><span>WFO · A2A · MCP</span></div>
+  <div class="card-art" role="img" aria-label="Workflow Orchestrator, agents, NetBox">
+    <div class="primary-logos">
+      <img class="wfo-logo" src="/images/cases/surf-orchestrator-core/wfo-logo.png" alt="" width="88" height="88" />
+      <span class="agent-symbol" aria-hidden="true"><Icon name="bot" size={22} /></span>
+      <img class="netbox-logo" src="/images/cases/wfo-demos/netbox.svg" alt="" width="112" height="32" />
+    </div>
+  </div>
+  <div class="card-label">
+    <span class="demo-pill">Demo</span>
+    <span class="librechat-brand"><img src="/images/cases/wfo-demos/librechat.svg" alt="" width="20" height="20" /><span>LibreChat</span></span>
+  </div>
   <h3>{d[lang].title}</h3><p>{d[lang].intro}</p>
   <span class="card-link">{lang === 'en' ? 'Watch demo' : 'Bekijk de demo'} →</span>
 </a>)}
 <style>
-.wfo-card{display:flex;flex-direction:column;gap:.9rem;padding:1rem;border:1px solid color-mix(in srgb, var(--accent) 25%, transparent);border-radius:12px;background:var(--surface);color:var(--text);text-decoration:none;transition:transform .2s}
-.wfo-card:hover{transform:translateY(-3px);text-decoration:none;border-color:var(--link)}
-.card-art{display:flex;flex-direction:column;justify-content:center;gap:.8rem;min-height:170px;padding:1.5rem;border-radius:8px;background:var(--bg);border:1px solid var(--link)}
-.card-art strong{font-size:1.3rem}.card-art span,.card-art small,.card-label,.wfo-card p{color:var(--text-muted)}
-.card-label{display:flex;align-items:center;gap:.8rem;font-size:.78rem}.demo-pill{border:1px solid var(--link);color:var(--link);padding:.2rem .6rem;border-radius:99px;font-size:.75rem}
+.wfo-card{display:flex;flex-direction:column;gap:.9rem;padding:1rem;border:1px solid color-mix(in srgb, var(--accent) 25%, transparent);border-radius:12px;background:radial-gradient(100% 80% at 0% 0%,rgba(108,92,231,.03),transparent 60%),rgba(18,18,42,.7);color:var(--text);text-decoration:none;transition:transform .2s,border-color .2s,box-shadow .2s}
+.wfo-card:hover{transform:translateY(-3px);text-decoration:none;border-color:var(--link);box-shadow:0 8px 20px rgba(0,0,0,.16)}
+.wfo-card:focus-visible{outline:2px solid var(--link);outline-offset:4px}
+.card-art{display:flex;flex-direction:column;justify-content:center;gap:1.5rem;min-height:170px;padding:1.5rem;border-radius:8px;background:#fff;color:#132b3e}
+.primary-logos{display:grid;grid-template-columns:minmax(0,1fr) 22px minmax(0,1fr);align-items:center;justify-items:center;gap:1.5rem;width:100%;transform:translateX(-1rem)}.wfo-logo{width:min(88px,100%);height:auto;aspect-ratio:1;border-radius:12px;transform:translateX(33.3333%);flex-shrink:0}.agent-symbol{display:flex;align-items:center;flex-shrink:0;color:#526271}.netbox-logo{width:100%;max-width:160px;max-height:88px;height:auto;object-fit:contain;flex-shrink:0}
+.card-label,.wfo-card p{color:var(--text-muted)}
+.card-label{display:flex;align-items:center;flex-wrap:wrap;gap:.8rem;font-size:.78rem}.demo-pill{border:1px solid var(--link);color:var(--link);padding:.2rem .6rem;border-radius:99px;font-size:.75rem}
+.librechat-brand{display:inline-flex;align-items:center;gap:.35rem;font-size:.75rem}
 h3{font-size:1.45rem;margin:0}p{font-size:.95rem;line-height:1.65;margin:0;flex:1}.card-link{color:var(--link);font-size:.85rem;border-top:1px solid color-mix(in srgb, var(--accent) 25%, transparent);padding-top:.75rem}
+@media(max-width:600px){.wfo-logo{transform:translateX(25%)}}
 @media(prefers-reduced-motion:reduce){.wfo-card{transition:none}.wfo-card:hover{transform:none}}
 </style>

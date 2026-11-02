@@ -1,20 +1,40 @@
 ---
+import { renderMermaidSVG } from 'beautiful-mermaid';
 import type { Lang } from '../i18n';
 interface Props { lang: Lang }
 const { lang } = Astro.props;
 const en = lang === 'en';
+const title = en ? 'Multi-agent architecture' : 'Multi-agentarchitectuur';
+const diagram = `flowchart TD
+  request["${en ? 'Ticket / request' : 'Ticket / vraag'}"] --> chat["LibreChat"]
+  chat -->|OpenAI-compatible API| proxy["A2A proxy"]
+  proxy -->|A2A| planner["Planner"]
+  planner -->|A2A| wfoAgent["WFO agent"]
+  planner -->|A2A| inventoryAgent["Inventory agent"]
+  planner -->|A2A| networkAgent["Network agent"]
+  wfoAgent -->|MCP| wfo["Workflow Orchestrator"]
+  inventoryAgent -->|MCP| netboxMcp["netbox-mcp"]
+  netboxMcp -->|API| netbox["NetBox"]
+  networkAgent -->|MCP| networkMcp["network-mcp"]
+  networkMcp -->|REST + GraphQL| wfo
+  networkMcp -->|JSON-RPC| lab["SR Linux: Amsterdam ↔ Paris ↔ London"]
+`;
+const svg = renderMermaidSVG(diagram, {
+  bg: 'transparent', fg: '#f5f0e8', accent: '#6c5ce7', muted: '#8884aa',
+});
 ---
 <figure class="setup">
-  <figcaption>{en ? 'The setup at a glance' : 'De opstelling in één oogopslag'}</figcaption>
-  <div class="entry">{en ? 'Ticket / request' : 'Ticket / vraag'} → LibreChat → A2A proxy → <strong>Planner</strong></div>
-  <div class="branches">
-    <div><span>↓ A2A</span><strong>WFO agent</strong><span>↓ MCP</span><b>Workflow Orchestrator</b><small>{en ? 'Subscriptions · stored configuration' : 'Subscriptions · opgeslagen configuratie'}</small></div>
-    <div><span>↓ A2A</span><strong>Inventory agent</strong><span>↓ MCP</span><b>NetBox</b><small>{en ? 'Sites · devices · inventory' : 'Locaties · apparaten · inventaris'}</small></div>
-    <div><span>↓ A2A</span><strong>Network agent</strong><span>↓ Network MCP</span><b>SR Linux devices + WFO intent</b><small>{en ? 'Measured state · loss · service mapping' : 'Gemeten status · verlies · dienstkoppeling'}</small></div>
+  <figcaption>{title}</figcaption>
+  <div class="diagram" role="img" aria-label={en ? 'LibreChat routes requests through an A2A proxy to a planner. The planner delegates over A2A to WFO, inventory and network agents, which use MCP tools. The inventory agent queries NetBox through netbox-mcp. The network agent calls network-mcp, which reads WFO intent over REST and GraphQL and SR Linux over JSON-RPC. The containerlab network connects Amsterdam, Paris and London without an alternate path.' : 'LibreChat stuurt vragen via een A2A-proxy naar een planner. De planner schakelt via A2A de WFO-, inventory- en network-agents in. Zij gebruiken MCP-tools. De inventory-agent bevraagt NetBox via netbox-mcp. De network-agent gebruikt network-mcp, dat WFO-configuratie via REST en GraphQL ophaalt en SR Linux via JSON-RPC uitleest. Het containerlab-netwerk verbindt Amsterdam, Parijs en Londen zonder alternatief pad.'}>
+    <Fragment set:html={svg} />
   </div>
-  <div class="topology">Amsterdam <span>↔</span> Paris <span>↔</span> London <small>containerlab · Nokia SR Linux</small></div>
-  <p>{en ? 'The planner selects the specialists needed. A2A connects agents; MCP exposes tools. WFO stores intent; device measurements establish live health. This lab has no alternate path.' : 'De planner kiest de benodigde specialisten. A2A verbindt agents; MCP ontsluit tools. WFO bewaart de bedoelde configuratie; metingen tonen de netwerkstatus. Dit lab heeft geen alternatief pad.'}</p>
+  <p>{en ? 'A2A connects specialist agents; MCP exposes tools. WFO stores service intent. The network-mcp server reads it via REST and GraphQL and queries SR Linux over JSON-RPC; netbox-mcp provides inventory access. The three-node containerlab network has no alternate path.' : 'A2A verbindt gespecialiseerde agents; MCP ontsluit tools. WFO bewaart de serviceconfiguratie. De network-mcp-server leest die via REST en GraphQL en bevraagt SR Linux via JSON-RPC; netbox-mcp ontsluit inventarisgegevens. Het containerlab-netwerk met drie nodes heeft geen alternatief pad.'}</p>
 </figure>
 <style>
-.setup{margin:2rem 0;padding:1.5rem;border:1px solid color-mix(in srgb, var(--accent) 25%, transparent);border-radius:12px;background:var(--surface)}figcaption{font-size:1.25rem;font-weight:500;margin-bottom:1rem}.entry,.topology{padding:1rem;border:1px solid var(--link);border-radius:8px;text-align:center;line-height:1.7}.branches{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1rem;margin:1rem 0}.branches>div{display:flex;flex-direction:column;align-items:center;text-align:center;gap:.6rem;padding:.8rem;border:1px solid color-mix(in srgb, var(--accent) 25%, transparent);border-radius:8px}.branches span{color:var(--link);font-size:.8rem}.branches small,.topology small,p{color:var(--text-muted)}small{display:block;font-size:.8rem}.topology span{color:var(--link)}p{font-size:.85rem;line-height:1.6;margin:1rem 0 0}@media(max-width:700px){.branches{grid-template-columns:1fr}.setup{padding:1rem}}
+  .setup { margin: 0; padding: 1.25rem; border: 1px solid rgba(108,92,231,.22); border-radius: 16px; background: rgba(18,18,42,.7); }
+  figcaption { font-size: 1.25rem; font-weight: 600; margin-bottom: .75rem; }
+  .diagram { overflow-x: auto; }
+  .diagram :global(svg) { display: block; width: 100%; max-width: 760px; min-width: 540px; height: auto; margin: 0 auto; }
+  p { color: var(--text-muted); font-size: .85rem; line-height: 1.6; margin: .75rem 0 0; }
+  @media (max-width: 700px) { .setup { padding: 1rem; } }
 </style>
