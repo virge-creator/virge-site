@@ -1,0 +1,48 @@
+---
+import Layout from '../layouts/Layout.astro';
+import WfoDemoSetup from './WfoDemoSetup.astro';
+import { wfoDemos, type WfoTicket } from '../data/wfo-demos';
+import { breadcrumbSchema } from '../data/structured-data';
+import type { Lang } from '../i18n';
+interface Props { lang: Lang; ticket: WfoTicket }
+const { lang, ticket } = Astro.props;
+const d = wfoDemos.find(d => d.ticket === ticket)!;
+const c = d[lang];
+const en = lang === 'en';
+const base = `/videos/wfo-demos/${ticket}`;
+const manual = en ? ['Match the ticket’s sites or exact interface to an active subscription.', 'Check its customer, maintenance flag and stored port configuration in WFO.', 'Inspect device state and test the path; combine findings into a response.'] : ['Koppel de locaties of exacte poort uit het ticket aan een actieve subscription.', 'Controleer klant, onderhoudsvlag en poortconfiguratie in WFO.', 'Lees de apparaatstatus uit en test het pad; breng de bevindingen samen in een antwoord.'];
+const faqs = [
+ [en ? 'Is this a production incident?' : 'Is dit een productiestoring?', en ? 'No. These are example tickets in an emulated three-node network. Real SR Linux instances carry the lab traffic. Static tickets stand in for a ticket system; automatic ticket-system integration is not demonstrated.' : 'Nee. Dit zijn voorbeeldtickets in een nagebootst netwerk met drie nodes. Echte SR Linux-instances verwerken het labverkeer. Statische tickets vervangen een ticketsysteem; een automatische koppeling met zo’n systeem wordt hier niet getoond.'],
+ [en ? 'Does the assistant make changes?' : 'Voert de assistent wijzigingen uit?', en ? 'This demo is read-only. It reports findings and recommends next steps. An operator must authorize restoration or maintenance separately; no repair, port change or maintenance flag update occurs in the recording.' : 'Deze demo leest alleen. De assistent geeft bevindingen en vervolgstappen. Een operator moet herstel of onderhoud apart goedkeuren; de opname toont geen reparatie, poortwijziging of aangepaste onderhoudsvlag.'],
+ [en ? 'Is the recording real time?' : 'Is de opname in realtime?', en ? 'The silent English recording is about 70 seconds long. Model waiting has been compressed; this is an edited demonstration, not a benchmark. The final comparison and recap combine recorded WFO intent with independently captured device evidence.' : 'De Engelstalige opname zonder geluid duurt ongeveer 70 seconden. Wachttijd van het model is ingekort; dit is een gemonteerde demonstratie, geen benchmark. De vergelijking en samenvatting combineren WFO-configuratie met onafhankelijk vastgelegde apparaatmetingen.']
+];
+---
+<Layout title={c.title} description={c.intro} lang={lang} ogImage={`${base}.webp`} jsonLd={breadcrumbSchema([{name:'Home',path:`/${lang}/`},{name:'Cases',path:`/${lang}/cases/`},{name:c.title,path:`/${lang}/cases/${d.slug}/`}])}>
+<article class="wfo-demo container">
+<a href={`/${lang}/cases/`} class="back">← {en ? 'All cases' : 'Alle cases'}</a>
+<header class="demo-hero">
+<div><span class="pill">Demo</span> <span class="muted">{ticket} · {c.source}</span><h1>{c.title}</h1><p class="lead">{c.intro}</p>
+<div class="result"><span>{c.source} →</span><strong>{en ? 'Service · evidence · next step' : 'Dienst · bewijs · vervolgstap'}</strong></div>
+<a href="#setup">{en ? 'See the setup' : 'Bekijk de opstelling'} ↓</a></div>
+<figure class="recording"><video data-wfo-video controls muted playsinline loop preload="metadata" poster={`${base}.webp`} aria-label={c.title}><source src={`${base}.mp4`} type="video/mp4" /><a href={`${base}.mp4`}>{en ? 'Download the recording' : 'Download de opname'}</a></video><figcaption>{en ? '≈70 seconds · silent · edited waiting time · emulated lab' : '≈70 seconden · zonder geluid · wachttijd ingekort · nagebootst netwerk'}</figcaption></figure>
+</header>
+<section class="comparison" aria-label={en ? 'Manual versus assistant' : 'Handmatig en met de assistent'}>
+<div><h2>{en ? 'By hand' : 'Handmatig'}</h2><ol>{manual.map(step=><li>{step}</li>)}</ol></div>
+<div class="answer"><h2>{en ? 'With the assistant' : 'Met de assistent'}</h2><details><summary>{en ? 'The exact request' : 'De exacte vraag (Engels)'}</summary><blockquote>{d.prompt}</blockquote></details><p>{c.finding}</p><p>{c.outcome}</p></div>
+</section>
+<section id="setup"><WfoDemoSetup lang={lang} /></section>
+<section class="review"><div><h2>{en ? 'You stay in charge' : 'Jij houdt de regie'}</h2><ul><li>{en ? 'Confirm the subscription UUID, customer and exact interface.' : 'Controleer subscription-UUID, klant en exacte poort.'}</li><li>{en ? 'Compare stored intent with fresh device evidence; active or in sync does not prove live health.' : 'Vergelijk de configuratie met actuele metingen; actief of in sync bewijst geen gezonde verbinding.'}</li><li>{en ? 'Review the diagnosis and approve any follow-up change separately.' : 'Beoordeel de diagnose en keur een vervolgwijziging apart goed.'}</li></ul></div><div><h2>{en ? 'Questions about this demo' : 'Vragen over deze demo'}</h2>{faqs.map(([q,a])=><details><summary>{q}</summary><p>{a}</p></details>)}</div></section>
+<footer class="closing"><h2>{en ? 'Want the technical details?' : 'Meer weten over de techniek?'}</h2><p>{en ? 'Explore the agent and example stack. The network specialist and containerlab extend the base agent setup shown in the documentation.' : 'Bekijk de agent en de voorbeeldomgeving. De netwerkspecialist en containerlab breiden de basisopstelling uit de documentatie uit.'}</p><div class="links"><a href="https://workfloworchestrator.org/">WFO {en ? 'documentation' : 'documentatie'} ↗</a><a href="https://github.com/workfloworchestrator/orchestrator-agent">Orchestrator Agent ↗</a><a href="https://github.com/workfloworchestrator/example-orchestrator">Example Orchestrator ↗</a></div><p class="question">{en ? 'Which ticket sends your team between WFO and the devices every week?' : 'Voor welk ticket schakelt jouw team elke week tussen WFO en de apparaten?'}</p><a class="btn" href={`/${lang}/contact/`}>{en ? 'Discuss your use case' : 'Bespreek jouw situatie'} →</a></footer>
+</article>
+</Layout>
+<script>
+const desktop = matchMedia('(min-width: 900px)');
+const motion = matchMedia('(prefers-reduced-motion: reduce)');
+document.querySelectorAll<HTMLVideoElement>('[data-wfo-video]').forEach(video => {
+ const sync = () => { if (desktop.matches && !motion.matches) video.play().catch(() => {}); else video.pause(); };
+ sync(); desktop.addEventListener('change', sync); motion.addEventListener('change', sync);
+});
+</script>
+<style>
+.wfo-demo{padding-top:3rem;padding-bottom:4rem}.back{display:inline-block;margin-bottom:2rem}.demo-hero{display:grid;grid-template-columns:1fr 1.35fr;gap:2.5rem;align-items:center}h1{font-size:clamp(2rem,3.5vw,3.5rem);line-height:1.12;margin:1rem 0}h2{font-size:1.4rem;margin-bottom:1rem}.lead{font-size:1.1rem;color:var(--text-muted);line-height:1.7}.muted{font-size:.8rem;color:var(--text-muted)}.pill{display:inline-block;border:1px solid var(--link);color:var(--link);border-radius:99px;padding:.2rem .65rem;font-size:.75rem}.result{display:flex;flex-direction:column;gap:.4rem;padding:1rem;border-left:3px solid var(--link);margin:1.3rem 0}.result span{color:var(--text-muted);font-size:.85rem}.recording{margin:0;min-width:0}video{display:block;width:100%;aspect-ratio:16/9;border-radius:10px;background:#0b1729}figcaption{font-size:.8rem;color:var(--text-muted);margin-top:.6rem}.comparison,.review{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin:3rem 0}.comparison>div,.review>div{padding:1.5rem;border:1px solid color-mix(in srgb, var(--accent) 25%, transparent);border-radius:12px;background:var(--surface)}.answer{border-color:var(--link)!important}p,li{line-height:1.7}li{margin-bottom:.6rem}ol,ul{padding-left:1.3rem}details{border-bottom:1px solid color-mix(in srgb, var(--accent) 25%, transparent);padding:.75rem 0}summary{cursor:pointer;color:var(--link);line-height:1.5}details p,blockquote{font-size:.9rem;margin:.7rem 0;overflow-wrap:anywhere}blockquote{border-left:2px solid var(--link);padding-left:.8rem}.closing{padding:2rem 0;border-top:1px solid color-mix(in srgb, var(--accent) 25%, transparent)}.closing p{max-width:65ch;color:var(--text-muted)}.links{display:flex;gap:1rem;flex-wrap:wrap}.question{margin-top:2rem;font-size:1.15rem}#setup{scroll-margin-top:6rem}@media(max-width:900px){.demo-hero,.comparison,.review{grid-template-columns:1fr}.demo-hero{gap:1.5rem}.wfo-demo{padding-top:2rem}.comparison,.review{margin:2rem 0}}
+</style>

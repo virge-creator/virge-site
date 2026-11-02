@@ -1,0 +1,20 @@
+---
+import type { Lang } from '../i18n';
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const en = lang === 'en';
+---
+<figure class="setup">
+  <figcaption>{en ? 'The setup at a glance' : 'De opstelling in één oogopslag'}</figcaption>
+  <div class="entry">{en ? 'Ticket / request' : 'Ticket / vraag'} → LibreChat → A2A proxy → <strong>Planner</strong></div>
+  <div class="branches">
+    <div><span>↓ A2A</span><strong>WFO agent</strong><span>↓ MCP</span><b>Workflow Orchestrator</b><small>{en ? 'Subscriptions · stored configuration' : 'Subscriptions · opgeslagen configuratie'}</small></div>
+    <div><span>↓ A2A</span><strong>Inventory agent</strong><span>↓ MCP</span><b>NetBox</b><small>{en ? 'Sites · devices · inventory' : 'Locaties · apparaten · inventaris'}</small></div>
+    <div><span>↓ A2A</span><strong>Network agent</strong><span>↓ Network MCP</span><b>SR Linux devices + WFO intent</b><small>{en ? 'Measured state · loss · service mapping' : 'Gemeten status · verlies · dienstkoppeling'}</small></div>
+  </div>
+  <div class="topology">Amsterdam <span>↔</span> Paris <span>↔</span> London <small>containerlab · Nokia SR Linux</small></div>
+  <p>{en ? 'The planner selects the specialists needed. A2A connects agents; MCP exposes tools. WFO stores intent; device measurements establish live health. This lab has no alternate path.' : 'De planner kiest de benodigde specialisten. A2A verbindt agents; MCP ontsluit tools. WFO bewaart de bedoelde configuratie; metingen tonen de netwerkstatus. Dit lab heeft geen alternatief pad.'}</p>
+</figure>
+<style>
+.setup{margin:2rem 0;padding:1.5rem;border:1px solid color-mix(in srgb, var(--accent) 25%, transparent);border-radius:12px;background:var(--surface)}figcaption{font-size:1.25rem;font-weight:500;margin-bottom:1rem}.entry,.topology{padding:1rem;border:1px solid var(--link);border-radius:8px;text-align:center;line-height:1.7}.branches{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1rem;margin:1rem 0}.branches>div{display:flex;flex-direction:column;align-items:center;text-align:center;gap:.6rem;padding:.8rem;border:1px solid color-mix(in srgb, var(--accent) 25%, transparent);border-radius:8px}.branches span{color:var(--link);font-size:.8rem}.branches small,.topology small,p{color:var(--text-muted)}small{display:block;font-size:.8rem}.topology span{color:var(--link)}p{font-size:.85rem;line-height:1.6;margin:1rem 0 0}@media(max-width:700px){.branches{grid-template-columns:1fr}.setup{padding:1rem}}
+</style>

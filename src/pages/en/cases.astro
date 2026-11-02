@@ -1,6 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import CTA from '../../components/CTA.astro';
+import WfoDemoCards from '../../components/WfoDemoCards.astro';
 
 const lang = 'en';
 ---
@@ -13,6 +14,7 @@ const lang = 'en';
   <section>
     <div class="container">
       <div class="cases-grid">
+        <WfoDemoCards lang={lang} />
 
         <a href={`/${lang}/cases/surf-orchestrator-core/`} class="case-card">
           <div class="case-card-visual case-card-visual--surf" aria-hidden="true">
