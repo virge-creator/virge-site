@@ -48,3 +48,5 @@ The banner component is `src/components/WebinarSocialCard.astro`.
 The colours, logos, type and Google Slides theme are published at [/styleguide/](https://virge.io/styleguide/). The page is `src/pages/styleguide/index.astro`, its downloads are in `public/styleguide/`.
 
 The theme is a `.pptx`, because that is how Google Slides imports themes. To change it, edit `scripts/styleguide/build_slides_theme.py` and run it (it needs Pillow and numpy). It rewrites the theme and the logo files, not the two `preview-*.jpg` images. The colours in the script and on the page are kept in sync by hand.
+
+Decks built on this theme live in `decks/`. `scripts/styleguide/build_wfo_core_deck.py` builds `decks/wfo-core-principles.pptx`.
