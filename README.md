@@ -42,3 +42,9 @@ Each banner shows the Virge logo, product (blue accent for Workflow Orchestrator
 This saves a PNG at exactly the banner size, with nothing around it. In Firefox, right-click the page, choose **Take Screenshot** and click the banner.
 
 The banner component is `src/components/WebinarSocialCard.astro`.
+
+## Style guide
+
+The colours, logos, type and Google Slides theme are published at [/styleguide/](https://virge.io/styleguide/). The page is `src/pages/styleguide/index.astro`, its downloads are in `public/styleguide/`.
+
+The theme is a `.pptx`, because that is how Google Slides imports themes. To change it, edit `scripts/styleguide/build_slides_theme.py` and run it (it needs Pillow and numpy). It rewrites the theme and the logo files, not the two `preview-*.jpg` images. The colours in the script and on the page are kept in sync by hand.
