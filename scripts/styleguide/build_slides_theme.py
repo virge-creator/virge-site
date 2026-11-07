@@ -580,6 +580,8 @@ def slide_xml(sample: dict, mode: str) -> str:
     for n, (attrs, text) in enumerate(sample["fill"].items()):
         body += placeholder(i(), f"Placeholder {n + 1}", attrs, None, "", text, "<a:bodyPr/>")
     extra = sample.get("extra")
+    if callable(extra):
+        body += extra(i, mode)
     if extra == "speakers":
         for n, initials in enumerate(("TF", "RD")):
             x = (0.5, 3.6)[n]
@@ -605,13 +607,41 @@ def rels(items: list[tuple[str, str, str]]) -> str:
     return f'{XML}<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">{body}</Relationships>'
 
 
-def build() -> None:
+def notes_master_xml() -> str:
+    shapes = (
+        '<p:sp><p:nvSpPr><p:cNvPr id="2" name="Slide image"/><p:cNvSpPr><a:spLocks noGrp="1" noRot="1" noChangeAspect="1"/></p:cNvSpPr>'
+        f'<p:nvPr><p:ph type="sldImg" idx="2"/></p:nvPr></p:nvSpPr><p:spPr>{xfrm((0.7, 0.7, 4.2, 2.36))}'
+        '<a:prstGeom prst="rect"><a:avLst/></a:prstGeom></p:spPr></p:sp>'
+        + placeholder(3, "Notes", 'type="body" sz="quarter" idx="3"', (0.56, 3.3, 4.5, 5.6), "", "Notes")
+    )
+    return (
+        f"{XML}<p:notesMaster {NS}><p:cSld>{tree(shapes)}</p:cSld>"
+        '<p:clrMap bg1="lt1" tx1="dk1" bg2="lt2" tx2="dk2" accent1="accent1" accent2="accent2" accent3="accent3" '
+        'accent4="accent4" accent5="accent5" accent6="accent6" hlink="hlink" folHlink="folHlink"/></p:notesMaster>'
+    )
+
+
+def notes_xml(text: str) -> str:
+    shapes = (
+        '<p:sp><p:nvSpPr><p:cNvPr id="2" name="Slide image"/><p:cNvSpPr><a:spLocks noGrp="1" noRot="1" noChangeAspect="1"/></p:cNvSpPr>'
+        '<p:nvPr><p:ph type="sldImg"/></p:nvPr></p:nvSpPr><p:spPr/></p:sp>'
+        + placeholder(3, "Notes", 'type="body" idx="1"', None, "", text)
+    )
+    return (
+        f"{XML}<p:notes {NS}><p:cSld>{tree(shapes)}</p:cSld>"
+        "<p:clrMapOvr><a:masterClrMapping/></p:clrMapOvr></p:notes>"
+    )
+
+
+def build(output: Path = PPTX, slides=sample_slides) -> None:
+    """Write a .pptx with both masters. `slides(mode)` gives the slides per mode."""
     global MARK_RATIO
     logo_files = logos()
-    OUT.joinpath("logo").mkdir(parents=True, exist_ok=True)
-    PPTX.parent.mkdir(parents=True, exist_ok=True)
-    for name, data in logo_files.items():
-        OUT.joinpath("logo", name).write_bytes(data)
+    output.parent.mkdir(parents=True, exist_ok=True)
+    if output == PPTX:
+        OUT.joinpath("logo").mkdir(parents=True, exist_ok=True)
+        for name, data in logo_files.items():
+            OUT.joinpath("logo", name).write_bytes(data)
     mark = Image.open(io.BytesIO(logo_files["virge-mark.png"]))
     MARK_RATIO = mark.width / mark.height
 
@@ -634,7 +664,7 @@ def build() -> None:
     overrides: list[tuple[str, str]] = []
     pres_rels: list[tuple[str, str, str]] = []
     master_list, slide_list = "", ""
-    layout_no, slide_no = 0, 0
+    layout_no, slide_no, notes_no = 0, 0, 0
     next_id = 2147483648
     CT = "application/vnd.openxmlformats-officedocument"
 
@@ -690,18 +720,35 @@ def build() -> None:
         pres_rels.append((f"rIdM{m}", "slideMaster", f"slideMasters/slideMaster{m}.xml"))
         master_list += f'<p:sldMasterId id="{master_id}" r:id="rIdM{m}"/>'
 
-        for sample in sample_slides(mode):
+        for sample in slides(mode):
             slide_no += 1
             files[f"ppt/slides/slide{slide_no}.xml"] = slide_xml(sample, mode)
-            files[f"ppt/slides/_rels/slide{slide_no}.xml.rels"] = rels(
-                [("rId1", "slideLayout", f"../slideLayouts/slideLayout{by_name[sample['layout']]}.xml")]
-            )
+            slide_rels = [("rId1", "slideLayout", f"../slideLayouts/slideLayout{by_name[sample['layout']]}.xml")]
+            if sample.get("notes"):
+                notes_no += 1
+                slide_rels.append(("rId2", "notesSlide", f"../notesSlides/notesSlide{notes_no}.xml"))
+                files[f"ppt/notesSlides/notesSlide{notes_no}.xml"] = notes_xml(sample["notes"])
+                files[f"ppt/notesSlides/_rels/notesSlide{notes_no}.xml.rels"] = rels([
+                    ("rId1", "notesMaster", "../notesMasters/notesMaster1.xml"),
+                    ("rId2", "slide", f"../slides/slide{slide_no}.xml"),
+                ])
+                overrides.append((f"/ppt/notesSlides/notesSlide{notes_no}.xml", f"{CT}.presentationml.notesSlide+xml"))
+            files[f"ppt/slides/_rels/slide{slide_no}.xml.rels"] = rels(slide_rels)
             overrides.append((f"/ppt/slides/slide{slide_no}.xml", f"{CT}.presentationml.slide+xml"))
             pres_rels.append((f"rIdS{slide_no}", "slide", f"slides/slide{slide_no}.xml"))
             slide_list += f'<p:sldId id="{255 + slide_no}" r:id="rIdS{slide_no}"/>'
 
+    notes_list = ""
+    if notes_no:
+        files["ppt/notesMasters/notesMaster1.xml"] = notes_master_xml()
+        files["ppt/notesMasters/_rels/notesMaster1.xml.rels"] = rels([("rId1", "theme", "../theme/theme3.xml")])
+        files["ppt/theme/theme3.xml"] = theme_xml("light")
+        overrides.append(("/ppt/notesMasters/notesMaster1.xml", f"{CT}.presentationml.notesMaster+xml"))
+        overrides.append(("/ppt/theme/theme3.xml", f"{CT}.theme+xml"))
+        pres_rels.append(("rIdN1", "notesMaster", "notesMasters/notesMaster1.xml"))
+        notes_list = '<p:notesMasterIdLst><p:notesMasterId r:id="rIdN1"/></p:notesMasterIdLst>'
     files["ppt/presentation.xml"] = (
-        f'{XML}<p:presentation {NS} saveSubsetFonts="1"><p:sldMasterIdLst>{master_list}</p:sldMasterIdLst>'
+        f'{XML}<p:presentation {NS} saveSubsetFonts="1"><p:sldMasterIdLst>{master_list}</p:sldMasterIdLst>{notes_list}'
         f'<p:sldIdLst>{slide_list}</p:sldIdLst><p:sldSz cx="{emu(W)}" cy="{emu(H)}" type="screen16x9"/>'
         f'<p:notesSz cx="{emu(H)}" cy="{emu(W)}"/></p:presentation>'
     )
@@ -728,13 +775,13 @@ def build() -> None:
         f"{types}</Types>"
     )
 
-    with zipfile.ZipFile(PPTX, "w", zipfile.ZIP_DEFLATED) as z:
+    with zipfile.ZipFile(output, "w", zipfile.ZIP_DEFLATED) as z:
         z.writestr("[Content_Types].xml", files.pop("[Content_Types].xml"))
         for name, data in files.items():
             z.writestr(name, data)
         for name, data in media.items():
             z.writestr(f"ppt/media/{name}", data)
-    print(f"{PPTX.relative_to(ROOT)}: {PPTX.stat().st_size / 1e6:.2f} MB, {slide_no} slides, {layout_no} layouts")
+    print(f"{output.relative_to(ROOT)}: {output.stat().st_size / 1e6:.2f} MB, {slide_no} slides, {layout_no} layouts")
 
 
 if __name__ == "__main__":
