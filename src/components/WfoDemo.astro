@@ -18,11 +18,11 @@ const faqs = [
  [en ? 'Is the recording real time?' : 'Is de opname in realtime?', en ? 'The silent English recording is about 70 seconds long. Model waiting has been compressed; this is an edited demonstration, not a benchmark. The final comparison and recap combine recorded WFO intent with independently captured device evidence.' : 'De Engelstalige opname zonder geluid duurt ongeveer 70 seconden. Wachttijd van het model is ingekort; dit is een gemonteerde demonstratie, geen benchmark. De vergelijking en samenvatting combineren WFO-configuratie met onafhankelijk vastgelegde apparaatmetingen.']
 ];
 ---
-<Layout title={c.title} description={c.intro} lang={lang} ogImage={`${base}.webp`} jsonLd={breadcrumbSchema([{ name: 'Home', path: `/${lang}/` }, { name: 'Cases', path: `/${lang}/cases/` }, { name: c.title, path: `/${lang}/cases/${d.slug}/` }])}>
+<Layout title={c.title} description={c.intro} lang={lang} ogImage={`${base}.webp`} jsonLd={breadcrumbSchema([{ name: 'Home', path: `/${lang}/` }, { name: 'Cases', path: `/${lang}/cases/` }, { name: 'WFO Agent Demos', path: `/${lang}/cases/wfo-demos/` }, { name: c.title, path: `/${lang}/cases/${d.slug}/` }])}>
   <article class="wfo-demo container">
     <header class="demo-header">
       <div class="page-meta">
-        <a href={`/${lang}/cases/`} class="back"><Icon name="arrow-left" size={16} />{en ? 'All cases' : 'Alle cases'}</a>
+        <a href={`/${lang}/cases/wfo-demos/`} class="back"><Icon name="arrow-left" size={16} />{en ? 'All WFO demos' : 'Alle WFO-demo’s'}</a>
         <div class="scenario"><span class="demo-label">Demo</span><span class="ticket">{ticket}</span><span>{c.source}</span></div>
       </div>
       <div class="heading-grid">
