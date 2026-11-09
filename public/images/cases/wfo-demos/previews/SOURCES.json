@@ -1,0 +1,73 @@
+{
+  "capturedAt": "2026-11-09",
+  "images": [
+    {
+      "image": "T-1001.webp",
+      "source": "/videos/wfo-demos/T-1001.mp4",
+      "sourceSha256": "a4170bf14fe6e7f56244ec39a74015fd4537150483fef832222e381cce50e02e",
+      "timestampSeconds": 24,
+      "crop": {
+        "width": 1440,
+        "height": 810,
+        "x": 240,
+        "y": 0
+      },
+      "size": [
+        960,
+        540
+      ],
+      "description": "Frame from public/videos/wfo-demos/T-1001.mp4 at 00:24.000; crop=1440:810:240:0; scale=960:540. Actual recorded agent response; no generated imagery."
+    },
+    {
+      "image": "T-1002.webp",
+      "source": "/videos/wfo-demos/T-1002.mp4",
+      "sourceSha256": "b2e814192c8902147550914a619ad1c9833dc59781b651ce4b6ef3c0824a9eaf",
+      "timestampSeconds": 24,
+      "crop": {
+        "width": 1440,
+        "height": 810,
+        "x": 240,
+        "y": 0
+      },
+      "size": [
+        960,
+        540
+      ],
+      "description": "Frame from public/videos/wfo-demos/T-1002.mp4 at 00:24.000; crop=1440:810:240:0; scale=960:540. Actual recorded agent response; no generated imagery."
+    },
+    {
+      "image": "T-1003.webp",
+      "source": "/videos/wfo-demos/T-1003.mp4",
+      "sourceSha256": "b63c4e32a33e23d789f183dac75ddb467d983a52447b94d67ec1ffc404a89243",
+      "timestampSeconds": 24,
+      "crop": {
+        "width": 1440,
+        "height": 810,
+        "x": 240,
+        "y": 0
+      },
+      "size": [
+        960,
+        540
+      ],
+      "description": "Frame from public/videos/wfo-demos/T-1003.mp4 at 00:24.000; crop=1440:810:240:0; scale=960:540. Actual recorded agent response; no generated imagery."
+    },
+    {
+      "image": "T-1005.webp",
+      "source": "/videos/wfo-demos/T-1005.mp4",
+      "sourceSha256": "8ea0eac629780cec4fdcd817a00a74ff6fec78d55dd4e846eae35536dd485e5b",
+      "timestampSeconds": 24,
+      "crop": {
+        "width": 1440,
+        "height": 810,
+        "x": 240,
+        "y": 0
+      },
+      "size": [
+        960,
+        540
+      ],
+      "description": "Frame from public/videos/wfo-demos/T-1005.mp4 at 00:24.000; crop=1440:810:240:0; scale=960:540. Actual recorded agent response; no generated imagery."
+    }
+  ]
+}

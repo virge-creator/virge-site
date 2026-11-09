@@ -44,13 +44,13 @@ const specialists = [
   { agent: 'Network agent', system: 'SR Linux', icon: 'router' },
 ];
 const svg = renderMermaidSVG(diagram, {
-  bg: '#12122a', fg: '#e0e0f0', accent: '#c4a5ff', muted: '#a1a1c4',
-  surface: '#181830', border: '#45405f', line: '#8884aa', transparent: true,
+  bg: '#292624', fg: '#eae5df', accent: '#9db8ee', muted: '#b8b0a7',
+  surface: '#34302d', border: '#58524c', line: '#b8b0a7', transparent: true,
   padding: 24, nodeSpacing: 32, layerSpacing: 44,
 });
 ---
 <figure class="setup">
-  <figcaption>{title}</figcaption>
+  <figcaption><h2>{title}</h2></figcaption>
   <details class="technical">
     <summary><span class="show-details">{en ? 'Show technical details' : 'Toon technische details'}</span><span class="show-overview">{en ? 'Show overview' : 'Toon overzicht'}</span><span class="chevron" aria-hidden="true"><Icon name="chevron-down" size={16} /></span></summary>
     <div class="technical-content">
@@ -63,16 +63,16 @@ const svg = renderMermaidSVG(diagram, {
     </div>
   </details>
   <div class="overview">
-    <div class="scroll-region" tabindex="0" role="region" aria-label={en ? 'Architecture overview, scroll horizontally' : 'Architectuuroverzicht, horizontaal scrollbaar'}>
+    <div class="overview-content">
       <div class="overview-grid" role="img" aria-label={en ? 'A person asks the planner, which delegates to WFO, inventory and network agents connected to WFO, NetBox and SR Linux.' : 'Een gebruiker stelt een vraag aan de planner, die WFO-, inventory- en network-agents inschakelt voor WFO, NetBox en SR Linux.'}>
         <div class="node person"><span class="tile" aria-hidden="true"><Icon name="user-round" size={32} /></span><strong>{en ? 'You' : 'Jij'}</strong></div>
         <span class="connector entry-arrow" aria-hidden="true"></span>
         <div class="node planner"><span class="tile" aria-hidden="true"><Icon name="bot" size={32} /></span><strong>Planner</strong></div>
         <div class="branch" aria-hidden="true"><span></span><span></span><span></span></div>
         {specialists.map((s, i) => <>
-          <div class="node specialist" style={`grid-row:${i + 1}`}><span class="tile" aria-hidden="true"><Icon name="bot" size={32} /></span><strong>{s.agent}</strong></div>
-          <span class="connector system-arrow" style={`grid-row:${i + 1}`} aria-hidden="true"></span>
-          <div class="node system" style={`grid-row:${i + 1}`}><span class="tile" aria-hidden="true"><Icon name={s.icon} size={32} /></span><strong>{s.system}</strong></div>
+          <div class="node specialist" style={`--row:${i + 1}`}><span class="tile" aria-hidden="true"><Icon name="bot" size={32} /></span><strong>{s.agent}</strong></div>
+          <span class="connector system-arrow" style={`--row:${i + 1}`} aria-hidden="true"></span>
+          <div class="node system" style={`--row:${i + 1}`}><span class="tile" aria-hidden="true"><Icon name={s.icon} size={32} /></span><strong>{s.system}</strong></div>
         </>)}
       </div>
     </div>
@@ -80,42 +80,57 @@ const svg = renderMermaidSVG(diagram, {
   </div>
 </figure>
 <style>
-  .setup { position: relative; margin: 0; padding: 1.25rem; border: 1px solid rgba(108,92,231,.22); border-radius: 16px; background: var(--bg-card); }
-  figcaption { font-size: 1.25rem; font-weight: 600; padding-right: 14rem; min-height: 2.5rem; }
-  summary { position: absolute; right: 1.25rem; top: 1.25rem; display: flex; align-items: center; gap: .5rem; padding: .35rem .6rem; border: 1px solid rgba(108,92,231,.3); border-radius: 8px; color: var(--link); font-size: .85rem; cursor: pointer; list-style: none; }
+  .setup { position: relative; margin: 0; padding: 1.75rem; border: 1px solid var(--border); border-radius: 12px; background: var(--bg-card); }
+  figcaption { padding-right: 15rem; min-height: 2.75rem; }
+  h2 { font-size: 1.45rem; line-height: 1.4; margin: 0; }
+  summary { position: absolute; right: 1.75rem; top: 1.5rem; display: flex; align-items: center; gap: .65rem; min-height: 44px; padding: .5rem .75rem; border: 1px solid var(--border); border-radius: 6px; color: var(--text); font-size: .8rem; cursor: pointer; list-style: none; }
   summary::-webkit-details-marker { display: none; }
-  summary:hover { background: var(--bg-card-hover); }
+  summary:hover { background: var(--bg-card-hover); border-color: var(--text-muted); }
   .show-overview, .technical[open] .show-details { display: none; }
   .technical[open] .show-overview { display: inline; }
+  .chevron { color: var(--link); }
   .technical[open] .chevron { transform: rotate(180deg); }
   .technical[open] + .overview { display: none; }
-  .scroll-region { max-width: 100%; overflow-x: auto; scrollbar-width: thin; scrollbar-color: var(--text-muted) transparent; border-radius: 8px; }
-  summary:focus-visible, .scroll-region:focus-visible { outline: 2px solid var(--link); outline-offset: 3px; }
+  .scroll-region { max-width: 100%; overflow-x: auto; scrollbar-width: thin; scrollbar-color: var(--text-muted) var(--bg-card); border-radius: 6px; }
+  summary:focus-visible, .scroll-region:focus-visible { outline: 2px solid var(--link); outline-offset: 4px; }
   .diagram { width: max-content; min-width: 100%; }
   .diagram :global(svg) { display: block; max-width: none; height: auto; margin: 0 auto; }
-  .overview-grid { display: grid; grid-template-columns: 1fr 48px 1fr 70px 1fr 48px 1fr; grid-template-rows: repeat(3, 100px); align-items: center; min-width: 720px; padding: 1rem; }
-  .node { display: flex; flex-direction: column; align-items: center; gap: .4rem; text-align: center; }
-  .tile { display: grid; place-items: center; width: 56px; height: 56px; border: 1px solid #45405f; border-radius: 14px; background: var(--surface); color: var(--text); }
-  strong { font-size: 14px; font-weight: 500; white-space: nowrap; }
+  .diagram :global(text) { font-family: var(--font-body); }
+  .overview-grid { display: grid; grid-template-columns: 1fr 40px 1fr 60px 1.2fr 40px 1fr; grid-template-rows: repeat(3, 88px); align-items: center; padding: 1.25rem 0; }
+  .node { display: flex; flex-direction: column; align-items: center; gap: .5rem; text-align: center; min-width: 0; }
+  .tile { display: grid; place-items: center; width: 48px; height: 48px; color: var(--text-muted); }
+  strong { font-size: .8rem; font-weight: 500; line-height: 1.5; }
   .person { grid-column: 1; grid-row: 2; }
   .planner { grid-column: 3; grid-row: 2; }
-  .planner .tile { border-color: var(--link); color: var(--link); background: rgba(108,92,231,.08); }
-  .specialist { grid-column: 5; }
-  .system { grid-column: 7; }
-  .system .tile { color: #a7cced; }
-  .connector { position: relative; height: 1px; background: #8884aa; margin-top: -24px; }
-  .connector::after, .branch span::after { content: ''; position: absolute; right: 0; top: -3px; width: 6px; height: 6px; border-top: 1px solid #8884aa; border-right: 1px solid #8884aa; transform: rotate(45deg); }
+  .planner .tile { border: 1px solid var(--link); color: var(--link); border-radius: 12px; }
+  .specialist { grid-column: 5; grid-row: var(--row); }
+  .system { grid-column: 7; grid-row: var(--row); }
+  .system .tile { color: var(--link); }
+  .connector { position: relative; height: 1px; background: var(--text-muted); margin-top: -28px; }
+  .connector::after, .branch span::after { content: ''; position: absolute; right: 0; top: -3px; width: 6px; height: 6px; border-top: 1px solid var(--text-muted); border-right: 1px solid var(--text-muted); transform: rotate(45deg); }
   .entry-arrow { grid-column: 2; grid-row: 2; }
-  .system-arrow { grid-column: 6; }
-  .branch { grid-column: 4; grid-row: 1 / 4; position: relative; height: 200px; margin-top: -24px; }
-  .branch::before { content: ''; position: absolute; left: 50%; top: 0; bottom: 0; border-left: 1px solid #8884aa; }
-  .branch::after { content: ''; position: absolute; left: 0; right: 50%; top: 50%; border-top: 1px solid #8884aa; }
-  .branch span { position: absolute; left: 50%; right: 0; height: 1px; background: #8884aa; }
-  .branch span:nth-child(1) { top: 0; } .branch span:nth-child(2) { top: 50%; } .branch span:nth-child(3) { top: 100%; }
-  p { color: var(--text-muted); font-size: .85rem; line-height: 1.6; margin: .75rem 0 0; }
+  .system-arrow { grid-column: 6; grid-row: var(--row); }
+  .branch { grid-column: 4; grid-row: 1 / 4; position: relative; height: 176px; margin-top: -28px; }
+  .branch::before { content: ''; position: absolute; left: 50%; top: 0; bottom: 0; border-left: 1px solid var(--text-muted); }
+  .branch::after { content: ''; position: absolute; left: 0; right: 50%; top: 50%; border-top: 1px solid var(--text-muted); }
+  .branch span { position: absolute; left: 50%; right: 0; height: 1px; background: var(--text-muted); }
+  .branch span:nth-child(1) { top: 0; }
+  .branch span:nth-child(2) { top: 50%; }
+  .branch span:nth-child(3) { top: 100%; }
+  p { color: var(--text-muted); font-size: .85rem; line-height: 1.8; margin: .75rem 0 0; max-width: 80ch; }
   @media (max-width: 700px) {
-    .setup { padding: 1rem; }
+    .setup { padding: 1.25rem; }
     figcaption { padding-right: 0; }
-    summary { position: static; width: fit-content; margin: .5rem 0 1rem; }
+    h2 { font-size: 1.3rem; }
+    summary { position: static; width: fit-content; margin: .75rem 0 1rem; }
+    .overview-grid { grid-template-columns: minmax(0, 1fr) 32px minmax(0, 1fr); grid-template-rows: auto 32px auto repeat(3, 82px); padding: .5rem 0; }
+    .person { grid-column: 1 / -1; grid-row: 1; }
+    .entry-arrow { grid-column: 2; grid-row: 2; width: 22px; margin: 0 auto; transform: rotate(90deg); }
+    .planner { grid-column: 1 / -1; grid-row: 3; margin-bottom: 1rem; }
+    .branch { display: none; }
+    .specialist { grid-column: 1; grid-row: calc(var(--row) + 3); }
+    .system-arrow { grid-column: 2; grid-row: calc(var(--row) + 3); }
+    .system { grid-column: 3; grid-row: calc(var(--row) + 3); }
+    .node strong { font-size: .75rem; }
   }
 </style>

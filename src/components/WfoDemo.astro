@@ -1,6 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import WfoDemoSetup from './WfoDemoSetup.astro';
+import Icon from './Icon.astro';
 import { wfoDemos, type WfoTicket } from '../data/wfo-demos';
 import { breadcrumbSchema } from '../data/structured-data';
 import type { Lang } from '../i18n';
@@ -17,103 +18,201 @@ const faqs = [
  [en ? 'Is the recording real time?' : 'Is de opname in realtime?', en ? 'The silent English recording is about 70 seconds long. Model waiting has been compressed; this is an edited demonstration, not a benchmark. The final comparison and recap combine recorded WFO intent with independently captured device evidence.' : 'De Engelstalige opname zonder geluid duurt ongeveer 70 seconden. Wachttijd van het model is ingekort; dit is een gemonteerde demonstratie, geen benchmark. De vergelijking en samenvatting combineren WFO-configuratie met onafhankelijk vastgelegde apparaatmetingen.']
 ];
 ---
-<Layout title={c.title} description={c.intro} lang={lang} ogImage={`${base}.webp`} jsonLd={breadcrumbSchema([{name:'Home',path:`/${lang}/`},{name:'Cases',path:`/${lang}/cases/`},{name:c.title,path:`/${lang}/cases/${d.slug}/`}])}>
-<article class="wfo-demo container">
-<a href={`/${lang}/cases/`} class="back">← {en ? 'All cases' : 'Alle cases'}</a>
-<header class="demo-hero">
-<div><span class="pill">Demo</span> <span class="muted">{ticket} · {c.source}</span><h1>{c.title}</h1><p class="lead">{c.intro}</p>
-<div class="result"><span>{c.source} →</span><strong>{en ? 'Service mapping · live diagnostics' : 'Dienstkoppeling · live diagnostiek'}</strong></div>
-<a href="#setup">{en ? 'See the setup' : 'Bekijk de opstelling'} ↓</a></div>
-<figure class="recording"><video data-wfo-video controls muted playsinline loop preload="metadata" poster={`${base}.webp`} aria-label={c.title}><source src={`${base}.mp4`} type="video/mp4" /><a href={`${base}.mp4`}>{en ? 'Download the recording' : 'Download de opname'}</a></video><figcaption>{en ? '≈70 seconds · silent · edited waiting time · emulated lab' : '≈70 seconden · zonder geluid · wachttijd ingekort · nagebootst netwerk'}</figcaption></figure>
-</header>
-<section class="capabilities" aria-label={en ? 'Capabilities and findings' : 'Mogelijkheden en bevindingen'}>
-<div><h2>{en ? 'What the agent does' : 'Wat de agent doet'}</h2><ul>{capabilities.map(step=><li>{step}</li>)}</ul><details><summary>{en ? 'The exact request' : 'De exacte vraag (Engels)'}</summary><blockquote>{d.prompt}</blockquote></details></div>
-<div class="answer"><h2>{en ? 'Diagnostic findings' : 'Diagnostische bevindingen'}</h2><p>{c.finding}</p><p>{c.outcome}</p></div>
-</section>
-<section id="setup"><WfoDemoSetup lang={lang} /></section>
-<section class="review"><div><h2>{en ? 'Validation and execution boundaries' : 'Validatie en uitvoeringsgrenzen'}</h2><ul><li>{en ? 'Confirm the subscription UUID, customer and exact interface.' : 'Controleer subscription-UUID, klant en exacte poort.'}</li><li>{en ? 'Compare stored intent with fresh device evidence; active or in sync does not prove live health.' : 'Vergelijk de configuratie met actuele metingen; actief of in sync bewijst geen gezonde verbinding.'}</li><li>{en ? 'Review the diagnosis and approve any follow-up change separately.' : 'Beoordeel de diagnose en keur een vervolgwijziging apart goed.'}</li></ul></div><div><h2>{en ? 'Questions about this demo' : 'Vragen over deze demo'}</h2>{faqs.map(([q,a])=><details><summary>{q}</summary><p>{a}</p></details>)}</div></section>
-<footer class="closing"><h2>{en ? 'Explore the implementation' : 'Bekijk de implementatie'}</h2><p>{en ? 'Explore the agent and example stack. The network specialist and containerlab extend the base agent setup shown in the documentation.' : 'Bekijk de agent en de voorbeeldomgeving. De netwerkspecialist en containerlab breiden de basisopstelling uit de documentatie uit.'}</p><div class="links"><a href="https://workfloworchestrator.org/">WFO {en ? 'documentation' : 'documentatie'} ↗</a><a href="https://github.com/workfloworchestrator/orchestrator-agent">Orchestrator Agent ↗</a><a href="https://github.com/workfloworchestrator/example-orchestrator">Example Orchestrator ↗</a></div><p class="question">{en ? 'Connect specialist agents to your service and network APIs.' : 'Koppel gespecialiseerde agents aan je service- en netwerk-API’s.'}</p><a class="btn" href={`/${lang}/contact/`}>{en ? 'Discuss an integration' : 'Bespreek een integratie'} →</a></footer>
-</article>
+<Layout title={c.title} description={c.intro} lang={lang} theme="warm-noir" ogImage={`${base}.webp`} jsonLd={breadcrumbSchema([{ name: 'Home', path: `/${lang}/` }, { name: 'Cases', path: `/${lang}/cases/` }, { name: c.title, path: `/${lang}/cases/${d.slug}/` }])}>
+  <article class="wfo-demo container">
+    <header class="demo-header">
+      <div class="page-meta">
+        <a href={`/${lang}/cases/`} class="back"><Icon name="arrow-left" size={16} />{en ? 'All cases' : 'Alle cases'}</a>
+        <div class="scenario"><span class="demo-label">Demo</span><span class="ticket">{ticket}</span><span>{c.source}</span></div>
+      </div>
+      <div class="heading-grid">
+        <h1>{c.title}</h1>
+        <p class="lead">{c.intro}</p>
+      </div>
+      <div class="demo-context">
+        <span><Icon name="workflow" size={16} />{en ? 'Service mapping · live diagnostics' : 'Dienstkoppeling · live diagnostiek'}</span>
+        <a href="#setup">{en ? 'See the setup' : 'Bekijk de opstelling'}<Icon name="arrow-down" size={15} /></a>
+      </div>
+    </header>
+
+    <section class="watch-grid" aria-label={en ? 'Recording and findings' : 'Opname en bevindingen'}>
+      <figure class="recording">
+        <video data-wfo-video controls muted playsinline loop preload="none" poster={`/images/cases/wfo-demos/previews/${ticket}.webp`} aria-label={c.title}>
+          <source src={`${base}.mp4`} type="video/mp4" />
+          <a href={`${base}.mp4`}>{en ? 'Download the recording' : 'Download de opname'}</a>
+        </video>
+        <figcaption>
+          <span><Icon name="volume-x" size={14} />{en ? '≈70 seconds · silent · English' : '≈70 seconden · zonder geluid · Engels'}</span>
+          <span>{en ? 'Edited waiting time · emulated lab' : 'Wachttijd ingekort · nagebootst netwerk'}</span>
+        </figcaption>
+      </figure>
+      <aside class="findings" aria-labelledby="findings-heading">
+        <div class="finding-body">
+          <h2 id="findings-heading">{en ? 'Diagnostic findings' : 'Diagnostische bevindingen'}</h2>
+          <p>{c.finding}</p>
+        </div>
+        <div class="finding-outcome">
+          <h3>{en ? 'Impact and next steps' : 'Impact en vervolgstappen'}</h3>
+          <p>{c.outcome}</p>
+        </div>
+        <span class="read-only"><Icon name="shield-check" size={16} />{en ? 'Read-only demonstration' : 'Demo zonder wijzigingen'}</span>
+      </aside>
+    </section>
+
+    <section class="capabilities section-row" aria-labelledby="capabilities-heading">
+      <div class="section-intro"><h2 id="capabilities-heading">{en ? 'What the agent does' : 'Wat de agent doet'}</h2></div>
+      <div class="method-content">
+        <ul class="capability-list">
+          {capabilities.map((step, i) => <li><span class="method-icon" aria-hidden="true"><Icon name={['scan-search', 'git-branch', 'activity'][i]} size={21} /></span><span>{step}</span></li>)}
+        </ul>
+        <details class="request">
+          <summary><span>{en ? 'The exact request' : 'De exacte vraag (Engels)'}</span><Icon name="plus" size={18} /></summary>
+          <blockquote>{d.prompt}</blockquote>
+        </details>
+      </div>
+    </section>
+
+    <section id="setup" aria-label={en ? 'Multi-agent architecture' : 'Multi-agentarchitectuur'}><WfoDemoSetup lang={lang} /></section>
+
+    <section class="review" aria-label={en ? 'Validation and questions' : 'Validatie en vragen'}>
+      <div class="validation">
+        <h2>{en ? 'Validation and execution boundaries' : 'Validatie en uitvoeringsgrenzen'}</h2>
+        <ul>
+          <li><Icon name="check" size={17} /><span>{en ? 'Confirm the subscription UUID, customer and exact interface.' : 'Controleer subscription-UUID, klant en exacte poort.'}</span></li>
+          <li><Icon name="check" size={17} /><span>{en ? 'Compare stored intent with fresh device evidence; active or in sync does not prove live health.' : 'Vergelijk de configuratie met actuele metingen; actief of in sync bewijst geen gezonde verbinding.'}</span></li>
+          <li><Icon name="check" size={17} /><span>{en ? 'Review the diagnosis and approve any follow-up change separately.' : 'Beoordeel de diagnose en keur een vervolgwijziging apart goed.'}</span></li>
+        </ul>
+      </div>
+      <div class="questions">
+        <h2>{en ? 'Questions about this demo' : 'Vragen over deze demo'}</h2>
+        {faqs.map(([q, a]) => <details><summary><span>{q}</span><Icon name="plus" size={18} /></summary><p>{a}</p></details>)}
+      </div>
+    </section>
+
+    <section class="closing" aria-labelledby="implementation-heading">
+      <div>
+        <h2 id="implementation-heading">{en ? 'Explore the implementation' : 'Bekijk de implementatie'}</h2>
+        <p>{en ? 'Explore the agent and example stack. The network specialist and containerlab extend the base agent setup shown in the documentation.' : 'Bekijk de agent en de voorbeeldomgeving. De netwerkspecialist en containerlab breiden de basisopstelling uit de documentatie uit.'}</p>
+        <div class="source-links">
+          <a href="https://workfloworchestrator.org/">WFO {en ? 'documentation' : 'documentatie'}<Icon name="arrow-up-right" size={17} /></a>
+          <a href="https://github.com/workfloworchestrator/orchestrator-agent">Orchestrator Agent<Icon name="arrow-up-right" size={17} /></a>
+          <a href="https://github.com/workfloworchestrator/example-orchestrator">Example Orchestrator<Icon name="arrow-up-right" size={17} /></a>
+        </div>
+      </div>
+      <div class="contact">
+        <p>{en ? 'Connect specialist agents to your service and network APIs.' : 'Koppel gespecialiseerde agents aan je service- en netwerk-API’s.'}</p>
+        <a class="integration-link" href={`/${lang}/contact/`}>{en ? 'Discuss an integration' : 'Bespreek een integratie'}<Icon name="arrow-right" size={18} /></a>
+      </div>
+    </section>
+  </article>
 </Layout>
+
 <script>
-const desktop = matchMedia('(min-width: 900px)');
-const motion = matchMedia('(prefers-reduced-motion: reduce)');
-document.querySelectorAll<HTMLVideoElement>('[data-wfo-video]').forEach(video => {
- const sync = () => { if (desktop.matches && !motion.matches) video.play().catch(() => {}); else video.pause(); };
- sync(); desktop.addEventListener('change', sync); motion.addEventListener('change', sync);
-});
+  const desktop = matchMedia('(min-width: 901px)');
+  const motion = matchMedia('(prefers-reduced-motion: reduce)');
+  document.querySelectorAll<HTMLVideoElement>('[data-wfo-video]').forEach(video => {
+    const sync = () => {
+      if (desktop.matches && !motion.matches) video.play().catch(() => {});
+      else video.pause();
+    };
+    sync();
+    desktop.addEventListener('change', sync);
+    motion.addEventListener('change', sync);
+  });
 </script>
+
 <style>
-  .wfo-demo { padding-top: 2rem; padding-bottom: 2.5rem; }
+  .wfo-demo { max-width: 1240px; padding-top: 2rem; padding-bottom: 4rem; }
   .wfo-demo > section { padding: 0; }
-  .back { display: inline-block; margin-bottom: 1.5rem; font-size: .9rem; }
-  .demo-hero {
-    position: relative;
-    isolation: isolate;
-    display: grid;
-    grid-template-columns: 1fr 1.35fr;
-    gap: 2rem;
-    align-items: center;
-    padding-top: 1.25rem;
-  }
-  .demo-hero::before {
-    content: '';
-    position: absolute;
-    inset: -2rem 0 0;
-    z-index: -1;
-    pointer-events: none;
-    background: radial-gradient(ellipse at 75% 35%, rgba(108,92,231,.035), transparent 65%);
-  }
-  .demo-hero::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 4rem;
-    height: 1px;
-    background: var(--gradient);
-  }
-  .demo-hero > div { min-width: 0; }
-  h1 { font-size: clamp(2rem,3.2vw,3.1rem); line-height: 1.12; margin: .75rem 0; color: #fff; }
-  h2 { font-size: 1.3rem; margin-bottom: .75rem; }
-  .lead { font-size: 1rem; color: var(--text-muted); line-height: 1.65; }
-  .muted { font-size: .8rem; color: var(--text-muted); }
-  .pill { display: inline-block; border: 1px solid rgba(168,85,247,.4); background: rgba(108,92,231,.14); color: var(--link); border-radius: 99px; padding: .15rem .65rem; font-size: .75rem; }
-  .result { display: flex; flex-direction: column; gap: .2rem; padding: .65rem .9rem; border-left: 3px solid var(--accent2); background: linear-gradient(90deg,rgba(108,92,231,.04),transparent); margin: 1rem 0; border-radius: 0 8px 8px 0; }
-  .result span { color: var(--text-muted); font-size: .8rem; }
-  .result strong { font-size: .95rem; }
+  .page-meta, .scenario, .back, .demo-context, .demo-context > span, .demo-context a { display: flex; align-items: center; }
+  .page-meta { justify-content: space-between; gap: 1rem; margin-bottom: 2.75rem; font-size: .8rem; }
+  .back { gap: .55rem; color: var(--text-muted); }
+  .back:hover { color: var(--text); }
+  .scenario { flex-wrap: wrap; gap: .75rem; color: var(--text-muted); }
+  .demo-label { padding: .2rem .65rem; border: 1px solid var(--border); border-radius: 4px; color: var(--text); font-weight: 600; }
+  .ticket { font-variant-numeric: tabular-nums; color: var(--link); }
+  .heading-grid { display: grid; grid-template-columns: 1.45fr 1fr; gap: 3.5rem; align-items: end; }
+  h1 { font-size: clamp(2rem, 3.8vw, 3.25rem); line-height: 1.16; margin: 0; max-width: 24ch; color: var(--text); }
+  .lead { color: var(--text-muted); font-size: 1rem; line-height: 1.8; max-width: 54ch; }
+  .demo-context { justify-content: space-between; flex-wrap: wrap; gap: 1rem; padding: 1.5rem 0; margin-top: 1.5rem; border-top: 1px solid var(--border); font-size: .8rem; }
+  .demo-context > span { gap: .55rem; color: var(--text-muted); }
+  .demo-context a { gap: .5rem; }
+  .watch-grid { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); gap: 1.75rem; align-items: start; }
   .recording { margin: 0; min-width: 0; }
-  video { display: block; width: 100%; aspect-ratio: 16/9; border: 1px solid rgba(108,92,231,.3); border-radius: 12px; background: #0b1729; box-shadow: 0 8px 24px rgba(0,0,0,.16); }
-  figcaption { font-size: .75rem; color: var(--text-muted); margin-top: .5rem; }
-  .capabilities, .review { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 1.75rem 0; }
-  .capabilities > div, .review > div { min-width: 0; padding: 1.25rem; border: 1px solid rgba(108,92,231,.22); border-radius: 16px; background: rgba(18,18,42,.7); }
-  .capabilities > .answer { border-color: rgba(168,85,247,.4); background: radial-gradient(100% 80% at 0% 0%,rgba(108,92,231,.04),transparent 60%),rgba(18,18,42,.7); }
-  .answer h2 { color: var(--link); }
-  p, li { line-height: 1.65; }
-  .capabilities p, .review li { font-size: .95rem; }
-  .answer > p + p { margin-top: .65rem; }
-  li { margin-bottom: .45rem; }
-  li:last-child { margin-bottom: 0; }
-  ol, ul { padding-left: 1.3rem; }
-  li::marker { color: var(--link); }
-  details { border-bottom: 1px solid rgba(108,92,231,.2); padding: .65rem 0; }
-  details:last-child { border-bottom: 0; }
-  summary { cursor: pointer; color: var(--link); line-height: 1.5; font-size: .95rem; }
-  summary:hover { color: #fff; }
-  a:focus-visible, summary:focus-visible { outline: 2px solid var(--link); outline-offset: 4px; border-radius: 4px; }
-  details p, blockquote { font-size: .9rem; margin: .65rem 0; overflow-wrap: anywhere; }
-  blockquote { border-left: 2px solid var(--accent2); padding-left: .8rem; }
-  .closing { padding: 1.5rem; border: 1px solid rgba(108,92,231,.25); border-radius: 16px; background: radial-gradient(100% 100% at 0% 0%,rgba(108,92,231,.035),transparent 60%),rgba(18,18,42,.7); }
-  .closing p { max-width: 75ch; color: var(--text-muted); font-size: .95rem; }
-  .links { display: flex; gap: .5rem 1.25rem; flex-wrap: wrap; margin-top: .75rem; font-size: .9rem; }
-  .closing .question { margin: 1rem 0 .75rem; font-size: 1.05rem; color: var(--text); }
+  video { display: block; width: 100%; aspect-ratio: 16 / 9; border: 1px solid var(--border); border-radius: 12px; background: var(--bg-card); }
+  figcaption { display: flex; justify-content: space-between; flex-wrap: wrap; gap: .4rem 1rem; font-size: .7rem; line-height: 1.6; color: var(--text-muted); padding-top: .75rem; }
+  figcaption span:first-child { display: inline-flex; align-items: center; gap: .4rem; }
+  .findings { min-width: 0; padding: 1.5rem; background: var(--bg-card); border-radius: 12px; }
+  h2 { font-size: 1.45rem; line-height: 1.35; margin: 0 0 1.25rem; }
+  .findings h2 { font-size: 1.1rem; margin-bottom: .85rem; }
+  .findings p { font-size: .9rem; line-height: 1.8; }
+  .finding-outcome { margin-top: 1.25rem; padding-top: 1.1rem; border-top: 1px solid var(--border); }
+  .finding-outcome h3 { font-family: var(--font-body); letter-spacing: 0; font-size: .8rem; margin: 0 0 .55rem; color: var(--text-muted); }
+  .finding-outcome p { color: var(--text-muted); }
+  .read-only { display: flex; align-items: center; gap: .5rem; margin-top: 1.25rem; color: var(--link); font-size: .72rem; }
+  .section-row { display: grid; grid-template-columns: 1fr 2fr; gap: 3.5rem; }
+  .wfo-demo > .capabilities { padding-top: 2.5rem; margin: 2.75rem 0; border-top: 1px solid var(--border); }
+  .section-intro h2 { max-width: 18ch; }
+  .capability-list, .validation ul { margin: 0; padding: 0; list-style: none; }
+  .capability-list li { display: flex; align-items: start; gap: 1rem; padding: 0 0 1.2rem; font-size: .95rem; line-height: 1.75; }
+  .method-icon { display: inline-flex; flex-shrink: 0; color: var(--link); padding-top: .2rem; }
+  details { border-bottom: 1px solid var(--border); }
+  summary { display: flex; justify-content: space-between; align-items: center; gap: 1rem; min-height: 54px; padding: .85rem 0; list-style: none; cursor: pointer; color: var(--text); font-size: .9rem; font-weight: 500; line-height: 1.6; }
+  summary::-webkit-details-marker { display: none; }
+  summary :global(svg) { color: var(--link); flex-shrink: 0; transition: transform .2s ease-out; }
+  details[open] > summary :global(svg) { transform: rotate(45deg); }
+  summary:hover { color: var(--link); }
+  .request { border-top: 1px solid var(--border); margin-top: .2rem; }
+  blockquote { margin: .25rem 0 1.25rem; padding: 0; color: var(--text-muted); font-size: .95rem; line-height: 1.8; max-width: 70ch; overflow-wrap: anywhere; }
   #setup { scroll-margin-top: 6rem; }
-  @media (max-width: 900px) {
-    .demo-hero { grid-template-columns: 1fr; gap: 1.25rem; }
-    .wfo-demo { padding-top: 1.5rem; }
+  .wfo-demo > .review { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; padding-top: 2.75rem; margin: 2.75rem 0; border-top: 1px solid var(--border); }
+  .validation h2 { max-width: 25ch; }
+  .validation li { display: flex; align-items: start; gap: .8rem; font-size: .9rem; line-height: 1.8; color: var(--text-muted); margin: 0 0 1rem; }
+  .validation li :global(svg) { flex-shrink: 0; margin-top: .35rem; color: var(--link); }
+  .questions h2 { margin-bottom: .4rem; }
+  .questions details p { margin: 0 0 1.2rem; color: var(--text-muted); line-height: 1.8; font-size: .9rem; }
+  .wfo-demo > .closing { display: grid; grid-template-columns: 1.25fr 1fr; gap: 5rem; padding-top: 2.75rem; margin-top: 3rem; border-top: 1px solid var(--border); }
+  .closing p { color: var(--text-muted); font-size: .9rem; line-height: 1.8; max-width: 65ch; }
+  .source-links { display: flex; flex-direction: column; gap: .25rem; margin-top: 1.25rem; max-width: 28rem; }
+  .source-links a { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: .55rem 0; font-size: .9rem; }
+  .contact { align-self: center; border-left: 1px solid var(--border); padding-left: 2rem; }
+  .contact p { color: var(--text); font-family: var(--font-display); font-size: 1.25rem; line-height: 1.6; text-wrap: balance; max-width: 30ch; }
+  .integration-link { display: inline-flex; justify-content: center; align-items: center; gap: 1.25rem; min-height: 48px; padding: .8rem 1.25rem; margin-top: 1.5rem; border-radius: 6px; background: var(--accent-btn); color: #fff; font-size: .9rem; font-weight: 600; transition: background .18s ease-out; }
+  .integration-link:hover { background: #2c5fc4; text-decoration: none; }
+  @media (max-width: 1050px) {
+    .heading-grid { gap: 2rem; }
+    .watch-grid { grid-template-columns: minmax(0, 1.7fr) minmax(0, 1fr); gap: 1.25rem; }
+    .findings { padding: 1.25rem; }
+    .wfo-demo > .closing { gap: 2.5rem; }
   }
-  @media (max-width: 700px) {
-    .capabilities, .review { grid-template-columns: 1fr; gap: .75rem; margin: 1.25rem 0; }
-    .capabilities > div, .review > div, .closing { padding: 1rem; }
+  @media (max-width: 900px) {
+    .heading-grid { grid-template-columns: 1fr; gap: 1rem; }
+    h1 { max-width: 25ch; font-size: clamp(2rem, 5vw, 3rem); }
+    .lead { max-width: 72ch; }
+    .watch-grid { grid-template-columns: 1fr; gap: 1.5rem; }
+    .findings { display: grid; grid-template-columns: 1fr 1fr; column-gap: 2rem; padding: 1.5rem; }
+    .finding-outcome { margin: 0; padding: 0 0 0 1.5rem; border-top: 0; border-left: 1px solid var(--border); }
+    .read-only { grid-column: 1 / -1; }
+    .section-row { grid-template-columns: 1fr; gap: .5rem; }
+    .section-intro h2 { max-width: none; }
+    .wfo-demo > .review { gap: 2rem; }
+  }
+  @media (max-width: 600px) {
+    .wfo-demo { padding-top: 1.25rem; padding-bottom: 2.5rem; }
+    .page-meta { align-items: flex-start; flex-direction: column; margin-bottom: 1.75rem; gap: 1.5rem; }
+    .scenario { gap: .65rem; font-size: .75rem; }
+    h1 { font-size: clamp(1.85rem, 7.2vw, 2.5rem); }
+    .lead { font-size: .95rem; line-height: 1.75; }
+    .demo-context { padding: 1.1rem 0; margin-top: 1.25rem; font-size: .75rem; }
+    figcaption { flex-direction: column; }
+    .findings { display: block; padding: 1.25rem; }
+    .finding-outcome { border-left: 0; border-top: 1px solid var(--border); padding: 1rem 0 0; margin-top: 1rem; }
+    h2 { font-size: 1.3rem; }
+    .wfo-demo > .capabilities { padding-top: 2rem; margin: 2rem 0; }
+    .wfo-demo > .review, .wfo-demo > .closing { grid-template-columns: 1fr; gap: 2rem; padding-top: 2rem; margin-top: 2rem; }
+    .contact { border-left: 0; border-top: 1px solid var(--border); padding: 1.75rem 0 0; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    summary :global(svg), .integration-link { transition: none; }
   }
 </style>
