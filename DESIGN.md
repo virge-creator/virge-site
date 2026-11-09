@@ -97,9 +97,9 @@ components:
 
 **Current default:** the original navy/purple palette and system typography in `src/styles/global.css`. On 2026-11-09 the user restored that theme while keeping the redesigned layout. The tokens and rules in this document describe only the optional, inactive Warm Noir alternative; do not activate it on demo routes or cards by default. A real screenshot of that alternative is preserved in `docs/previews/wfo-warm-noir-sora-manrope.png` and embedded in PR #23.
 
-A brown-charcoal field, bone text and restrained blue signals give WFO demonstrations the clarity of a technical evidence report. Flat surfaces, real recording imagery and open reading sections establish a calm, precise character. Fine rules distinguish related information without enclosing every paragraph.
+A brown-charcoal field, bone text and restrained blue signals give WFO demonstrations the clarity of a technical evidence report. Flat surfaces, readable scenario diagrams on the Cases index, real recording imagery on detail pages and open reading sections establish a calm, precise character. Fine rules distinguish related information without enclosing every paragraph.
 
-This is a scoped visual world for the four bilingual WFO demo detail pages and their existing Cases cards. Detail pages opt in through `data-theme="warm-noir"`; individual cards use a local `warm-noir` scope. The surrounding Cases index and all other site surfaces retain the incumbent purple palette and system typography. This document does not establish a new site-wide default.
+This is a scoped visual world for the four bilingual WFO demo detail pages and their Cases cards. Detail pages opt in through `data-theme="warm-noir"`; individual cards use a local `warm-noir` scope. The active Cases index uses static, localized scenario diagrams in its card previews; detail pages retain their real recording posters. The surrounding site and active demo pages retain the incumbent purple palette and system typography. This document does not establish a new site-wide default.
 
 **Key Characteristics:**
 
@@ -168,7 +168,7 @@ Content surfaces have no decorative shadows, glows or gradients. Depth comes fro
 
 ## Shapes
 
-Frames and substantial panels use the `frame` radius; actions and technical disclosure controls use `action`; language controls use `menu`; the detail Demo label and small service-logo backing use `label`. This is a restrained rounded-rectangle vocabulary, not a pill system. Recording and card previews retain a (16:9) aspect ratio. Cropping belongs to the real recording stills, with provenance retained alongside the source assets.
+Frames and substantial panels use the `frame` radius; actions and technical disclosure controls use `action`; language controls use `menu`; the detail Demo label and small service-logo backing use `label`. This is a restrained rounded-rectangle vocabulary, not a pill system. Recording posters and Cases-card previews retain a (16:9) aspect ratio. Real recording posters remain on detail pages; the index uses static diagrams built from interface-native geometry and labels.
 
 Dividers are fine strokes (1px). Focus uses a pale blue outline (2px), normally offset (5px); the architecture disclosure and scroll region use a slightly tighter offset (4px).
 
@@ -190,7 +190,7 @@ Scenario metadata uses a small, noninteractive Demo label. The detail version ha
 
 ### Cards / Containers
 
-WFO Cases cards are whole-card links with a warm border, graphite fill and rounded clipping. Each has a distinct sourced recording still, heading, supporting copy, compact service identity strip and a divided “Watch demo” row. Hover changes only the border to pale blue; focus adds the outline. Findings use the same fill and frame radius with internal dividers distinguishing the outcome from the diagnosis. Reading sections remain open rather than becoming repeated panels.
+WFO Cases cards are whole-card links with a warm border, graphite fill and rounded clipping. Each has a localized 16:9 scenario diagram, heading, supporting copy, compact service identity strip and a divided “Watch demo” row. The diagrams use a small network of labeled nodes and links to explain the incident at a glance; they are static and do not imply measured network telemetry. Hover changes only the border to pale blue; focus adds the outline. Findings use the same fill and frame radius with internal dividers distinguishing the outcome from the diagnosis. Reading sections remain open rather than becoming repeated panels.
 
 ### Navigation
 
@@ -208,7 +208,7 @@ Reduced motion removes the implemented control/card transitions and smooth scrol
 
 - **Do** apply Warm Noir through the existing opt-in route or local card scope.
 - **Do** use the supplied Sora 600 and Manrope faces in both languages.
-- **Do** preserve real recording imagery, original service identities and asset provenance.
+- **Do** preserve real recording posters on detail pages, original service identities and asset provenance.
 - **Do** use tonal panels for grouped evidence and fine rules for open reading sections.
 - **Do** retain native controls, visible keyboard focus and the mobile architecture overview.
 
@@ -216,6 +216,6 @@ Reduced motion removes the implemented control/card transitions and smooth scrol
 
 - **Don't** promote this scoped world into a site-wide palette or typography default.
 - **Don't** add purple chrome, gradients, ornamental shadows or hover lift to the redesigned surfaces.
-- **Don't** replace the recording stills with fabricated interfaces or decorative illustrations.
+- **Don't** present illustrative scenario diagrams as measured telemetry or replace detail-page recording posters.
 - **Don't** turn every paragraph into another rounded panel.
 - **Don't** treat the Demo label as an interactive filter or invent form fields for these surfaces.

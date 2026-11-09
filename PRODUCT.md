@@ -34,6 +34,8 @@ Retain Virge's name and logo. On 2026-11-09 the user restored the original navy/
 
 The source videos and posters are in `public/videos/wfo-demos/`; bilingual scenario text is in `src/data/wfo-demos.ts`. Architecture reflects the verified planner, A2A, MCP, WFO, NetBox and SR Linux connections. Demo-page guidance is in the adjacent `virge-agents/.claude/skills/demo-page/`.
 
+Cases thumbnails use static, bilingual scenario diagrams for outage, interface alert, packet loss and planned maintenance. The user chose diagrams because miniature recording text did not explain the scenarios at card size. Actual recording stills remain the detail-page video posters; diagram packet symbols are illustrative and contain no measured percentages.
+
 ## Product Principles
 
 - Show the recording and specific diagnostic evidence first.

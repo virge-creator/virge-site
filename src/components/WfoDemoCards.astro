@@ -2,12 +2,13 @@
 import { wfoDemos } from '../data/wfo-demos';
 import type { Lang } from '../i18n';
 import Icon from './Icon.astro';
+import WfoDemoThumbnail from './WfoDemoThumbnail.astro';
 interface Props { lang: Lang }
 const { lang } = Astro.props;
 ---
 {wfoDemos.map(d => <a class="wfo-card" href={`/${lang}/cases/${d.slug}/`}>
   <div class="card-preview">
-    <img src={`/images/cases/wfo-demos/previews/${d.ticket}.webp`} alt="" width="960" height="540" loading="lazy" decoding="async" />
+    <WfoDemoThumbnail ticket={d.ticket} lang={lang} />
   </div>
   <div class="card-copy">
     <div class="card-meta"><span class="demo-label">Demo</span><span class="ticket">{d.ticket}</span><span>{d[lang].source}</span></div>
@@ -26,8 +27,7 @@ const { lang } = Astro.props;
   .wfo-card { display: flex; flex-direction: column; min-width: 0; overflow: hidden; border: 1px solid var(--border); border-radius: 12px; background: var(--bg-card); color: var(--text); font-family: var(--font-body); text-decoration: none; transition: border-color .18s ease-out; }
   .wfo-card:hover { border-color: var(--link); text-decoration: none; }
   .wfo-card:focus-visible { outline: 2px solid var(--link); outline-offset: 5px; }
-  .card-preview { aspect-ratio: 16 / 9; overflow: hidden; background: #fff; border-bottom: 1px solid var(--border); }
-  .card-preview > img { display: block; width: 100%; height: 100%; object-fit: cover; }
+  .card-preview { container-type: inline-size; aspect-ratio: 16 / 9; overflow: hidden; background: var(--bg); border-bottom: 1px solid var(--border); }
   .card-copy { display: flex; flex-direction: column; flex: 1; gap: 1rem; padding: 1.5rem; }
   .card-meta { display: flex; flex-wrap: wrap; align-items: center; gap: .6rem; color: var(--text-muted); font-size: .7rem; }
   .demo-label { color: var(--text); font-weight: 600; }

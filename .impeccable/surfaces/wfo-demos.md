@@ -4,7 +4,7 @@ Primary target: `src/components/WfoDemo.astro`
 Related targets: `src/components/WfoDemoSetup.astro`, `src/components/WfoDemoCards.astro`
 Mode: Experience, with technical reading below the recording.
 
-The user approved the redesigned layout on 2026-11-09, then requested the original theme again: all four EN/NL demos and their existing Cases cards use the original navy/purple palette and system typography. Keep the recording-and-findings-first composition, actual recording stills, compact service-logo strip and responsive architecture. Preserve Warm Noir with Sora + Manrope as an inactive screenshot reference in PR #23. Preserve the technical copy, caveats, links and original recordings. No site-wide redesign, new routes or deployment.
+The user approved the redesigned layout on 2026-11-09, then requested the original theme again: all four EN/NL demos and their existing Cases cards use the original navy/purple palette and system typography. Keep the recording-and-findings-first composition, compact service-logo strip and responsive architecture. The user subsequently chose scenario diagrams for the Cases thumbnails; see `wfo-thumbnails.md`. Real recording stills remain the detail-page posters. Preserve Warm Noir with Sora + Manrope as an inactive screenshot reference in PR #23. Preserve the technical copy, caveats, links and original recordings. No site-wide redesign, new routes or deployment.
 
 Reference: https://gist.github.com/d5bcbb506fe1477c7162012ac35c68df
 
@@ -24,7 +24,7 @@ Reference: https://gist.github.com/d5bcbb506fe1477c7162012ac35c68df
 
 ## Quality bar
 
-The recording remains the largest content artifact. Findings and follow-up retain their source meaning. Every architecture overview node is visible without horizontal scrolling on phones. Both languages inherit the original site typography and palette, without loading the optional fonts. Demo cards have distinct, sourced recording frames. Keyboard focus, readable contrast, reduced motion and native video controls work.
+The recording remains the largest content artifact. Findings and follow-up retain their source meaning. Every architecture overview node is visible without horizontal scrolling on phones. Both languages inherit the original site typography and palette, without loading the optional fonts. Demo cards have distinct, localized scenario diagrams, while video posters retain real recording frames. Keyboard focus, readable contrast, reduced motion and native video controls work.
 
 ## Tooling
 

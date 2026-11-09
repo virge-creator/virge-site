@@ -1,0 +1,117 @@
+---
+import Icon from './Icon.astro';
+import { wfoDemos, type WfoTicket } from '../data/wfo-demos';
+import type { Lang } from '../i18n';
+
+interface Props {
+  ticket: WfoTicket;
+  lang: Lang;
+}
+
+const { ticket, lang } = Astro.props;
+const demo = wfoDemos.find(d => d.ticket === ticket)!;
+const { scenario } = demo;
+const copy = demo[lang].thumbnail;
+const en = lang === 'en';
+const cities = en ? ['Amsterdam', 'Paris', 'London'] : ['Amsterdam', 'Parijs', 'Londen'];
+---
+
+<div class:list={['thumbnail', `thumbnail--${scenario}`]} role="img" aria-label={`${copy.title}. ${copy.description}`}>
+  <div class="thumbnail-art" aria-hidden="true">
+    <span class="thumbnail-title">{copy.title}</span>
+
+    <div class="network-track">
+      <svg class="connections" viewBox="0 0 360 64" preserveAspectRatio="none" fill="none" aria-hidden="true">
+        {scenario === 'outage' ? <>
+          <path class="fault-line" d="M60 22H180" />
+          <path class="normal-line" d="M180 22H300" />
+        </> : scenario === 'alert' ? <>
+          <path class="normal-line" d="M60 22H180M180 22H300" />
+          <path class="arrow-tip" d="m139 18 5 4-5 4m120-8 5 4-5 4" />
+        </> : scenario === 'packet-loss' ? <>
+          <path class="loss-line" d="M60 22H180" />
+          <path class="normal-line" d="M180 22H300" />
+          <rect class="packet" x="88" y="18" width="8" height="8" rx="1" />
+          <rect class="packet" x="145" y="18" width="8" height="8" rx="1" />
+          <path class="dropped-trail" d="M120 23V43" />
+          <rect class="dropped-packet" x="116" y="46" width="8" height="8" rx="1" />
+        </> : <>
+          <path class="normal-line" d="M60 22H300" />
+          <path class="planned-line" d="M85 22H154" />
+        </>}
+      </svg>
+
+      {scenario === 'outage' && <span class="outage-marker"><Icon name="circle-x" size={16} /></span>}
+
+      <div class="network-nodes">
+        {scenario === 'alert' ? <>
+          <div class="node">
+            <span class="node-symbol alert-symbol"><Icon name="triangle-alert" size={25} /></span>
+            <span class="node-label">PAR <code>ethernet-1/2</code></span>
+          </div>
+          <div class="node">
+            <span class="node-symbol"><Icon name="workflow" size={25} /></span>
+            <span class="node-label">{en ? 'WFO service' : 'WFO-dienst'}</span>
+          </div>
+          <div class="node">
+            <span class="node-symbol"><Icon name="user-round" size={25} /></span>
+            <span class="node-label">SURF</span>
+          </div>
+        </> : cities.map((city, i) => <div class="node">
+          <span class:list={['node-symbol', { 'planned-symbol': scenario === 'maintenance' && i === 1, 'port-disabled-symbol': scenario === 'outage' && i === 1 }]}>
+            <Icon name={scenario === 'maintenance' && i === 1 ? 'calendar-clock' : 'router'} size={25} />
+          </span>
+          <span class="node-label">{city}</span>
+        </div>)}
+      </div>
+    </div>
+
+    <div class="thumbnail-detail">
+      <span class="detail-label">
+        <Icon name={scenario === 'outage' ? 'unplug' : scenario === 'alert' ? 'network' : scenario === 'packet-loss' ? 'activity' : 'calendar-clock'} size={16} />
+        <span>{copy.detail}</span>
+      </span>
+      {scenario === 'maintenance' && <span class="maintenance-window">02:00–04:00</span>}
+    </div>
+  </div>
+</div>
+
+<style>
+  .thumbnail { height: 100%; color: var(--text); background: var(--bg); }
+  .thumbnail-art { display: grid; grid-template-rows: auto 1fr auto; gap: clamp(.4rem, 2cqi, .75rem); height: 100%; padding: clamp(.75rem, 4.7cqi, 1.5rem); }
+  .thumbnail-title { font-family: var(--font-display); font-size: clamp(1.125rem, 5.5cqi, 1.65rem); font-weight: 600; line-height: 1.25; letter-spacing: -.02em; }
+  .network-track { position: relative; align-self: center; min-width: 0; }
+  .connections { position: absolute; inset: 0 0 auto; width: 100%; height: 64px; overflow: visible; }
+  .connections path, .connections rect { vector-effect: non-scaling-stroke; }
+  .normal-line, .arrow-tip { stroke: var(--link); stroke-width: 1.5; }
+  .fault-line { stroke: #efbd87; stroke-width: 1.5; }
+  .loss-line { stroke: var(--link); stroke-width: 1.5; stroke-dasharray: 3 6; }
+  .packet { fill: var(--link); stroke: var(--bg); stroke-width: 2; }
+  .dropped-trail { stroke: #efbd87; stroke-width: 1.5; stroke-dasharray: 2 4; }
+  .dropped-packet { fill: var(--bg); stroke: #efbd87; stroke-width: 1.5; }
+  .planned-line { stroke: #efbd87; stroke-width: 2; stroke-dasharray: 4 5; }
+  .network-nodes { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); position: relative; }
+  .node { display: flex; flex-direction: column; align-items: center; gap: .5rem; min-width: 0; text-align: center; }
+  .node-symbol { display: grid; place-items: center; width: 44px; height: 44px; border: 1px solid var(--border); border-radius: 50%; background: var(--bg-card); color: var(--link); }
+  .node-label { color: var(--text-muted); font-size: clamp(.75rem, 3.4cqi, .875rem); line-height: 1.3; }
+  .node-label code { display: block; font-size: .75rem; line-height: 1.4; color: var(--text); }
+  .alert-symbol, .planned-symbol { color: #efbd87; border-color: #9a784f; }
+  .port-disabled-symbol { border-color: #9a784f; }
+  .outage-marker { position: absolute; left: calc(50% - 22px); top: 22px; z-index: 1; display: flex; padding: 2px; background: var(--bg); color: #efbd87; transform: translate(-50%, -50%); }
+  .thumbnail-detail { display: flex; justify-content: space-between; flex-wrap: wrap; align-items: center; gap: .35rem .5rem; font-size: clamp(.75rem, 3.5cqi, .875rem); line-height: 1.35; color: var(--text-muted); }
+  .detail-label { display: inline-flex; align-items: center; gap: .45rem; }
+  .detail-label :global(svg) { flex-shrink: 0; color: var(--link); }
+  .thumbnail--outage .detail-label :global(svg), .thumbnail--maintenance .detail-label :global(svg) { color: #efbd87; }
+  .maintenance-window { font-variant-numeric: tabular-nums; color: var(--text); }
+  @container (max-width: 330px) {
+    .thumbnail-art { gap: .4rem; }
+    .thumbnail-title { font-size: 1.125rem; }
+    .thumbnail-detail { font-size: .75rem; }
+    .node { gap: .35rem; }
+    .node-symbol { width: 36px; height: 36px; }
+    .node-label { font-size: .75rem; }
+    .node-label code { font-size: .6875rem; white-space: nowrap; }
+    .connections { top: -4px; }
+    .outage-marker { left: calc(50% - 18px); top: 18px; }
+  }
+</style>
