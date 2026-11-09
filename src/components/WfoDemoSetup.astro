@@ -1,40 +1,121 @@
 ---
 import { renderMermaidSVG } from 'beautiful-mermaid';
+import Icon from './Icon.astro';
 import type { Lang } from '../i18n';
 interface Props { lang: Lang }
 const { lang } = Astro.props;
 const en = lang === 'en';
 const title = en ? 'Multi-agent architecture' : 'Multi-agentarchitectuur';
-const diagram = `flowchart TD
-  request["${en ? 'Ticket / request' : 'Ticket / vraag'}"] --> chat["LibreChat"]
-  chat -->|OpenAI-compatible API| proxy["A2A proxy"]
-  proxy -->|A2A| planner["Planner"]
-  planner -->|A2A| wfoAgent["WFO agent"]
-  planner -->|A2A| inventoryAgent["Inventory agent"]
-  planner -->|A2A| networkAgent["Network agent"]
-  wfoAgent -->|MCP| wfo["Workflow Orchestrator"]
-  inventoryAgent -->|MCP| netboxMcp["netbox-mcp"]
-  netboxMcp -->|API| netbox["NetBox"]
-  networkAgent -->|MCP| networkMcp["network-mcp"]
+const diagram = `flowchart LR
+  subgraph clients["${en ? 'Request path' : 'Invoer'}"]
+    direction TB
+    request["${en ? 'Ticket / request' : 'Ticket / vraag'}"] --> chat["LibreChat"]
+    chat -->|OpenAI-compatible API| proxy["A2A proxy"]
+  end
+  subgraph agents["Agents"]
+    planner["Planner"]
+    wfoAgent["WFO agent"]
+    inventoryAgent["Inventory agent"]
+    networkAgent["Network agent"]
+    planner -->|A2A| wfoAgent
+    planner -->|A2A| inventoryAgent
+    planner -->|A2A| networkAgent
+  end
+  subgraph tools["MCP servers"]
+    netboxMcp["netbox-mcp"]
+    networkMcp["network-mcp"]
+  end
+  subgraph systems["${en ? 'Systems' : 'Systemen'}"]
+    wfo["Workflow Orchestrator"]
+    netbox["NetBox"]
+    lab["SR Linux: Amsterdam ↔ Paris ↔ London"]
+  end
+  proxy -->|A2A| planner
+  wfoAgent -->|MCP| wfo
+  inventoryAgent -->|MCP| netboxMcp
+  netboxMcp -->|API| netbox
+  networkAgent -->|MCP| networkMcp
   networkMcp -->|REST + GraphQL| wfo
-  networkMcp -->|JSON-RPC| lab["SR Linux: Amsterdam ↔ Paris ↔ London"]
+  networkMcp -->|JSON-RPC| lab
 `;
+const specialists = [
+  { agent: 'WFO agent', system: 'WFO', icon: 'workflow' },
+  { agent: 'Inventory agent', system: 'NetBox', icon: 'database' },
+  { agent: 'Network agent', system: 'SR Linux', icon: 'router' },
+];
 const svg = renderMermaidSVG(diagram, {
-  bg: 'transparent', fg: '#f5f0e8', accent: '#6c5ce7', muted: '#8884aa',
+  bg: '#12122a', fg: '#e0e0f0', accent: '#c4a5ff', muted: '#a1a1c4',
+  surface: '#181830', border: '#45405f', line: '#8884aa', transparent: true,
+  padding: 24, nodeSpacing: 32, layerSpacing: 44,
 });
 ---
 <figure class="setup">
   <figcaption>{title}</figcaption>
+  <details class="technical">
+    <summary><span class="show-details">{en ? 'Show technical details' : 'Toon technische details'}</span><span class="show-overview">{en ? 'Show overview' : 'Toon overzicht'}</span><span class="chevron" aria-hidden="true"><Icon name="chevron-down" size={16} /></span></summary>
+    <div class="technical-content">
+    <div class="scroll-region" tabindex="0" role="region" aria-label={en ? 'Technical architecture, scroll horizontally' : 'Technische architectuur, horizontaal scrollbaar'}>
   <div class="diagram" role="img" aria-label={en ? 'LibreChat routes requests through an A2A proxy to a planner. The planner delegates over A2A to WFO, inventory and network agents, which use MCP tools. The inventory agent queries NetBox through netbox-mcp. The network agent calls network-mcp, which reads WFO intent over REST and GraphQL and SR Linux over JSON-RPC. The containerlab network connects Amsterdam, Paris and London without an alternate path.' : 'LibreChat stuurt vragen via een A2A-proxy naar een planner. De planner schakelt via A2A de WFO-, inventory- en network-agents in. Zij gebruiken MCP-tools. De inventory-agent bevraagt NetBox via netbox-mcp. De network-agent gebruikt network-mcp, dat WFO-configuratie via REST en GraphQL ophaalt en SR Linux via JSON-RPC uitleest. Het containerlab-netwerk verbindt Amsterdam, Parijs en Londen zonder alternatief pad.'}>
     <Fragment set:html={svg} />
   </div>
+    </div>
   <p>{en ? 'A2A connects specialist agents; MCP exposes tools. WFO stores service intent. The network-mcp server reads it via REST and GraphQL and queries SR Linux over JSON-RPC; netbox-mcp provides inventory access. The three-node containerlab network has no alternate path.' : 'A2A verbindt gespecialiseerde agents; MCP ontsluit tools. WFO bewaart de serviceconfiguratie. De network-mcp-server leest die via REST en GraphQL en bevraagt SR Linux via JSON-RPC; netbox-mcp ontsluit inventarisgegevens. Het containerlab-netwerk met drie nodes heeft geen alternatief pad.'}</p>
+    </div>
+  </details>
+  <div class="overview">
+    <div class="scroll-region" tabindex="0" role="region" aria-label={en ? 'Architecture overview, scroll horizontally' : 'Architectuuroverzicht, horizontaal scrollbaar'}>
+      <div class="overview-grid" role="img" aria-label={en ? 'A person asks the planner, which delegates to WFO, inventory and network agents connected to WFO, NetBox and SR Linux.' : 'Een gebruiker stelt een vraag aan de planner, die WFO-, inventory- en network-agents inschakelt voor WFO, NetBox en SR Linux.'}>
+        <div class="node person"><span class="tile" aria-hidden="true"><Icon name="user-round" size={32} /></span><strong>{en ? 'You' : 'Jij'}</strong></div>
+        <span class="connector entry-arrow" aria-hidden="true"></span>
+        <div class="node planner"><span class="tile" aria-hidden="true"><Icon name="bot" size={32} /></span><strong>Planner</strong></div>
+        <div class="branch" aria-hidden="true"><span></span><span></span><span></span></div>
+        {specialists.map((s, i) => <>
+          <div class="node specialist" style={`grid-row:${i + 1}`}><span class="tile" aria-hidden="true"><Icon name="bot" size={32} /></span><strong>{s.agent}</strong></div>
+          <span class="connector system-arrow" style={`grid-row:${i + 1}`} aria-hidden="true"></span>
+          <div class="node system" style={`grid-row:${i + 1}`}><span class="tile" aria-hidden="true"><Icon name={s.icon} size={32} /></span><strong>{s.system}</strong></div>
+        </>)}
+      </div>
+    </div>
+    <p>{en ? 'One planner coordinates three specialists. Expand for the APIs, tools and shared service data behind each connection.' : 'Eén planner coördineert drie specialisten. Bekijk de details voor de API’s, tools en gedeelde servicegegevens achter elke verbinding.'}</p>
+  </div>
 </figure>
 <style>
-  .setup { margin: 0; padding: 1.25rem; border: 1px solid rgba(108,92,231,.22); border-radius: 16px; background: rgba(18,18,42,.7); }
-  figcaption { font-size: 1.25rem; font-weight: 600; margin-bottom: .75rem; }
-  .diagram { overflow-x: auto; }
-  .diagram :global(svg) { display: block; width: 100%; max-width: 760px; min-width: 540px; height: auto; margin: 0 auto; }
+  .setup { position: relative; margin: 0; padding: 1.25rem; border: 1px solid rgba(108,92,231,.22); border-radius: 16px; background: var(--bg-card); }
+  figcaption { font-size: 1.25rem; font-weight: 600; padding-right: 14rem; min-height: 2.5rem; }
+  summary { position: absolute; right: 1.25rem; top: 1.25rem; display: flex; align-items: center; gap: .5rem; padding: .35rem .6rem; border: 1px solid rgba(108,92,231,.3); border-radius: 8px; color: var(--link); font-size: .85rem; cursor: pointer; list-style: none; }
+  summary::-webkit-details-marker { display: none; }
+  summary:hover { background: var(--bg-card-hover); }
+  .show-overview, .technical[open] .show-details { display: none; }
+  .technical[open] .show-overview { display: inline; }
+  .technical[open] .chevron { transform: rotate(180deg); }
+  .technical[open] + .overview { display: none; }
+  .scroll-region { max-width: 100%; overflow-x: auto; scrollbar-width: thin; scrollbar-color: var(--text-muted) transparent; border-radius: 8px; }
+  summary:focus-visible, .scroll-region:focus-visible { outline: 2px solid var(--link); outline-offset: 3px; }
+  .diagram { width: max-content; min-width: 100%; }
+  .diagram :global(svg) { display: block; max-width: none; height: auto; margin: 0 auto; }
+  .overview-grid { display: grid; grid-template-columns: 1fr 48px 1fr 70px 1fr 48px 1fr; grid-template-rows: repeat(3, 100px); align-items: center; min-width: 720px; padding: 1rem; }
+  .node { display: flex; flex-direction: column; align-items: center; gap: .4rem; text-align: center; }
+  .tile { display: grid; place-items: center; width: 56px; height: 56px; border: 1px solid #45405f; border-radius: 14px; background: var(--surface); color: var(--text); }
+  strong { font-size: 14px; font-weight: 500; white-space: nowrap; }
+  .person { grid-column: 1; grid-row: 2; }
+  .planner { grid-column: 3; grid-row: 2; }
+  .planner .tile { border-color: var(--link); color: var(--link); background: rgba(108,92,231,.08); }
+  .specialist { grid-column: 5; }
+  .system { grid-column: 7; }
+  .system .tile { color: #a7cced; }
+  .connector { position: relative; height: 1px; background: #8884aa; margin-top: -24px; }
+  .connector::after, .branch span::after { content: ''; position: absolute; right: 0; top: -3px; width: 6px; height: 6px; border-top: 1px solid #8884aa; border-right: 1px solid #8884aa; transform: rotate(45deg); }
+  .entry-arrow { grid-column: 2; grid-row: 2; }
+  .system-arrow { grid-column: 6; }
+  .branch { grid-column: 4; grid-row: 1 / 4; position: relative; height: 200px; margin-top: -24px; }
+  .branch::before { content: ''; position: absolute; left: 50%; top: 0; bottom: 0; border-left: 1px solid #8884aa; }
+  .branch::after { content: ''; position: absolute; left: 0; right: 50%; top: 50%; border-top: 1px solid #8884aa; }
+  .branch span { position: absolute; left: 50%; right: 0; height: 1px; background: #8884aa; }
+  .branch span:nth-child(1) { top: 0; } .branch span:nth-child(2) { top: 50%; } .branch span:nth-child(3) { top: 100%; }
   p { color: var(--text-muted); font-size: .85rem; line-height: 1.6; margin: .75rem 0 0; }
-  @media (max-width: 700px) { .setup { padding: 1rem; } }
+  @media (max-width: 700px) {
+    .setup { padding: 1rem; }
+    figcaption { padding-right: 0; }
+    summary { position: static; width: fit-content; margin: .5rem 0 1rem; }
+  }
 </style>
