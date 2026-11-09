@@ -1,6 +1,6 @@
 ---
-name: Virge WFO Demos — Warm Noir
-description: An opt-in, flat technical editorial system for WFO demo pages and their Cases cards.
+name: Virge WFO Demos — Optional Warm Noir Reference
+description: Inactive Warm Noir design alternative; current demo pages use the original site palette and system typography.
 colors:
   bg: "#292624"
   bg-card: "#34302d"
@@ -89,11 +89,13 @@ components:
     padding: "1.5rem"
 ---
 
-# Design System: Virge WFO Demos — Warm Noir
+# Design System: Virge WFO Demos — Optional Warm Noir Reference
 
 ## Overview
 
-**Creative North Star: "Warm Noir"**
+**Creative North Star: "Warm Noir (inactive reference)"**
+
+**Current default:** the original navy/purple palette and system typography in `src/styles/global.css`. On 2026-11-09 the user restored that theme while keeping the redesigned layout. The tokens and rules in this document describe only the optional, inactive Warm Noir alternative; do not activate it on demo routes or cards by default. A real screenshot of that alternative is preserved in `docs/previews/wfo-warm-noir-sora-manrope.png` and embedded in PR #23.
 
 A brown-charcoal field, bone text and restrained blue signals give WFO demonstrations the clarity of a technical evidence report. Flat surfaces, real recording imagery and open reading sections establish a calm, precise character. Fine rules distinguish related information without enclosing every paragraph.
 

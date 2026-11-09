@@ -1,7 +1,7 @@
 {
   "schemaVersion": 2,
   "generatedAt": "2026-11-09T11:20:48.181268Z",
-  "title": "Design System: Virge WFO Demos — Warm Noir",
+  "title": "Design System: Virge WFO Demos — Optional Warm Noir Reference",
   "extensions": {
     "colorMeta": {
       "bg": {
@@ -206,7 +206,12 @@
         "name": "compact-desktop",
         "value": "1050px"
       }
-    ]
+    ],
+    "activation": {
+      "enabledByDefault": false,
+      "currentDefault": "Original navy/purple site palette and system typography",
+      "referenceScreenshot": "docs/previews/wfo-warm-noir-sora-manrope.png"
+    }
   },
   "components": [
     {
@@ -250,8 +255,8 @@
     }
   ],
   "narrative": {
-    "northStar": "Warm Noir",
-    "overview": "A brown-charcoal field, bone text and restrained blue signals give WFO demonstrations the clarity of a technical evidence report. Flat surfaces, real recording imagery and open reading sections establish a calm, precise character. Fine rules distinguish related information without enclosing every paragraph.\n\nThis is a scoped visual world for the four bilingual WFO demo detail pages and their existing Cases cards. Detail pages opt in through `data-theme=\"warm-noir\"`; individual cards use a local `warm-noir` scope. The surrounding Cases index and all other site surfaces retain the incumbent purple palette and system typography. This document does not establish a new site-wide default.",
+    "northStar": "Warm Noir (inactive reference)",
+    "overview": "Inactive design alternative. Current WFO demo routes and cards use the original site palette and system typography. A brown-charcoal field, bone text and restrained blue signals give WFO demonstrations the clarity of a technical evidence report. Flat surfaces, real recording imagery and open reading sections establish a calm, precise character. Fine rules distinguish related information without enclosing every paragraph.\n\nThis is a scoped visual world for the four bilingual WFO demo detail pages and their existing Cases cards. Detail pages opt in through `data-theme=\"warm-noir\"`; individual cards use a local `warm-noir` scope. The surrounding Cases index and all other site surfaces retain the incumbent purple palette and system typography. This document does not establish a new site-wide default.",
     "keyCharacteristics": [
       "Warm dark neutrals with pale blue links and solid blue actions.",
       "Sora semibold headings paired with Manrope reading text.",

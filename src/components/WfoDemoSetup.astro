@@ -44,8 +44,8 @@ const specialists = [
   { agent: 'Network agent', system: 'SR Linux', icon: 'router' },
 ];
 const svg = renderMermaidSVG(diagram, {
-  bg: '#292624', fg: '#eae5df', accent: '#9db8ee', muted: '#b8b0a7',
-  surface: '#34302d', border: '#58524c', line: '#b8b0a7', transparent: true,
+  bg: 'var(--diagram-bg)', fg: 'var(--text)', accent: 'var(--link)', muted: 'var(--text-muted)',
+  surface: 'var(--bg-card)', border: 'var(--diagram-border)', line: 'var(--text-muted)', transparent: true,
   padding: 24, nodeSpacing: 32, layerSpacing: 44,
 });
 ---
@@ -80,7 +80,7 @@ const svg = renderMermaidSVG(diagram, {
   </div>
 </figure>
 <style>
-  .setup { position: relative; margin: 0; padding: 1.75rem; border: 1px solid var(--border); border-radius: 12px; background: var(--bg-card); }
+  .setup { --diagram-bg: var(--bg); --diagram-border: var(--border); position: relative; margin: 0; padding: 1.75rem; border: 1px solid var(--border); border-radius: 12px; background: var(--bg-card); }
   figcaption { padding-right: 15rem; min-height: 2.75rem; }
   h2 { font-size: 1.45rem; line-height: 1.4; margin: 0; }
   summary { position: absolute; right: 1.75rem; top: 1.5rem; display: flex; align-items: center; gap: .65rem; min-height: 44px; padding: .5rem .75rem; border: 1px solid var(--border); border-radius: 6px; color: var(--text); font-size: .8rem; cursor: pointer; list-style: none; }

@@ -5,7 +5,7 @@ import Icon from './Icon.astro';
 interface Props { lang: Lang }
 const { lang } = Astro.props;
 ---
-{wfoDemos.map(d => <a class="wfo-card warm-noir" href={`/${lang}/cases/${d.slug}/`}>
+{wfoDemos.map(d => <a class="wfo-card" href={`/${lang}/cases/${d.slug}/`}>
   <div class="card-preview">
     <img src={`/images/cases/wfo-demos/previews/${d.ticket}.webp`} alt="" width="960" height="540" loading="lazy" decoding="async" />
   </div>

@@ -28,7 +28,7 @@ Astro static website with English and Dutch routes. Four WFO scenarios share a d
 
 ## Brand Commitments
 
-Retain Virge's name and logo. The user chose the design-builder gist's Warm Noir palette, Sora headings, Manrope body text and flat finish for WFO demos and their cards only. Other site surfaces retain their existing identity.
+Retain Virge's name and logo. On 2026-11-09 the user restored the original navy/purple site palette and system typography for the WFO demos and their cards, while keeping the redesigned layout. Warm Noir with Sora headings and Manrope body text remains an inactive design alternative, documented with a real screenshot in PR #23. Other site surfaces retain their existing identity.
 
 ## Evidence on Hand
 
