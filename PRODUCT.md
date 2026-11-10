@@ -36,6 +36,10 @@ The source videos and posters are in `public/videos/wfo-demos/`; bilingual scena
 
 Cases thumbnails use static, bilingual scenario diagrams for outage, interface alert, packet loss and planned maintenance. The user chose diagrams because miniature recording text did not explain the scenarios at card size. Actual recording stills remain the detail-page video posters; diagram packet symbols are illustrative and contain no measured percentages.
 
+On 2026-11-10 the user extended that circular-icon and fine-line diagram style to the detail-page architecture. Its simple and technical views are combined into one responsive graph. Hover, keyboard focus or a tap exposes a node’s role and protocols; the graph preserves the request/proxy path, specialist tools and network-mcp’s separate access to WFO intent and SR Linux device evidence.
+
+The requested logo variant identifies LibreChat, Workflow Orchestrator and NetBox with their actual service marks, while generic agents and tools retain Lucide icons.
+
 ## Product Principles
 
 - Show the recording and specific diagnostic evidence first.
