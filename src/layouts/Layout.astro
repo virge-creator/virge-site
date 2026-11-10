@@ -16,7 +16,7 @@ interface Props {
   ogImage?: string;
   type?: 'website' | 'article';
   publishedDate?: string;
-  theme?: 'warm-noir';
+  theme?: 'warm-noir' | 'purple-noir-light';
 }
 
 const {
@@ -66,8 +66,8 @@ const publishedISO = publishedDate ? new Date(publishedDate).toISOString() : und
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  {theme === 'warm-noir' && <>
-    <meta name="theme-color" content="#292624" />
+  {theme && <>
+    <meta name="theme-color" content={theme === 'purple-noir-light' ? '#f1f3f6' : '#292624'} />
     <link rel="preload" href="/fonts/wfo-demos/sora-latin-600.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="/fonts/wfo-demos/manrope-latin.woff2" as="font" type="font/woff2" crossorigin />
   </>}

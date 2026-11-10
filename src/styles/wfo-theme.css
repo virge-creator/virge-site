@@ -36,91 +36,148 @@
   scrollbar-color: var(--border) var(--bg);
 }
 
-:root[data-theme='warm-noir'] body {
+/* Purple Noir Light: the same layout, type and nav treatment as Warm Noir on a pale cool-grey field with a deep
+   plum accent and a dusty-rose second accent. The page background is a soft rose/plum gradient over --bg.
+   Opt-in per route through `theme="purple-noir-light"` on Layout. Light only. */
+:root[data-theme='purple-noir-light'] {
+  --bg: #f1f3f6;
+  --bg-card: #fdfdfd;
+  --bg-card-hover: #e5e8ee;
+  --surface: #fdfdfd;
+  --border: #b09db2;
+  --text: #141a24;
+  --text-muted: #3c475d;
+  --accent: #4e1d4c;
+  --accent2: #d16d7f;
+  --accent2-text: #703a44; /* small text in the second accent: ticket ids, FAQ markers, notes */
+  --link: #4e1d4c;
+  --accent-btn: #4e1d4c;
+  --accent-btn-hover: #40183e;
+  --accent-btn-text: #ffffff; /* site .btn / .integration-link must read this instead of #fff */
+  --warn: #8a4b00; /* fault/alert strokes in the scenario thumbnails */
+  --warn-border: #b7792f;
+  --page-gradient:
+    radial-gradient(ellipse 75% 50% at 8% -6%, rgba(209, 109, 127, .24), transparent 70%),
+    radial-gradient(ellipse 65% 55% at 100% 4%, rgba(78, 29, 76, .13), transparent 72%),
+    radial-gradient(ellipse 80% 50% at 50% 108%, rgba(209, 109, 127, .16), transparent 70%),
+    linear-gradient(180deg, #f7eff4 0%, var(--bg) 45%, #ece9f1 100%);
+  --font-display: 'Sora', 'Segoe UI', sans-serif;
+  --font-body: 'Manrope', 'Segoe UI', sans-serif;
+  --edge-dim: .8; /* unrelated diagram edges stay legible (4.5:1 for their labels) while a node is selected */
+  --radius: 12px;
+  color-scheme: light;
+  scrollbar-color: var(--border) var(--bg);
+}
+
+:root[data-theme='purple-noir-light'] body {
+  background: var(--page-gradient);
+  background-color: var(--bg);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+:root[data-theme] body {
   font-family: var(--font-body);
   font-size: 1rem;
 }
 
-:root[data-theme='warm-noir'] :is(h1, h2, h3) {
+:root[data-theme] :is(h1, h2, h3) {
   font-family: var(--font-display);
   font-weight: 600;
   letter-spacing: -0.02em;
   text-wrap: balance;
 }
 
-:root[data-theme='warm-noir'] ::selection,
+:root[data-theme] ::selection,
 .warm-noir ::selection {
   background: var(--link);
   color: var(--bg);
 }
 
-:root[data-theme='warm-noir'] a,
+:root[data-theme] a,
 .warm-noir a {
   text-underline-offset: 0.22em;
 }
 
-:root[data-theme='warm-noir'] :is(a, button, summary, video, [tabindex]):focus-visible,
+:root[data-theme] :is(a, button, summary, video, [tabindex]):focus-visible,
 .warm-noir:focus-visible {
   outline: 2px solid var(--link);
   outline-offset: 5px;
 }
 
-:root[data-theme='warm-noir'] button {
+:root[data-theme] .page-header :is(h1, h1 span) {
+  color: var(--text); /* global.css hardcodes #fff for dark pages */
+}
+
+:root[data-theme] .cta {
+  border-color: var(--border);
+}
+
+:root[data-theme] .btn {
+  background: var(--accent-btn);
+  color: var(--accent-btn-text, #fff);
+}
+
+:root[data-theme] .btn:hover {
+  background: var(--accent-btn-hover);
+}
+
+:root[data-theme] button {
   font-family: inherit;
 }
 
-:root[data-theme='warm-noir'] body > nav {
+:root[data-theme] body > nav {
   background: var(--bg);
   backdrop-filter: none;
   border-bottom: 1px solid var(--border);
 }
 
-:root[data-theme='warm-noir'] body > nav .container,
-:root[data-theme='warm-noir'] body > footer .container {
+:root[data-theme] body > nav .container,
+:root[data-theme] body > footer .container {
   max-width: 1240px;
 }
 
-:root[data-theme='warm-noir'] nav :is(.lang-current, .lang-option) {
+:root[data-theme] nav :is(.lang-current, .lang-option) {
   font-family: var(--font-body);
   border-color: var(--border);
   color: var(--text-muted);
 }
 
-:root[data-theme='warm-noir'] nav :is(.dropdown, .lang-menu) {
+:root[data-theme] nav :is(.dropdown, .lang-menu) {
   background: var(--bg-card);
   border: 1px solid var(--border);
   box-shadow: none;
 }
 
-:root[data-theme='warm-noir'] nav .dropdown::before {
+:root[data-theme] nav .dropdown::before {
   display: none;
 }
 
-:root[data-theme='warm-noir'] nav :is(.lang-option .check, .lang-option.active, .links a.active) {
+:root[data-theme] nav :is(.lang-option .check, .lang-option.active, .links a.active) {
   color: var(--link);
 }
 
-:root[data-theme='warm-noir'] nav :is(.dropdown li a, .lang-option) {
+:root[data-theme] nav :is(.dropdown li a, .lang-option) {
   color: var(--text-muted);
 }
 
-:root[data-theme='warm-noir'] nav :is(.dropdown li a:hover, .dropdown li a.active, .lang-option:hover, .lang-option.active),
-:root[data-theme='warm-noir'] nav :is(.lang-switch:hover, .lang-switch:focus-within) .lang-current {
+:root[data-theme] nav :is(.dropdown li a:hover, .dropdown li a.active, .lang-option:hover, .lang-option.active),
+:root[data-theme] nav :is(.lang-switch:hover, .lang-switch:focus-within) .lang-current {
   background: var(--bg-card-hover);
   color: var(--text);
   border-color: var(--border);
 }
 
-:root[data-theme='warm-noir'] nav :is(.links > li > a.active, .dropdown-parent > a.active)::after {
+:root[data-theme] nav :is(.links > li > a.active, .dropdown-parent > a.active)::after {
   background: var(--link);
 }
 
-:root[data-theme='warm-noir'] body > footer {
+:root[data-theme] body > footer {
   border-color: var(--border);
 }
 
 @media (min-width: 901px) {
-  :root[data-theme='warm-noir'] nav .has-dropdown:focus-within .dropdown {
+  :root[data-theme] nav .has-dropdown:focus-within .dropdown {
     opacity: 1;
     visibility: visible;
     transform: none;
@@ -128,25 +185,25 @@
 }
 
 @media (max-width: 900px) {
-  :root[data-theme='warm-noir'] nav .links {
+  :root[data-theme] nav .links {
     border-color: var(--border);
     max-height: calc(100dvh - 73px);
     overflow-y: auto;
     overscroll-behavior: contain;
   }
 
-  :root[data-theme='warm-noir'] nav :is(.dropdown, .lang-menu) {
+  :root[data-theme] nav :is(.dropdown, .lang-menu) {
     background: transparent;
     border: 0;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  :root[data-theme='warm-noir'] {
+  :root[data-theme] {
     scroll-behavior: auto;
   }
 
-  :root[data-theme='warm-noir'] nav *,
+  :root[data-theme] nav *,
   .warm-noir {
     transition: none;
   }

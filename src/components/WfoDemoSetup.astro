@@ -222,7 +222,7 @@ const edges = [
   .map-node:hover .node-symbol, .map-node.is-active .node-symbol { border-color: var(--link); background: var(--bg-card-hover); }
   .node-symbol--netbox, .map-node:hover .node-symbol--netbox, .map-node.is-active .node-symbol--netbox { background: #fff; }
   .node-symbol--wfo, .map-node:hover .node-symbol--wfo, .map-node.is-active .node-symbol--wfo { background: #04385f; }
-  .is-exploring .edge:not(.is-active) { opacity: .3; }
+  .is-exploring .edge:not(.is-active) { opacity: var(--edge-dim, .3); }
   .is-exploring .edge.is-active .edge-path { stroke: var(--link); stroke-width: 2; }
   .is-related .node-symbol { border-color: var(--link); }
   .is-active .node-label { color: var(--link); }

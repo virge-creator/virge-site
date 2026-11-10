@@ -18,7 +18,7 @@ const faqs = [
  [en ? 'Is the recording real time?' : 'Is de opname in realtime?', en ? 'The silent English recording is about 70 seconds long. Model waiting has been compressed; this is an edited demonstration, not a benchmark. The final comparison and recap combine recorded WFO intent with independently captured device evidence.' : 'De Engelstalige opname zonder geluid duurt ongeveer 70 seconden. Wachttijd van het model is ingekort; dit is een gemonteerde demonstratie, geen benchmark. De vergelijking en samenvatting combineren WFO-configuratie met onafhankelijk vastgelegde apparaatmetingen.']
 ];
 ---
-<Layout title={c.title} description={c.intro} lang={lang} ogImage={`${base}.webp`} jsonLd={breadcrumbSchema([{ name: 'Home', path: `/${lang}/` }, { name: 'Cases', path: `/${lang}/cases/` }, { name: 'WFO Agent Demos', path: `/${lang}/cases/wfo-demos/` }, { name: c.title, path: `/${lang}/cases/${d.slug}/` }])}>
+<Layout title={c.title} description={c.intro} lang={lang} theme="purple-noir-light" ogImage={`${base}.webp`} jsonLd={breadcrumbSchema([{ name: 'Home', path: `/${lang}/` }, { name: 'Cases', path: `/${lang}/cases/` }, { name: 'WFO Agent Demos', path: `/${lang}/cases/wfo-demos/` }, { name: c.title, path: `/${lang}/cases/${d.slug}/` }])}>
   <article class="wfo-demo container">
     <header class="demo-header">
       <div class="page-meta">
@@ -178,7 +178,7 @@ const faqs = [
   .source-links a { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: .55rem 0; font-size: .9rem; }
   .contact { align-self: center; border-left: 1px solid var(--border); padding-left: 2rem; }
   .contact p { color: var(--text); font-family: var(--font-display); font-size: 1.25rem; line-height: 1.6; text-wrap: balance; max-width: 30ch; }
-  .integration-link { display: inline-flex; justify-content: center; align-items: center; gap: 1.25rem; min-height: 48px; padding: .8rem 1.25rem; margin-top: 1.5rem; border-radius: 6px; background: var(--accent-btn); color: #fff; font-size: .9rem; font-weight: 600; transition: background .18s ease-out; }
+  .integration-link { display: inline-flex; justify-content: center; align-items: center; gap: 1.25rem; min-height: 48px; padding: .8rem 1.25rem; margin-top: 1.5rem; border-radius: 6px; background: var(--accent-btn); color: var(--accent-btn-text, #fff); font-size: .9rem; font-weight: 600; transition: background .18s ease-out; }
   .integration-link:hover { background: var(--accent-btn-hover); text-decoration: none; }
   @media (max-width: 1050px) {
     .heading-grid { gap: 2rem; }
