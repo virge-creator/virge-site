@@ -16,12 +16,18 @@ The four `cases-overview-en-{desktop,mobile}.png` and `wfo-demo-overview-en-{des
 
 Captured on 2026-11-09 from the final local source with Chromium at 1440px (desktop) and 390px (mobile) widths, with reduced motion enabled. Full document heights were painted before capture to avoid off-screen artifacts; the Astro development toolbar was hidden. These are unedited browser screenshots of the original navy/purple theme. The WFO badge has 4px corners; the dark agent icon sits in a rounded purple outline on white.
 
+**Refreshed 2026-11-11** from commit `2caf9ad0` (production build served with `astro preview`, so no development toolbar). The overview now also shows a fifth card for the certificate lifecycle use case.
+
 ## Combined interactive architecture
 
 The four `wfo-architecture-en-{desktop,mobile}[-hover].png` screenshots show the final architecture on `/en/cases/wfo-outage-triage/`. The default captures show the combined overview and technical graph; the hover captures highlight `network-mcp` and explain its separate access to WFO intent and SR Linux measurements. LibreChat, Workflow Orchestrator and NetBox use their service logos. The WFO image is clipped within its circle and its background matches the logo’s blue.
 
 Captured on 2026-11-10 from the committed source using Chromium at 1440 × 1500 and 390 × 1500 viewports, with reduced motion enabled. Each image is a browser crop of the complete architecture figure; the taller viewport keeps the sticky navigation outside the crop. The Astro development toolbar was hidden, and the captured pixels were not edited. PNG metadata records the route, capture time, viewport, crop, interaction state and source-file SHA-256 hashes. These captures use the active navy/purple theme and system typography; the shared component provides equivalent Dutch behavior.
 
+**Refreshed 2026-11-11** from commit `2caf9ad0`: the crops now start at the entry row, with the `You` node and the exact request above the diagram, and the diagram no longer has an outline box. Viewports and interaction states are unchanged.
+
 ## Certificate lifecycle use case
 
-`certificate-lifecycle-en-{desktop,mobile}.png` show the full `/en/cases/wfo-certificate-lifecycle/` page, and `certificate-lifecycle-architecture-en-{desktop,mobile}.png` crop its interactive architecture (Workflow Orchestrator as hub, eight services, three specialist agents). Captured on 2026-11-10 with Chromium at 1440px and 390px, reduced motion enabled, dev toolbar and sticky navigation hidden. The scenario is illustrative, not a recording; no organisation is named and figures are rounded.
+`certificate-lifecycle-en-{desktop,mobile}.png` show the full `/en/cases/wfo-certificate-lifecycle/` page (problem-and-fix section, hypothetical-scenario alert, walkthrough and architecture). `certificate-lifecycle-architecture-en-{desktop,mobile}.png` crop the walkthrough and its interactive architecture with **step 6 of 9** active: the step card lists WFO's eight sub-steps, and the diagram lights Workflow Orchestrator and the services it touches while the rest recede.
+
+Captured on 2026-11-11 from commit `2caf9ad0` with Chromium at 1440px and 390px, reduced motion enabled, using a production build (no development toolbar); the sticky navigation is hidden. The architecture crops use 1500px-tall viewports. PNG metadata on the crops records the route, state, viewport, crop and source hashes. The scenario is hypothetical, not a recording; no organisation is named and figures are rounded.
