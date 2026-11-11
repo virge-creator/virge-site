@@ -16,7 +16,7 @@ Show what Virge builds through real implementations and recorded demonstrations,
 
 ## Operating Context
 
-Astro static website with English and Dutch routes. Four WFO scenarios share a detail component and appear as Demo cards in the Cases indexes: outage triage, monitoring alerts, packet loss and maintenance impact.
+Astro static website with English and Dutch routes. Four WFO scenarios share a detail component and appear as Demo cards in the Cases indexes: outage triage, monitoring alerts, packet loss and maintenance impact. A fifth card, the certificate lifecycle use case (`WfoUseCase.astro`), is a static illustrative scenario with no recording and a different execution boundary: its agents are read-only, and after a person approves, Workflow Orchestrator executes the renewal workflow. Its figures are rounded, services are generic categories with examples, and it names no organisation. Both diagrams render through `ServiceMap.astro`.
 
 ## Capabilities and Constraints
 

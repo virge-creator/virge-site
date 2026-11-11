@@ -9,8 +9,8 @@ interface Props { lang: Lang }
 const { lang } = Astro.props;
 const en = lang === 'en';
 const description = en
-  ? 'Explore four network diagnostics demos with AI agents, Workflow Orchestrator, NetBox and live network tools.'
-  : 'Bekijk vier demo’s van netwerkdiagnostiek met AI-agents, Workflow Orchestrator, NetBox en live netwerktools.';
+  ? 'Explore four network diagnostics demos and a certificate lifecycle use case, with AI agents, Workflow Orchestrator and the services they connect.'
+  : 'Bekijk vier demo’s van netwerkdiagnostiek en een use case voor certificaatlevenscyclus, met AI-agents, Workflow Orchestrator en de services die ze koppelen.';
 ---
 <Layout title="WFO Agent Demos" description={description} lang={lang} jsonLd={breadcrumbSchema([
   { name: 'Home', path: `/${lang}/` },

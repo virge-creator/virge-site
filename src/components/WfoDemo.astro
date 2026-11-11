@@ -2,6 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import WfoDemoSetup from './WfoDemoSetup.astro';
 import Icon from './Icon.astro';
+import SideDock from './SideDock.astro';
 import { wfoDemos, type WfoTicket } from '../data/wfo-demos';
 import { breadcrumbSchema } from '../data/structured-data';
 import type { Lang } from '../i18n';
@@ -16,6 +17,19 @@ const faqs = [
  [en ? 'Is this a production incident?' : 'Is dit een productiestoring?', en ? 'No. These are example tickets in an emulated three-node network. Real SR Linux instances carry the lab traffic. Static tickets stand in for a ticket system; automatic ticket-system integration is not demonstrated.' : 'Nee. Dit zijn voorbeeldtickets in een nagebootst netwerk met drie nodes. Echte SR Linux-instances verwerken het labverkeer. Statische tickets vervangen een ticketsysteem; een automatische koppeling met zo’n systeem wordt hier niet getoond.'],
  [en ? 'Does the assistant make changes?' : 'Voert de assistent wijzigingen uit?', en ? 'This demo is read-only. It reports findings and recommends next steps. An operator must authorize restoration or maintenance separately; no repair, port change or maintenance flag update occurs in the recording.' : 'Deze demo leest alleen. De assistent geeft bevindingen en vervolgstappen. Een operator moet herstel of onderhoud apart goedkeuren; de opname toont geen reparatie, poortwijziging of aangepaste onderhoudsvlag.'],
  [en ? 'Is the recording real time?' : 'Is de opname in realtime?', en ? 'The silent English recording is about 70 seconds long. Model waiting has been compressed; this is an edited demonstration, not a benchmark. The final comparison and recap combine recorded WFO intent with independently captured device evidence.' : 'De Engelstalige opname zonder geluid duurt ongeveer 70 seconden. Wachttijd van het model is ingekort; dit is een gemonteerde demonstratie, geen benchmark. De vergelijking en samenvatting combineren WFO-configuratie met onafhankelijk vastgelegde apparaatmetingen.']
+];
+// Every other WFO demo and use case, linked from the closing section.
+const moreDemos = [
+  ...wfoDemos.filter(x => x.ticket !== ticket).map(x => ({ slug: x.slug, title: x[lang].title, tag: x.kind === 'recording' ? `Demo · ${x.ticket}` : x[lang].source })),
+];
+const validation = en ? [
+  ['Confirm the target. ', 'Check that the subscription UUID, customer and exact interface match the ticket, so the diagnosis is not about a neighbouring service.'],
+  ['Compare intent with evidence. ', 'WFO stores what should be configured; the device reports what is happening. A subscription that is active or in sync does not prove the link is healthy, so both sources are read.'],
+  ['Keep changes separate. ', 'The agent never restores a port or edits a maintenance flag in this demo. An operator reviews the diagnosis and approves any follow-up as its own step.'],
+] : [
+  ['Controleer het doel. ', 'Controleer of subscription-UUID, klant en exacte poort overeenkomen met de melding, zodat de diagnose niet over een naastgelegen dienst gaat.'],
+  ['Vergelijk configuratie met metingen. ', 'WFO bewaart wat er geconfigureerd hoort te zijn; het apparaat meldt wat er gebeurt. Een actieve of gesynchroniseerde subscription bewijst geen gezonde verbinding, dus beide bronnen worden gelezen.'],
+  ['Houd wijzigingen apart. ', 'In deze demo herstelt de agent geen poort en past hij geen onderhoudsvlag aan. Een operator beoordeelt de diagnose en keurt een vervolgstap afzonderlijk goed.'],
 ];
 ---
 <Layout title={c.title} description={c.intro} lang={lang} ogImage={`${base}.webp`} jsonLd={breadcrumbSchema([{ name: 'Home', path: `/${lang}/` }, { name: 'Cases', path: `/${lang}/cases/` }, { name: 'WFO Agent Demos', path: `/${lang}/cases/wfo-demos/` }, { name: c.title, path: `/${lang}/cases/${d.slug}/` }])}>
@@ -65,22 +79,24 @@ const faqs = [
         <ul class="capability-list">
           {capabilities.map((step, i) => <li><span class="method-icon" aria-hidden="true"><Icon name={['scan-search', 'git-branch', 'activity'][i]} size={21} /></span><span>{step}</span></li>)}
         </ul>
-        <details class="request">
-          <summary><span>{en ? 'The exact request' : 'De exacte vraag (Engels)'}</span><Icon name="plus" size={18} /></summary>
-          <blockquote>{d.prompt}</blockquote>
-        </details>
       </div>
     </section>
 
-    <section id="setup" aria-label={en ? 'Multi-agent architecture' : 'Multi-agentarchitectuur'}><WfoDemoSetup lang={lang} /></section>
+    <section id="setup" aria-label={en ? 'Multi-agent architecture' : 'Multi-agentarchitectuur'}>
+      <WfoDemoSetup lang={lang}>
+        <div class="request" slot="entry">
+          <h3>{en ? 'The exact request' : 'De exacte vraag (Engels)'}</h3>
+          <blockquote>{d.prompt}</blockquote>
+        </div>
+      </WfoDemoSetup>
+    </section>
 
     <section class="review" aria-label={en ? 'Validation and questions' : 'Validatie en vragen'}>
       <div class="validation">
         <h2>{en ? 'Validation and execution boundaries' : 'Validatie en uitvoeringsgrenzen'}</h2>
+        <p class="validation-intro">{en ? 'The agent investigates and recommends; people decide and act. Each step keeps a finding tied to evidence and keeps any change under operator control.' : 'De agent onderzoekt en adviseert; mensen beslissen en voeren uit. Elke stap houdt een bevinding aan bewijs gekoppeld en laat elke wijziging bij de operator.'}</p>
         <ul>
-          <li><Icon name="check" size={17} /><span>{en ? 'Confirm the subscription UUID, customer and exact interface.' : 'Controleer subscription-UUID, klant en exacte poort.'}</span></li>
-          <li><Icon name="check" size={17} /><span>{en ? 'Compare stored intent with fresh device evidence; active or in sync does not prove live health.' : 'Vergelijk de configuratie met actuele metingen; actief of in sync bewijst geen gezonde verbinding.'}</span></li>
-          <li><Icon name="check" size={17} /><span>{en ? 'Review the diagnosis and approve any follow-up change separately.' : 'Beoordeel de diagnose en keur een vervolgwijziging apart goed.'}</span></li>
+          {validation.map(([title, text]) => <li><Icon name="check" size={17} /><span><strong>{title}</strong>{text}</span></li>)}
         </ul>
       </div>
       <div class="questions">
@@ -99,12 +115,15 @@ const faqs = [
           <a href="https://github.com/workfloworchestrator/example-orchestrator">Example Orchestrator<Icon name="arrow-up-right" size={17} /></a>
         </div>
       </div>
-      <div class="contact">
-        <p>{en ? 'Connect specialist agents to your service and network APIs.' : 'Koppel gespecialiseerde agents aan je service- en netwerk-API’s.'}</p>
-        <a class="integration-link" href={`/${lang}/contact/`}>{en ? 'Discuss an integration' : 'Bespreek een integratie'}<Icon name="arrow-right" size={18} /></a>
-      </div>
+      <nav class="more-demos" aria-labelledby="more-demos-heading">
+        <h3 id="more-demos-heading">{en ? 'More WFO demos' : 'Meer WFO-demo’s'}</h3>
+        <ul>
+          {moreDemos.map(x => <li><a href={`/${lang}/cases/${x.slug}/`}><span class="more-title">{x.title}<small>{x.tag}</small></span><Icon name="arrow-right" size={17} /></a></li>)}
+        </ul>
+      </nav>
     </section>
   </article>
+  <SideDock lang={lang} />
 </Layout>
 
 <script>
@@ -132,27 +151,28 @@ const faqs = [
   .scenario { flex-wrap: wrap; gap: .75rem; color: var(--text-muted); }
   .demo-label { padding: .2rem .65rem; border: 1px solid var(--border); border-radius: 4px; color: var(--text); font-weight: 600; }
   .ticket { font-variant-numeric: tabular-nums; color: var(--link); }
-  .heading-grid { display: grid; grid-template-columns: 1.45fr 1fr; gap: 3.5rem; align-items: end; }
-  h1 { font-size: clamp(2rem, 3.8vw, 3.25rem); line-height: 1.16; margin: 0; max-width: 24ch; color: var(--text); }
-  .lead { color: var(--text-muted); font-size: 1rem; line-height: 1.8; max-width: 54ch; }
+  h1 { font-size: clamp(2rem, 3.8vw, 3.25rem); line-height: 1.16; margin: 0; max-width: 30ch; text-wrap: balance; color: var(--text); }
+  .lead { color: var(--text-muted); font-size: 1rem; line-height: 1.8; max-width: 64ch; margin: 1.1rem 0 0; }
   .demo-context { justify-content: space-between; flex-wrap: wrap; gap: 1rem; padding: 1.5rem 0; margin-top: 1.5rem; border-top: 1px solid var(--border); font-size: .8rem; }
   .demo-context > span { gap: .55rem; color: var(--text-muted); }
   .demo-context a { gap: .5rem; }
-  .watch-grid { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); gap: 1.75rem; align-items: start; }
-  .recording { margin: 0; min-width: 0; }
-  video { display: block; width: 100%; aspect-ratio: 16 / 9; border: 1px solid var(--border); border-radius: 12px; background: var(--bg-card); }
-  figcaption { display: flex; justify-content: space-between; flex-wrap: wrap; gap: .4rem 1rem; font-size: .7rem; line-height: 1.6; color: var(--text-muted); padding-top: .75rem; }
+  .watch-grid { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); grid-template-areas: 'video findings' 'caption .'; column-gap: 1.75rem; align-items: stretch; }
+  /* The figure's children join the grid so the findings card ends exactly at the video's bottom edge, not at the caption. */
+  .recording { display: contents; }
+  /* Stretch so the recording always matches the findings card, even when its text is taller than a 16:9 frame. */
+  video { grid-area: video; align-self: stretch; object-fit: contain; display: block; width: 100%; aspect-ratio: 16 / 9; border: 1px solid var(--border); border-radius: 12px; background: var(--bg-card); }
+  figcaption { grid-area: caption; display: flex; justify-content: space-between; flex-wrap: wrap; gap: .4rem 1rem; font-size: .7rem; line-height: 1.6; color: var(--text-muted); padding-top: .75rem; }
   figcaption span:first-child { display: inline-flex; align-items: center; gap: .4rem; }
-  .findings { min-width: 0; padding: 1.5rem; background: var(--bg-card); border-radius: 12px; }
+  .findings { grid-area: findings; display: flex; flex-direction: column; min-width: 0; padding: 1.5rem; background: var(--bg-card); border-radius: 12px; }
   h2 { font-size: 1.45rem; line-height: 1.35; margin: 0 0 1.25rem; }
   .findings h2 { font-size: 1.1rem; margin-bottom: .85rem; }
   .findings p { font-size: .9rem; line-height: 1.8; }
   .finding-outcome { margin-top: 1.25rem; padding-top: 1.1rem; border-top: 1px solid var(--border); }
   .finding-outcome h3 { font-family: var(--font-body); letter-spacing: 0; font-size: .8rem; margin: 0 0 .55rem; color: var(--text-muted); }
   .finding-outcome p { color: var(--text-muted); }
-  .read-only { display: flex; align-items: center; gap: .5rem; margin-top: 1.25rem; color: var(--link); font-size: .72rem; }
+  .read-only { display: flex; align-items: center; gap: .5rem; margin-top: auto; padding-top: 1.25rem; color: var(--link); font-size: .72rem; }
   .section-row { display: grid; grid-template-columns: 1fr 2fr; gap: 3.5rem; }
-  .wfo-demo > .capabilities { padding-top: 2.5rem; margin: 2.75rem 0; border-top: 1px solid var(--border); }
+  .wfo-demo > .capabilities { padding-top: 2.5rem; margin: 2.75rem 0 1rem; border-top: 1px solid var(--border); }
   .section-intro h2 { max-width: 18ch; }
   .capability-list, .validation ul { margin: 0; padding: 0; list-style: none; }
   .capability-list li { display: flex; align-items: start; gap: 1rem; padding: 0 0 1.2rem; font-size: .95rem; line-height: 1.75; }
@@ -163,11 +183,14 @@ const faqs = [
   summary :global(svg) { color: var(--link); flex-shrink: 0; transition: transform .2s ease-out; }
   details[open] > summary :global(svg) { transform: rotate(45deg); }
   summary:hover { color: var(--link); }
-  .request { border-top: 1px solid var(--border); margin-top: .2rem; }
-  blockquote { margin: .25rem 0 1.25rem; padding: 0; color: var(--text-muted); font-size: .95rem; line-height: 1.8; max-width: 70ch; overflow-wrap: anywhere; }
+  .request { max-width: 40rem; border-bottom: 1px solid var(--border); padding-bottom: 1.1rem; }
+  .request h3 { display: flex; align-items: center; min-height: 54px; margin: 0; font-family: var(--font-body); letter-spacing: 0; font-size: .9rem; font-weight: 500; line-height: 1.6; color: var(--text); } /* 54px keeps its centre on the connector from You */
+  blockquote { margin: 0; padding: 0; color: var(--text-muted); font-size: .95rem; line-height: 1.8; max-width: 70ch; overflow-wrap: anywhere; }
   #setup { scroll-margin-top: 6rem; }
   .wfo-demo > .review { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; padding-top: 2.75rem; margin: 2.75rem 0; border-top: 1px solid var(--border); }
   .validation h2 { max-width: 25ch; }
+  .validation-intro { margin: -.5rem 0 1.5rem; max-width: 52ch; color: var(--text-muted); font-size: .9rem; line-height: 1.8; }
+  .validation strong { display: block; color: var(--text); font-weight: 600; }
   .validation li { display: flex; align-items: start; gap: .8rem; font-size: .9rem; line-height: 1.8; color: var(--text-muted); margin: 0 0 1rem; }
   .validation li :global(svg) { flex-shrink: 0; margin-top: .35rem; color: var(--link); }
   .questions h2 { margin-bottom: .4rem; }
@@ -176,24 +199,30 @@ const faqs = [
   .closing p { color: var(--text-muted); font-size: .9rem; line-height: 1.8; max-width: 65ch; }
   .source-links { display: flex; flex-direction: column; gap: .25rem; margin-top: 1.25rem; max-width: 28rem; }
   .source-links a { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: .55rem 0; font-size: .9rem; }
-  .contact { align-self: center; border-left: 1px solid var(--border); padding-left: 2rem; }
-  .contact p { color: var(--text); font-family: var(--font-display); font-size: 1.25rem; line-height: 1.6; text-wrap: balance; max-width: 30ch; }
-  .integration-link { display: inline-flex; justify-content: center; align-items: center; gap: 1.25rem; min-height: 48px; padding: .8rem 1.25rem; margin-top: 1.5rem; border-radius: 6px; background: var(--accent-btn); color: #fff; font-size: .9rem; font-weight: 600; transition: background .18s ease-out; }
-  .integration-link:hover { background: var(--accent-btn-hover); text-decoration: none; }
+  .more-demos { border-left: 1px solid var(--border); padding-left: 2rem; }
+  .more-demos h3 { margin: 0 0 .75rem; font-family: var(--font-body); letter-spacing: 0; font-size: 1rem; }
+  .more-demos ul { margin: 0; padding: 0; list-style: none; }
+  .more-demos li + li { border-top: 1px solid var(--border); }
+  .more-demos a { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: .75rem 0; font-size: .9rem; line-height: 1.5; color: var(--text); }
+  .more-demos a:hover { color: var(--link); text-decoration: none; }
+  .more-demos a :global(svg) { flex-shrink: 0; color: var(--link); }
+  .more-title { display: flex; flex-direction: column; gap: .1rem; }
+  .more-title small { color: var(--text-muted); font-size: .72rem; }
+  /* Keep the fixed side tab off the content edge when the page is narrower than container + tabs. */
+  @media (min-width: 701px) and (max-width: 1340px) { .wfo-demo { padding-left: 4rem; } }
+  /* Room for the always-visible side cards (see SideDock) in the left margin. */
+  @media (min-width: 1800px) { .wfo-demo { max-width: 1100px; } }
   @media (max-width: 1050px) {
-    .heading-grid { gap: 2rem; }
-    .watch-grid { grid-template-columns: minmax(0, 1.7fr) minmax(0, 1fr); gap: 1.25rem; }
-    .findings { padding: 1.25rem; }
+    .watch-grid { grid-template-columns: 1fr; grid-template-areas: 'video' 'caption' 'findings'; }
+    video { align-self: start; }
+    .findings { display: grid; grid-template-columns: 1fr 1fr; column-gap: 2rem; margin-top: 1.5rem; padding: 1.5rem; }
+    .finding-outcome { margin: 0; padding: 0 0 0 1.5rem; border-top: 0; border-left: 1px solid var(--border); }
+    .read-only { grid-column: 1 / -1; }
     .wfo-demo > .closing { gap: 2.5rem; }
   }
   @media (max-width: 900px) {
-    .heading-grid { grid-template-columns: 1fr; gap: 1rem; }
     h1 { max-width: 25ch; font-size: clamp(2rem, 5vw, 3rem); }
     .lead { max-width: 72ch; }
-    .watch-grid { grid-template-columns: 1fr; gap: 1.5rem; }
-    .findings { display: grid; grid-template-columns: 1fr 1fr; column-gap: 2rem; padding: 1.5rem; }
-    .finding-outcome { margin: 0; padding: 0 0 0 1.5rem; border-top: 0; border-left: 1px solid var(--border); }
-    .read-only { grid-column: 1 / -1; }
     .section-row { grid-template-columns: 1fr; gap: .5rem; }
     .section-intro h2 { max-width: none; }
     .wfo-demo > .review { gap: 2rem; }
@@ -211,9 +240,9 @@ const faqs = [
     h2 { font-size: 1.3rem; }
     .wfo-demo > .capabilities { padding-top: 2rem; margin: 2rem 0; }
     .wfo-demo > .review, .wfo-demo > .closing { grid-template-columns: 1fr; gap: 2rem; padding-top: 2rem; margin-top: 2rem; }
-    .contact { border-left: 0; border-top: 1px solid var(--border); padding: 1.75rem 0 0; }
+    .more-demos { border-left: 0; border-top: 1px solid var(--border); padding: 1.75rem 0 0; }
   }
   @media (prefers-reduced-motion: reduce) {
-    summary :global(svg), .integration-link { transition: none; }
+    summary :global(svg) { transition: none; }
   }
 </style>

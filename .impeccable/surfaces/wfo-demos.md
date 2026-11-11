@@ -53,3 +53,21 @@ The Impeccable context launcher could not load its engine in this environment; p
 - The logo variant reuses the existing LibreChat and WFO assets. NetBox uses the original symbol paths and colors from the existing logo, with a white circular backing for contrast. Asset provenance is in `public/images/cases/wfo-demos/SOURCES.md`; planner, specialists, MCP tools and SR Linux retain Lucide icons. The preceding icon-only captures are retained as `en-1440-icons.png` and `en-390-icons.png` under `.impeccable/review/architecture/`.
 - The WFO circle uses the logo image’s sampled background (`#04385f`) at rest, on hover and when selected. Its wrapper clips overflow to the circular boundary so the square asset cannot protrude at either node size.
 - This extension inherits the active navy/purple CSS variables and system font. Source comparison covered `WfoDemoSetup.astro`, `WfoDemoThumbnail.astro` and `src/styles/global.css`; no new global token or type system was introduced. `DESIGN.md` and `.impeccable/design.json` remain the inactive Warm Noir reference, including its historical architecture disclosure. Detector type-ramp advisories against that alternative do not change the active system.
+
+## Certificate lifecycle use case — 2026-11-10
+
+Added `src/components/WfoUseCase.astro` at `/{en,nl}/cases/wfo-certificate-lifecycle/` (registry entry `U-2001`, `kind: 'concept'` in `src/data/wfo-demos.ts`). It turns a common certificate-lifecycle-management need into a static illustrative scenario: pressure cards, a seven-step agent/WFO story, the interactive architecture, a crypto-agility campaign in waves, why orchestration, boundaries and FAQ. No recording, no organisation name, rounded figures, generic services with "e.g." examples.
+
+Direction: agents decide, WFO orchestrates. The agents are read-only; after a person approves, WFO executes across eight services (CMDB, ITSM, vault/HSM, public CA, internal PKI, DNS, deploy targets, scanner). This deliberately differs from the recorded network demos, which never execute changes.
+
+The architecture was extracted into `src/components/ServiceMap.astro` (nodes, edges and phone positions are props; edges may run right-to-left on phones). `WfoDemoSetup.astro` is now a wrapper; its before/after screenshots at 1440 and 390px are byte-identical. Original navy/purple theme and system fonts; no Warm Noir.
+
+Verification: 15 detail panels focus-test in EN/NL at 1440 and 320px with stable panel height, no horizontal overflow at 320/390/768/1440, no console errors.
+
+## Certificate lifecycle walkthrough — 2026-11-11
+
+The certificate page now follows the recorded demos' diagram section. A dashed "Hypothetical scenario" alert sits above the You row, and the header tag is "Concept". `You` is an `outside` node of `ServiceMap`; "The exact request" stays visible beside it, with Previous step / Next step / Show every step and a step card below. The old separate story list is removed; "Show every step" expands all nine in place.
+
+The story has nine steps (the last two are the agents confirming the result and the planner answering in chat). Each step lights its own nodes and edges (`stepNodes`/`stepEdges` in `WfoUseCase.astro`) through a `map:highlight` event that `ServiceMap` listens for; the step is the baseline and exploring a node overrides it temporarily. Hovering or tapping one of step 6's eight sub-steps narrows the highlight to its services. Buttons that scroll away float as a pill (full width on phones) while the diagram is in view. Without JavaScript every step shows as a timeline. A problem-and-fix section (three pairs: hidden failures → agents investigate, many systems → one WFO workflow, policy change → crypto-agility as a product parameter) leads the page, followed by the walkthrough. The former stat block and the campaign-in-waves section were removed; the waves idea now lives in the third pair.
+
+Verification: production build (129 pages); all nine steps EN/NL, sub-step narrowing, explore override, Escape, Show every step and the no-JS fallback checked in a browser; no console errors and no horizontal overflow at 390px. Network and game-server maps regression-checked.

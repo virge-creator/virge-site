@@ -22,7 +22,10 @@ const cities = en ? ['Amsterdam', 'Paris', 'London'] : ['Amsterdam', 'Parijs', '
 
     <div class="network-track">
       <svg class="connections" viewBox="0 0 360 64" preserveAspectRatio="none" fill="none" aria-hidden="true">
-        {scenario === 'outage' ? <>
+        {scenario === 'certificate' ? <>
+          <path class="normal-line" d="M60 22H180M180 22H300" />
+          <path class="arrow-tip" d="m139 18 5 4-5 4m120-8 5 4-5 4" />
+        </> : scenario === 'outage' ? <>
           <path class="fault-line" d="M60 22H180" />
           <path class="normal-line" d="M180 22H300" />
         </> : scenario === 'alert' ? <>
@@ -44,7 +47,20 @@ const cities = en ? ['Amsterdam', 'Paris', 'London'] : ['Amsterdam', 'Parijs', '
       {scenario === 'outage' && <span class="outage-marker"><Icon name="circle-x" size={16} /></span>}
 
       <div class="network-nodes">
-        {scenario === 'alert' ? <>
+        {scenario === 'certificate' ? <>
+          <div class="node">
+            <span class="node-symbol alert-symbol"><Icon name="badge-check" size={25} /></span>
+            <span class="node-label">{en ? 'Certificate' : 'Certificaat'}</span>
+          </div>
+          <div class="node">
+            <span class="node-symbol"><Icon name="workflow" size={25} /></span>
+            <span class="node-label">WFO</span>
+          </div>
+          <div class="node">
+            <span class="node-symbol"><Icon name="server" size={25} /></span>
+            <span class="node-label">{en ? 'Targets' : 'Doelen'}</span>
+          </div>
+        </> : scenario === 'alert' ? <>
           <div class="node">
             <span class="node-symbol alert-symbol"><Icon name="triangle-alert" size={25} /></span>
             <span class="node-label">PAR <code>ethernet-1/2</code></span>
@@ -68,7 +84,7 @@ const cities = en ? ['Amsterdam', 'Paris', 'London'] : ['Amsterdam', 'Parijs', '
 
     <div class="thumbnail-detail">
       <span class="detail-label">
-        <Icon name={scenario === 'outage' ? 'unplug' : scenario === 'alert' ? 'network' : scenario === 'packet-loss' ? 'activity' : 'calendar-clock'} size={16} />
+        <Icon name={scenario === 'certificate' ? 'refresh-cw' : scenario === 'outage' ? 'unplug' : scenario === 'alert' ? 'network' : scenario === 'packet-loss' ? 'activity' : 'calendar-clock'} size={16} />
         <span>{copy.detail}</span>
       </span>
       {scenario === 'maintenance' && <span class="maintenance-window">02:00–04:00</span>}
