@@ -2,6 +2,7 @@
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
 import '../styles/global.css';
+import '../styles/wfo-theme.css';
 import type { Lang } from '../i18n';
 import { getOtherLang } from '../i18n';
 import { getAlternateSlug } from '../data/blog-slugs';
@@ -15,6 +16,7 @@ interface Props {
   ogImage?: string;
   type?: 'website' | 'article';
   publishedDate?: string;
+  theme?: 'warm-noir';
 }
 
 const {
@@ -25,6 +27,7 @@ const {
   ogImage = '/logo.png',
   type = 'website',
   publishedDate,
+  theme,
 } = Astro.props;
 
 // Escape `<` so page content can never break out of the JSON-LD script tag.
@@ -59,10 +62,15 @@ const defaultPath = lang === 'en' ? currentPath : alternatePath;
 const publishedISO = publishedDate ? new Date(publishedDate).toISOString() : undefined;
 ---
 <!DOCTYPE html>
-<html lang={lang}>
+<html lang={lang} data-theme={theme}>
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  {theme === 'warm-noir' && <>
+    <meta name="theme-color" content="#292624" />
+    <link rel="preload" href="/fonts/wfo-demos/sora-latin-600.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/wfo-demos/manrope-latin.woff2" as="font" type="font/woff2" crossorigin />
+  </>}
   <meta name="description" content={description} />
   <meta property="og:title" content={fullTitle} />
   <meta property="og:description" content={description} />

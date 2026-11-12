@@ -1,0 +1,557 @@
+---
+import Layout from '../layouts/Layout.astro';
+import CertLifecycleSetup from './CertLifecycleSetup.astro';
+import Icon from './Icon.astro';
+import { wfoDemos, type WfoTicket } from '../data/wfo-demos';
+import { breadcrumbSchema } from '../data/structured-data';
+import type { Lang } from '../i18n';
+
+// Concept demo: an illustrative scenario, not a recording. Static page, no video.
+interface Props { lang: Lang; ticket: WfoTicket }
+const { lang, ticket } = Astro.props;
+const d = wfoDemos.find(d => d.ticket === ticket)!;
+const c = d[lang];
+const en = lang === 'en';
+
+const laneIcon: Record<string, string> = { alert: 'triangle-alert', you: 'user-round', agent: 'bot', wfo: 'workflow', result: 'badge-check' };
+
+// What each step lights up in the diagram (node ids from CertLifecycleSetup), one entry per step.
+// Edges default to every connection between the lit nodes; step 3 lists its own because
+// the CMDB and scanner only feed WFO later (step 8 reuses them: the agents read back). Internal PKI is never lit: this story uses the public CA.
+const stepNodes: string[][] = [
+  ['scanner'],
+  ['request', 'chat', 'planner'],
+  ['planner', 'inventory-agent', 'wfo-agent', 'pki-agent', 'cmdb', 'scanner', 'wfo'],
+  ['chat', 'planner'],
+  ['request', 'chat', 'planner', 'wfo-agent', 'wfo'],
+  ['wfo', 'itsm', 'cmdb', 'vault', 'public-ca', 'dns', 'targets', 'scanner'],
+  ['wfo', 'cmdb', 'scanner'],
+  ['planner', 'inventory-agent', 'wfo-agent', 'pki-agent', 'cmdb', 'scanner', 'wfo'],
+  ['request', 'chat', 'planner'],
+];
+const stepEdges: (string[] | undefined)[] = [
+  undefined,
+  undefined,
+  ['planner>inventory-agent', 'planner>wfo-agent', 'planner>pki-agent', 'inventory-agent>cmdb', 'pki-agent>scanner', 'wfo-agent>wfo'],
+  undefined, undefined, undefined, undefined,
+  ['planner>inventory-agent', 'planner>wfo-agent', 'planner>pki-agent', 'inventory-agent>cmdb', 'pki-agent>scanner', 'wfo-agent>wfo'],
+  undefined,
+];
+// The services each of WFO's eight sub-steps touches; hovering a row narrows the highlight to them.
+const subNodes: string[][] = [
+  ['wfo', 'itsm'], ['wfo', 'cmdb'], ['wfo', 'vault'], ['wfo', 'public-ca', 'dns'],
+  ['wfo', 'vault'], ['wfo', 'targets'], ['wfo', 'scanner'], ['wfo', 'cmdb', 'itsm'],
+];
+
+const T = {
+  en: {
+    back: 'All WFO demos',
+    tag: 'Concept',
+    meta: 'Illustrative scenario · not a recording',
+    alertLead: 'Hypothetical scenario.',
+    alert: 'This is not a recording or a client case. The certificate, the alert and the figures are invented, the services are examples and nothing here was run',
+    walkLabel: 'Scenario walkthrough',
+    prev: 'Previous step',
+    next: 'Next step',
+    showAll: 'Show every step',
+    stepByStep: 'Step by step',
+    stepWord: 'Step',
+    of: 'of',
+    context: 'Agent investigation · orchestrated renewal',
+    seeSetup: 'See the setup',
+    pitchTitle: 'Certificates now expire faster than people can renew them',
+    pitchLead: 'Validity periods keep shrinking, from over a year towards under two months by 2029. That is roughly eight times as many renewals per year, for hundreds of internal and external certificates spread over many sites. Renewing by hand does not scale, and an expired certificate is an outage.',
+    pitchNote: 'Rounded, illustrative scale for a large organisation.',
+    problemLabel: 'Problem',
+    fixLabel: 'With this setup',
+    pairs: [
+      { problem: ['Failures stay hidden until it is almost too late', 'Automatic renewal fails quietly: a rotated DNS credential, a changed firewall, an owner who left. Someone then spends hours finding out who owns the certificate, where it runs and why renewal stalled.'],
+        fix: ['Agents investigate in plain language', 'Specialist agents read the CMDB, the scanner and WFO at the same time and explain the cause, the owner and the targets. They are read-only: they propose, they do not change anything.'] },
+      { problem: ['Every renewal touches many systems', 'A renewal needs an approved change, a key pair, a CA order, a DNS challenge, a rolling deployment and a check. Scripts and tickets cover parts of it and break at the seams.'],
+        fix: ['Workflow Orchestrator runs it as one workflow', 'After a person approves, WFO executes every step across the services involved. It deploys one target at a time, rolls back on a failed check and resumes where it stopped, with every step on record.'] },
+      { problem: ['A policy change becomes a project', 'A new algorithm policy, for example to prepare for post-quantum cryptography, means finding and renewing every affected certificate by hand.'],
+        fix: ['Crypto-agility is a product parameter', 'The algorithm and key size are set once in the product. The agent selects the certificates that still use the old profile and groups them in waves; WFO runs the waves, so a policy change is a campaign instead of a project.'] },
+    ],
+    lanes: { alert: 'Alert', you: 'You', agent: 'Agent', wfo: 'WFO', result: 'Result' } as Record<string, string>,
+    steps: [
+      { lane: 'alert', title: 'A scanner raises an alert', text: 'The customer-portal certificate expires in 12 days. Last night’s automatic renewal failed.', services: ['Scanner'] },
+      { lane: 'you', title: 'You ask in plain language', text: 'Why did it fail, who owns it, what is the safest way to renew, and does it meet the algorithm policy?', services: ['LibreChat'] },
+      { lane: 'agent', title: 'Three specialists investigate at once', text: 'The Inventory agent finds the owner and three targets behind two load balancers. The PKI agent reads the scanner: the last renewal stalled at the DNS challenge. The WFO agent sees the renewal workflow suspended at its validation step, not lost.', services: ['CMDB', 'Scanner', 'WFO'] },
+      { lane: 'agent', title: 'The planner explains and proposes', text: 'A rotated DNS API credential broke the challenge. The certificate also uses the old algorithm, so the proposal renews with the agile profile. Nothing has changed yet.', services: [] },
+      { lane: 'you', title: 'You approve', text: 'One click approves the proposal. The agent starts the renewal workflow in WFO and steps back.', services: ['LibreChat', 'WFO'] },
+      { lane: 'wfo', title: 'WFO orchestrates the renewal', text: '', services: [], sub: [
+        ['Open a change and suspend until it is approved', 'ITSM'],
+        ['Read owner and deployment targets', 'CMDB'],
+        ['Generate the key pair and CSR', 'Vault / HSM'],
+        ['Order, answer the DNS challenge, validate', 'Public CA · DNS'],
+        ['Store the certificate and chain', 'Vault / HSM'],
+        ['Deploy one target at a time; roll back if a check fails', 'Deploy targets'],
+        ['Verify the TLS handshake', 'Scanner'],
+        ['Update the record and close the change', 'CMDB · ITSM'],
+      ], note: 'If a target fails its check, WFO restores the previous certificate there and pauses. After the fix, the workflow resumes at that step instead of starting over.' },
+      { lane: 'result', title: 'Renewed everywhere, with a trail', text: 'The subscription shows the new expiry, algorithm and owner. Every step, retry and approval is on record.', services: [] },
+      { lane: 'agent', title: 'The agents confirm the result', text: 'The WFO agent reads the finished subscription: new expiry, algorithm and owner, with the change closed. The PKI agent asks the scanner and sees the new certificate on all three targets. The Inventory agent finds the CMDB record updated.', services: ['WFO', 'Scanner', 'CMDB'] },
+      { lane: 'agent', title: 'The planner answers you in chat', text: 'The certificate is renewed on all three targets with the agile profile. The planner lists what ran, what the scanner confirmed and what it did not touch, and links the audit trail.', services: ['LibreChat'] },
+    ],
+    requestLabel: 'The exact request',
+    whyTitle: 'Why orchestration, not a script',
+    why: [
+      ['layers', 'A lifecycle per certificate', 'Each certificate is a subscription with states such as requested, active, renewing and retired. You can ask what is expiring and where it stands.'],
+      ['rotate-ccw', 'Resume where it stopped', 'Steps are durable. A failed DNS challenge or a busy target pauses the workflow; it continues at that step after the fix.'],
+      ['ticket-check', 'Approvals as a step', 'A change request is part of the workflow, and the workflow waits for it.'],
+      ['server', 'Rolling, with rollback', 'Targets are updated one at a time, verified, and restored if a check fails.'],
+      ['scale', 'One audit trail', 'Who approved, what ran, when and with which result, recorded for every certificate.'],
+      ['git-branch', 'Campaigns, not just renewals', 'The same workflow runs in batches, so a policy change such as a new algorithm is a campaign instead of a project.'],
+    ],
+    validationTitle: 'Validation and execution boundaries',
+    validation: [
+      'The agents are read-only: they investigate and propose.',
+      'A person approves before anything changes. WFO then executes and records every step.',
+      'Intent (WFO, CMDB) and evidence (scanner) stay separate. A renewal is only done once the scanner confirms the new certificate.',
+    ],
+    implTitle: 'Explore the implementation',
+    implText: 'The agent and orchestrator stack is open source. The certificate product, workflows and integrations in this scenario are examples of what can be modelled on top of it.',
+    docs: 'documentation',
+    cta: 'How many renewals will you face when certificates live for months, not years?',
+    ctaLink: 'Discuss your certificate lifecycle',
+  },
+  nl: {
+    back: 'Alle WFO-demo’s',
+    tag: 'Concept',
+    meta: 'Illustratief scenario · geen opname',
+    alertLead: 'Hypothetisch scenario.',
+    alert: 'Dit is geen opname en geen klantcase. Het certificaat, het alarm en de cijfers zijn verzonnen, de services zijn voorbeelden en er is niets uitgevoerd. Workflow Orchestrator en de WFO-agent bestaan; deze certificaatworkflow draait nergens.',
+    walkLabel: 'Scenario doorlopen',
+    prev: 'Vorige stap',
+    next: 'Volgende stap',
+    showAll: 'Toon alle stappen',
+    stepByStep: 'Stap voor stap',
+    stepWord: 'Stap',
+    of: 'van',
+    context: 'Agentonderzoek · georkestreerde verlenging',
+    seeSetup: 'Bekijk de opstelling',
+    pitchTitle: 'Certificaten verlopen sneller dan mensen ze kunnen verlengen',
+    pitchLead: 'De geldigheid blijft korter worden, van ruim een jaar naar minder dan twee maanden tegen 2029. Dat zijn ongeveer acht keer zoveel verlengingen per jaar, voor honderden interne en externe certificaten verspreid over veel locaties. Handmatig verlengen schaalt niet, en een verlopen certificaat is een storing.',
+    pitchNote: 'Afgeronde, illustratieve schaal voor een grote organisatie.',
+    problemLabel: 'Probleem',
+    fixLabel: 'Met deze opstelling',
+    pairs: [
+      { problem: ['Fouten blijven verborgen tot het bijna te laat is', 'Automatische verlenging mislukt ongemerkt: een geroteerde DNS-sleutel, een gewijzigde firewall, een eigenaar die weg is. Daarna is iemand uren bezig om uit te zoeken wie eigenaar is, waar het draait en waarom de verlenging vastliep.'],
+        fix: ['Agents zoeken het in gewone taal uit', 'Gespecialiseerde agents lezen tegelijk de CMDB, de scanner en WFO en leggen de oorzaak, de eigenaar en de doelen uit. Ze lezen alleen: ze doen een voorstel en wijzigen niets.'] },
+      { problem: ['Elke verlenging raakt veel systemen', 'Een verlenging vraagt om een goedgekeurde wijziging, een sleutelpaar, een CA-bestelling, een DNS-challenge, een gefaseerde uitrol en een controle. Scripts en tickets dekken delen af en haperen op de overgangen.'],
+        fix: ['Workflow Orchestrator draait het als één workflow', 'Nadat een mens goedkeurt, voert WFO elke stap uit over de betrokken services. Hij rolt per doel uit, draait terug bij een mislukte controle en gaat verder waar hij stopte, met elke stap vastgelegd.'] },
+      { problem: ['Een beleidswijziging wordt een project', 'Een nieuw algoritmebeleid, bijvoorbeeld als voorbereiding op post-quantumcryptografie, betekent dat je elk getroffen certificaat met de hand moet zoeken en verlengen.'],
+        fix: ['Crypto-agility is een productparameter', 'Het algoritme en de sleutellengte stel je één keer in het product in. De agent selecteert de certificaten die nog het oude profiel gebruiken en groepeert ze in golven; WFO draait de golven, zodat een beleidswijziging een campagne wordt in plaats van een project.'] },
+    ],
+    lanes: { alert: 'Alarm', you: 'Jij', agent: 'Agent', wfo: 'WFO', result: 'Resultaat' } as Record<string, string>,
+    steps: [
+      { lane: 'alert', title: 'Een scanner slaat alarm', text: 'Het certificaat van het klantportaal verloopt over 12 dagen. De automatische verlenging van vannacht is mislukt.', services: ['Scanner'] },
+      { lane: 'you', title: 'Je vraagt het in gewone taal', text: 'Waarom mislukte het, wie is eigenaar, wat is de veiligste manier om te verlengen en voldoet het aan het algoritmebeleid?', services: ['LibreChat'] },
+      { lane: 'agent', title: 'Drie specialisten zoeken tegelijk uit', text: 'De Inventory agent vindt de eigenaar en drie doelen achter twee load balancers. De PKI agent leest de scanner: de laatste verlenging bleef steken bij de DNS-challenge. De WFO agent ziet de verlengingsworkflow gepauzeerd bij de validatiestap, niet verloren.', services: ['CMDB', 'Scanner', 'WFO'] },
+      { lane: 'agent', title: 'De planner legt uit en doet een voorstel', text: 'Een geroteerde DNS-API-sleutel verstoorde de challenge. Het certificaat gebruikt ook het oude algoritme, dus het voorstel verlengt met het flexibele profiel. Er is nog niets gewijzigd.', services: [] },
+      { lane: 'you', title: 'Jij keurt goed', text: 'Eén klik keurt het voorstel goed. De agent start de verlengingsworkflow in WFO en stapt terug.', services: ['LibreChat', 'WFO'] },
+      { lane: 'wfo', title: 'WFO orkestreert de verlenging', text: '', services: [], sub: [
+        ['Open een wijziging en pauzeer tot die is goedgekeurd', 'ITSM'],
+        ['Lees eigenaar en uitrolplekken', 'CMDB'],
+        ['Genereer het sleutelpaar en de CSR', 'Kluis / HSM'],
+        ['Bestel, beantwoord de DNS-challenge, valideer', 'Publieke CA · DNS'],
+        ['Bewaar het certificaat en de keten', 'Kluis / HSM'],
+        ['Rol per doel uit; draai terug als een controle faalt', 'Uitrolplekken'],
+        ['Controleer de TLS-handshake', 'Scanner'],
+        ['Werk het record bij en sluit de wijziging', 'CMDB · ITSM'],
+      ], note: 'Faalt een doel bij de controle, dan zet WFO daar het vorige certificaat terug en pauzeert. Na het herstel gaat de workflow verder bij die stap, in plaats van opnieuw te beginnen.' },
+      { lane: 'result', title: 'Overal vernieuwd, met een spoor', text: 'De subscription toont de nieuwe verloopdatum, het algoritme en de eigenaar. Elke stap, herhaling en goedkeuring is vastgelegd.', services: [] },
+      { lane: 'agent', title: 'De agents bevestigen het resultaat', text: 'De WFO agent leest de afgeronde subscription: nieuwe verloopdatum, algoritme en eigenaar, met de wijziging gesloten. De PKI agent vraagt de scanner en ziet het nieuwe certificaat op alle drie de doelen. De Inventory agent ziet het CMDB-record bijgewerkt.', services: ['WFO', 'Scanner', 'CMDB'] },
+      { lane: 'agent', title: 'De planner antwoordt je in de chat', text: 'Het certificaat is op alle drie de doelen vernieuwd met het flexibele profiel. De planner noemt wat er draaide, wat de scanner bevestigde en wat hij niet aanraakte, en verwijst naar het controlespoor.', services: ['LibreChat'] },
+    ],
+    requestLabel: 'De exacte vraag (Engels)',
+    whyTitle: 'Waarom orkestratie, en geen script',
+    why: [
+      ['layers', 'Een levenscyclus per certificaat', 'Elk certificaat is een subscription met statussen als aangevraagd, actief, wordt verlengd en uitgefaseerd. Je kunt vragen wat er verloopt en hoe het ervoor staat.'],
+      ['rotate-ccw', 'Verder waar het stopte', 'Stappen zijn duurzaam. Een mislukte DNS-challenge of een druk doel pauzeert de workflow; na het herstel gaat hij verder bij die stap.'],
+      ['ticket-check', 'Goedkeuring als stap', 'Een wijzigingsverzoek is onderdeel van de workflow, en de workflow wacht erop.'],
+      ['server', 'Rollend, met terugdraaien', 'Doelen worden één voor één bijgewerkt, gecontroleerd en hersteld als een controle faalt.'],
+      ['scale', 'Eén controlespoor', 'Wie goedkeurde, wat er draaide, wanneer en met welk resultaat, voor elk certificaat vastgelegd.'],
+      ['git-branch', 'Campagnes, niet alleen verlengingen', 'Dezelfde workflow draait in batches, zodat een beleidswijziging zoals een nieuw algoritme een campagne wordt in plaats van een project.'],
+    ],
+    validationTitle: 'Validatie en uitvoeringsgrenzen',
+    validation: [
+      'De agents lezen alleen: ze onderzoeken en doen een voorstel.',
+      'Een mens keurt goed voordat er iets verandert. WFO voert daarna uit en legt elke stap vast.',
+      'Bedoelde situatie (WFO, CMDB) en bewijs (scanner) blijven gescheiden. Een verlenging is pas klaar als de scanner het nieuwe certificaat bevestigt.',
+    ],
+    implTitle: 'Bekijk de implementatie',
+    implText: 'De agent en de orkestrator zijn open source. Het certificaatproduct, de workflows en de koppelingen in dit scenario zijn voorbeelden van wat erbovenop te modelleren is.',
+    docs: 'documentatie',
+    cta: 'Met hoeveel verlengingen krijg je te maken als certificaten maanden meegaan in plaats van jaren?',
+    ctaLink: 'Bespreek je certificaatlevenscyclus',
+  },
+}[lang];
+---
+<Layout title={c.title} description={c.intro} lang={lang} jsonLd={breadcrumbSchema([{ name: 'Home', path: `/${lang}/` }, { name: 'Cases', path: `/${lang}/cases/` }, { name: 'WFO Agent Demos', path: `/${lang}/cases/wfo-demos/` }, { name: c.title, path: `/${lang}/cases/${d.slug}/` }])}>
+  <article class="use-case container">
+    <header class="demo-header">
+      <div class="page-meta">
+        <a href={`/${lang}/cases/wfo-demos/`} class="back"><Icon name="arrow-left" size={16} />{T.back}</a>
+        <div class="scenario"><span class="demo-label">{T.tag}</span><span>{T.meta}</span></div>
+      </div>
+      <h1>{c.title}</h1>
+      <p class="lead">{c.intro}</p>
+      <div class="demo-context">
+        <span><Icon name="workflow" size={16} />{T.context}</span>
+        <a href="#setup">{T.seeSetup}<Icon name="arrow-down" size={15} /></a>
+      </div>
+    </header>
+
+    <section class="pitch" aria-labelledby="pitch-heading">
+      <div class="pitch-intro">
+        <h2 id="pitch-heading">{T.pitchTitle}</h2>
+        <div>
+          <p>{T.pitchLead}</p>
+          <p class="fine-print">{T.pitchNote}</p>
+        </div>
+      </div>
+      <ol class="pairs">
+        {T.pairs.map(pair => <li class="pair">
+          <div class="problem"><span class="pair-label">{T.problemLabel}</span><h3>{pair.problem[0]}</h3><p>{pair.problem[1]}</p></div>
+          <span class="pair-arrow" aria-hidden="true"><Icon name="arrow-right" size={20} /></span>
+          <div class="fix"><span class="pair-label">{T.fixLabel}</span><h3>{pair.fix[0]}</h3><p>{pair.fix[1]}</p></div>
+        </li>)}
+      </ol>
+    </section>
+
+    <section id="setup" class="setup-section" aria-label={en ? 'Scenario walkthrough and architecture' : 'Scenario en architectuur'}>
+      <p class="concept-note"><Icon name="flask-conical" size={18} /><span><strong>{T.alertLead}</strong> {T.alert}</span></p>
+      <CertLifecycleSetup lang={lang}>
+        <div class="entry-flow" slot="entry">
+          <div class="request">
+            <h3>{T.requestLabel}</h3>
+            <blockquote>{d.prompt}</blockquote>
+          </div>
+          <div class="stepper" data-stepper data-msg-step={T.stepWord} data-msg-of={T.of} data-msg-show-all={T.showAll} data-msg-step-by-step={T.stepByStep}>
+            <div class="controls-slot" data-controls-slot>
+              <div class="controls" data-controls role="group" aria-label={T.walkLabel} hidden>
+                <div class="nav">
+                  <button type="button" class="btn" data-prev aria-label={T.prev}><Icon name="chevron-left" size={17} /><span>{T.prev.split(' ')[0]}<span class="sfx">&nbsp;{T.prev.split(' ').slice(1).join(' ')}</span></span></button>
+                  <button type="button" class="btn btn--primary" data-next aria-label={T.next}><span>{T.next.split(' ')[0]}<span class="sfx">&nbsp;{T.next.split(' ').slice(1).join(' ')}</span></span><Icon name="chevron-right" size={17} /></button>
+                  <span class="count" aria-hidden="true"><span data-count>1</span> / {T.steps.length}</span>
+                  <span class="dock-title" aria-hidden="true" data-dock-title></span>
+                </div>
+                <button type="button" class="btn btn--text" data-toggle-all aria-pressed="false"><Icon name="list" size={16} /><span data-toggle-label>{T.showAll}</span></button>
+              </div>
+            </div>
+            <ol class="steps">
+              {T.steps.map((step, i) => <li class={`step step--${step.lane}`} data-step data-title={step.title} data-nodes={stepNodes[i].join(' ')} data-edges={stepEdges[i]?.join(' ')}>
+                <span class="marker" aria-hidden="true"><Icon name={laneIcon[step.lane]} size={18} /></span>
+                <div class="step-body">
+                  <div class="step-head"><span class="lane">{T.lanes[step.lane]}</span><span class="step-no">{i + 1} / {T.steps.length}</span></div>
+                  <h3>{step.title}</h3>
+                  {step.text && <p>{step.text}</p>}
+                  {step.sub && <ol class="substeps">
+                    {step.sub.map(([label, service], j) => <li data-nodes={subNodes[j].join(' ')}><span>{label}</span><span class="chip">{service}</span></li>)}
+                  </ol>}
+                  {step.note && <p class="step-note"><Icon name="rotate-ccw" size={15} /><span>{step.note}</span></p>}
+                  {step.services.length > 0 && <ul class="chips" aria-label="Services">{step.services.map(s => <li class="chip">{s}</li>)}</ul>}
+                </div>
+              </li>)}
+            </ol>
+            <p class="sr-only" role="status" data-status></p>
+          </div>
+        </div>
+      </CertLifecycleSetup>
+    </section>
+
+    <section class="why" aria-labelledby="why-heading">
+      <h2 id="why-heading">{T.whyTitle}</h2>
+      <ul class="why-grid">
+        {T.why.map(([icon, title, text]) => <li>
+          <span class="why-icon" aria-hidden="true"><Icon name={icon} size={21} /></span>
+          <h3>{title}</h3>
+          <p>{text}</p>
+        </li>)}
+      </ul>
+    </section>
+
+    <section class="review" aria-label={en ? 'Validation and execution boundaries' : 'Validatie en uitvoeringsgrenzen'}>
+      <div class="validation">
+        <h2>{T.validationTitle}</h2>
+        <ul>
+          {T.validation.map(v => <li><Icon name="check" size={17} /><span>{v}</span></li>)}
+        </ul>
+      </div>
+    </section>
+
+    <section class="closing" aria-labelledby="implementation-heading">
+      <div>
+        <h2 id="implementation-heading">{T.implTitle}</h2>
+        <p>{T.implText}</p>
+        <div class="source-links">
+          <a href="https://workfloworchestrator.org/">WFO {T.docs}<Icon name="arrow-up-right" size={17} /></a>
+          <a href="https://github.com/workfloworchestrator/orchestrator-agent">Orchestrator Agent<Icon name="arrow-up-right" size={17} /></a>
+          <a href="https://github.com/workfloworchestrator/example-orchestrator">Example Orchestrator<Icon name="arrow-up-right" size={17} /></a>
+        </div>
+      </div>
+      <div class="contact">
+        <p>{T.cta}</p>
+        <a class="integration-link" href={`/${lang}/contact/`}>{T.ctaLink}<Icon name="arrow-right" size={18} /></a>
+      </div>
+    </section>
+  </article>
+</Layout>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-stepper]').forEach(root => {
+    const items = [...root.querySelectorAll<HTMLElement>('[data-step]')];
+    const slot = root.querySelector<HTMLElement>('[data-controls-slot]')!;
+    const controls = root.querySelector<HTMLElement>('[data-controls]')!;
+    const prev = root.querySelector<HTMLButtonElement>('[data-prev]')!;
+    const next = root.querySelector<HTMLButtonElement>('[data-next]')!;
+    const toggle = root.querySelector<HTMLButtonElement>('[data-toggle-all]')!;
+    const toggleLabel = root.querySelector<HTMLElement>('[data-toggle-label]')!;
+    const count = root.querySelector<HTMLElement>('[data-count]')!;
+    const dockTitle = root.querySelector<HTMLElement>('[data-dock-title]')!;
+    const status = root.querySelector<HTMLElement>('[data-status]')!;
+    const map = root.closest<HTMLElement>('[data-architecture]');
+    const { msgStep, msgOf, msgShowAll, msgStepByStep } = root.dataset;
+    const list = (value?: string) => (value ?? '').split(' ').filter(Boolean);
+    const subs = [...root.querySelectorAll<HTMLElement>('.substeps > li')];
+
+    let index = 0;
+    let all = false;
+    let hot: HTMLElement | null = null;    // sub-step under the pointer or focus
+    let pinned: HTMLElement | null = null; // sub-step chosen with a tap or click
+    let slotVisible = true;
+    let mapVisible = false;
+
+    // Step highlight is the baseline; a sub-step narrows it; "every step" lights nothing.
+    const highlight = () => {
+      const sub = pinned ?? hot;
+      let detail: { nodes: string[]; edges?: string[] } | null = null;
+      if (sub) detail = { nodes: list(sub.dataset.nodes) };
+      else if (!all) {
+        const li = items[index];
+        const edges = list(li.dataset.edges);
+        detail = { nodes: list(li.dataset.nodes), edges: edges.length ? edges : undefined };
+      }
+      map?.dispatchEvent(new CustomEvent('map:highlight', { detail }));
+      subs.forEach(li => li.classList.toggle('is-hot', li === sub));
+    };
+    const dock = () => controls.classList.toggle('is-docked', !all && !slotVisible && mapVisible);
+    const render = (announce: boolean) => {
+      root.classList.toggle('is-single', !all);
+      root.classList.toggle('is-all', all);
+      items.forEach((li, i) => li.classList.toggle('is-current', i === index));
+      prev.disabled = index === 0;
+      next.disabled = index === items.length - 1;
+      toggle.setAttribute('aria-pressed', String(all));
+      toggleLabel.textContent = all ? msgStepByStep! : msgShowAll!;
+      count.textContent = String(index + 1);
+      dockTitle.textContent = items[index].dataset.title ?? '';
+      if (announce) status.textContent = all ? msgShowAll! : `${msgStep} ${index + 1} ${msgOf} ${items.length}: ${items[index].dataset.title}`;
+      dock();
+      highlight();
+    };
+    const go = (to: number) => {
+      const target = Math.min(Math.max(to, 0), items.length - 1);
+      if (target === index) return;
+      const focused = document.activeElement;
+      index = target;
+      hot = null; pinned = null;
+      render(true);
+      if (focused === next && next.disabled) prev.focus();
+      if (focused === prev && prev.disabled) next.focus();
+    };
+
+    prev.addEventListener('click', () => go(index - 1));
+    next.addEventListener('click', () => go(index + 1));
+    toggle.addEventListener('click', () => { all = !all; hot = null; pinned = null; render(true); });
+
+    subs.forEach(li => {
+      li.tabIndex = 0;
+      li.addEventListener('pointerenter', event => { if (event.pointerType !== 'touch') { hot = li; highlight(); } });
+      li.addEventListener('pointerleave', () => { if (hot === li) { hot = null; highlight(); } });
+      li.addEventListener('focus', () => { hot = li; highlight(); });
+      li.addEventListener('blur', () => { if (hot === li) { hot = null; highlight(); } });
+      li.addEventListener('click', () => { pinned = pinned === li ? null : li; highlight(); });
+      li.addEventListener('keydown', event => {
+        if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); pinned = pinned === li ? null : li; highlight(); }
+      });
+    });
+
+    // While the diagram is on screen but the buttons have scrolled away, keep them within reach.
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(entries => { slotVisible = entries[entries.length - 1].isIntersecting; dock(); }).observe(slot);
+      if (map) new IntersectionObserver(entries => { mapVisible = entries[entries.length - 1].isIntersecting; dock(); }).observe(map);
+    }
+
+    controls.hidden = false;
+    render(false);
+  });
+</script>
+
+<style>
+  .use-case { max-width: 1240px; padding-top: 2rem; padding-bottom: 4rem; }
+  :where(.use-case > section) { padding: 0; }
+  .use-case :is(a, button, [tabindex]):focus-visible { outline: 2px solid var(--link); outline-offset: 5px; }
+  .page-meta, .scenario, .back, .demo-context, .demo-context > span, .demo-context a { display: flex; align-items: center; }
+  .page-meta { justify-content: space-between; gap: 1rem; margin-bottom: 2.75rem; font-size: .8rem; }
+  .back { gap: .55rem; color: var(--text-muted); }
+  .back:hover { color: var(--text); }
+  .scenario { flex-wrap: wrap; gap: .75rem; color: var(--text-muted); }
+  .demo-label { padding: .2rem .65rem; border: 1px solid var(--link); border-radius: 4px; color: var(--link); font-weight: 600; }
+  h1 { font-size: clamp(2rem, 3.8vw, 3.25rem); line-height: 1.16; margin: 0; max-width: 30ch; text-wrap: balance; color: var(--text); }
+  .lead { color: var(--text-muted); font-size: 1rem; line-height: 1.8; max-width: 64ch; margin: 1.1rem 0 0; }
+  .demo-context { justify-content: space-between; flex-wrap: wrap; gap: 1rem; padding: 1.5rem 0; margin-top: 1.5rem; border-top: 1px solid var(--border); font-size: .8rem; }
+  .demo-context > span { gap: .55rem; color: var(--text-muted); }
+  .demo-context a { gap: .5rem; }
+  h2 { font-size: 1.45rem; line-height: 1.35; margin: 0 0 1.25rem; }
+  h3 { font-family: var(--font-body); letter-spacing: 0; font-size: 1rem; line-height: 1.5; font-weight: 600; margin: 0; }
+
+  .pitch { padding-top: .5rem; margin-bottom: 2.75rem; }
+  .pitch-intro { display: grid; grid-template-columns: 1fr 1fr; gap: 3.5rem; align-items: start; }
+  .pitch-intro h2 { max-width: 22ch; margin: 0; font-size: clamp(1.5rem, 2.4vw, 1.9rem); line-height: 1.3; }
+  .pitch-intro p { margin: 0; color: var(--text-muted); font-size: .95rem; line-height: 1.8; max-width: 60ch; }
+  .pitch-intro .fine-print { margin-top: .85rem; font-size: .75rem; }
+  .pairs { margin: 2.25rem 0 0; padding: 0; list-style: none; border-top: 1px solid var(--border); }
+  .pair { display: grid; grid-template-columns: minmax(0, 1fr) 2.5rem minmax(0, 1fr); gap: 1.5rem; padding: 1.5rem 0; border-bottom: 1px solid var(--border); }
+  .pair .pair-label { display: block; margin-bottom: .35rem; font-size: .72rem; font-weight: 600; text-transform: uppercase; letter-spacing: .06em; color: var(--text-muted); }
+  .pair .fix .pair-label { color: var(--link); }
+  .pair p { margin: .4rem 0 0; color: var(--text-muted); font-size: .9rem; line-height: 1.8; }
+  .pair-arrow { display: flex; justify-content: center; padding-top: 1.45rem; color: var(--link); }
+  .fine-print { margin: .85rem 0 0; color: var(--text-muted); font-size: .75rem; line-height: 1.7; }
+
+  .sr-only { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+  .concept-note { display: flex; align-items: start; gap: .75rem; margin: 0 0 1.75rem; padding: .9rem 1.1rem; border: 1px dashed var(--link); border-radius: 8px; color: var(--text); font-size: .85rem; line-height: 1.7; }
+  .concept-note :global(svg) { flex-shrink: 0; margin-top: .2rem; color: var(--link); }
+  .concept-note strong { font-weight: 600; }
+
+  /* The exact request, as in the recorded demos; its 54px heading row keeps its centre on the connector from You. */
+  .request { max-width: 40rem; padding-bottom: 1.1rem; border-bottom: 1px solid var(--border); }
+  .request h3 { display: flex; align-items: center; min-height: 54px; }
+  blockquote { margin: 0; padding: 0; color: var(--text-muted); font-size: .95rem; line-height: 1.8; max-width: 70ch; overflow-wrap: anywhere; }
+
+  .stepper { padding-top: 1.25rem; }
+  .controls-slot { min-height: 48px; margin-bottom: 1rem; }
+  .controls { display: flex; align-items: center; flex-wrap: wrap; gap: .75rem 1rem; }
+  .controls[hidden] { display: none; }
+  .nav { display: flex; align-items: center; gap: .6rem; min-width: 0; }
+  .btn { display: inline-flex; align-items: center; justify-content: center; gap: .4rem; min-height: 44px; padding: .5rem .95rem; border: 1px solid var(--border); border-radius: 6px; background: transparent; color: var(--text); font: inherit; font-size: .85rem; font-weight: 500; white-space: nowrap; cursor: pointer; transition: border-color .18s ease-out, background .18s ease-out; }
+  .btn :global(svg) { color: var(--link); flex-shrink: 0; }
+  .btn:hover:not(:disabled) { border-color: var(--link); }
+  .btn:disabled { opacity: .4; cursor: default; }
+  .btn--primary { border-color: transparent; background: var(--accent-btn); color: #fff; font-weight: 600; }
+  .btn--primary :global(svg) { color: currentColor; }
+  .btn--primary:hover:not(:disabled) { border-color: transparent; background: var(--accent-btn-hover); }
+  .btn--text { margin-left: auto; padding-inline: .25rem; border-color: transparent; color: var(--text-muted); }
+  .btn--text:hover:not(:disabled) { border-color: transparent; color: var(--link); }
+  .count { color: var(--text-muted); font-size: .8rem; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .dock-title { display: none; }
+  .is-all .nav { display: none; }
+
+  /* Buttons that have scrolled out of view float at the bottom while the diagram is on screen. */
+  .controls.is-docked { position: fixed; z-index: 60; left: 50%; bottom: 1rem; transform: translateX(-50%); max-width: calc(100vw - 2rem); padding: .4rem .5rem; border: 1px solid var(--border); border-radius: 999px; background: var(--bg-card); box-shadow: 0 10px 30px rgb(0 0 0 / .4); }
+  .controls.is-docked .btn--text { display: none; }
+  .controls.is-docked .btn { min-height: 40px; border-radius: 999px; }
+  .controls.is-docked .dock-title { display: block; max-width: 22ch; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--text); font-size: .8rem; }
+
+  .steps { margin: 0; padding: 0; list-style: none; }
+  .step { display: grid; grid-template-columns: 40px minmax(0, 1fr); gap: 1.1rem; position: relative; padding-bottom: 1.75rem; }
+  .step::before { content: ''; position: absolute; left: 19.5px; top: 40px; bottom: 0; width: 1px; background: var(--border); }
+  .step:last-child { padding-bottom: 0; }
+  .step:last-child::before { display: none; }
+  /* One step at a time: a card, no rail. Without JavaScript every step stays visible as a timeline. */
+  .is-single .step { padding: 1.15rem 1.25rem; border: 1px solid var(--border); border-radius: 12px; background: var(--bg-card); }
+  .is-single .step::before, .is-single .step-no { display: none; }
+  .is-single .step:not(.is-current) { display: none; }
+  .marker { display: grid; place-items: center; width: 40px; height: 40px; border: 1px solid var(--border); border-radius: 50%; background: var(--bg-card); color: var(--link); }
+  .is-single .marker { background: var(--bg); }
+  .step--you .marker { color: var(--text-muted); }
+  .step--wfo .marker { border-color: var(--link); }
+  .step--alert .marker { color: #efbd87; border-color: #9a784f; }
+  .step-body { min-width: 0; padding-top: .35rem; }
+  .step-head { display: flex; gap: .75rem; align-items: baseline; margin-bottom: .2rem; font-size: .72rem; color: var(--text-muted); }
+  .lane { color: var(--link); font-weight: 600; text-transform: uppercase; letter-spacing: .06em; }
+  .step-no { font-variant-numeric: tabular-nums; }
+  .step-body p { margin: .4rem 0 0; color: var(--text-muted); font-size: .9rem; line-height: 1.8; max-width: 70ch; }
+  .chips { display: flex; flex-wrap: wrap; gap: .4rem; margin: .8rem 0 0; padding: 0; list-style: none; }
+  .chip { display: inline-block; padding: .15rem .6rem; border: 1px solid var(--border); border-radius: 999px; color: var(--text-muted); font-size: .72rem; line-height: 1.6; white-space: nowrap; }
+  .substeps { margin: .9rem 0 0; padding: 0; list-style: none; counter-reset: sub; border: 1px solid var(--border); border-radius: 12px; background: var(--bg-card); }
+  .is-single .substeps { background: var(--bg); }
+  .substeps li { counter-increment: sub; display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: .7rem 1rem; font-size: .875rem; line-height: 1.6; transition: background .18s ease-out; }
+  .substeps li + li { border-top: 1px solid var(--border); }
+  .substeps li:first-child { border-radius: 11px 11px 0 0; }
+  .substeps li:last-child { border-radius: 0 0 11px 11px; }
+  .substeps li > span:first-child::before { content: counter(sub, lower-alpha) '  '; white-space: pre; color: var(--link); font-variant-numeric: tabular-nums; font-weight: 600; }
+  .substeps li.is-hot { background: var(--bg-card-hover); }
+  .substeps li.is-hot .chip { border-color: var(--link); color: var(--text); }
+  .step-note { display: flex; gap: .6rem; align-items: start; }
+  .step-note :global(svg) { flex-shrink: 0; margin-top: .4rem; color: var(--link); }
+
+  .setup-section { scroll-margin-top: 6rem; margin-bottom: 2.75rem; }
+
+
+  .why { padding-top: 2.75rem; margin-bottom: 2.75rem; border-top: 1px solid var(--border); }
+  .why-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 2rem 2.5rem; margin: 0; padding: 0; list-style: none; }
+  .why-icon { display: inline-flex; margin-bottom: .6rem; color: var(--link); }
+  .why-grid p { margin: .4rem 0 0; color: var(--text-muted); font-size: .875rem; line-height: 1.8; }
+
+  .use-case > .review { display: grid; grid-template-columns: 1fr 2fr; gap: 3.5rem; padding-top: 2.75rem; margin: 0 0 2.75rem; border-top: 1px solid var(--border); }
+  .validation ul { margin: 0; padding: 0; list-style: none; }
+  .validation h2 { max-width: 25ch; }
+  .validation li { display: flex; align-items: start; gap: .8rem; font-size: .9rem; line-height: 1.8; color: var(--text-muted); margin: 0 0 1rem; }
+  .validation li :global(svg) { flex-shrink: 0; margin-top: .35rem; color: var(--link); }
+
+  .use-case > .closing { display: grid; grid-template-columns: 1.25fr 1fr; gap: 5rem; padding-top: 2.75rem; margin-top: 3rem; border-top: 1px solid var(--border); }
+  .closing p { color: var(--text-muted); font-size: .9rem; line-height: 1.8; max-width: 65ch; }
+  .source-links { display: flex; flex-direction: column; gap: .25rem; margin-top: 1.25rem; max-width: 28rem; }
+  .source-links a { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: .55rem 0; font-size: .9rem; }
+  .contact { align-self: center; border-left: 1px solid var(--border); padding-left: 2rem; }
+  .contact p { color: var(--text); font-family: var(--font-display); font-size: 1.25rem; line-height: 1.6; text-wrap: balance; max-width: 30ch; }
+  .integration-link { display: inline-flex; justify-content: center; align-items: center; gap: 1.25rem; min-height: 48px; padding: .8rem 1.25rem; margin-top: 1.5rem; border-radius: 6px; background: var(--accent-btn); color: #fff; font-size: .9rem; font-weight: 600; transition: background .18s ease-out; }
+  .integration-link:hover { background: var(--accent-btn-hover); text-decoration: none; }
+
+  @media (max-width: 1050px) {
+    .use-case > .closing { gap: 2.5rem; }
+    .why-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+  @media (max-width: 900px) {
+    h1 { max-width: 25ch; font-size: clamp(2rem, 5vw, 3rem); }
+    .lead { max-width: 72ch; }
+    .use-case > .review { gap: 2rem; }
+    .pitch-intro { grid-template-columns: 1fr; gap: 1rem; }
+    .pair { grid-template-columns: 1fr; gap: .9rem; padding: 1.35rem 0; }
+    .pair-arrow { padding: 0; justify-content: flex-start; transform: rotate(90deg); width: 20px; }
+  }
+  @media (max-width: 600px) {
+    .use-case { padding-top: 1.25rem; padding-bottom: 2.5rem; }
+    .page-meta { align-items: flex-start; flex-direction: column; margin-bottom: 1.75rem; gap: 1.5rem; }
+    .scenario { gap: .65rem; font-size: .75rem; }
+    h1 { font-size: clamp(1.85rem, 7.2vw, 2.5rem); }
+    .lead { font-size: .95rem; line-height: 1.75; }
+    .demo-context { padding: 1.1rem 0; margin-top: 1.25rem; font-size: .75rem; }
+    h2 { font-size: 1.3rem; }
+    .why { padding-top: 2rem; margin-bottom: 2rem; }
+    .step { grid-template-columns: 32px minmax(0, 1fr); gap: .8rem; }
+    .step::before { left: 15.5px; top: 32px; }
+    .marker { width: 32px; height: 32px; }
+    .marker :global(svg) { width: 16px; height: 16px; }
+    /* The entry column is narrow on phones: drop the marker so the card text gets the width. */
+    .is-single .step { grid-template-columns: minmax(0, 1fr); padding: 1rem; }
+    .is-single .marker { display: none; }
+    .nav { flex-wrap: wrap; gap: .5rem; }
+    .btn { padding-inline: .7rem; }
+    .sfx { display: none; }
+    .btn--text { margin-left: 0; }
+    .controls.is-docked { left: .75rem; right: .75rem; bottom: .75rem; transform: none; max-width: none; }
+    .controls.is-docked .nav { width: 100%; flex-wrap: nowrap; }
+    .controls.is-docked .dock-title { flex: 1; max-width: none; }
+    .controls.is-docked .count { display: none; }
+    .substeps li { flex-direction: column; align-items: flex-start; gap: .35rem; padding: .7rem .85rem; }
+    .why-grid { grid-template-columns: 1fr; gap: 1.5rem; }
+    .use-case > .review, .use-case > .closing { grid-template-columns: 1fr; gap: 2rem; padding-top: 2rem; margin-top: 2rem; }
+    .contact { border-left: 0; border-top: 1px solid var(--border); padding: 1.75rem 0 0; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .integration-link, .btn, .substeps li { transition: none; }
+  }
+</style>

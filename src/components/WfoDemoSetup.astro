@@ -1,0 +1,99 @@
+---
+import ServiceMap from './ServiceMap.astro';
+import type { MapNode, MapEdge } from './ServiceMap.astro';
+import type { Lang } from '../i18n';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const en = lang === 'en';
+const serviceLogos: Record<string, string> = {
+  chat: '/images/cases/wfo-demos/librechat.svg',
+  wfo: '/images/cases/surf-orchestrator-core/wfo-logo.png',
+  netbox: '/images/cases/wfo-demos/netbox-mark.svg',
+};
+const rawNodes = [
+  { id: 'request', label: en ? 'You' : 'Jij', icon: 'user-round', col: 1, row: 1, kind: 'request', outside: true,
+    route: en ? 'Ticket / request' : 'Ticket / vraag',
+    text: en ? 'Start with a customer ticket, monitoring alert or change request. The planner combines service records, inventory and device evidence to investigate it.' : 'Begin met een klantmelding, monitoringalarm of wijzigingsverzoek. De planner combineert servicegegevens, inventaris en apparaatmetingen voor het onderzoek.' },
+  { id: 'chat', label: 'LibreChat', icon: 'messages-square', col: 1, row: 1, kind: 'request',
+    route: 'LibreChat → OpenAI-compatible API → A2A proxy',
+    text: en ? 'The chat interface sends the request to an OpenAI-compatible endpoint. The A2A proxy bridges that request to the planner.' : 'De chatinterface stuurt de vraag naar een OpenAI-compatibel endpoint. De A2A-proxy geeft deze door aan de planner.' },
+  { id: 'proxy', label: 'A2A proxy', icon: 'arrow-left-right', col: 1, row: 2, kind: 'request',
+    route: 'OpenAI-compatible API → A2A → Planner',
+    text: en ? 'The proxy connects LibreChat to the agent stack. The incoming chat API and the agent-to-agent protocol are separate interfaces.' : 'De proxy verbindt LibreChat met de agents. De inkomende chat-API en het agent-to-agentprotocol zijn afzonderlijke interfaces.' },
+  { id: 'planner', label: 'Planner', icon: 'bot', col: 2, row: 2, kind: 'planner',
+    route: 'Planner → A2A → WFO / Inventory / Network',
+    text: en ? 'One planner delegates to three specialist agents over A2A, then combines their findings. MCP provides tools to the specialists; A2A connects the agents.' : 'Eén planner verdeelt het onderzoek via A2A over drie gespecialiseerde agents en combineert hun bevindingen. MCP ontsluit hun tools; A2A verbindt de agents.' },
+  { id: 'wfo-agent', label: 'WFO agent', icon: 'bot', col: 3, row: 1, kind: 'agent',
+    route: 'Planner → A2A → WFO agent → MCP → WFO',
+    text: en ? 'Looks up subscriptions, customers and stored service configuration through WFO’s MCP tools. An active subscription or enabled port in WFO does not establish live device health.' : 'Zoekt subscriptions, klanten en opgeslagen serviceconfiguratie op via de MCP-tools van WFO. Een actieve subscription of ingeschakelde poort in WFO bewijst geen gezonde live verbinding.' },
+  { id: 'inventory-agent', label: 'Inventory agent', icon: 'bot', col: 3, row: 2, kind: 'agent',
+    route: 'Inventory agent → MCP → netbox-mcp → API → NetBox',
+    text: en ? 'Resolves inventory context through netbox-mcp. NetBox supplies device and interface records, which are distinct from the live measurements collected by the network agent.' : 'Haalt inventariscontext op via netbox-mcp. NetBox levert apparaat- en poortgegevens, los van de live metingen die de network-agent verzamelt.' },
+  { id: 'network-agent', label: 'Network agent', icon: 'bot', col: 3, row: 3, kind: 'agent',
+    route: 'Network agent → MCP → network-mcp',
+    text: en ? 'Compares WFO service intent with current SR Linux state and path measurements. The demo investigates and recommends follow-up; it does not execute repairs or maintenance changes.' : 'Vergelijkt de WFO-serviceconfiguratie met de actuele SR Linux-status en padmetingen. De demo onderzoekt en adviseert, maar voert geen herstel- of onderhoudswijzigingen uit.' },
+  { id: 'netbox-mcp', label: 'netbox-mcp', icon: 'plug', col: 4, row: 2, kind: 'tool',
+    route: 'Inventory agent → MCP → netbox-mcp → API → NetBox',
+    text: en ? 'The MCP server exposes inventory tools to the inventory agent and queries the NetBox API. It supplies inventory context rather than live network telemetry.' : 'Deze MCP-server ontsluit inventaristools voor de inventory-agent en bevraagt de NetBox-API. Hij levert inventariscontext, geen live netwerktelemetrie.' },
+  { id: 'network-mcp', label: 'network-mcp', icon: 'plug', col: 4, row: 3, kind: 'tool',
+    route: 'WFO: REST + GraphQL · SR Linux: JSON-RPC',
+    text: en ? 'Reads stored service intent from WFO over REST and GraphQL, and queries SR Linux over JSON-RPC. These two evidence sources let the agent detect disagreement between configuration and device state.' : 'Leest opgeslagen serviceconfiguratie uit WFO via REST en GraphQL en bevraagt SR Linux via JSON-RPC. Met deze twee bronnen kan de agent verschillen tussen configuratie en apparaatstatus vaststellen.' },
+  { id: 'wfo', label: 'Workflow Orchestrator', icon: 'workflow', col: 5, row: 1, kind: 'system',
+    route: en ? 'WFO agent: MCP · network-mcp: REST + GraphQL' : 'WFO-agent: MCP · network-mcp: REST + GraphQL',
+    text: en ? 'Stores service intent, subscription status, customer mapping and maintenance flags. The WFO agent uses MCP; network-mcp also reads the service data over REST and GraphQL.' : 'Bewaart serviceconfiguratie, subscriptionstatus, klantkoppelingen en onderhoudsvlaggen. De WFO-agent gebruikt MCP; network-mcp leest de servicegegevens ook via REST en GraphQL.' },
+  { id: 'netbox', label: 'NetBox', icon: 'database', col: 5, row: 2, kind: 'system',
+    route: 'netbox-mcp → API → NetBox',
+    text: en ? 'Provides the network inventory used in the investigation. Device and interface records help identify the affected equipment; live health is checked separately on SR Linux.' : 'Levert de netwerkinventaris voor het onderzoek. Apparaat- en poortgegevens helpen de betrokken apparatuur te vinden; de live status wordt apart op SR Linux gecontroleerd.' },
+  { id: 'srlinux', label: 'SR Linux', icon: 'router', col: 5, row: 3, kind: 'system',
+    route: 'network-mcp → JSON-RPC → SR Linux',
+    text: en ? 'The emulated containerlab path connects Amsterdam, Paris and London with no alternate route. Interface state and packet-loss measurements are device evidence; individual samples can differ.' : 'Het geëmuleerde containerlab-pad verbindt Amsterdam, Parijs en Londen zonder alternatief pad. Poortstatus en pakketverliesmetingen komen van de apparaten; afzonderlijke steekproeven kunnen verschillen.' },
+];
+const rawEdges = [
+  { from: 'request', to: 'chat', label: '' },
+  { from: 'chat', to: 'proxy', label: 'API' },
+  { from: 'proxy', to: 'planner', label: 'A2A' },
+  { from: 'planner', to: 'wfo-agent', label: 'A2A' },
+  { from: 'planner', to: 'inventory-agent', label: 'A2A' },
+  { from: 'planner', to: 'network-agent', label: 'A2A' },
+  { from: 'wfo-agent', to: 'wfo', label: 'MCP' },
+  { from: 'inventory-agent', to: 'netbox-mcp', label: 'MCP' },
+  { from: 'network-agent', to: 'network-mcp', label: 'MCP' },
+  { from: 'netbox-mcp', to: 'netbox', label: 'API' },
+  { from: 'network-mcp', to: 'srlinux', label: 'JSON-RPC' },
+  { from: 'network-mcp', to: 'wfo', label: 'REST + GraphQL', shared: true },
+];
+
+// Phone grid positions (3 columns); desktop positions are in `rawNodes`.
+const mobile: Record<string, [number, number]> = {
+  request: [1, 0], chat: [1, 1], proxy: [2, 1], planner: [2, 2],
+  'wfo-agent': [1, 3], 'inventory-agent': [2, 3], 'network-agent': [3, 3],
+  'netbox-mcp': [2, 4], 'network-mcp': [3, 4],
+  wfo: [1, 5], netbox: [2, 5], srlinux: [3, 5],
+};
+const variants: Record<string, 'netbox' | 'wfo'> = { netbox: 'netbox', wfo: 'wfo' };
+const nodes = rawNodes.map(node => ({
+  ...node,
+  mcol: mobile[node.id][0],
+  mrow: mobile[node.id][1],
+  logo: serviceLogos[node.id] ? { src: serviceLogos[node.id], variant: variants[node.id] } : undefined,
+})) as MapNode[];
+const edges: MapEdge[] = rawEdges.map(edge => ({
+  ...edge,
+  compact: edge.from === 'planner' ? 'fan-down' : undefined,
+}));
+---
+
+<ServiceMap
+  nodes={nodes}
+  edges={edges}
+  cols={5}
+  rows={3}
+  mobileRows={5}
+  heading={en ? 'Multi-agent architecture' : 'Multi-agentarchitectuur'}
+  hint={en ? 'Hover, focus or tap a node to explore' : 'Beweeg over, focus op of tik op een node voor uitleg'}
+  ariaLabel={en ? 'Request path, specialist agents, tools and systems' : 'Vraag, gespecialiseerde agents, tools en systemen'}
+  overviewTitle={en ? 'One planner. Three specialists. Shared evidence.' : 'Eén planner. Drie specialisten. Gedeelde gegevens.'}
+  overviewText={en ? 'A2A connects the agents; MCP exposes their tools. Network tools compare WFO intent over REST and GraphQL with SR Linux state over JSON-RPC. Select a node to follow its connections.' : 'A2A verbindt de agents; MCP ontsluit hun tools. Netwerktools vergelijken WFO-configuratie via REST en GraphQL met SR Linux-status via JSON-RPC. Kies een node om de verbindingen te volgen.'}>
+  <slot name="entry" slot="entry" />
+</ServiceMap>

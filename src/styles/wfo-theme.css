@@ -1,0 +1,153 @@
+@font-face {
+  font-family: 'Manrope';
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url('/fonts/wfo-demos/manrope-latin.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Sora';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('/fonts/wfo-demos/sora-latin-600.woff2') format('woff2');
+}
+
+/* The theme is opt-in for detail routes and local to cards on the Cases index. */
+:root[data-theme='warm-noir'],
+.warm-noir {
+  --bg: #292624;
+  --bg-card: #34302d;
+  --bg-card-hover: #3d3834;
+  --surface: #34302d;
+  --border: #58524c;
+  --text: #eae5df;
+  --text-muted: #b8b0a7;
+  --accent: #376dd9;
+  --accent2: #9db8ee;
+  --link: #9db8ee;
+  --accent-btn: #376dd9;
+  --accent-btn-hover: #2c5fc4;
+  --font-display: 'Sora', 'Segoe UI', sans-serif;
+  --font-body: 'Manrope', 'Segoe UI', sans-serif;
+  --radius: 12px;
+  color-scheme: dark;
+  scrollbar-color: var(--border) var(--bg);
+}
+
+:root[data-theme='warm-noir'] body {
+  font-family: var(--font-body);
+  font-size: 1rem;
+}
+
+:root[data-theme='warm-noir'] :is(h1, h2, h3) {
+  font-family: var(--font-display);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+
+:root[data-theme='warm-noir'] ::selection,
+.warm-noir ::selection {
+  background: var(--link);
+  color: var(--bg);
+}
+
+:root[data-theme='warm-noir'] a,
+.warm-noir a {
+  text-underline-offset: 0.22em;
+}
+
+:root[data-theme='warm-noir'] :is(a, button, summary, video, [tabindex]):focus-visible,
+.warm-noir:focus-visible {
+  outline: 2px solid var(--link);
+  outline-offset: 5px;
+}
+
+:root[data-theme='warm-noir'] button {
+  font-family: inherit;
+}
+
+:root[data-theme='warm-noir'] body > nav {
+  background: var(--bg);
+  backdrop-filter: none;
+  border-bottom: 1px solid var(--border);
+}
+
+:root[data-theme='warm-noir'] body > nav .container,
+:root[data-theme='warm-noir'] body > footer .container {
+  max-width: 1240px;
+}
+
+:root[data-theme='warm-noir'] nav :is(.lang-current, .lang-option) {
+  font-family: var(--font-body);
+  border-color: var(--border);
+  color: var(--text-muted);
+}
+
+:root[data-theme='warm-noir'] nav :is(.dropdown, .lang-menu) {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  box-shadow: none;
+}
+
+:root[data-theme='warm-noir'] nav .dropdown::before {
+  display: none;
+}
+
+:root[data-theme='warm-noir'] nav :is(.lang-option .check, .lang-option.active, .links a.active) {
+  color: var(--link);
+}
+
+:root[data-theme='warm-noir'] nav :is(.dropdown li a, .lang-option) {
+  color: var(--text-muted);
+}
+
+:root[data-theme='warm-noir'] nav :is(.dropdown li a:hover, .dropdown li a.active, .lang-option:hover, .lang-option.active),
+:root[data-theme='warm-noir'] nav :is(.lang-switch:hover, .lang-switch:focus-within) .lang-current {
+  background: var(--bg-card-hover);
+  color: var(--text);
+  border-color: var(--border);
+}
+
+:root[data-theme='warm-noir'] nav :is(.links > li > a.active, .dropdown-parent > a.active)::after {
+  background: var(--link);
+}
+
+:root[data-theme='warm-noir'] body > footer {
+  border-color: var(--border);
+}
+
+@media (min-width: 901px) {
+  :root[data-theme='warm-noir'] nav .has-dropdown:focus-within .dropdown {
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+  }
+}
+
+@media (max-width: 900px) {
+  :root[data-theme='warm-noir'] nav .links {
+    border-color: var(--border);
+    max-height: calc(100dvh - 73px);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+
+  :root[data-theme='warm-noir'] nav :is(.dropdown, .lang-menu) {
+    background: transparent;
+    border: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root[data-theme='warm-noir'] {
+    scroll-behavior: auto;
+  }
+
+  :root[data-theme='warm-noir'] nav *,
+  .warm-noir {
+    transition: none;
+  }
+}

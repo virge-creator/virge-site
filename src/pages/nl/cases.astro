@@ -1,6 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import CTA from '../../components/CTA.astro';
+import Icon from '../../components/Icon.astro';
 
 const lang = 'nl';
 ---
@@ -13,6 +14,30 @@ const lang = 'nl';
   <section>
     <div class="container">
       <div class="cases-grid">
+        <a href={`/${lang}/cases/wfo-demos/`} class="case-card">
+          <div class="case-card-visual case-card-visual--wfo" aria-hidden="true">
+            <img src="/images/cases/surf-orchestrator-core/wfo-logo.png" alt="" class="case-card-logo" width="88" height="88" />
+            <span class="wfo-card-cross">×</span>
+            <span class="wfo-card-agent"><Icon name="bot" size={58} /></span>
+          </div>
+          <div class="case-card-top">
+            <span class="cases-eyebrow">Demos</span>
+            <div class="case-card-tags">
+              <span class="tag">WFO</span>
+              <span class="tag">AI Agents</span>
+            </div>
+          </div>
+          <h3>WFO Agent Demos</h3>
+          <p>Bekijk vier demo’s van netwerkdiagnostiek en een use case voor certificaatlevenscyclus, met AI-agents, Workflow Orchestrator en de services die ze koppelen.</p>
+          <div class="case-card-footer">
+            <div class="case-card-meta">
+              <span>Netwerkorkestratie</span>
+              <span class="cases-dot">·</span>
+              <span>WFO · NetBox · LibreChat</span>
+            </div>
+            <span class="cases-cta">Bekijk demo’s →</span>
+          </div>
+        </a>
 
         <a href={`/${lang}/cases/surf-orchestrator-core/`} class="case-card">
           <div class="case-card-visual case-card-visual--surf" aria-hidden="true">
@@ -164,6 +189,59 @@ const lang = 'nl';
     background: #000;
     flex-shrink: 0;
     margin: 0 1.5rem;
+  }
+
+  .case-card-visual--wfo {
+    background: #fff;
+    color: #12122a;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(0.75rem, 2vw, 1.5rem);
+    padding: 1.5rem;
+  }
+
+  .case-card-visual--wfo .case-card-logo {
+    width: clamp(64px, 18vw, 88px);
+    height: auto;
+    border-radius: 4px;
+  }
+
+  .case-card-visual--wfo .wfo-card-cross {
+    font-size: 4rem;
+    font-weight: 100;
+    color: #000;
+    line-height: 1;
+    letter-spacing: 0;
+    flex-shrink: 0;
+  }
+
+  .case-card-visual--wfo .wfo-card-agent {
+    display: grid;
+    place-items: center;
+    width: clamp(64px, 18vw, 88px);
+    aspect-ratio: 1;
+    flex-shrink: 0;
+    border: 1px solid var(--link);
+    border-radius: 12px;
+    background: #fff;
+    color: #12122a;
+    font-size: 1rem;
+    line-height: 1;
+  }
+
+  .wfo-card-agent :global(svg) {
+    width: 66%;
+    height: auto;
+  }
+
+  .case-card:focus-visible {
+    outline: 2px solid var(--link);
+    outline-offset: 5px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .case-card { transition: none; }
+    .case-card:hover { transform: none; }
   }
 
   .case-card-top {
