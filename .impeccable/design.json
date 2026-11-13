@@ -1,0 +1,298 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-11-09T11:20:48.181268Z",
+  "title": "Design System: Virge WFO Demos — Optional Warm Noir Reference",
+  "extensions": {
+    "colorMeta": {
+      "bg": {
+        "role": "neutral",
+        "displayName": "Brown Charcoal",
+        "tonalRamp": [
+          "oklch(15% 0.0058 56.14)",
+          "oklch(25% 0.0058 56.14)",
+          "oklch(37% 0.0058 56.14)",
+          "oklch(49% 0.0058 56.14)",
+          "oklch(61% 0.0058 56.14)",
+          "oklch(73% 0.0058 56.14)",
+          "oklch(85% 0.0058 56.14)",
+          "oklch(95% 0.0058 56.14)"
+        ]
+      },
+      "bg-card": {
+        "role": "neutral",
+        "displayName": "Warm Graphite",
+        "tonalRamp": [
+          "oklch(15% 0.0078 59.39)",
+          "oklch(25% 0.0078 59.39)",
+          "oklch(37% 0.0078 59.39)",
+          "oklch(49% 0.0078 59.39)",
+          "oklch(61% 0.0078 59.39)",
+          "oklch(73% 0.0078 59.39)",
+          "oklch(85% 0.0078 59.39)",
+          "oklch(95% 0.0078 59.39)"
+        ]
+      },
+      "bg-card-hover": {
+        "role": "neutral",
+        "displayName": "Raised Graphite",
+        "tonalRamp": [
+          "oklch(15% 0.0098 61.17)",
+          "oklch(25% 0.0098 61.17)",
+          "oklch(37% 0.0098 61.17)",
+          "oklch(49% 0.0098 61.17)",
+          "oklch(61% 0.0098 61.17)",
+          "oklch(73% 0.0098 61.17)",
+          "oklch(85% 0.0098 61.17)",
+          "oklch(95% 0.0098 61.17)"
+        ]
+      },
+      "border": {
+        "role": "neutral",
+        "displayName": "Warm Rule",
+        "tonalRamp": [
+          "oklch(15% 0.0125 67.50)",
+          "oklch(25% 0.0125 67.50)",
+          "oklch(37% 0.0125 67.50)",
+          "oklch(49% 0.0125 67.50)",
+          "oklch(61% 0.0125 67.50)",
+          "oklch(73% 0.0125 67.50)",
+          "oklch(85% 0.0125 67.50)",
+          "oklch(95% 0.0125 67.50)"
+        ]
+      },
+      "text": {
+        "role": "neutral",
+        "displayName": "Bone",
+        "tonalRamp": [
+          "oklch(15% 0.0097 72.66)",
+          "oklch(25% 0.0097 72.66)",
+          "oklch(37% 0.0097 72.66)",
+          "oklch(49% 0.0097 72.66)",
+          "oklch(61% 0.0097 72.66)",
+          "oklch(73% 0.0097 72.66)",
+          "oklch(85% 0.0097 72.66)",
+          "oklch(95% 0.0097 72.66)"
+        ]
+      },
+      "text-muted": {
+        "role": "neutral",
+        "displayName": "Warm Ash",
+        "tonalRamp": [
+          "oklch(15% 0.0156 70.84)",
+          "oklch(25% 0.0156 70.84)",
+          "oklch(37% 0.0156 70.84)",
+          "oklch(49% 0.0156 70.84)",
+          "oklch(61% 0.0156 70.84)",
+          "oklch(73% 0.0156 70.84)",
+          "oklch(85% 0.0156 70.84)",
+          "oklch(95% 0.0156 70.84)"
+        ]
+      },
+      "accent": {
+        "role": "primary",
+        "displayName": "Quiet Blue",
+        "tonalRamp": [
+          "oklch(15% 0.1757 262.29)",
+          "oklch(25% 0.1757 262.29)",
+          "oklch(37% 0.1757 262.29)",
+          "oklch(49% 0.1757 262.29)",
+          "oklch(61% 0.1757 262.29)",
+          "oklch(73% 0.1757 262.29)",
+          "oklch(85% 0.1757 262.29)",
+          "oklch(95% 0.1757 262.29)"
+        ]
+      },
+      "link": {
+        "role": "primary",
+        "displayName": "Pale Blue",
+        "tonalRamp": [
+          "oklch(15% 0.0830 263.91)",
+          "oklch(25% 0.0830 263.91)",
+          "oklch(37% 0.0830 263.91)",
+          "oklch(49% 0.0830 263.91)",
+          "oklch(61% 0.0830 263.91)",
+          "oklch(73% 0.0830 263.91)",
+          "oklch(85% 0.0830 263.91)",
+          "oklch(95% 0.0830 263.91)"
+        ]
+      },
+      "action-hover": {
+        "role": "primary",
+        "displayName": "Deep Action Blue",
+        "tonalRamp": [
+          "oklch(15% 0.1676 262.12)",
+          "oklch(25% 0.1676 262.12)",
+          "oklch(37% 0.1676 262.12)",
+          "oklch(49% 0.1676 262.12)",
+          "oklch(61% 0.1676 262.12)",
+          "oklch(73% 0.1676 262.12)",
+          "oklch(85% 0.1676 262.12)",
+          "oklch(95% 0.1676 262.12)"
+        ]
+      },
+      "white": {
+        "role": "neutral",
+        "displayName": "White",
+        "tonalRamp": [
+          "oklch(15% 0.0000 0.00)",
+          "oklch(25% 0.0000 0.00)",
+          "oklch(37% 0.0000 0.00)",
+          "oklch(49% 0.0000 0.00)",
+          "oklch(61% 0.0000 0.00)",
+          "oklch(73% 0.0000 0.00)",
+          "oklch(85% 0.0000 0.00)",
+          "oklch(95% 0.0000 0.00)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "Detail-page hero heading; responsive size overrides are documented in DESIGN.md."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Open reading-section headings."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "WFO Cases card headings."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Detail-page base text."
+      },
+      "detail": {
+        "displayName": "Detail",
+        "purpose": "Findings and supporting paragraphs."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Scenario metadata."
+      }
+    },
+    "shadows": [],
+    "motion": [
+      {
+        "name": "action-fill",
+        "value": "background .18s ease-out",
+        "purpose": "Integration action hover; removed for reduced motion."
+      },
+      {
+        "name": "card-border",
+        "value": "border-color .18s ease-out",
+        "purpose": "Cases card hover; removed for reduced motion."
+      },
+      {
+        "name": "disclosure-symbol",
+        "value": "transform .2s ease-out",
+        "purpose": "Plus symbol rotates 45 degrees in native request/FAQ disclosures; removed for reduced motion."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "phone",
+        "value": "600px"
+      },
+      {
+        "name": "architecture-stack",
+        "value": "700px"
+      },
+      {
+        "name": "navigation-and-recording-stack",
+        "value": "900px"
+      },
+      {
+        "name": "compact-desktop",
+        "value": "1050px"
+      }
+    ],
+    "activation": {
+      "enabledByDefault": false,
+      "currentDefault": "Original navy/purple site palette and system typography",
+      "referenceScreenshot": "docs/previews/wfo-warm-noir-sora-manrope.png"
+    }
+  },
+  "components": [
+    {
+      "name": "Integration action",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "The primary link action inside a local Warm Noir scope.",
+      "html": "<div class=\"ds-warm-noir\"><a class=\"ds-action\" href=\"/en/contact/\">Discuss an integration<svg width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M5 12h14m-7-7 7 7-7 7\"/></svg></a></div>",
+      "css": ".ds-warm-noir {--bg: #292624;\n--bg-card: #34302d;\n--bg-card-hover: #3d3834;\n--surface: #34302d;\n--border: #58524c;\n--text: #eae5df;\n--text-muted: #b8b0a7;\n--accent: #376dd9;\n--accent2: #9db8ee;\n--link: #9db8ee;\n--accent-btn: #376dd9;\n--font-display: 'Sora', 'Segoe UI', sans-serif;\n--font-body: 'Manrope', 'Segoe UI', sans-serif;\n--radius: 12px;color:var(--text);font-family:var(--font-body);line-height:1.6;} .ds-action{display:inline-flex;justify-content:center;align-items:center;gap:1.25rem;min-height:48px;padding:.8rem 1.25rem;border-radius:6px;background:var(--accent-btn);color:#fff;font-size:.9rem;font-weight:600;text-decoration:none;transition:background .18s ease-out;}.ds-action:hover{background:#2c5fc4;text-decoration:none;}.ds-action:focus-visible{outline:2px solid var(--link);outline-offset:5px;}@media(prefers-reduced-motion:reduce){.ds-action{transition:none;}}"
+    },
+    {
+      "name": "Architecture disclosure",
+      "kind": "custom",
+      "refersTo": "disclosure-control",
+      "description": "Native bordered disclosure from the architecture panel, shown in normal flow as on narrow screens.",
+      "html": "<div class=\"ds-warm-noir\"><details class=\"ds-technical\"><summary class=\"ds-summary\"><span class=\"ds-show-details\">Show technical details</span><span class=\"ds-show-overview\">Show overview</span><span class=\"ds-chevron\"><svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"m6 9 6 6 6-6\"/></svg></span></summary><p class=\"ds-description\">A2A connects specialist agents; MCP exposes tools. WFO stores service intent.</p></details></div>",
+      "css": ".ds-warm-noir {--bg: #292624;\n--bg-card: #34302d;\n--bg-card-hover: #3d3834;\n--surface: #34302d;\n--border: #58524c;\n--text: #eae5df;\n--text-muted: #b8b0a7;\n--accent: #376dd9;\n--accent2: #9db8ee;\n--link: #9db8ee;\n--accent-btn: #376dd9;\n--font-display: 'Sora', 'Segoe UI', sans-serif;\n--font-body: 'Manrope', 'Segoe UI', sans-serif;\n--radius: 12px;color:var(--text);font-family:var(--font-body);line-height:1.6;} .ds-technical{background:var(--bg-card);padding:1.25rem;border:1px solid var(--border);border-radius:12px;}.ds-summary{display:flex;align-items:center;gap:.65rem;min-height:44px;width:fit-content;padding:.5rem .75rem;border:1px solid var(--border);border-radius:6px;color:var(--text);font-size:.8rem;cursor:pointer;list-style:none;}.ds-summary::-webkit-details-marker{display:none;}.ds-summary:hover{background:var(--bg-card-hover);border-color:var(--text-muted);}.ds-summary:focus-visible{outline:2px solid var(--link);outline-offset:4px;}.ds-show-overview,.ds-technical[open] .ds-show-details{display:none;}.ds-technical[open] .ds-show-overview{display:inline;}.ds-chevron{color:var(--link);display:flex;}.ds-technical[open] .ds-chevron{transform:rotate(180deg);}.ds-description{color:var(--text-muted);font-size:.85rem;line-height:1.8;margin:.75rem 0 0;max-width:80ch;}"
+    },
+    {
+      "name": "Detail navigation links",
+      "kind": "nav",
+      "description": "Active and resting link treatments from the opted-in detail navigation; the full site component supplies menus and language switching.",
+      "html": "<div class=\"ds-warm-noir\"><nav class=\"ds-nav\" aria-label=\"Main\"><a class=\"ds-nav-link\" href=\"/en/\">Home</a><a class=\"ds-nav-link ds-active\" href=\"/en/cases/\" aria-current=\"page\">Cases</a><a class=\"ds-nav-link\" href=\"/en/blog/\">Blog</a><a class=\"ds-nav-link\" href=\"/en/contact/\">Contact</a></nav></div>",
+      "css": ".ds-warm-noir {--bg: #292624;\n--bg-card: #34302d;\n--bg-card-hover: #3d3834;\n--surface: #34302d;\n--border: #58524c;\n--text: #eae5df;\n--text-muted: #b8b0a7;\n--accent: #376dd9;\n--accent2: #9db8ee;\n--link: #9db8ee;\n--accent-btn: #376dd9;\n--font-display: 'Sora', 'Segoe UI', sans-serif;\n--font-body: 'Manrope', 'Segoe UI', sans-serif;\n--radius: 12px;color:var(--text);font-family:var(--font-body);line-height:1.6;} .ds-nav{display:flex;gap:1.5rem;padding:1rem 1.5rem;background:var(--bg);border-bottom:1px solid var(--border);}.ds-nav-link{display:flex;align-items:center;position:relative;color:var(--text-muted);font-size:1.05rem;text-decoration:none;transition:color .2s;}.ds-nav-link:hover{color:var(--text);text-decoration:none;}.ds-nav-link.ds-active{color:var(--link);}.ds-active::after{content:\"\";position:absolute;bottom:-.35rem;left:0;right:0;height:2px;border-radius:2px;background:var(--link);}.ds-nav-link:focus-visible{outline:2px solid var(--link);outline-offset:5px;}@media(max-width:900px){.ds-nav{flex-direction:column;gap:1rem;}.ds-nav-link{padding:.5rem 0;}.ds-active::after{display:none;}}@media(prefers-reduced-motion:reduce){.ds-nav-link{transition:none;}}"
+    },
+    {
+      "name": "Detail Demo metadata label",
+      "kind": "chip",
+      "refersTo": "demo-label",
+      "description": "A noninteractive scenario label, not a filter or selectable control.",
+      "html": "<div class=\"ds-warm-noir\"><span class=\"ds-demo-label\">Demo</span></div>",
+      "css": ".ds-warm-noir {--bg: #292624;\n--bg-card: #34302d;\n--bg-card-hover: #3d3834;\n--surface: #34302d;\n--border: #58524c;\n--text: #eae5df;\n--text-muted: #b8b0a7;\n--accent: #376dd9;\n--accent2: #9db8ee;\n--link: #9db8ee;\n--accent-btn: #376dd9;\n--font-display: 'Sora', 'Segoe UI', sans-serif;\n--font-body: 'Manrope', 'Segoe UI', sans-serif;\n--radius: 12px;color:var(--text);font-family:var(--font-body);line-height:1.6;} .ds-demo-label{display:inline-block;padding:.2rem .65rem;border:1px solid var(--border);border-radius:4px;color:var(--text);font-size:.8rem;font-weight:600;}"
+    },
+    {
+      "name": "WFO Cases card",
+      "kind": "card",
+      "refersTo": "cases-card",
+      "description": "A whole-card link with a localized static scenario diagram in its 16:9 preview. The production component also includes the service identity strip and original-theme styling.",
+      "html": "<div class=\"ds-wfo-diagram\" role=\"img\" aria-label=\"Service outage: Amsterdam to Paris; the Paris port is disabled; London remains connected\"><div class=\"ds-wfo-node\">AMS</div><div class=\"ds-wfo-link\"></div><div class=\"ds-wfo-node ds-wfo-node-disabled\">PAR<span>Port disabled</span></div><div class=\"ds-wfo-link ds-wfo-link-live\"></div><div class=\"ds-wfo-node\">LON</div></div>",
+      "css": ".ds-warm-noir {--bg: #292624;\n--bg-card: #34302d;\n--bg-card-hover: #3d3834;\n--surface: #34302d;\n--border: #58524c;\n--text: #eae5df;\n--text-muted: #b8b0a7;\n--accent: #376dd9;\n--accent2: #9db8ee;\n--link: #9db8ee;\n--accent-btn: #376dd9;\n--font-display: 'Sora', 'Segoe UI', sans-serif;\n--font-body: 'Manrope', 'Segoe UI', sans-serif;\n--radius: 12px;color:var(--text);font-family:var(--font-body);line-height:1.6;} .ds-card{display:flex;flex-direction:column;min-width:0;overflow:hidden;border:1px solid var(--border);border-radius:12px;background:var(--bg-card);color:var(--text);text-decoration:none;transition:border-color .18s ease-out;}.ds-card:hover{border-color:var(--link);text-decoration:none;}.ds-card:focus-visible{outline:2px solid var(--link);outline-offset:5px;}.ds-preview{aspect-ratio:16/9;overflow:hidden;background:var(--bg);border-bottom:1px solid var(--border);}.ds-card-copy{display:flex;flex-direction:column;flex:1;gap:1rem;padding:1.5rem;}.ds-card-meta{display:flex;flex-wrap:wrap;align-items:center;gap:.6rem;color:var(--text-muted);font-size:.7rem;}.ds-card-demo{color:var(--text);font-weight:600;}.ds-ticket{font-variant-numeric:tabular-nums;color:var(--link);}.ds-card-title{font-family:var(--font-display);font-size:1.35rem;font-weight:600;letter-spacing:-.02em;line-height:1.4;text-wrap:balance;margin:0;}.ds-card-intro{color:var(--text-muted);font-size:.9rem;line-height:1.8;margin:0;flex:1;}.ds-card-link{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding-top:1rem;margin-top:.15rem;border-top:1px solid var(--border);color:var(--link);font-size:.85rem;font-weight:500;}@media(max-width:600px){.ds-card-copy{padding:1.25rem;}.ds-card-title{font-size:1.25rem;}}@media(prefers-reduced-motion:reduce){.ds-card{transition:none;}} .ds-wfo-diagram{display:flex;align-items:center;justify-content:center;gap:1rem;min-height:12rem;padding:1rem;background:#0a0a1a;color:#e0e0f0;border-bottom:1px solid #45405f}.ds-wfo-node{display:grid;place-items:center;width:5rem;height:5rem;flex:none;border:1px solid #6c5ce7;border-radius:50%;background:#12122a;font-size:.8rem;font-weight:600}.ds-wfo-node-disabled{border-color:#efbd87}.ds-wfo-node span{font-size:.65rem;color:#efbd87}.ds-wfo-link{height:2px;flex:1;background:#a1a1c4}.ds-wfo-link-live{background:#c4a5ff}@media(max-width:480px){.ds-wfo-diagram{gap:.5rem}.ds-wfo-node{width:3rem;height:3rem;font-size:.65rem}.ds-wfo-node span{font-size:.55rem}}"
+    }
+  ],
+  "narrative": {
+    "northStar": "Warm Noir (inactive reference)",
+    "overview": "Inactive design alternative. Current WFO demo routes and cards use the original site palette and system typography. A brown-charcoal field, bone text and restrained blue signals give WFO demonstrations the clarity of a technical evidence report. Flat surfaces, real recording imagery and open reading sections establish a calm, precise character. Fine rules distinguish related information without enclosing every paragraph.\n\nThis is a scoped visual world for the four bilingual WFO demo detail pages and their existing Cases cards. Detail pages opt in through `data-theme=\"warm-noir\"`; individual cards use a local `warm-noir` scope. The surrounding Cases index and all other site surfaces retain the incumbent purple palette and system typography. This document does not establish a new site-wide default.",
+    "keyCharacteristics": [
+      "Warm dark neutrals with pale blue links and solid blue actions.",
+      "Sora semibold headings paired with Manrope reading text.",
+      "Flat frames, fine dividers and real evidence imagery.",
+      "Responsive reading layouts and native disclosures and video controls."
+    ],
+    "rules": [
+      {
+        "name": "The Scope Rule",
+        "body": "Apply this palette only inside the opted-in detail route or local WFO card; preserve the surrounding site's incumbent identity.",
+        "section": "colors"
+      },
+      {
+        "name": "The Two Faces Rule",
+        "body": "Use Sora 600 for headings and Manrope for reading and controls; small subordinate findings headings deliberately use Manrope with normal tracking.",
+        "section": "typography"
+      },
+      {
+        "name": "The Flat Finish Rule",
+        "body": "Use fill, border and readable hierarchy to express structure; keep content surfaces flat at rest and on hover.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "**Do** apply Warm Noir through the existing opt-in route or local card scope.",
+      "**Do** use the supplied Sora 600 and Manrope faces in both languages.",
+      "**Do** preserve real recording imagery, original service identities and asset provenance.",
+      "**Do** use tonal panels for grouped evidence and fine rules for open reading sections.",
+      "**Do** retain native controls, visible keyboard focus and the mobile architecture overview."
+    ],
+    "donts": [
+      "**Don't** promote this scoped world into a site-wide palette or typography default.",
+      "**Don't** add purple chrome, gradients, ornamental shadows or hover lift to the redesigned surfaces.",
+      "**Don't** replace the recording stills with fabricated interfaces or decorative illustrations.",
+      "**Don't** turn every paragraph into another rounded panel.",
+      "**Don't** treat the Demo label as an interactive filter or invent form fields for these surfaces."
+    ]
+  }
+}

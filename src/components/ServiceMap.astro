@@ -1,0 +1,291 @@
+---
+import Icon from './Icon.astro';
+
+export interface MapNode {
+  id: string;
+  label: string;
+  icon: string;
+  /** Desktop grid position. */
+  col: number;
+  row: number;
+  /** Phone grid position (3 columns). */
+  mcol: number;
+  mrow: number;
+  kind: 'request' | 'planner' | 'agent' | 'tool' | 'system';
+  route: string;
+  text: string;
+  /** Optional service logo shown instead of the icon. */
+  logo?: { src: string; variant?: 'netbox' | 'wfo' };
+  /** Render above the diagram box, in the `entry` row, instead of inside the grid. It sits over column 1 and its edges are still drawn into the map. */
+  outside?: boolean;
+}
+export interface MapEdge {
+  from: string;
+  to: string;
+  label: string;
+  /** Dashed edge whose label only shows when it is active. */
+  shared?: boolean;
+  /** Phone routing: `side-entry` leaves below the source and enters the target from the side; `fan-down` leaves below the source and ends above the target. */
+  compact?: 'side-entry' | 'fan-down';
+}
+interface Props {
+  heading: string;
+  hint: string;
+  ariaLabel: string;
+  overviewTitle: string;
+  overviewText: string;
+  nodes: MapNode[];
+  edges: MapEdge[];
+  cols: number;
+  rows: number;
+  mobileRows: number;
+}
+const { heading, hint, ariaLabel, overviewTitle, overviewText, nodes, edges, cols, rows, mobileRows } = Astro.props;
+const outsideNodes = nodes.filter(node => node.outside);
+const hasEntry = outsideNodes.length > 0;
+---
+
+<div class:list={['setup-wrap', { 'has-entry': hasEntry }]} data-architecture style={`--cols:${cols}`}>
+{hasEntry && <div class="entry">
+  {outsideNodes.map(node => <button type="button" class="map-node map-node--entry map-node--request" data-node={node.id} aria-controls={`architecture-detail-${node.id}`} aria-describedby={`architecture-description-${node.id}`} aria-pressed="false" disabled>
+    <span class="node-symbol" aria-hidden="true"><Icon name={node.icon} size={26} /></span>
+    <span class="node-label">{node.label}</span>
+  </button>)}
+  <div class="entry-content"><slot name="entry" /></div>
+</div>}
+<figure class="setup">
+  <figcaption>
+    <h2>{heading}</h2>
+    <p class="interaction-hint"><span aria-hidden="true"><Icon name="mouse-pointer-2" size={15} /></span>{hint}</p>
+  </figcaption>
+  <div class="architecture-map" role="group" aria-label={ariaLabel} style={`--cols:${cols};--rows:${rows};--m-rows:${mobileRows}`}>
+    <svg class="connections" aria-hidden="true" fill="none">
+      <defs><marker id="architecture-arrow" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="m1 1 5 3-5 3" /></marker></defs>
+      {edges.map(edge => <g data-from={edge.from} data-to={edge.to} data-compact={edge.compact} class:list={['edge', { 'edge--shared': edge.shared }]}>
+        <path class="edge-path" marker-end="url(#architecture-arrow)" />
+        <text class="edge-label" text-anchor="middle">{edge.label}</text>
+      </g>)}
+    </svg>
+    {nodes.filter(node => !node.outside).map(node => <button type="button" class:list={['map-node', `map-node--${node.kind}`]} data-node={node.id} style={`--desktop-col:${node.col};--desktop-row:${node.row};--m-col:${node.mcol};--m-row:${node.mrow}`} aria-controls={`architecture-detail-${node.id}`} aria-describedby={`architecture-description-${node.id}`} aria-pressed="false" disabled>
+      <span class:list={['node-symbol', { [`node-symbol--${node.logo?.variant}`]: !!node.logo?.variant }]} aria-hidden="true">
+        {node.logo
+          ? <img src={node.logo.src} data-service-logo={node.id} alt="" width="36" height="36" />
+          : <Icon name={node.icon} size={26} />}
+      </span>
+      <span class="node-label">{node.label}</span>
+    </button>)}
+  </div>
+  <div class="explanations">
+    <div class="explanation" data-detail="overview">
+      <h3>{overviewTitle}</h3>
+      <p>{overviewText}</p>
+    </div>
+    {nodes.map(node => <div class="explanation" data-detail={node.id} id={`architecture-detail-${node.id}`} hidden>
+      <div class="explanation-heading"><h3>{node.label}</h3><span class="connection-route">{node.route}</span></div>
+      <p id={`architecture-description-${node.id}`}>{node.text}</p>
+    </div>)}
+  </div>
+  <noscript><dl class="text-architecture">{nodes.map(node => <><dt>{node.label} · {node.route}</dt><dd>{node.text}</dd></>)}</dl></noscript>
+</figure>
+</div>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-architecture]').forEach(setup => {
+    const map = setup.querySelector<HTMLElement>('.architecture-map')!;
+    const entry = setup.querySelector<HTMLElement>('.entry');
+    const svg = setup.querySelector<SVGSVGElement>('.connections')!;
+    const nodes = [...setup.querySelectorAll<HTMLButtonElement>('[data-node]')];
+    const edges = [...svg.querySelectorAll<SVGGElement>('.edge')];
+    const panels = [...setup.querySelectorAll<HTMLElement>('[data-detail]')];
+    let pinned: string | null = null;
+    let hovered: string | null = null;
+    let focused: string | null = null;
+    let dismissed = false;
+    // A walkthrough outside the map can light a set of nodes. It is the baseline: exploring a node overrides it, and it returns afterwards.
+    let step: { nodes: Set<string>; edges: Set<string> | null } | null = null;
+    const show = () => {
+      const active = dismissed ? null : hovered ?? focused ?? pinned;
+      const stepping = !active && !!step;
+      panels.forEach(panel => { panel.hidden = panel.dataset.detail !== (active ?? 'overview'); });
+      const related = new Set([active]);
+      edges.forEach(edge => {
+        const from = edge.dataset.from!, to = edge.dataset.to!;
+        // Without an explicit edge list, a step lights every connection between its nodes.
+        const connected = stepping
+          ? (step!.edges ? step!.edges.has(`${from}>${to}`) : step!.nodes.has(from) && step!.nodes.has(to))
+          : from === active || to === active;
+        edge.classList.toggle('is-active', connected);
+        if (connected && !stepping) { related.add(from); related.add(to); }
+      });
+      nodes.forEach(node => {
+        const id = node.dataset.node!;
+        node.setAttribute('aria-pressed', String(id === pinned));
+        node.classList.toggle('is-active', id === active);
+        node.classList.toggle('is-related', stepping ? step!.nodes.has(id) : related.has(id));
+        node.classList.toggle('is-step', stepping && step!.nodes.has(id));
+      });
+      setup.classList.toggle('is-exploring', !!active || stepping);
+      setup.classList.toggle('is-stepping', stepping);
+    };
+    setup.addEventListener('map:highlight', event => {
+      const detail = (event as CustomEvent<{ nodes: string[]; edges?: string[] } | null>).detail;
+      step = detail ? { nodes: new Set(detail.nodes), edges: detail.edges ? new Set(detail.edges) : null } : null;
+      show();
+    });
+    nodes.forEach(node => {
+      node.disabled = false;
+      node.addEventListener('pointerenter', event => {
+        if (event.pointerType === 'touch') return;
+        hovered = node.dataset.node!; dismissed = false; show();
+      });
+      node.addEventListener('focus', () => { hovered = null; focused = node.dataset.node!; dismissed = false; show(); });
+      node.addEventListener('blur', () => { focused = null; show(); });
+      node.addEventListener('click', () => {
+        pinned = pinned === node.dataset.node ? null : node.dataset.node!;
+        dismissed = false; show();
+      });
+    });
+    // Keep the explanation available while the pointer moves from a node to its text.
+    setup.addEventListener('pointerleave', () => { hovered = null; show(); });
+    document.addEventListener('keydown', event => {
+      if (event.key !== 'Escape' || !(hovered || focused || pinned)) return;
+      pinned = null; dismissed = true; show();
+    });
+    const draw = () => {
+      const bounds = map.getBoundingClientRect();
+      svg.setAttribute('viewBox', `0 0 ${bounds.width} ${bounds.height}`);
+      const compact = matchMedia('(max-width: 760px)').matches;
+      const point = (id: string) => {
+        const node = nodes.find(node => node.dataset.node === id)!;
+        const circle = node.querySelector('.node-symbol')!.getBoundingClientRect();
+        const label = node.querySelector('.node-label')!.getBoundingClientRect();
+        return { x: circle.left - bounds.left + circle.width / 2, y: circle.top - bounds.top + circle.height / 2, r: circle.width / 2 + 5, bottom: label.bottom - bounds.top + 8 };
+      };
+      edges.forEach(edge => {
+        const a = point(edge.dataset.from!), b = point(edge.dataset.to!);
+        let d: string, tx: number, ty: number;
+        if (edge.classList.contains('edge--shared')) {
+          const x1 = a.x + a.r, x2 = b.x - b.r, gutter = (x1 + x2) / 2;
+          d = compact
+            ? `M${a.x},${a.bottom} C${a.x},${b.y - b.r - 20} ${b.x},${b.y - b.r - 20} ${b.x},${b.y - b.r}`
+            : `M${x1},${a.y} C${gutter},${a.y} ${gutter},${b.y} ${x2},${b.y}`;
+          tx = compact ? (a.x + b.x) / 2 : gutter;
+          ty = compact ? b.y - b.r - 24 : (a.y + b.y) / 2 - 12;
+        } else if (compact && edge.dataset.compact === 'side-entry') {
+          d = `M${a.x},${a.bottom} C${a.x},${b.y} ${b.x + 60},${b.y} ${b.x + b.r},${b.y}`;
+          tx = a.x - 14; ty = (a.y + b.y) / 2;
+        } else if (compact && edge.dataset.compact === 'fan-down') {
+          const start = a.bottom, end = b.y - b.r, middle = (start + end) / 2;
+          d = `M${a.x},${start} C${a.x},${middle} ${b.x},${middle} ${b.x},${end}`;
+          tx = b.x; ty = middle - 5;
+        } else if (Math.abs(a.x - b.x) < 2) {
+          const end = b.y - b.r;
+          d = `M${a.x},${a.bottom} V${end}`;
+          tx = a.x + (compact ? 0 : 23); ty = (a.bottom + end) / 2 - 3;
+        } else {
+          const dir = b.x >= a.x ? 1 : -1;
+          const x1 = a.x + dir * a.r, x2 = b.x - dir * b.r, middle = (x1 + x2) / 2;
+          d = `M${x1},${a.y} C${middle},${a.y} ${middle},${b.y} ${x2},${b.y}`;
+          tx = middle; ty = (a.y + b.y) / 2 - 9;
+        }
+        edge.querySelector('.edge-path')!.setAttribute('d', d);
+        const label = edge.querySelector('text')!;
+        label.setAttribute('x', String(tx)); label.setAttribute('y', String(ty));
+      });
+    };
+    const resizes = new ResizeObserver(draw);
+    resizes.observe(map);
+    if (entry) resizes.observe(entry); // the entry row's height sets where the box starts, so redraw the entry edge when it changes
+    document.fonts.ready.then(draw);
+    draw();
+  });
+</script>
+
+<style>
+  .setup-wrap { --ecols: var(--cols); }
+  .setup { margin: 0; padding: 1.75rem; background: var(--bg); }
+  /* The entry row uses the map's own column grid so the outside node sits exactly over column 1. */
+  .entry { display: grid; grid-template-columns: repeat(var(--ecols), minmax(0, 1fr)); align-items: start; padding: 0 1.75rem 1.25rem; --r: 26px; }
+  .entry .node-symbol { margin-top: calc(27px - var(--r)); } /* centre on the request's 54px summary row */
+  .entry > .map-node--entry { grid-column: 1; grid-row: 1; width: 100%; height: auto; padding: 0 .2rem 1.5rem; align-self: start; }
+  .entry-content { grid-column: 2 / -1; grid-row: 1; min-width: 0; position: relative; }
+  /* Short connector from the node to the request it sends; column 1 is 1/(cols-1) of this box. */
+  .entry-content::before { content: ''; position: absolute; top: 27px; left: calc(32px - 50% / (var(--ecols) - 1)); width: calc(50% / (var(--ecols) - 1) - 40px); border-top: 1.25px solid var(--link); }
+  /* Leave column 1 clear so the node's line into the diagram does not cross the heading. */
+  .has-entry figcaption { padding-left: calc(100% / var(--ecols)); }
+  figcaption { display: flex; align-items: baseline; justify-content: space-between; flex-wrap: wrap; gap: .75rem 2rem; }
+  h2 { margin: 0; font-size: 1.45rem; line-height: 1.4; }
+  .interaction-hint { display: flex; align-items: center; gap: .5rem; margin: 0; color: var(--text-muted); font-size: .8rem; line-height: 1.6; }
+  .interaction-hint > span { display: flex; }
+  .architecture-map { display: grid; grid-template-columns: repeat(var(--cols), minmax(0, 1fr)); grid-template-rows: repeat(var(--rows), 132px); position: relative; margin: 1.5rem 0 1rem; }
+  .connections { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
+  .edge-path { stroke: var(--link); stroke-width: 1.25; }
+  marker path { stroke: var(--link); stroke-width: 1.3; }
+  .edge-label { fill: var(--text-muted); font-family: var(--font-body); font-size: 11px; paint-order: stroke; stroke: var(--bg); stroke-width: 6px; stroke-linejoin: round; }
+  .edge--shared .edge-path { stroke-dasharray: 4 5; stroke: var(--text-muted); }
+  .edge--shared .edge-label { font-size: 10px; opacity: 0; }
+  .edge--shared.is-active .edge-label { opacity: 1; }
+  .map-node { grid-column: var(--desktop-col); grid-row: var(--desktop-row); display: flex; flex-direction: column; align-items: center; align-self: center; gap: .6rem; position: relative; height: 116px; margin: 0; padding: .5rem .2rem; border: 0; background: transparent; color: var(--text); font: inherit; cursor: pointer; min-width: 0; -webkit-tap-highlight-color: transparent; }
+  .map-node:disabled { cursor: default; }
+  .node-symbol { display: grid; place-items: center; flex-shrink: 0; width: 52px; height: 52px; border: 1px solid var(--border); border-radius: 50%; background: var(--bg-card); color: var(--link); transition: background .18s ease-out, border-color .18s ease-out; }
+  .node-symbol img { display: block; width: 36px; height: 36px; object-fit: contain; }
+  .node-symbol--wfo img { width: 42px; height: 42px; border-radius: 6px; }
+  .node-symbol--wfo { overflow: hidden; }
+  .map-node--request .node-symbol { color: var(--text-muted); }
+  .map-node--planner .node-symbol { border-color: var(--link); }
+  .node-label { max-width: 17ch; font-size: .8rem; line-height: 1.4; text-align: center; text-wrap: balance; }
+  .map-node--tool .node-label { font-family: ui-monospace, monospace; font-size: .75rem; }
+  .map-node:focus-visible { outline: none; }
+  .map-node:focus-visible .node-symbol { outline: 2px solid var(--link); outline-offset: 5px; }
+  .map-node:hover .node-symbol, .map-node.is-active .node-symbol { border-color: var(--link); background: var(--bg-card-hover); }
+  .node-symbol--netbox, .map-node:hover .node-symbol--netbox, .map-node.is-active .node-symbol--netbox { background: #fff; }
+  .node-symbol--wfo, .map-node:hover .node-symbol--wfo, .map-node.is-active .node-symbol--wfo { background: #04385f; }
+  .is-exploring .edge:not(.is-active) { opacity: .3; }
+  .is-exploring .edge.is-active .edge-path { stroke: var(--link); stroke-width: 2; }
+  .is-related .node-symbol { border-color: var(--link); }
+  .is-active .node-label { color: var(--link); }
+  /* Walkthrough highlight: lit nodes get a ring, the rest recede. */
+  .map-node { transition: opacity .18s ease-out; }
+  .is-stepping .map-node:not(.is-step) { opacity: .4; }
+  .is-stepping .map-node.is-step .node-symbol { box-shadow: 0 0 0 4px color-mix(in srgb, var(--link) 24%, transparent); }
+  .is-stepping .map-node.is-step .node-label { color: var(--link); }
+  .explanations { display: grid; min-height: 140px; border-top: 1px solid var(--border); padding-top: 1.25rem; }
+  .explanation { grid-area: 1 / 1; }
+  .explanation[hidden] { display: block; visibility: hidden; pointer-events: none; }
+  .explanation-heading { display: flex; align-items: baseline; flex-wrap: wrap; gap: .35rem 1.5rem; }
+  h3 { margin: 0; font-size: .95rem; line-height: 1.5; font-weight: 600; }
+  .connection-route { color: var(--link); font-size: .75rem; line-height: 1.6; overflow-wrap: anywhere; }
+  .explanation p { max-width: 90ch; color: var(--text-muted); font-size: .85rem; line-height: 1.8; margin: .5rem 0 0; }
+  .text-architecture { font-size: .85rem; line-height: 1.8; }
+  .text-architecture dt { margin-top: 1rem; font-weight: 600; }
+  .text-architecture dd { color: var(--text-muted); }
+  @media (max-width: 760px) {
+    .setup { padding: 1.25rem; }
+    h2 { font-size: 1.3rem; }
+    .interaction-hint { font-size: .75rem; }
+    .architecture-map { grid-template-columns: repeat(3, minmax(0, 1fr)); grid-template-rows: repeat(var(--m-rows), 112px); margin-top: .75rem; }
+    .map-node { grid-column: var(--m-col); grid-row: var(--m-row); height: 104px; }
+    .node-symbol { width: 44px; height: 44px; }
+    .setup-wrap { --ecols: 3; }
+    .entry { --r: 22px; padding: 0 1.25rem 1rem; }
+    .entry-content::before { left: calc(28px - 50% / (var(--ecols) - 1)); width: calc(50% / (var(--ecols) - 1) - 36px); }
+    .node-symbol img { width: 30px; height: 30px; }
+    .node-symbol--wfo img { width: 36px; height: 36px; }
+    .node-symbol :global(svg) { width: 24px; height: 24px; }
+    .node-label { font-size: .75rem; }
+    .map-node--tool .node-label { font-size: .6875rem; }
+    .edge-label { font-size: 10px; }
+    .edge--shared .edge-label { font-size: 9px; }
+    .explanation-heading { display: block; }
+    .connection-route { display: block; margin-top: .35rem; }
+  }
+  @media (max-width: 380px) {
+    .setup { padding: 1rem .75rem; }
+    .entry { padding: 0 .75rem 1rem; }
+    .node-label { font-size: .6875rem; }
+    .edge-label { font-size: 9px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .node-symbol, .map-node { transition: none; }
+  }
+</style>

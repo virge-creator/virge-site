@@ -1,0 +1,274 @@
+<title>Virge Design Builder</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&family=Outfit:wght@400;500;600;700&family=Sora:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: a single combination builder. Controls on the left, a live sample page on the right. */
+:root {
+  --r-bg: #262626;
+  --r-surface: #303030;
+  --r-border: #4d4d4d;
+  --r-text: #D7D9DC;
+  --r-muted: #AEAEAE;
+  --r-blue: #6F96EC;
+  --r-btn: #376DD9;
+  --font-display: 'Sora', 'Segoe UI', sans-serif;
+  --font-body: 'Inter', 'Segoe UI', sans-serif;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body {
+  background: var(--r-bg);
+  color: var(--r-text);
+  font: 400 16px/1.6 var(--font-body);
+  padding-block: 40px 96px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+main { max-width: 1120px; margin: 0 auto; display: flex; flex-direction: column; gap: 72px; }
+h1, h2, h3 { font-family: var(--font-display); text-wrap: balance; margin: 0; line-height: 1.15; letter-spacing: -0.02em; }
+h1 { font-size: clamp(2rem, 5vw, 3.25rem); font-weight: 600; }
+h2 { font-size: 1.75rem; font-weight: 600; }
+h3 { font-size: 1.125rem; font-weight: 600; }
+p { margin: 0; max-width: 66ch; }
+.eyebrow { font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--r-muted); font-weight: 600; }
+.muted { color: var(--r-muted); }
+section { display: flex; flex-direction: column; gap: 24px; min-width: 0; }
+.head { display: flex; flex-direction: column; gap: 12px; }
+a { color: var(--r-blue); }
+:focus-visible { outline: 2px solid var(--r-text); outline-offset: 2px; }
+
+/* controls */
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip { font: 600 0.8125rem var(--font-body); color: var(--r-text); background: transparent; border: 1px solid var(--r-border); border-radius: 999px; padding: 7px 14px; cursor: pointer; }
+.chip:hover { border-color: var(--r-muted); }
+.chip[aria-pressed="true"] { background: var(--r-text); color: #262626; border-color: var(--r-text); }
+
+/* builder */
+.builder { display: grid; grid-template-columns: minmax(0, 280px) minmax(0, 1fr); gap: 24px; align-items: start; }
+.builder .panel { display: flex; flex-direction: column; gap: 20px; min-width: 0; }
+.builder .group { display: flex; flex-direction: column; gap: 8px; }
+.builder .group .chips { flex-direction: column; align-items: stretch; }
+.builder .chip { text-align: left; border-radius: 6px; }
+.stage { background: var(--p-bg); color: var(--p-text); border: 1px solid var(--p-border); border-radius: 10px; padding: clamp(20px, 4vw, 40px); display: flex; flex-direction: column; gap: 32px; font-family: var(--font-body); min-width: 0; }
+.stage .nav { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; font-size: 0.875rem; }
+.stage .logo { font-family: var(--font-display); font-weight: 700; font-size: 1.125rem; }
+.stage .links { display: flex; gap: 20px; color: var(--p-muted); flex-wrap: wrap; }
+.stage .links .on { color: var(--p-link); }
+.stage h3 { font-family: var(--font-display); font-size: clamp(1.75rem, 4vw, 2.75rem); font-weight: 600; max-width: 18ch; }
+.stage .lead { color: var(--p-muted); font-size: 1.0625rem; max-width: 52ch; }
+.stage .hero { display: flex; flex-direction: column; gap: 18px; }
+.stage .btns { display: flex; gap: 10px; flex-wrap: wrap; }
+.stage .cta { background: var(--p-cta); color: #fff; font: 600 0.9375rem var(--font-body); padding: 11px 20px; border-radius: 5px; }
+.stage .ghost { border: 1px solid var(--p-border); font: 600 0.9375rem var(--font-body); padding: 11px 20px; border-radius: 5px; }
+.stage .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 190px), 1fr)); gap: 14px; }
+.stage .card { background: var(--p-surface); border: 1px solid var(--p-border); border-radius: 8px; padding: 18px; display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+.stage .card h4 { font-family: var(--font-display); font-size: 1rem; font-weight: 600; margin: 0; letter-spacing: -0.01em; }
+.stage .card p { font-size: 0.875rem; color: var(--p-muted); line-height: 1.5; }
+.stage .pill { align-self: flex-start; font-size: 0.75rem; font-weight: 600; padding: 3px 10px; border-radius: 999px; background: var(--p-tint-bg); color: var(--p-tint-fg); display: inline-flex; align-items: center; gap: 6px; }
+.stage .pill::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--p-tint-dot); }
+.stage .lnk { color: var(--p-link); text-decoration: underline; text-underline-offset: 3px; font-size: 0.875rem; }
+.stage .foot { display: flex; gap: 8px 20px; flex-wrap: wrap; align-items: center; border-top: 1px solid var(--p-border); padding-top: 16px; font-size: 0.8125rem; color: var(--p-muted); }
+.readout { font-size: 0.8125rem; color: var(--r-muted); }
+.readout b { color: var(--r-text); }
+
+.stage .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 150px), 1fr)); gap: 14px; }
+.stage .stat { border-top: 2px solid var(--p-border); padding-top: 10px; display: flex; flex-direction: column; gap: 2px; }
+.stage .stat b { font-family: var(--font-display); font-size: 1.75rem; font-weight: 600; font-variant-numeric: tabular-nums; }
+.stage .stat span { font-size: 0.8125rem; color: var(--p-muted); }
+.stage .stat b { font-family: var(--font-display); font-size: 1.75rem; font-weight: 600; font-variant-numeric: tabular-nums; }
+.stage .stat span { font-size: 0.8125rem; color: var(--p-muted); }
+.stage blockquote { margin: 0; padding: 0 0 0 16px; border-left: 2px solid var(--p-tint-dot); font-size: 1.0625rem; line-height: 1.5; max-width: 52ch; }
+.stage blockquote cite { display: block; font-style: normal; font-size: 0.8125rem; color: var(--p-muted); margin-top: 8px; }
+.stage form { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr)); gap: 14px; }
+.stage .field { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.stage .field label { font-size: 0.8125rem; font-weight: 600; }
+.stage .field .in { background: var(--p-surface); border: 1px solid var(--p-border); border-radius: 5px; padding: 10px 12px; font-size: 0.9375rem; color: var(--p-text); }
+.stage .field .in.ph { color: var(--p-muted); }
+.stage .field .hint { font-size: 0.75rem; color: var(--p-muted); }
+.stage .field.wide { grid-column: 1 / -1; }
+.stage .table { display: grid; grid-template-columns: 1fr auto auto; gap: 0; font-size: 0.875rem; border: 1px solid var(--p-border); border-radius: 8px; overflow: hidden; }
+.stage .table > span { padding: 10px 14px; border-top: 1px solid var(--p-border); font-variant-numeric: tabular-nums; }
+.stage .table > .th { border-top: 0; background: var(--p-surface); color: var(--p-muted); font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; font-weight: 600; }
+.stage .view { display: flex; flex-direction: column; gap: 32px; }
+.stage .view + .view { border-top: 1px solid var(--p-border); padding-top: 32px; }
+[data-fx="gradient"] .stat, [data-fx="both"] .stat { border-image: linear-gradient(90deg, var(--p-cta), transparent) 1; }
+/* finish: flat / shadow / gradient / both */
+.fx-row { display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: center; }
+[data-fx="shadow"], [data-fx="both"] { box-shadow: 0 24px 60px -12px rgb(0 0 0 / 55%), 0 2px 0 rgb(255 255 255 / 5%) inset; }
+[data-fx="shadow"] .card, [data-fx="both"] .card { box-shadow: 0 12px 28px -8px rgb(0 0 0 / 55%), 0 1px 0 rgb(255 255 255 / 7%) inset; border-color: transparent; }
+[data-fx="shadow"] .cta, [data-fx="both"] .cta { box-shadow: 0 8px 22px -6px color-mix(in srgb, var(--p-cta) 75%, transparent), 0 1px 0 rgb(255 255 255 / 25%) inset; }
+[data-fx="shadow"] .pill, [data-fx="both"] .pill { box-shadow: 0 0 14px -2px color-mix(in srgb, var(--p-tint-dot) 55%, transparent); }
+[data-fx="gradient"], [data-fx="both"] {
+  background:
+    radial-gradient(120% 70% at 85% -10%, color-mix(in srgb, var(--p-cta) 26%, transparent), transparent 60%),
+    radial-gradient(90% 60% at 0% 110%, color-mix(in srgb, var(--p-tint-dot) 16%, transparent), transparent 60%),
+    linear-gradient(180deg, color-mix(in srgb, var(--p-bg) 100%, white 5%), var(--p-bg));
+}
+[data-fx="gradient"] .card, [data-fx="both"] .card { background: linear-gradient(150deg, color-mix(in srgb, var(--p-surface) 100%, white 7%), color-mix(in srgb, var(--p-surface) 88%, black)); }
+[data-fx="gradient"] .cta, [data-fx="both"] .cta { background: linear-gradient(135deg, color-mix(in srgb, var(--p-cta) 80%, white 20%), var(--p-cta) 55%, color-mix(in srgb, var(--p-cta) 85%, black)); }
+[data-fx="gradient"] h3, [data-fx="gradient"] h4, [data-fx="both"] h3, [data-fx="both"] h4 { background: linear-gradient(100deg, var(--p-text) 40%, color-mix(in srgb, var(--p-link) 85%, var(--p-text))); -webkit-background-clip: text; background-clip: text; color: transparent; }
+[data-fx="gradient"] .card h4, [data-fx="both"] .card h4 { background: none; color: var(--p-text); }
+@media (max-width: 800px) { .builder { grid-template-columns: minmax(0, 1fr); } .builder .group .chips { flex-direction: row; } }
+@media (prefers-reduced-motion: no-preference) { .chip { transition: border-color .15s, box-shadow .15s, background .15s; } }
+</style>
+
+<body>
+<main>
+<header class="head">
+  <span class="eyebrow">Virge site · Dark direction</span>
+  <h1>Combination builder</h1>
+</header>
+<section aria-label="Builder">
+  <div class="builder">
+    <div class="panel">
+      <div class="group"><span class="eyebrow">Palette</span><div class="chips" id="b-pal" role="group" aria-label="Palette"></div></div>
+      <div class="group"><span class="eyebrow">Type pairing</span><div class="chips" id="b-pair" role="group" aria-label="Type pairing"></div></div>
+      <div class="group"><span class="eyebrow">Finish</span><div class="chips" id="b-fx" role="group" aria-label="Finish"></div></div>
+      <p class="readout" id="readout"></p>
+    </div>
+    <div class="stage" id="stage" aria-live="polite">
+      <div class="nav"><span class="logo">Virge</span><div class="links"><span class="on">AI</span><span>eCommerce</span><span>Cases</span><span>Webinars</span><span>Blog</span></div></div>
+      <div class="view" data-view="home">
+        <div class="hero">
+          <span class="pill">Pilot slots open in November</span>
+          <h3>Start with one task your team repeats every week.</h3>
+          <p class="lead">We build an AI agent around it, run it next to your people for four weeks, and show you the hours it saved before you sign anything bigger.</p>
+          <div class="btns"><span class="cta">Plan an intake call</span><span class="ghost">See the cases</span></div>
+        </div>
+        <div class="cards">
+          <div class="card"><h4>Quote drafting</h4><p>Turns a customer email into a priced draft in your template.</p><span class="lnk">Read the case</span></div>
+          <div class="card"><h4>Inbox triage</h4><p>Sorts support mail by urgency and drafts the first reply.</p><span class="lnk">Read the case</span></div>
+          <div class="card"><h4>Weekly reporting</h4><p>Pulls shop and ad numbers into one Monday summary.</p><span class="lnk">Read the case</span></div>
+        </div>
+        <div class="foot"><span class="pill">Live in 4 weeks</span><span>Remote within the EU</span></div>
+      </div>
+      <div class="view" data-view="case">
+        <div class="hero">
+          <span class="pill">Case · eCommerce</span>
+          <h3>Quotes that used to take 40 minutes now take 6.</h3>
+          <p class="lead">Sample case copy for the preview. A webshop with custom orders let an agent draft every quote from the customer's email, and a person checks each one before it goes out.</p>
+        </div>
+        <div class="stats">
+          <div class="stat"><b>40 → 6</b><span>minutes per quote</span></div>
+          <div class="stat"><b>112</b><span>quotes in the pilot</span></div>
+          <div class="stat"><b>4 wk</b><span>to go live</span></div>
+        </div>
+        <blockquote>We kept the same people and the same checks. The typing is what went away.<cite>Sample quote, operations lead</cite></blockquote>
+        <div class="table" role="table" aria-label="Pilot results">
+          <span class="th">Week</span><span class="th">Quotes</span><span class="th">Avg. minutes</span>
+          <span>Week 1</span><span>21</span><span>14</span>
+          <span>Week 2</span><span>29</span><span>9</span>
+          <span>Week 4</span><span>34</span><span>6</span>
+        </div>
+        <div class="foot"><span class="lnk">All cases</span><span class="lnk">Plan an intake call</span></div>
+      </div>
+      <div class="view" data-view="form">
+        <div class="hero">
+          <span class="pill">Webinar · 12 Nov, 14:00 CET</span>
+          <h3>Pick your first AI task in 45 minutes.</h3>
+          <p class="lead">A live walkthrough of how to choose a task, what a pilot costs and how we measure it. Sample form for the preview.</p>
+        </div>
+        <form onsubmit="return false">
+          <div class="field"><label>Name</label><div class="in">Anna de Vries</div></div>
+          <div class="field"><label>Work email</label><div class="in">anna@example.nl</div><span class="hint">We send the recording here.</span></div>
+          <div class="field"><label>Company size</label><div class="in ph">Choose one</div></div>
+          <div class="field"><label>Task you repeat most</label><div class="in ph">For example: answering quote requests</div></div>
+          <div class="field wide"><div class="btns"><span class="cta">Reserve my seat</span><span class="ghost">Add to calendar</span></div></div>
+        </form>
+        <div class="foot"><span class="pill">38 seats left</span><span>Privacy policy</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<script>
+(function () {
+  var PAL = [
+    { id: 'A', name: 'Noir Classic', note: 'The current Noir, unchanged. Silver on charcoal with a single cobalt button. No green at all.',
+      bg:'#262626', surface:'#333333', border:'#555555', text:'#D7D9DC', muted:'#AEAEAE', link:'#A4ABB9', cta:'#376DD9', tintBg:'#3d3d3d', tintFg:'#D7D9DC', tintDot:'#A4ABB9', green:'none' },
+    { id: 'B', name: 'Noir + Mint Spark', note: 'Noir grey, with Blackworks green reserved for status dots and small tags. The smallest possible amount of green.',
+      bg:'#262626', surface:'#333333', border:'#555555', text:'#D7D9DC', muted:'#AEAEAE', link:'#8FB0F2', cta:'#376DD9', tintBg:'#2f3d36', tintFg:'#BFE8D3', tintDot:'#35D48F', green:'#35D48F, dots only' },
+    { id: 'C', name: 'Noir Forest Tint', note: 'The greys lean a few degrees toward green, so surfaces feel mossy without looking green. Gothic forest on tags.',
+      bg:'#232624', surface:'#2d322f', border:'#46514a', text:'#DADDD9', muted:'#A9B1AB', link:'#8FB0F2', cta:'#376DD9', tintBg:'#18452B', tintFg:'#CDEBD9', tintDot:'#4E9F74', green:'#18452B, tags' },
+    { id: 'D', name: 'Graphite Blue', note: 'Cool blue-grey ground that echoes the Gothic blue. Greens are gone; blue does everything.',
+      bg:'#22262c', surface:'#2c323a', border:'#4b5563', text:'#DDE1E8', muted:'#A4ABB9', link:'#8DADF0', cta:'#376DD9', tintBg:'#2f3b52', tintFg:'#C9D8F8', tintDot:'#6F96EC', green:'none' },
+    { id: 'E', name: 'Gothic, Lifted', note: 'Gothic with the black removed. A dark green-grey ground, forest tags, Gothic blue buttons. The greenest option.',
+      bg:'#141b16', surface:'#1e2821', border:'#2f4637', text:'#E6EBE7', muted:'#9DABA2', link:'#8FB0F2', cta:'#376DD9', tintBg:'#18452B', tintFg:'#D3EEDF', tintDot:'#4FB07F', green:'#18452B, ground + tags' },
+    { id: 'F', name: 'Charcoal + Forest Cards', note: 'Neutral charcoal page with deep forest cards. Green only appears where content sits.',
+      bg:'#2a2a2a', surface:'#1f3a2b', border:'#34573f', text:'#E2E4E2', muted:'#B3BBB5', link:'#8FB0F2', cta:'#376DD9', tintBg:'#2a2a2a', tintFg:'#D7EBDD', tintDot:'#4FB07F', green:'#1F3A2B, cards' },
+    { id: 'G', name: 'Blackworks Graphite', note: 'Blackworks Dark lifted from #141413 to graphite, with its warm off-white text and the Blackworks blue.',
+      bg:'#1d1e1e', surface:'#2a2c2d', border:'#45494b', text:'#F2F0EE', muted:'#C4BEBA', link:'#6BB6EC', cta:'#2998E3', tintBg:'#255B4A', tintFg:'#D7F2E7', tintDot:'#409A7D', green:'#255B4A, tags' },
+    { id: 'H', name: 'Noir Lifted', note: 'A lighter charcoal so the grey you like reads clearly as grey, not near-black. Blue only on the button.',
+      bg:'#323232', surface:'#3d3d3d', border:'#606060', text:'#ECEDEE', muted:'#BDBDBD', link:'#B9C4DC', cta:'#376DD9', tintBg:'#4a4a4a', tintFg:'#ECEDEE', tintDot:'#A4ABB9', green:'none' },
+    { id: 'I', name: 'Lifted + Mint Spark', note: 'Noir Lifted with Blackworks mint on status dots and tags only. Grey stays the whole page.',
+      bg:'#323232', surface:'#3d3d3d', border:'#606060', text:'#ECEDEE', muted:'#BDBDBD', link:'#8FB0F2', cta:'#376DD9', tintBg:'#34463d', tintFg:'#CFEBDD', tintDot:'#35D48F', green:'#35D48F, dots + tags' },
+    { id: 'J', name: 'Lifted + Forest Tags', note: 'Noir Lifted with a barely green-leaning grey and Gothic forest on tags and buttons that are not primary.',
+      bg:'#333633', surface:'#3e423e', border:'#5f665f', text:'#ECEEEC', muted:'#BCC2BC', link:'#8FB0F2', cta:'#376DD9', tintBg:'#18452B', tintFg:'#D3EEDF', tintDot:'#4E9F74', green:'#18452B, tags' },
+    { id: 'K', name: 'Slate Grey', note: 'A mid grey with a blue cast, close to the Gothic blue family. Blue links and tags, no green.',
+      bg:'#383c42', surface:'#434850', border:'#666d78', text:'#EEF0F3', muted:'#BFC4CC', link:'#A9C0F5', cta:'#376DD9', tintBg:'#2f4170', tintFg:'#D4E0FB', tintDot:'#7FA3F0', green:'none' },
+    { id: 'L', name: 'Warm Grey', note: 'A warm, slightly brown grey with Blackworks off-white text and its brighter blue. Green appears on tags.',
+      bg:'#353433', surface:'#403f3d', border:'#64615e', text:'#F2F0EE', muted:'#C9C3BF', link:'#6BB6EC', cta:'#2998E3', tintBg:'#255B4A', tintFg:'#D7F2E7', tintDot:'#409A7D', green:'#255B4A, tags' },
+    { id: 'M', name: 'Grey + Blue Cards', note: 'Neutral grey page, with cards in a deep Gothic blue. The blue carries the whole identity.',
+      bg:'#333333', surface:'#2b3b63', border:'#47609a', text:'#EEF0F4', muted:'#BCC3D4', link:'#A9C0F5', cta:'#376DD9', tintBg:'#1f2d4d', tintFg:'#D4E0FB', tintDot:'#7FA3F0', green:'none' },
+    { id: 'N', name: 'Pewter', note: 'The lightest grey of the set, near mid-tone. Reads as grey before it reads as dark. White text, blue buttons.',
+      bg:'#3f3f3f', surface:'#4a4a4a', border:'#6e6e6e', text:'#F4F4F4', muted:'#CACACA', link:'#B9C4DC', cta:'#376DD9', tintBg:'#585858', tintFg:'#F4F4F4', tintDot:'#B9C4DC', green:'none' },
+    { id: 'O', name: 'Grey + Forest Cards', note: 'Lifted grey page with muted forest cards. Green sits where content sits and the page stays grey.',
+      bg:'#343434', surface:'#2a4a38', border:'#4a7058', text:'#EEF0EE', muted:'#BCC7BF', link:'#8FB0F2', cta:'#376DD9', tintBg:'#1c3a2a', tintFg:'#D3EEDF', tintDot:'#4FB07F', green:'#2A4A38, cards' },
+    { id: 'P', name: 'Warm Noir', note: 'Noir with the grey pulled toward brown: charcoal with a faint umber cast, bone-coloured text and the Gothic blue on buttons, links and tags. No green.',
+      bg:'#292624', surface:'#34302d', border:'#58524c', text:'#EAE5DF', muted:'#B8B0A7', link:'#9DB8EE', cta:'#376DD9', tintBg:'#3d3834', tintFg:'#EAE5DF', tintDot:'#9DB8EE', green:'none' }
+  ];
+  var PAIRS = [
+    { id:'1', name:'Sora + Inter',      h:"'Sora'",    b:"'Inter'",   hw:600, ls:'-0.02em', note:'Most distinct headline, most neutral body. Tech-forward.' },
+    { id:'2', name:'Outfit + Inter',    h:"'Outfit'",  b:"'Inter'",   hw:600, ls:'-0.01em', note:'Friendlier headlines, same safe body. Good for small businesses.' },
+    { id:'3', name:'Manrope + Manrope', h:"'Manrope'", b:"'Manrope'", hw:700, ls:'-0.03em', note:'One family, one file. Consistent and the lightest to load.' },
+    { id:'4', name:'Sora + Manrope',    h:"'Sora'",    b:"'Manrope'", hw:600, ls:'-0.02em', note:'Wide headlines over a compact body. Strong contrast of shape.' },
+    { id:'5', name:'Outfit + Manrope',  h:"'Outfit'",  b:"'Manrope'", hw:600, ls:'-0.01em', note:'Round display, calm body. Softest of the set.' },
+    { id:'6', name:'Inter + Inter',     h:"'Inter'",   b:"'Inter'",   hw:700, ls:'-0.035em', note:'Tight, tracked-in headings. The most corporate and most readable.' },
+    { id:'7', name:'Manrope + Inter',   h:"'Manrope'", b:"'Inter'",   hw:800, ls:'-0.03em', note:'Heavy Manrope headings, Inter for long reading.' },
+    { id:'8', name:'Outfit + Outfit',   h:"'Outfit'",  b:"'Outfit'",  hw:600, ls:'-0.01em', note:'Fully geometric. Playful, but long paragraphs get tiring.' }
+  ];
+  var FX = [{ id:'flat', name:'Flat' }, { id:'shadow', name:'Shadow' }, { id:'gradient', name:'Gradient' }, { id:'both', name:'Both' }];
+  var FB = ", 'Segoe UI', sans-serif";
+  var state = { pal: 'P', pair: '1', fx: 'gradient' };
+  try { var s = JSON.parse(localStorage.getItem('virge-design-builder')); if (s) state = Object.assign(state, s); } catch (e) {}
+  if (!PAL.some(function (p) { return p.id === state.pal; })) state.pal = 'P';
+  if (!PAIRS.some(function (p) { return p.id === state.pair; })) state.pair = '1';
+  if (!FX.some(function (f) { return f.id === state.fx; })) state.fx = 'gradient';
+  function save() { try { localStorage.setItem('virge-design-builder', JSON.stringify(state)); } catch (e) {} }
+
+  function lum(hex) {
+    var c = hex.replace('#','').match(/../g).map(function (x) { var v = parseInt(x,16)/255; return v <= 0.03928 ? v/12.92 : Math.pow((v+0.055)/1.055, 2.4); });
+    return 0.2126*c[0] + 0.7152*c[1] + 0.0722*c[2];
+  }
+  function ratio(a, b) { var l1 = lum(a), l2 = lum(b); var hi = Math.max(l1,l2), lo = Math.min(l1,l2); return ((hi+0.05)/(lo+0.05)).toFixed(1); }
+  function byId(list, id) { return list.find(function (x) { return x.id === id; }); }
+  function h(tag, attrs, text) { var e = document.createElement(tag); for (var k in attrs) e.setAttribute(k, attrs[k]); e.textContent = text; return e; }
+  function chips(boxId, list, key, label) {
+    var box = document.getElementById(boxId); box.innerHTML = '';
+    list.forEach(function (it) {
+      var b = h('button', { 'class': 'chip', type: 'button', 'aria-pressed': String(state[key] === it.id) }, label(it));
+      b.onclick = function () { state[key] = it.id; save(); render(); };
+      box.appendChild(b);
+    });
+  }
+  function render() {
+    chips('b-pal', PAL, 'pal', function (p) { return p.id + '. ' + p.name; });
+    chips('b-pair', PAIRS, 'pair', function (q) { return q.name; });
+    chips('b-fx', FX, 'fx', function (f) { return f.name; });
+    var p = byId(PAL, state.pal), q = byId(PAIRS, state.pair);
+    var stage = document.getElementById('stage');
+    stage.setAttribute('data-fx', state.fx);
+    stage.setAttribute('style',
+      '--p-bg:'+p.bg+';--p-surface:'+p.surface+';--p-border:'+p.border+';--p-text:'+p.text+';--p-muted:'+p.muted+';--p-link:'+p.link+';--p-cta:'+p.cta+
+      ';--p-tint-bg:'+p.tintBg+';--p-tint-fg:'+p.tintFg+';--p-tint-dot:'+p.tintDot+';--font-display:'+q.h+FB+';--font-body:'+q.b+FB+';');
+    stage.querySelector('h3').style.fontWeight = q.hw;
+    stage.querySelector('h3').style.letterSpacing = q.ls;
+    var r = document.getElementById('readout');
+    r.textContent = p.name + ' with ' + q.name + '. ' + p.note + ' Text on background ' + ratio(p.text, p.bg) + ':1, white on button ' + ratio('#ffffff', p.cta) + ':1.';
+  }
+  render();
+})();
+</script>

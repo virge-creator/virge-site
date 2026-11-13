@@ -6,3 +6,6 @@ dist/
 
 # Astro cache
 .astro/
+
+# Local design review captures
+.impeccable/review/

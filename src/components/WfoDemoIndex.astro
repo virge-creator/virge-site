@@ -1,0 +1,44 @@
+---
+import Layout from '../layouts/Layout.astro';
+import CTA from './CTA.astro';
+import WfoDemoCards from './WfoDemoCards.astro';
+import { breadcrumbSchema } from '../data/structured-data';
+import type { Lang } from '../i18n';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const en = lang === 'en';
+const description = en
+  ? 'Explore four network diagnostics demos and a certificate lifecycle use case, with AI agents, Workflow Orchestrator and the services they connect.'
+  : 'Bekijk vier demo’s van netwerkdiagnostiek en een use case voor certificaatlevenscyclus, met AI-agents, Workflow Orchestrator en de services die ze koppelen.';
+---
+<Layout title="WFO Agent Demos" description={description} lang={lang} jsonLd={breadcrumbSchema([
+  { name: 'Home', path: `/${lang}/` },
+  { name: 'Cases', path: `/${lang}/cases/` },
+  { name: 'WFO Agent Demos', path: `/${lang}/cases/wfo-demos/` },
+])}>
+  <div class="page-back container">
+    <a class="back-link" href={`/${lang}/cases/`}>{en ? '← All cases' : '← Alle cases'}</a>
+  </div>
+  <div class="page-header">
+    <h1>WFO Agent <span>Demos</span></h1>
+    <p>{description}</p>
+  </div>
+  <section aria-label={en ? 'WFO demos' : 'WFO-demo’s'}>
+    <div class="container">
+      <div class="demos-grid">
+        <WfoDemoCards lang={lang} />
+      </div>
+      <CTA lang={lang} />
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .demos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 360px), 1fr));
+    gap: 1.5rem;
+    padding: 2rem 0 4rem;
+  }
+</style>

@@ -1,0 +1,92 @@
+---
+import ServiceMap from './ServiceMap.astro';
+import type { MapNode, MapEdge } from './ServiceMap.astro';
+import type { Lang } from '../i18n';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const en = lang === 'en';
+
+// Generic service categories on purpose: "e.g." names an example, not an integration that ships.
+const nodes: MapNode[] = [
+  { id: 'request', label: en ? 'You' : 'Jij', icon: 'user-round', col: 1, row: 2, mcol: 1, mrow: 1, kind: 'request', outside: true,
+    route: en ? 'Scanner alert / question' : 'Scanneralarm / vraag',
+    text: en ? 'Start from a scanner alert or an operator question: a certificate is about to expire and automatic renewal failed. The planner combines inventory, scanner and orchestration evidence to investigate.' : 'Begin met een scanneralarm of een vraag van een beheerder: een certificaat verloopt bijna en automatische verlenging is mislukt. De planner combineert inventaris-, scanner- en orkestratiegegevens voor het onderzoek.' },
+  { id: 'chat', label: 'LibreChat', icon: 'messages-square', col: 1, row: 3, mcol: 1, mrow: 1, kind: 'request',
+    logo: { src: '/images/cases/wfo-demos/librechat.svg' },
+    route: 'LibreChat → OpenAI-compatible API → Planner',
+    text: en ? 'The chat interface sends the question to the planner through an OpenAI-compatible endpoint. The operator reads the findings and approves any follow-up here.' : 'De chatinterface stuurt de vraag via een OpenAI-compatibel endpoint naar de planner. De beheerder leest hier de bevindingen en keurt een vervolgactie goed.' },
+  { id: 'planner', label: 'Planner', icon: 'bot', col: 2, row: 3, mcol: 2, mrow: 2, kind: 'planner',
+    route: 'Planner → A2A → Inventory / PKI / WFO agent',
+    text: en ? 'One planner delegates to three specialist agents over A2A and combines their findings into a diagnosis and a proposal. It proposes; it does not issue, deploy or revoke anything.' : 'Eén planner verdeelt het onderzoek via A2A over drie gespecialiseerde agents en combineert hun bevindingen tot een diagnose en een voorstel. Hij stelt voor; hij geeft niets uit, installeert niets en trekt niets in.' },
+  { id: 'inventory-agent', label: 'Inventory agent', icon: 'bot', col: 3, row: 2, mcol: 1, mrow: 3, kind: 'agent',
+    route: 'Inventory agent → MCP → CMDB',
+    text: en ? 'Finds who owns a certificate, which environment it belongs to and where it is installed. The CMDB describes the intended deployment, not what is live on the endpoint.' : 'Zoekt op wie eigenaar van een certificaat is, bij welke omgeving het hoort en waar het is geïnstalleerd. De CMDB beschrijft de bedoelde situatie, niet wat er live op het endpoint staat.' },
+  { id: 'wfo-agent', label: 'WFO agent', icon: 'bot', col: 3, row: 3, mcol: 2, mrow: 3, kind: 'agent',
+    route: 'WFO agent → MCP → Workflow Orchestrator',
+    text: en ? 'Reads the certificate subscription, its lifecycle state and the failed workflow step through WFO’s MCP tools. After the operator approves, it starts the renewal workflow; WFO, not the agent, executes it.' : 'Leest de certificaat-subscription, de levenscyclusstatus en de mislukte workflowstap via de MCP-tools van WFO. Na goedkeuring van de beheerder start hij de verlengingsworkflow; WFO voert die uit, niet de agent.' },
+  { id: 'pki-agent', label: 'PKI agent', icon: 'bot', col: 3, row: 4, mcol: 3, mrow: 3, kind: 'agent',
+    route: 'PKI agent → MCP → Certificate scanner',
+    text: en ? 'Reads live scanner findings: expiry, algorithm, chain and the last renewal error. It is read-only and cannot order, revoke or install a certificate.' : 'Leest live scannerresultaten: verloopdatum, algoritme, keten en de laatste verlengingsfout. De agent leest alleen en kan geen certificaat bestellen, intrekken of installeren.' },
+  { id: 'scanner', label: en ? 'Certificate scanner' : 'Certificaat-scanner', icon: 'radar', col: 3, row: 5, mcol: 3, mrow: 4, kind: 'system',
+    route: 'PKI agent → MCP → Scanner → webhook → WFO',
+    text: en ? 'Continuously probes endpoints for expiry, chain and algorithm (e.g. a TLS scanner or monitoring). It is live evidence, distinct from the intent stored in WFO and the CMDB. WFO also uses it to verify a deployment.' : 'Controleert endpoints doorlopend op verloopdatum, keten en algoritme (bijv. een TLS-scanner of monitoring). Dit is live bewijs, los van de configuratie in WFO en de CMDB. WFO gebruikt de scanner ook om een uitrol te controleren.' },
+  { id: 'cmdb', label: 'CMDB', icon: 'database', col: 4, row: 1, mcol: 1, mrow: 4, kind: 'system',
+    route: 'Inventory agent → MCP → CMDB → REST → WFO',
+    text: en ? 'Holds owners, environments and deployment targets for each certificate (e.g. a CMDB or inventory tool). WFO reads it at the start of a workflow and writes the new expiry back at the end.' : 'Bewaart eigenaren, omgevingen en uitrolplekken van elk certificaat (bijv. een CMDB of inventaristool). WFO leest die aan het begin van een workflow en schrijft aan het einde de nieuwe verloopdatum terug.' },
+  { id: 'wfo', label: 'Workflow Orchestrator', icon: 'workflow', col: 4, row: 3, mcol: 2, mrow: 5, kind: 'system',
+    logo: { src: '/images/cases/surf-orchestrator-core/wfo-logo.png', variant: 'wfo' },
+    route: en ? 'WFO agent: MCP · services: REST, API, ACME, webhooks' : 'WFO-agent: MCP · services: REST, API, ACME, webhooks',
+    text: en ? 'The orchestrator. Each certificate is a subscription with a lifecycle. WFO runs durable workflows across the services around it: it waits for approval, generates keys, orders certificates, answers DNS challenges, deploys one target at a time, verifies, and rolls back on failure. A failed step resumes where it stopped.' : 'De orkestrator. Elk certificaat is een subscription met een levenscyclus. WFO draait duurzame workflows over de omliggende services: wacht op goedkeuring, genereert sleutels, bestelt certificaten, beantwoordt DNS-challenges, rolt per doel uit, controleert en draait bij een fout terug. Een mislukte stap gaat verder waar hij stopte.' },
+  { id: 'internal-pki', label: 'Internal PKI', icon: 'landmark', col: 4, row: 5, mcol: 1, mrow: 7, kind: 'system',
+    route: 'WFO → API → Internal PKI',
+    text: en ? 'Issues internal certificates from the organisation’s own CA (e.g. an enterprise PKI). The same workflow runs against a different issuer, because the issuer is a parameter, not a separate script.' : 'Geeft interne certificaten uit via de eigen CA van de organisatie (bijv. een enterprise-PKI). Dezelfde workflow draait tegen een andere uitgever, omdat de uitgever een parameter is en geen apart script.' },
+  { id: 'itsm', label: en ? 'ITSM change' : 'ITSM-wijziging', icon: 'ticket-check', col: 5, row: 1, mcol: 1, mrow: 5, kind: 'system',
+    route: 'WFO → REST + webhook → ITSM',
+    text: en ? 'WFO opens a change (e.g. in an ITSM tool) and suspends the workflow until it is approved. The approval webhook resumes it, so approval stays a recorded step rather than a side conversation.' : 'WFO opent een wijziging (bijv. in een ITSM-tool) en pauzeert de workflow tot die is goedgekeurd. De goedkeuringswebhook hervat de workflow, zodat goedkeuring een vastgelegde stap blijft en geen zijgesprek.' },
+  { id: 'vault', label: en ? 'Vault / HSM' : 'Kluis / HSM', icon: 'key-round', col: 5, row: 2, mcol: 1, mrow: 6, kind: 'system',
+    route: 'WFO → API → Secrets vault / HSM',
+    text: en ? 'Generates the key pair and holds the private key (e.g. a secrets vault or HSM). Algorithm and key size come from a product parameter, which makes switching algorithms a configuration change.' : 'Genereert het sleutelpaar en bewaart de private sleutel (bijv. een secrets vault of HSM). Algoritme en sleutellengte komen uit een productparameter, waardoor een ander algoritme een configuratiewijziging wordt.' },
+  { id: 'public-ca', label: 'Public CA', icon: 'globe', col: 5, row: 3, mcol: 3, mrow: 5, kind: 'system',
+    route: 'WFO → ACME → Public CA',
+    text: en ? 'Issues externally trusted certificates over ACME (e.g. any ACME-capable CA). WFO places the order, waits for validation and fetches the certificate and chain.' : 'Geeft extern vertrouwde certificaten uit via ACME (bijv. een ACME-compatibele CA). WFO plaatst de bestelling, wacht op validatie en haalt het certificaat en de keten op.' },
+  { id: 'dns', label: 'DNS', icon: 'network', col: 5, row: 4, mcol: 3, mrow: 6, kind: 'system',
+    route: 'WFO → API → DNS',
+    text: en ? 'Publishes and removes the challenge record that proves domain control (e.g. a DNS provider API). In this scenario a rotated API credential is why the earlier automatic renewal failed.' : 'Plaatst en verwijdert het challenge-record dat domeinbeheer aantoont (bijv. een DNS-provider-API). In dit scenario is een geroteerde API-sleutel de reden dat de eerdere automatische verlenging mislukte.' },
+  { id: 'targets', label: en ? 'Deploy targets' : 'Uitrolplekken', icon: 'server', col: 5, row: 5, mcol: 3, mrow: 7, kind: 'system',
+    route: 'WFO → automation / API → load balancers, servers, Kubernetes',
+    text: en ? 'Load balancers, web servers and Kubernetes ingress that serve the certificate (e.g. via Ansible or their own APIs). WFO deploys one target at a time, checks it and rolls back to the previous certificate if a check fails.' : 'Load balancers, webservers en Kubernetes-ingress die het certificaat tonen (bijv. via Ansible of hun eigen API’s). WFO rolt per doel uit, controleert en draait bij een mislukte controle terug naar het vorige certificaat.' },
+];
+const edges: MapEdge[] = [
+  { from: 'request', to: 'chat', label: '' },
+  { from: 'chat', to: 'planner', label: 'API' },
+  { from: 'planner', to: 'inventory-agent', label: 'A2A', compact: 'fan-down' },
+  { from: 'planner', to: 'wfo-agent', label: 'A2A', compact: 'fan-down' },
+  { from: 'planner', to: 'pki-agent', label: 'A2A', compact: 'fan-down' },
+  { from: 'inventory-agent', to: 'cmdb', label: 'MCP' },
+  { from: 'pki-agent', to: 'scanner', label: 'MCP' },
+  { from: 'wfo-agent', to: 'wfo', label: 'MCP' },
+  { from: 'cmdb', to: 'wfo', label: 'REST' },
+  { from: 'scanner', to: 'wfo', label: 'webhook' },
+  { from: 'wfo', to: 'itsm', label: 'REST' },
+  { from: 'wfo', to: 'vault', label: 'API' },
+  { from: 'wfo', to: 'public-ca', label: 'ACME' },
+  { from: 'wfo', to: 'dns', label: 'API' },
+  { from: 'wfo', to: 'targets', label: 'automation' },
+  { from: 'wfo', to: 'internal-pki', label: 'API' },
+];
+---
+
+<ServiceMap
+  nodes={nodes}
+  edges={edges}
+  cols={5}
+  rows={5}
+  mobileRows={7}
+  heading={en ? 'Agents decide. WFO orchestrates.' : 'Agents beslissen. WFO orkestreert.'}
+  hint={en ? 'Hover, focus or tap a node to explore' : 'Beweeg over, focus op of tik op een node voor uitleg'}
+  ariaLabel={en ? 'Request path, specialist agents, Workflow Orchestrator and the services it coordinates' : 'Vraag, gespecialiseerde agents, Workflow Orchestrator en de services die hij aanstuurt'}
+  overviewTitle={en ? 'One planner. Three specialists. One orchestrator.' : 'Eén planner. Drie specialisten. Eén orkestrator.'}
+  overviewText={en ? 'A2A connects the agents; MCP exposes their tools. The agents investigate and propose. After approval, WFO runs the renewal across eight services: change approval, keys, public and internal CAs, DNS, deployment targets and verification. Select a node to follow its connections.' : 'A2A verbindt de agents; MCP ontsluit hun tools. De agents onderzoeken en doen een voorstel. Na goedkeuring voert WFO de verlenging uit over acht services: wijzigingsgoedkeuring, sleutels, publieke en interne CA’s, DNS, uitrolplekken en controle. Kies een node om de verbindingen te volgen.'}>
+  <slot name="entry" slot="entry" />
+</ServiceMap>

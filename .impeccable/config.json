@@ -1,0 +1,18 @@
+{
+  "buildPath": "code",
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "side-tab",
+        "value": "*",
+        "files": [
+          "src/styles/global.css"
+        ],
+        "createdAt": "2026-11-09T11:40:02.045Z",
+        "reason": "Agent triage: the 6px border is the pre-existing CSS triangle in .mermaid-flow-arrow::before (aa5d6fde); the 3px .card accent is original site styling (675ec1f61), retained because the user confirmed restoring the old theme on 2026-11-09. Preserve both; other rules remain active."
+      }
+    ]
+  }
+}
