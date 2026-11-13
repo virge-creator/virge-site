@@ -8,7 +8,8 @@ export default defineConfig({
   integrations: [
     sitemap({
       // Root / is a language-detecting redirect to /en/ or /nl/ — keep it out of the sitemap
-      filter: (page) => page !== 'https://virge.io/',
+      // Thank-you pages are noindex and only reached after a form or Stripe checkout
+      filter: (page) => page !== 'https://virge.io/' && !page.includes('/seo/thanks/'),
       i18n: {
         defaultLocale: 'en',
         locales: { en: 'en-US', nl: 'nl-NL' },
