@@ -6,7 +6,7 @@ import { t } from '../../i18n';
 const lang = 'en';
 const i = t(lang);
 ---
-<Layout title="Services" description="Virge.io services: AI, SDN, eCommerce, and OpenClaw consultancy." lang={lang}>
+<Layout title="Services" description="Virge.io services: AI, SDN, eCommerce, and OpenClaw consultancy, SEO advice." lang={lang}>
   <div class="page-header">
     <h1>Our <span>Services</span></h1>
     <p>Expert consulting and products across AI, networking, and eCommerce.</p>
@@ -69,6 +69,20 @@ const i = t(lang);
             <li>ShopVirge webshop</li>
             <li>ERP &amp; CRM integrations</li>
             <li>AI product descriptions</li>
+          </ul>
+        </a>
+
+        <a href={`/${lang}/seo/`} class="scard" style="--ghost: 'SEO'">
+          <div class="scard-heading">
+            <span class="scard-num">05</span>
+            <h3>{i.home.seoTitle}</h3>
+            <span class="scard-arrow">→</span>
+          </div>
+          <p>{i.home.seoDesc}</p>
+          <ul class="scard-bullets">
+            <li>Free first report</li>
+            <li>Reviews &amp; reputation</li>
+            <li>What AI knows about you</li>
           </ul>
         </a>
 

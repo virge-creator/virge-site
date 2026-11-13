@@ -11,7 +11,8 @@
     "webinars": "Webinars",
     "contact": "Contact",
     "jobs": "Vacatures",
-    "backToServices": "← Terug naar diensten"
+    "backToServices": "← Terug naar diensten",
+    "seo": "SEO-advies"
   },
   "hero": {
     "title": "<span>Virge.</span><br/>Software oplossingen die schalen.",
@@ -27,7 +28,9 @@
     "ecomTitle": "eCommerce",
     "ecomDesc": "Headless contentlevering en ShopVirge. zet in no-time volledig functionele webshops op.",
     "openclawTitle": "OpenClaw Consultancy",
-    "openclawDesc": "Je eigen AI-assistent. gedeployd, gehost, beveiligd en geautomatiseerd voor jouw bedrijf."
+    "openclawDesc": "Je eigen AI-assistent. gedeployd, gehost, beveiligd en geautomatiseerd voor jouw bedrijf.",
+    "seoTitle": "SEO-advies",
+    "seoDesc": "Een gratis, uitgebreid SEO-rapport, inclusief je reviews en wat AI over je weet. Blijf daarna op koers met een abonnement."
   },
   "cta": {
     "title": "Klaar om iets geweldigs te bouwen?",
@@ -678,7 +681,7 @@
         "title": "Wat je met ons deelt",
         "body": [
           "We ontvangen alleen wat je zelf invult en verstuurt:",
-          "<ul><li><strong>Contactformulier:</strong> je naam, e-mailadres en bericht.</li><li><strong>Webinar-aanmelding:</strong> je naam, e-mailadres, het gekozen webinar en, als je die invult, je bedrijf en een vraag vooraf.</li><li><strong>Sollicitaties:</strong> wat je ons per e-mail stuurt, zoals je cv.</li></ul>",
+          "<ul><li><strong>Contactformulier:</strong> je naam, e-mailadres en bericht.</li><li><strong>Webinar-aanmelding:</strong> je naam, e-mailadres, het gekozen webinar en, als je die invult, je bedrijf en een vraag vooraf.</li><li><strong>Sollicitaties:</strong> wat je ons per e-mail stuurt, zoals je cv.</li><li><strong>SEO-advies aanvraag:</strong> je naam, e-mailadres, de website die je wilt laten analyseren en de gewenste taal van het rapport.</li></ul>",
           "We gebruiken het alleen voor het doel waarvoor je het stuurde: om je te antwoorden, om je de deelnamelink voor je webinar te sturen of om je sollicitatie af te handelen. Geen nieuwsbrief, tenzij je erom vraagt."
         ]
       },
@@ -686,6 +689,7 @@
         "title": "Wie ons helpt",
         "body": [
           "<strong>Formspree</strong> levert formulierinzendingen af in onze inbox. Het verwerkt ze namens ons en alleen om ze bij ons te bezorgen. Zie het <a href=\"https://formspree.io/legal/privacy-policy\" target=\"_blank\" rel=\"noopener\">privacybeleid van Formspree</a>.",
+          "<strong>Stripe</strong> verwerkt de betalingen voor SEO-abonnementen. Betaalgegevens gaan rechtstreeks naar Stripe; wij zien je kaart- of bankgegevens nooit. Zie het <a href=\"https://stripe.com/privacy\" target=\"_blank\" rel=\"noopener\">privacybeleid van Stripe</a>.",
           "<strong>GitHub Pages</strong> host deze website. Zoals elke webserver legt het kortstondig technische gegevens vast, zoals je IP-adres, om pagina's te leveren en de dienst veilig te houden. Wij hebben geen toegang tot deze logs en gebruiken ze niet. Zie de <a href=\"https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement\" target=\"_blank\" rel=\"noopener\">privacyverklaring van GitHub</a>."
         ]
       },
@@ -711,5 +715,130 @@
     "formNotice": "We gebruiken je gegevens alleen voor deze aanmelding. Nooit tracking. Zie ons <a href=\"/nl/privacy/\">privacybeleid</a>.",
     "contactNotice": "We gebruiken je gegevens alleen om je te antwoorden. Nooit tracking. Zie ons <a href=\"/nl/privacy/\">privacybeleid</a>.",
     "footerLink": "Privacy"
+  },
+  "seo": {
+    "title": "SEO <span>Advies</span>",
+    "description": "Weet wat Google, je klanten én AI over je zeggen. Vraag gratis een uitgebreid SEO-rapport aan voor je website, in je inbox en in jouw taal.",
+    "metaTitle": "SEO-advies: gratis uitgebreid SEO- en AI-zichtbaarheidsrapport",
+    "metaDesc": "Ontvang een gratis, uitgebreid SEO-rapport: technische SEO, zoekwoorden, reviews en reputatie, en wat AI-assistenten over je weten. Blijf daarna op koers met een maand- of weekabonnement.",
+    "reportTitle": "Wat zit er in je rapport",
+    "reportIntro": "Geen standaard checklist, maar een grondig rapport over je site, je reputatie en je zichtbaarheid in AI. Met een duidelijke lijst van wat je als volgende doet.",
+    "reportItems": [
+      {
+        "title": "Technische SEO",
+        "desc": "Laadsnelheid, Core Web Vitals, indexering, sitemap, structured data en mobiel."
+      },
+      {
+        "title": "Content & zoekwoorden",
+        "desc": "Waar je op gevonden wordt, waar niet, en welke kansen je laat liggen."
+      },
+      {
+        "title": "Reviews & reputatie",
+        "desc": "Wat mensen over je schrijven op Google, Trustpilot en social media, met sentiment en terugkerende thema's."
+      },
+      {
+        "title": "Wat AI van je weet",
+        "desc": "Hoe ChatGPT, Claude, Gemini en Perplexity je bedrijf beschrijven, wat ze missen of verkeerd hebben, en hoe je dat bijstuurt (GEO)."
+      },
+      {
+        "title": "Concurrenten",
+        "desc": "Hoe je je verhoudt tot de sites die boven je staan."
+      },
+      {
+        "title": "Actielijst",
+        "desc": "Concrete verbeteringen, gesorteerd op impact en moeite."
+      }
+    ],
+    "freeBadge": "Gratis",
+    "freeTitle": "Je eerste rapport is gratis",
+    "freeDesc": "Geen creditcard, geen verplichtingen. Bevalt het? Dan houden we je site bij met een abonnement.",
+    "form": {
+      "nameLabel": "Naam",
+      "namePlaceholder": "Je naam",
+      "emailLabel": "E-mail",
+      "emailPlaceholder": "jij@bedrijf.nl",
+      "urlLabel": "Website-URL",
+      "urlPlaceholder": "https://www.jouwsite.nl",
+      "languageLabel": "Taal van het rapport",
+      "submit": "Vraag mijn gratis rapport aan",
+      "subject": "SEO advice request (free)",
+      "notice": "We gebruiken je gegevens alleen om je dit rapport te sturen. Nooit tracking. Zie ons <a href=\"/nl/privacy/\">privacybeleid</a>."
+    },
+    "plansTitle": "Houd je site op koers",
+    "plansIntro": "SEO is nooit af. Google verandert, concurrenten bewegen en AI blijft leren. Met een abonnement blijf je bij.",
+    "billingMonth": "Maandelijks",
+    "billingYear": "Jaarlijks",
+    "yearBadge": "2 maanden gratis",
+    "perMonth": "/mnd",
+    "perYear": "/jaar",
+    "exVat": "excl. btw",
+    "popular": "Populair",
+    "subscribe": "Abonneer",
+    "choosePlan": "Kies een abonnement",
+    "plans": {
+      "monthly": {
+        "name": "Maandelijks",
+        "frequency": "1 SEO-advies per maand",
+        "desc": "Elke maand een vers rapport. Je ziet wat er veranderd is, wat AI nu over je zegt en wat er als volgende moet gebeuren. Voor ondernemers die hun site gezond willen houden.",
+        "features": [
+          "Volledig SEO- en AI-zichtbaarheidsrapport",
+          "Reviews & reputatie gevolgd",
+          "Wijzigingen sinds vorige maand",
+          "Actielijst op prioriteit"
+        ]
+      },
+      "weekly": {
+        "name": "Wekelijks",
+        "frequency": "1 SEO-advies per week",
+        "desc": "Elke week een rapport. Voor shops en sites die actief bouwen aan content en campagnes en snel willen zien wat het oplevert.",
+        "features": [
+          "Alles uit Maandelijks",
+          "Elke week een nieuw rapport",
+          "Dalingen in ranking vroeg zien",
+          "Campagnes week voor week volgen"
+        ]
+      }
+    },
+    "modalTitle": "Kies je SEO-abonnement",
+    "modalIntro": "Altijd opzegbaar. Je betaalt veilig via Stripe.",
+    "modalEmailLabel": "Je e-mail (optioneel, scheelt typen)",
+    "modalClose": "Sluiten",
+    "trustSecure": "Veilig betalen via Stripe",
+    "trustMethods": "iDEAL, creditcard, Apple Pay, Google Pay, Bancontact",
+    "trustCancel": "Altijd opzegbaar",
+    "manageSubscription": "Beheer je abonnement",
+    "comingSoon": "Online abonneren kan binnenkort. Stuur ons een bericht, dan regelen we het voor je.",
+    "thanks": {
+      "metaTitle": "Bedankt",
+      "freeTitle": "Je aanvraag is <span>binnen</span>",
+      "freeDesc": "Bedankt! We gaan aan de slag met je SEO-rapport en mailen het binnen een paar dagen. Zie je niets? Kijk dan even in je spammap.",
+      "upsellTitle": "Wil je dit elke maand of elke week?",
+      "upsellDesc": "Houd je SEO, reviews en AI-zichtbaarheid bij met een abonnement. Vanaf €5 per maand.",
+      "subscribedTitle": "Welkom <span>aan boord</span>",
+      "subscribedDesc": "Je abonnement is actief. Je krijgt een bevestiging van Stripe per e-mail en je eerste rapport volgt snel. Andere site of taal? Antwoord gewoon op de mail met je rapport.",
+      "back": "Terug naar SEO-advies"
+    },
+    "faq": [
+      {
+        "question": "Hoe lang duurt het gratis rapport?",
+        "answer": "Meestal een paar werkdagen. Het rapport komt per e-mail binnen op het adres dat je invult, in de taal die je kiest."
+      },
+      {
+        "question": "Hoe geef ik bij een abonnement door welke site jullie moeten analyseren?",
+        "answer": "Je vult je website-URL in tijdens het afrekenen. Later iets wijzigen? Antwoord gewoon op een van je rapportmails."
+      },
+      {
+        "question": "Kan ik met iDEAL betalen?",
+        "answer": "Ja. In Nederland betaal je de eerste keer met iDEAL, daarna wordt het abonnement automatisch geïncasseerd via SEPA. Buiten Nederland betaal je met creditcard, Apple Pay, Google Pay, Bancontact en andere lokale methoden."
+      },
+      {
+        "question": "Hoe zeg ik op?",
+        "answer": "Wanneer je wilt, via de link om je abonnement te beheren in je Stripe-bon of op deze pagina. Je abonnement loopt door tot het einde van de periode die je betaald hebt."
+      },
+      {
+        "question": "Werkt het ook voor sites in andere talen?",
+        "answer": "Ja. We analyseren sites in elke taal en schrijven het rapport in de taal die jij kiest."
+      }
+    ]
   }
 }

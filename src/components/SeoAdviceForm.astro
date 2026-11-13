@@ -1,0 +1,103 @@
+---
+import type { Lang } from '../i18n';
+import { t } from '../i18n';
+import { FORMSPREE_SEO, REPORT_LANGUAGES } from '../data/seo';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const i = t(lang).seo;
+const thanks = `/${lang}/seo/thanks/?type=free`;
+---
+<div class="form-wrap seo-form" data-seo-form data-thanks={thanks}>
+  <form method="POST" action={FORMSPREE_SEO}>
+    <input type="hidden" name="_subject" value={i.form.subject} />
+    <input type="hidden" name="form" value="seo-free" />
+    <input type="hidden" name="site_language" value={lang} />
+    <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" class="seo-hp" aria-hidden="true" />
+
+    <div class="seo-form-row">
+      <div>
+        <label for="seo-name">{i.form.nameLabel}</label>
+        <input type="text" id="seo-name" name="name" required autocomplete="name" placeholder={i.form.namePlaceholder} />
+      </div>
+      <div>
+        <label for="seo-email">{i.form.emailLabel}</label>
+        <input type="email" id="seo-email" name="email" required autocomplete="email" placeholder={i.form.emailPlaceholder} />
+      </div>
+    </div>
+
+    <label for="seo-url">{i.form.urlLabel}</label>
+    <input type="url" id="seo-url" name="website" required inputmode="url" autocomplete="url" placeholder={i.form.urlPlaceholder} />
+
+    <label for="seo-language">{i.form.languageLabel}</label>
+    <select id="seo-language" name="report_language">
+      {REPORT_LANGUAGES.map((l) => (
+        <option value={l.code} selected={l.code === lang}>{l.name}</option>
+      ))}
+    </select>
+
+    <button type="submit" class="btn" style="width:100%">{i.form.submit}</button>
+    <p class="seo-form-error" role="alert" hidden></p>
+    <p class="form-privacy" set:html={i.form.notice} />
+  </form>
+</div>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-seo-form]').forEach((wrap) => {
+    const form = wrap.querySelector('form');
+    const url = wrap.querySelector<HTMLInputElement>('input[name="website"]');
+    const error = wrap.querySelector<HTMLElement>('.seo-form-error');
+    if (!form || !url) return;
+
+    // People type "example.com"; accept that by adding the scheme before validation.
+    const fixUrl = () => {
+      const v = url.value.trim();
+      if (v && !/^https?:\/\//i.test(v)) url.value = `https://${v}`;
+    };
+    url.addEventListener('blur', fixUrl);
+
+    form.addEventListener('submit', async (e) => {
+      fixUrl();
+      if (!form.checkValidity()) return;
+      e.preventDefault();
+      const button = form.querySelector<HTMLButtonElement>('button[type="submit"]');
+      if (button) button.disabled = true;
+      if (error) error.hidden = true;
+      const data = new FormData(form);
+      try {
+        sessionStorage.setItem('seo-email', String(data.get('email') || ''));
+      } catch {}
+      try {
+        const res = await fetch(form.action, { method: 'POST', body: data, headers: { Accept: 'application/json' } });
+        if (!res.ok) throw new Error(String(res.status));
+        location.href = wrap.dataset.thanks!;
+      } catch {
+        if (button) button.disabled = false;
+        if (error) {
+          error.textContent = document.documentElement.lang.startsWith('nl')
+            ? 'Versturen lukte niet. Probeer het nog eens of mail ons.'
+            : 'Sending failed. Please try again or email us.';
+          error.hidden = false;
+        }
+      }
+    });
+  });
+</script>
+
+<style>
+  .seo-form { padding: 0; max-width: none; }
+  .seo-form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0 1rem; }
+  @media (max-width: 560px) { .seo-form-row { grid-template-columns: 1fr; } }
+  .seo-form select {
+    width: 100%; padding: 0.75rem 1rem; margin-bottom: 1.25rem;
+    background: var(--bg); border: 1px solid rgba(108,92,231,0.2); border-radius: 8px;
+    color: var(--text); font-size: 1rem; font-family: inherit;
+  }
+  .seo-form select:focus { outline: none; border-color: var(--accent); }
+  .seo-form .btn:disabled { opacity: 0.6; cursor: wait; }
+  .seo-hp { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
+  .seo-form-error { margin-top: 0.85rem; color: #ff8a9a; font-size: 0.9rem; text-align: center; }
+</style>

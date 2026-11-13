@@ -11,7 +11,8 @@
     "webinars": "Webinars",
     "contact": "Contact",
     "jobs": "Jobs",
-    "backToServices": "← Back to services"
+    "backToServices": "← Back to services",
+    "seo": "SEO Advice"
   },
   "hero": {
     "title": "<span>Virge.</span><br/>Software solutions that scale.",
@@ -27,7 +28,9 @@
     "ecomTitle": "eCommerce",
     "ecomDesc": "Headless content delivery and ShopVirge. spin up fully functional webshops in no time.",
     "openclawTitle": "OpenClaw Consultancy",
-    "openclawDesc": "Your own AI assistant. deployed, hosted, secured, and automated for your business."
+    "openclawDesc": "Your own AI assistant. deployed, hosted, secured, and automated for your business.",
+    "seoTitle": "SEO Advice",
+    "seoDesc": "A free, in-depth SEO report, including your reviews and what AI knows about you. Then keep tracking with a subscription."
   },
   "cta": {
     "title": "Ready to build something great?",
@@ -678,7 +681,7 @@
         "title": "What you share with us",
         "body": [
           "We only receive what you type in and send yourself:",
-          "<ul><li><strong>Contact form:</strong> your name, email address and message.</li><li><strong>Webinar registration:</strong> your name, email address, the webinar you choose and, if you fill them in, your company and a question in advance.</li><li><strong>Job applications:</strong> whatever you email us, such as your CV.</li></ul>",
+          "<ul><li><strong>Contact form:</strong> your name, email address and message.</li><li><strong>Webinar registration:</strong> your name, email address, the webinar you choose and, if you fill them in, your company and a question in advance.</li><li><strong>Job applications:</strong> whatever you email us, such as your CV.</li><li><strong>SEO advice request:</strong> your name, email address, the website you want analysed and your preferred report language.</li></ul>",
           "We use it only for the reason you sent it: to answer you, to send you the join link for your webinar or to handle your application. No newsletter unless you ask for one."
         ]
       },
@@ -686,6 +689,7 @@
         "title": "Who helps us",
         "body": [
           "<strong>Formspree</strong> delivers form submissions to our inbox. It processes them on our behalf and only to deliver them to us. See the <a href=\"https://formspree.io/legal/privacy-policy\" target=\"_blank\" rel=\"noopener\">Formspree privacy policy</a>.",
+          "<strong>Stripe</strong> handles payments for SEO subscriptions. Payment details go straight to Stripe; we never see your card or bank details. See the <a href=\"https://stripe.com/privacy\" target=\"_blank\" rel=\"noopener\">Stripe privacy policy</a>.",
           "<strong>GitHub Pages</strong> hosts this website. Like any web server, it briefly records technical data such as your IP address to deliver pages and keep the service secure. We don't get access to these logs and don't use them. See the <a href=\"https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement\" target=\"_blank\" rel=\"noopener\">GitHub privacy statement</a>."
         ]
       },
@@ -711,5 +715,130 @@
     "formNotice": "We only use your details for this registration. No tracking, ever. See our <a href=\"/en/privacy/\">privacy policy</a>.",
     "contactNotice": "We only use your details to reply to you. No tracking, ever. See our <a href=\"/en/privacy/\">privacy policy</a>.",
     "footerLink": "Privacy"
+  },
+  "seo": {
+    "title": "SEO <span>Advice</span>",
+    "description": "Know what Google, your customers and AI say about you. Request a free, in-depth SEO report for your website, delivered to your inbox in your language.",
+    "metaTitle": "SEO Advice: Free In-Depth SEO & AI Visibility Report",
+    "metaDesc": "Get a free, in-depth SEO report: technical SEO, keywords, reviews and reputation, and what AI assistants know about you. Then keep tracking with a monthly or weekly plan.",
+    "reportTitle": "What's in your report",
+    "reportIntro": "Not a generic checklist. A thorough report on your site, your reputation and your visibility in AI, with a clear list of what to do next.",
+    "reportItems": [
+      {
+        "title": "Technical SEO",
+        "desc": "Load speed, Core Web Vitals, indexing, sitemap, structured data and mobile experience."
+      },
+      {
+        "title": "Content & keywords",
+        "desc": "What you are found for, what you are not found for, and the opportunities you are missing."
+      },
+      {
+        "title": "Reviews & reputation",
+        "desc": "What people write about you on Google, Trustpilot and social media, with sentiment and recurring themes."
+      },
+      {
+        "title": "What AI knows about you",
+        "desc": "How ChatGPT, Claude, Gemini and Perplexity describe your business, what they miss or get wrong, and how to fix it (GEO)."
+      },
+      {
+        "title": "Competitors",
+        "desc": "How you compare to the sites that rank above you."
+      },
+      {
+        "title": "Action list",
+        "desc": "Concrete improvements, sorted by impact and effort."
+      }
+    ],
+    "freeBadge": "Free",
+    "freeTitle": "Your first report is free",
+    "freeDesc": "No credit card, no strings attached. Like it? Then we keep an eye on your site with a subscription.",
+    "form": {
+      "nameLabel": "Name",
+      "namePlaceholder": "Your name",
+      "emailLabel": "Email",
+      "emailPlaceholder": "you@company.com",
+      "urlLabel": "Website URL",
+      "urlPlaceholder": "https://www.yoursite.com",
+      "languageLabel": "Report language",
+      "submit": "Request my free report",
+      "subject": "SEO advice request (free)",
+      "notice": "We only use your details to send you this report. No tracking, ever. See our <a href=\"/en/privacy/\">privacy policy</a>."
+    },
+    "plansTitle": "Keep your site on track",
+    "plansIntro": "SEO is never done. Google changes, competitors move and AI keeps learning. A subscription keeps you up to date.",
+    "billingMonth": "Monthly",
+    "billingYear": "Yearly",
+    "yearBadge": "2 months free",
+    "perMonth": "/month",
+    "perYear": "/year",
+    "exVat": "excl. VAT",
+    "popular": "Popular",
+    "subscribe": "Subscribe",
+    "choosePlan": "Choose a plan",
+    "plans": {
+      "monthly": {
+        "name": "Monthly",
+        "frequency": "1 SEO report per month",
+        "desc": "A fresh report every month. See what changed, what AI says about you now and what to do next. For business owners who want to keep their site healthy.",
+        "features": [
+          "Full SEO & AI visibility report",
+          "Reviews & reputation tracking",
+          "Changes since last month",
+          "Prioritised action list"
+        ]
+      },
+      "weekly": {
+        "name": "Weekly",
+        "frequency": "1 SEO report per week",
+        "desc": "A report every week. For shops and sites that actively work on content and campaigns and want to see the results quickly.",
+        "features": [
+          "Everything in Monthly",
+          "A new report every week",
+          "Spot ranking drops early",
+          "Track campaigns week by week"
+        ]
+      }
+    },
+    "modalTitle": "Choose your SEO plan",
+    "modalIntro": "Cancel anytime. You pay securely via Stripe.",
+    "modalEmailLabel": "Your email (optional, saves you typing)",
+    "modalClose": "Close",
+    "trustSecure": "Secure payment via Stripe",
+    "trustMethods": "iDEAL, card, Apple Pay, Google Pay, Bancontact",
+    "trustCancel": "Cancel anytime",
+    "manageSubscription": "Manage your subscription",
+    "comingSoon": "Online subscribing opens very soon. Send us a message and we'll set it up for you.",
+    "thanks": {
+      "metaTitle": "Thank you",
+      "freeTitle": "Your request is <span>in</span>",
+      "freeDesc": "Thanks! We're working on your SEO report and will email it to you within a few days. Check your spam folder if you don't see it.",
+      "upsellTitle": "Want this every month or every week?",
+      "upsellDesc": "Keep track of your SEO, reviews and AI visibility with a subscription. From €5 per month.",
+      "subscribedTitle": "Welcome <span>aboard</span>",
+      "subscribedDesc": "Your subscription is active. You'll get a confirmation from Stripe by email, and your first report follows soon. Want a different site or language? Just reply to the report email.",
+      "back": "Back to SEO advice"
+    },
+    "faq": [
+      {
+        "question": "How long does the free report take?",
+        "answer": "Usually a few working days. The report arrives by email at the address you entered, in the language you chose."
+      },
+      {
+        "question": "How do I tell you which site to analyse with a subscription?",
+        "answer": "You enter your website URL during checkout. Want to change it later? Just reply to one of your report emails."
+      },
+      {
+        "question": "Can I pay with iDEAL?",
+        "answer": "Yes. In the Netherlands you pay the first time with iDEAL, after which the subscription is collected automatically by SEPA direct debit. Elsewhere you can pay by card, Apple Pay, Google Pay, Bancontact and other local methods."
+      },
+      {
+        "question": "How do I cancel?",
+        "answer": "Anytime, via the link to manage your subscription in your Stripe receipt or on this page. Your plan stays active until the end of the period you paid for."
+      },
+      {
+        "question": "Does it work for websites in other languages?",
+        "answer": "Yes. We analyse sites in any language and write the report in the language you choose."
+      }
+    ]
   }
 }

@@ -50,3 +50,28 @@ The colours, logos, type and Google Slides theme are published at [/styleguide/]
 The theme is a `.pptx`, because that is how Google Slides imports themes. To change it, edit `scripts/styleguide/build_slides_theme.py` and run it (it needs Pillow and numpy). It rewrites the theme and the logo files, not the two `preview-*.jpg` images. The colours in the script and on the page are kept in sync by hand.
 
 Decks built on this theme live in `decks/`. `scripts/styleguide/build_wfo_core_deck.py` builds `decks/wfo-core-principles.pptx`.
+
+## SEO advice & Stripe
+
+The SEO advice page (`/en/seo/`, `/nl/seo/`) has two flows:
+
+- **Free report:** `src/components/SeoAdviceForm.astro` posts name, email, website and report language to Formspree (subject `SEO advice request (free)`, field `form=seo-free`). Hermes picks it up from the inbox and emails the report. After sending, the visitor lands on `/{lang}/seo/thanks/?type=free`, which offers the subscriptions.
+- **Subscriptions:** `src/components/SeoPlansModal.astro` is a modal with a monthly/yearly toggle. Each "Subscribe" button opens a **Stripe Payment Link**, with the visitor's email (`prefilled_email`) and the site language (`locale`) added. The site is static, so there is no secret key anywhere: prices, VAT and payment methods all live in Stripe. Any element with `data-open-plans` opens the modal (`data-plan="weekly"` highlights a plan), and so does `?plans` in the URL.
+
+All config is in `src/data/seo.ts`. As long as a Payment Link is empty, the button shows a "coming soon, contact us" message instead.
+
+### One-time Stripe setup
+
+1. Create two products, each with a monthly and a yearly price in EUR, with **tax behavior: exclusive**:
+   - SEO Advice Monthly: €5/month, €50/year
+   - SEO Advice Weekly: €25/month, €250/year
+2. Turn on **Stripe Tax**.
+3. Under Settings → Payment methods, turn on iDEAL, SEPA Direct Debit, Bancontact, cards and Apple Pay/Google Pay. Dutch customers pay the first time with iDEAL; the subscription is then collected by SEPA direct debit.
+4. Create a **Payment Link** for each of the 4 prices with:
+   - Collect tax IDs: on, and require a billing address.
+   - A custom field "Website URL" (text, required), so Hermes knows which site belongs to the subscription.
+   - After payment: redirect to `https://virge.io/en/seo/thanks/?type=subscribed`. The Checkout language follows `locale`, so one set of links serves both languages.
+5. Turn on the **customer portal** (Settings → Billing → Customer portal) and copy its login link.
+6. Paste the 4 `https://buy.stripe.com/...` links into `PLANS` and the portal link into `CUSTOMER_PORTAL_URL` in `src/data/seo.ts`.
+
+Test with Stripe test-mode links first, then swap in the live links. To check whether someone has an active subscription, Hermes looks up their email address in Stripe.

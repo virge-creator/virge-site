@@ -1,0 +1,266 @@
+---
+// Subscription picker. Opened by any element with [data-open-plans]
+// (optionally data-plan="weekly" to highlight a plan). Each "Subscribe"
+// button sends the visitor to a Stripe Payment Link from src/data/seo.ts.
+import type { Lang } from '../i18n';
+import { t } from '../i18n';
+import Icon from './Icon.astro';
+import { PLANS, CUSTOMER_PORTAL_URL, formatEuro } from '../data/seo';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const i = t(lang).seo;
+---
+<dialog class="seo-modal" data-seo-modal data-lang={lang} data-billing="year" aria-labelledby="seo-modal-title">
+  <div class="seo-modal-inner">
+    <button type="button" class="seo-modal-close" data-close aria-label={i.modalClose}>
+      <Icon name="x" size={20} />
+    </button>
+
+    <h2 id="seo-modal-title">{i.modalTitle}</h2>
+    <p class="seo-modal-intro">{i.modalIntro}</p>
+
+    <div class="seo-toggle" role="radiogroup" aria-label={i.choosePlan}>
+      <button type="button" role="radio" aria-checked="false" data-billing-btn="month">{i.billingMonth}</button>
+      <button type="button" role="radio" aria-checked="true" data-billing-btn="year">
+        {i.billingYear} <span class="seo-toggle-badge">{i.yearBadge}</span>
+      </button>
+    </div>
+
+    <div class="seo-plans">
+      {PLANS.map((plan) => {
+        const copy = i.plans[plan.id];
+        return (
+          <div class:list={['seo-plan', { 'seo-plan--popular': plan.popular }]} data-plan-card={plan.id}>
+            {plan.popular && <span class="seo-plan-tag">{i.popular}</span>}
+            <h3>{copy.name}</h3>
+            <p class="seo-plan-freq">{copy.frequency}</p>
+            <p class="seo-plan-price">
+              <span class="seo-price" data-show="month" hidden>
+                <strong>{formatEuro(plan.prices.month, lang)}</strong>{i.perMonth}
+              </span>
+              <span class="seo-price" data-show="year">
+                <strong>{formatEuro(plan.prices.year, lang)}</strong>{i.perYear}
+              </span>
+              <small>{i.exVat}</small>
+            </p>
+            <ul>
+              {copy.features.map((f) => <li><Icon name="check" size={15} /> {f}</li>)}
+            </ul>
+            <button
+              type="button"
+              class="btn seo-plan-cta"
+              data-checkout
+              data-link-month={plan.links.month}
+              data-link-year={plan.links.year}
+            >
+              {i.subscribe}
+            </button>
+          </div>
+        );
+      })}
+    </div>
+
+    <label class="seo-modal-email">
+      <span>{i.modalEmailLabel}</span>
+      <input type="email" autocomplete="email" data-checkout-email placeholder={i.form.emailPlaceholder} />
+    </label>
+
+    <p class="seo-modal-soon" data-soon hidden>
+      {i.comingSoon} <a href={`/${lang}/contact/`}>{t(lang).nav.contact} →</a>
+    </p>
+
+    <ul class="seo-trust">
+      <li><Icon name="lock" size={14} /> {i.trustSecure}</li>
+      <li><Icon name="credit-card" size={14} /> {i.trustMethods}</li>
+      <li><Icon name="calendar-x" size={14} /> {i.trustCancel}</li>
+    </ul>
+    {CUSTOMER_PORTAL_URL && (
+      <p class="seo-modal-portal"><a href={CUSTOMER_PORTAL_URL} target="_blank" rel="noopener">{i.manageSubscription}</a></p>
+    )}
+  </div>
+</dialog>
+
+<script>
+  import { buildCheckoutUrl } from '../data/seo';
+  import type { Lang } from '../i18n';
+
+  const modal = document.querySelector<HTMLDialogElement>('[data-seo-modal]');
+
+  if (modal) {
+    const lang = (modal.dataset.lang || 'en') as Lang;
+    const email = modal.querySelector<HTMLInputElement>('[data-checkout-email]');
+    const soon = modal.querySelector<HTMLElement>('[data-soon]');
+
+    const setBilling = (billing: string) => {
+      modal.dataset.billing = billing;
+      modal.querySelectorAll<HTMLElement>('[data-billing-btn]').forEach((b) =>
+        b.setAttribute('aria-checked', String(b.dataset.billingBtn === billing)));
+      modal.querySelectorAll<HTMLElement>('[data-show]').forEach((el) => (el.hidden = el.dataset.show !== billing));
+    };
+
+    modal.querySelectorAll<HTMLElement>('[data-billing-btn]').forEach((b) =>
+      b.addEventListener('click', () => setBilling(b.dataset.billingBtn!)));
+
+    const open = (plan?: string) => {
+      try {
+        if (email && !email.value) email.value = sessionStorage.getItem('seo-email') || '';
+      } catch {}
+      modal.querySelectorAll<HTMLElement>('[data-plan-card]').forEach((c) =>
+        c.classList.toggle('is-focus', c.dataset.planCard === plan));
+      if (soon) soon.hidden = true;
+      modal.showModal();
+      document.documentElement.classList.add('seo-modal-open');
+    };
+
+    document.addEventListener('click', (e) => {
+      const trigger = (e.target as HTMLElement).closest<HTMLElement>('[data-open-plans]');
+      if (!trigger) return;
+      e.preventDefault();
+      if (trigger.dataset.billing) setBilling(trigger.dataset.billing);
+      open(trigger.dataset.plan);
+    });
+
+    modal.addEventListener('close', () => document.documentElement.classList.remove('seo-modal-open'));
+    modal.querySelector('[data-close]')?.addEventListener('click', () => modal.close());
+    // Click on the backdrop (outside the inner panel) closes the dialog.
+    modal.addEventListener('click', (e) => { if (e.target === modal) modal.close(); });
+
+    modal.querySelectorAll<HTMLButtonElement>('[data-checkout]').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const link = modal.dataset.billing === 'month' ? btn.dataset.linkMonth : btn.dataset.linkYear;
+        if (!link) {
+          if (soon) soon.hidden = false;
+          return;
+        }
+        if (email && email.value && !email.checkValidity()) {
+          email.reportValidity();
+          return;
+        }
+        btn.disabled = true;
+        location.href = buildCheckoutUrl(link, { email: email?.value.trim(), lang });
+      });
+    });
+
+    // Back/forward cache: re-enable buttons when someone returns from Stripe.
+    window.addEventListener('pageshow', () =>
+      modal.querySelectorAll<HTMLButtonElement>('[data-checkout]').forEach((b) => (b.disabled = false)));
+
+    if (new URLSearchParams(location.search).has('plans')) open();
+  }
+</script>
+
+<style>
+  :global(html.seo-modal-open) { overflow: hidden; }
+
+  .seo-modal {
+    width: min(760px, calc(100% - 32px));
+    max-height: calc(100dvh - 32px);
+    margin: auto;
+    padding: 0;
+    border: none;
+    border-radius: 20px;
+    background: var(--bg-card);
+    color: var(--text);
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,0.08), 0 30px 80px rgba(0,0,0,0.55), 0 0 60px rgba(108,92,231,0.25);
+    overflow: auto;
+  }
+  .seo-modal::backdrop { background: rgba(5,5,15,0.7); backdrop-filter: blur(6px); }
+  .seo-modal[open] { animation: seo-pop 0.22s ease-out; }
+  @keyframes seo-pop { from { opacity: 0; transform: translateY(12px) scale(0.98); } to { opacity: 1; transform: none; } }
+  @media (prefers-reduced-motion: reduce) { .seo-modal[open] { animation: none; } }
+
+  .seo-modal-inner { position: relative; padding: 2rem; }
+  @media (max-width: 560px) { .seo-modal-inner { padding: 1.5rem 1rem; } }
+
+  .seo-modal-close {
+    position: absolute; top: 1rem; right: 1rem;
+    display: grid; place-items: center; width: 36px; height: 36px;
+    border: none; border-radius: 50%; background: rgba(255,255,255,0.06);
+    color: var(--text-muted); cursor: pointer;
+  }
+  .seo-modal-close:hover { background: rgba(255,255,255,0.12); color: var(--text); }
+
+  .seo-modal h2 { font-size: 1.6rem; margin: 0 2.5rem 0.35rem 0; }
+  .seo-modal-intro { color: var(--text-muted); margin-bottom: 1.5rem; }
+
+  .seo-toggle {
+    display: inline-flex; gap: 0.25rem; padding: 0.25rem; margin-bottom: 1.5rem;
+    background: var(--bg); border-radius: 50px; box-shadow: inset 0 0 0 1px rgba(108,92,231,0.25);
+  }
+  .seo-toggle button {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    padding: 0.5rem 1.1rem; border: none; border-radius: 50px;
+    background: transparent; color: var(--text-muted); font: inherit; font-weight: 600; font-size: 0.92rem; cursor: pointer;
+  }
+  .seo-toggle button[aria-checked="true"] { background: var(--accent); color: #fff; }
+  .seo-toggle-badge {
+    font-size: 0.7rem; padding: 0.15rem 0.5rem; border-radius: 50px;
+    background: rgba(52,211,153,0.18); color: #6ee7b7; white-space: nowrap;
+  }
+  @media (max-width: 480px) {
+    .seo-toggle { display: flex; width: 100%; border-radius: 16px; }
+    .seo-toggle button { flex: 1; flex-direction: column; justify-content: center; gap: 0.2rem; border-radius: 12px; padding: 0.5rem; }
+    .seo-toggle-badge { font-size: 0.65rem; padding: 0.1rem 0.45rem; }
+  }
+  .seo-toggle button[aria-checked="true"] .seo-toggle-badge { background: rgba(255,255,255,0.2); color: #fff; }
+
+  .seo-plans { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  @media (max-width: 620px) { .seo-plans { grid-template-columns: 1fr; } }
+
+  .seo-plan {
+    position: relative; display: flex; flex-direction: column;
+    padding: 1.5rem; border-radius: var(--radius);
+    background: var(--bg); box-shadow: inset 0 0 0 1px rgba(108,92,231,0.25);
+    transition: box-shadow 0.2s ease;
+  }
+  .seo-plan--popular {
+    background: linear-gradient(180deg, #4833b8 0%, #5d46d8 34%, #376dd9 68%, #2593e5 100%);
+    box-shadow: inset 0 0 0 1.5px rgba(255,255,255,0.2);
+  }
+  .seo-plan.is-focus { box-shadow: inset 0 0 0 2px var(--accent2), 0 0 24px rgba(168,85,247,0.35); }
+  .seo-plan-tag {
+    position: absolute; top: 1rem; right: 1rem;
+    font-size: 0.72rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;
+    padding: 0.2rem 0.6rem; border-radius: 50px; background: rgba(255,255,255,0.2); color: #fff;
+  }
+  .seo-plan h3 { font-size: 1.25rem; margin: 0; }
+  .seo-plan-freq { color: var(--text-muted); font-size: 0.9rem; margin: 0.2rem 0 1rem; }
+  .seo-plan--popular .seo-plan-freq { color: rgba(255,255,255,0.8); }
+  .seo-plan-price { margin: 0 0 1rem; color: var(--text-muted); }
+  .seo-plan-price strong { font-size: 2.2rem; color: var(--text); margin-right: 0.15rem; }
+  .seo-plan--popular .seo-plan-price, .seo-plan--popular .seo-plan-price strong { color: #fff; }
+  .seo-plan-price small { display: block; font-size: 0.78rem; opacity: 0.8; }
+  .seo-plan ul { list-style: none; padding: 0; margin: 0 0 1.25rem; display: grid; gap: 0.45rem; font-size: 0.9rem; }
+  .seo-plan li { display: flex; gap: 0.45rem; align-items: flex-start; }
+  .seo-plan li :global(svg) { flex-shrink: 0; margin-top: 0.2rem; color: #6ee7b7; }
+  .seo-plan--popular li :global(svg) { color: #fff; }
+  .seo-plan-cta { margin-top: auto; width: 100%; }
+  .seo-plan--popular .seo-plan-cta { background: #fff; color: #3b2aa8; }
+  .seo-plan--popular .seo-plan-cta:hover { background: #ede9ff; }
+  .seo-plan-cta:disabled { opacity: 0.7; cursor: wait; }
+
+  .seo-modal-email { display: block; margin-top: 1.25rem; }
+  .seo-modal-email span { display: block; color: var(--text-muted); font-size: 0.85rem; margin-bottom: 0.3rem; }
+  .seo-modal-email input {
+    width: 100%; padding: 0.65rem 1rem; background: var(--bg);
+    border: 1px solid rgba(108,92,231,0.2); border-radius: 8px; color: var(--text); font: inherit;
+  }
+  .seo-modal-email input:focus { outline: none; border-color: var(--accent); }
+
+  .seo-modal-soon {
+    margin-top: 1rem; padding: 0.85rem 1rem; border-radius: 8px;
+    background: rgba(168,85,247,0.12); font-size: 0.9rem;
+  }
+
+  .seo-trust {
+    list-style: none; padding: 0; margin: 1.25rem 0 0;
+    display: flex; flex-wrap: wrap; gap: 0.5rem 1.25rem; justify-content: center;
+    color: var(--text-muted); font-size: 0.8rem;
+  }
+  .seo-trust li { display: inline-flex; align-items: center; gap: 0.35rem; }
+  .seo-modal-portal { text-align: center; font-size: 0.85rem; margin-top: 0.75rem; }
+</style>
